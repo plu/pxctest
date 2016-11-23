@@ -2,9 +2,32 @@
 
 Parallel XCTest - Execute XCTest suites in parallel on multiple iOS Simulators.
 
-## Description
+## Usage
 
-TBD.
+Compile your tests with `build-for-testing`, example:
+
+```
+xcodebuild \
+  -IDEBuildLocationStyle=Custom \
+  -IDECustomBuildLocationType=Absolute \
+  -IDECustomBuildProductsPath="$PWD/build/Products" \
+  -scheme 'MyApp' \
+  -workspace 'MyApp.xcworkspace' \
+  -destination 'platform=iOS Simulator,name=iPhone 5,OS=9.3' \
+  build-for-testing
+```
+
+In `build/Products` you should find a `.xctestrun` file. This can then be passed to `pxctest`:
+
+```
+pxctest \
+  run-tests \
+  --destination 'name=iPhone 5,os=iOS 9.3' \
+  --destination 'name=iPhone 5,os=iOS 10.1' \
+  --testrun build/Products/MyApp_iphonesimulator10.1-i386.xctestrun
+```
+
+The `--destination` option can be passed in several times and will execute the tests in parallel on all Simulators.
 
 ## FBSimulatorControl
 
