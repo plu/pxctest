@@ -1,0 +1,6 @@
+[submodule "Dependencies/Commander"]
+	path = Dependencies/Commander
+	url = git@github.com:kylef/Commander.git
+[submodule "Dependencies/FBSimulatorControl"]
+	path = Dependencies/FBSimulatorControl
+	url = git@github.com:plu/FBSimulatorControl.git

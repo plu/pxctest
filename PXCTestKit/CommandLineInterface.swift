@@ -6,6 +6,7 @@
 //  Copyright © 2016 Johannes Plunien. All rights reserved.
 //
 
+import Commander
 import Foundation
 
 @objc open class CommandLineInterface: NSObject {

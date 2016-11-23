@@ -29,6 +29,125 @@
 			remoteGlobalIDString = 05BABC911DE56E390012BC5B;
 			remoteInfo = PXCTestKit;
 		};
+		05BABCB71DE57DED0012BC5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05BABCAE1DE57DED0012BC5B /* Commander.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = OBJ_37;
+			remoteInfo = Spectre;
+		};
+		05BABCB91DE57DED0012BC5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05BABCAE1DE57DED0012BC5B /* Commander.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = OBJ_38;
+			remoteInfo = Commander;
+		};
+		05BABCBB1DE57DED0012BC5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05BABCAE1DE57DED0012BC5B /* Commander.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = OBJ_39;
+			remoteInfo = CommanderTests;
+		};
+		05BABCC81DE57DF50012BC5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05BABCBD1DE57DF40012BC5B /* FBSimulatorControl.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EEBD600E1C90628F00298A07;
+			remoteInfo = FBControlCore;
+		};
+		05BABCCA1DE57DF50012BC5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05BABCBD1DE57DF40012BC5B /* FBSimulatorControl.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EEBD60171C90628F00298A07;
+			remoteInfo = FBControlCoreTests;
+		};
+		05BABCCC1DE57DF50012BC5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05BABCBD1DE57DF40012BC5B /* FBSimulatorControl.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EE4F0D301C91B7DA00608E89;
+			remoteInfo = XCTestBootstrap;
+		};
+		05BABCCE1DE57DF50012BC5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05BABCBD1DE57DF40012BC5B /* FBSimulatorControl.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EE4F0D391C91B7DB00608E89;
+			remoteInfo = XCTestBootstrapTests;
+		};
+		05BABCD01DE57DF50012BC5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05BABCBD1DE57DF40012BC5B /* FBSimulatorControl.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1DD70E291A4B50E500000001;
+			remoteInfo = FBSimulatorControl;
+		};
+		05BABCD21DE57DF50012BC5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05BABCBD1DE57DF40012BC5B /* FBSimulatorControl.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = AA819DB21B9FB40D002F58CA;
+			remoteInfo = FBSimulatorControlTests;
+		};
+		05BABCD41DE57DF50012BC5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05BABCBD1DE57DF40012BC5B /* FBSimulatorControl.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = AAC8B22B1CEC51120034A865;
+			remoteInfo = FBDeviceControl;
+		};
+		05BABCD61DE57DF50012BC5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05BABCBD1DE57DF40012BC5B /* FBSimulatorControl.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = AAC8B2341CEC51120034A865;
+			remoteInfo = FBDeviceControlTests;
+		};
+		05BABCD81DE57E050012BC5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05BABCAE1DE57DED0012BC5B /* Commander.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = OBJ_40;
+			remoteInfo = Spectre;
+		};
+		05BABCDA1DE57E050012BC5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05BABCAE1DE57DED0012BC5B /* Commander.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = OBJ_54;
+			remoteInfo = Commander;
+		};
+		05BABCDC1DE57E050012BC5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05BABCBD1DE57DF40012BC5B /* FBSimulatorControl.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = EEBD600D1C90628F00298A07;
+			remoteInfo = FBControlCore;
+		};
+		05BABCDE1DE57E050012BC5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05BABCBD1DE57DF40012BC5B /* FBSimulatorControl.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = EE4F0D2F1C91B7DA00608E89;
+			remoteInfo = XCTestBootstrap;
+		};
+		05BABCE01DE57E050012BC5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05BABCBD1DE57DF40012BC5B /* FBSimulatorControl.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = E66DC04E390C419500000000;
+			remoteInfo = FBSimulatorControl;
+		};
+		05BABCE21DE57E050012BC5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05BABCBD1DE57DF40012BC5B /* FBSimulatorControl.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = AAC8B22A1CEC51120034A865;
+			remoteInfo = FBDeviceControl;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -54,6 +173,8 @@
 		05BABC9F1DE56E390012BC5B /* PXCTestKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PXCTestKitTests.swift; sourceTree = "<group>"; };
 		05BABCA11DE56E390012BC5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		05BABCAB1DE56E9A0012BC5B /* CommandLineInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandLineInterface.swift; sourceTree = "<group>"; };
+		05BABCAE1DE57DED0012BC5B /* Commander.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Commander.xcodeproj; path = Dependencies/Commander.xcodeproj; sourceTree = "<group>"; };
+		05BABCBD1DE57DF40012BC5B /* FBSimulatorControl.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FBSimulatorControl.xcodeproj; path = Dependencies/FBSimulatorControl/FBSimulatorControl.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +206,7 @@
 		05BABC791DE56DDE0012BC5B = {
 			isa = PBXGroup;
 			children = (
+				05BABCAD1DE57DDB0012BC5B /* Dependencies */,
 				05BABC831DE56DDE0012BC5B /* Products */,
 				05BABC841DE56DDE0012BC5B /* pxctest */,
 				05BABC931DE56E390012BC5B /* PXCTestKit */,
@@ -128,6 +250,40 @@
 				05BABC9F1DE56E390012BC5B /* PXCTestKitTests.swift */,
 			);
 			path = PXCTestKitTests;
+			sourceTree = "<group>";
+		};
+		05BABCAD1DE57DDB0012BC5B /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				05BABCAE1DE57DED0012BC5B /* Commander.xcodeproj */,
+				05BABCBD1DE57DF40012BC5B /* FBSimulatorControl.xcodeproj */,
+			);
+			name = Dependencies;
+			sourceTree = "<group>";
+		};
+		05BABCAF1DE57DED0012BC5B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				05BABCB81DE57DED0012BC5B /* Spectre.framework */,
+				05BABCBA1DE57DED0012BC5B /* Commander.framework */,
+				05BABCBC1DE57DED0012BC5B /* CommanderTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		05BABCBE1DE57DF40012BC5B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				05BABCC91DE57DF50012BC5B /* FBControlCore.framework */,
+				05BABCCB1DE57DF50012BC5B /* FBControlCoreTests.xctest */,
+				05BABCCD1DE57DF50012BC5B /* XCTestBootstrap.framework */,
+				05BABCCF1DE57DF50012BC5B /* XCTestBootstrapTests.xctest */,
+				05BABCD11DE57DF50012BC5B /* FBSimulatorControl.framework */,
+				05BABCD31DE57DF50012BC5B /* FBSimulatorControlTests.xctest */,
+				05BABCD51DE57DF50012BC5B /* FBDeviceControl.framework */,
+				05BABCD71DE57DF50012BC5B /* FBDeviceControlTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,6 +330,12 @@
 			buildRules = (
 			);
 			dependencies = (
+				05BABCD91DE57E050012BC5B /* PBXTargetDependency */,
+				05BABCDB1DE57E050012BC5B /* PBXTargetDependency */,
+				05BABCDD1DE57E050012BC5B /* PBXTargetDependency */,
+				05BABCDF1DE57E050012BC5B /* PBXTargetDependency */,
+				05BABCE11DE57E050012BC5B /* PBXTargetDependency */,
+				05BABCE31DE57E050012BC5B /* PBXTargetDependency */,
 			);
 			name = PXCTestKit;
 			productName = PXCTestKit;
@@ -236,6 +398,16 @@
 			mainGroup = 05BABC791DE56DDE0012BC5B;
 			productRefGroup = 05BABC831DE56DDE0012BC5B /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 05BABCAF1DE57DED0012BC5B /* Products */;
+					ProjectRef = 05BABCAE1DE57DED0012BC5B /* Commander.xcodeproj */;
+				},
+				{
+					ProductGroup = 05BABCBE1DE57DF40012BC5B /* Products */;
+					ProjectRef = 05BABCBD1DE57DF40012BC5B /* FBSimulatorControl.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				05BABC811DE56DDE0012BC5B /* pxctest */,
@@ -244,6 +416,86 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		05BABCB81DE57DED0012BC5B /* Spectre.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Spectre.framework;
+			remoteRef = 05BABCB71DE57DED0012BC5B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05BABCBA1DE57DED0012BC5B /* Commander.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Commander.framework;
+			remoteRef = 05BABCB91DE57DED0012BC5B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05BABCBC1DE57DED0012BC5B /* CommanderTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = file;
+			path = CommanderTests.xctest;
+			remoteRef = 05BABCBB1DE57DED0012BC5B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05BABCC91DE57DF50012BC5B /* FBControlCore.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = FBControlCore.framework;
+			remoteRef = 05BABCC81DE57DF50012BC5B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05BABCCB1DE57DF50012BC5B /* FBControlCoreTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = FBControlCoreTests.xctest;
+			remoteRef = 05BABCCA1DE57DF50012BC5B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05BABCCD1DE57DF50012BC5B /* XCTestBootstrap.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = XCTestBootstrap.framework;
+			remoteRef = 05BABCCC1DE57DF50012BC5B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05BABCCF1DE57DF50012BC5B /* XCTestBootstrapTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = XCTestBootstrapTests.xctest;
+			remoteRef = 05BABCCE1DE57DF50012BC5B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05BABCD11DE57DF50012BC5B /* FBSimulatorControl.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = FBSimulatorControl.framework;
+			remoteRef = 05BABCD01DE57DF50012BC5B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05BABCD31DE57DF50012BC5B /* FBSimulatorControlTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = FBSimulatorControlTests.xctest;
+			remoteRef = 05BABCD21DE57DF50012BC5B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05BABCD51DE57DF50012BC5B /* FBDeviceControl.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = FBDeviceControl.framework;
+			remoteRef = 05BABCD41DE57DF50012BC5B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05BABCD71DE57DF50012BC5B /* FBDeviceControlTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = FBDeviceControlTests.xctest;
+			remoteRef = 05BABCD61DE57DF50012BC5B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		05BABC901DE56E390012BC5B /* Resources */ = {
@@ -299,6 +551,36 @@
 			isa = PBXTargetDependency;
 			target = 05BABC911DE56E390012BC5B /* PXCTestKit */;
 			targetProxy = 05BABCA91DE56E810012BC5B /* PBXContainerItemProxy */;
+		};
+		05BABCD91DE57E050012BC5B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Spectre;
+			targetProxy = 05BABCD81DE57E050012BC5B /* PBXContainerItemProxy */;
+		};
+		05BABCDB1DE57E050012BC5B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Commander;
+			targetProxy = 05BABCDA1DE57E050012BC5B /* PBXContainerItemProxy */;
+		};
+		05BABCDD1DE57E050012BC5B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FBControlCore;
+			targetProxy = 05BABCDC1DE57E050012BC5B /* PBXContainerItemProxy */;
+		};
+		05BABCDF1DE57E050012BC5B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = XCTestBootstrap;
+			targetProxy = 05BABCDE1DE57E050012BC5B /* PBXContainerItemProxy */;
+		};
+		05BABCE11DE57E050012BC5B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FBSimulatorControl;
+			targetProxy = 05BABCE01DE57E050012BC5B /* PBXContainerItemProxy */;
+		};
+		05BABCE31DE57E050012BC5B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FBDeviceControl;
+			targetProxy = 05BABCE21DE57E050012BC5B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
