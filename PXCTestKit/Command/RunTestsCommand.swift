@@ -31,8 +31,10 @@ final class RunTestsCommand {
         let testRun = try FBXCTestRun.withTestRunFile(atPath: configuration.testRun.path).build()
         let application = try FBApplicationDescriptor.application(withPath: testRun.testHostPath)
 
+        // FIXME: Redirect logs to file, not /dev/null.
+        let logger = FBControlCoreLogger.aslLoggerWriting(toFileDescriptor: FileHandle.nullDevice.fileDescriptor, withDebugLogging: false)
         let simulatorControlConfiguration = FBSimulatorControlConfiguration(deviceSetPath: configuration.deviceSet.path, options: [])
-        let control = try FBSimulatorControl.withConfiguration(simulatorControlConfiguration)
+        let control = try FBSimulatorControl.withConfiguration(simulatorControlConfiguration, logger: logger)
 
         let simulators = try configuration.simulators.map {
             try control.pool.allocateSimulator(with: $0, options: [.create, .reuse])
