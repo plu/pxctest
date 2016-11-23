@@ -60,10 +60,14 @@ final class RunTestsCommand {
             .withTestsToSkip(testRun.testsToSkip)
             .withTestsToRun(testRun.testsToRun)
 
+        var standardOutputReporters = [StandardOutputReporter]()
+
         for simulator in simulators {
+            let reporter = StandardOutputReporter(simulatorIdentifier: "\(simulator.deviceConfiguration.deviceName) (\(simulator.osConfiguration.name))")
+            standardOutputReporters.append(reporter)
             try simulator.interact
                 .installApplication(application)
-                .startTest(with: testLaunchConfiguration)
+                .startTest(with: testLaunchConfiguration, reporter: reporter)
                 .perform()
         }
 
@@ -72,6 +76,8 @@ final class RunTestsCommand {
                 .waitUntilAllTestRunnersHaveFinishedTesting(withTimeout: configuration.timeout)
                 .perform()
         }
+
+        StandardOutputReporter.writeSummary(reporters: standardOutputReporters)
     }
 
 }
