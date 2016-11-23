@@ -25,7 +25,7 @@ import FBSimulatorControl
                     testRun: $0.url,
                     deviceSet: $1.url,
                     output: $2.url,
-                    simulatorConfigurations: $3.map({ $0.simulatorConfiguration }),
+                    simulators: $3.map({ $0.simulatorConfiguration }),
                     timeout: $4
                 )
 
