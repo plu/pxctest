@@ -29,6 +29,8 @@ pxctest \
 
 The `--destination` option can be passed in several times and will execute the tests in parallel on all Simulators.
 
+![screencast](static/screencast.gif?raw=true "screencast")
+
 ## FBSimulatorControl
 
 The functionality provided by `pxctest` would not be possible without the
