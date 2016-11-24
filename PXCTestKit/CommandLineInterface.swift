@@ -20,13 +20,13 @@ import FBSimulatorControl
                        Option<FileURL>("output", FileURL(url: URL(fileURLWithPath: "test-reports")), description: "Path where the test output should be written to."),
                        VaradicOption<Destination>("destination", [], description: "A comma-separated set of key=value pairs describing the destination to use, just like xcodebuild -destination."),
                        Option<Double>("timeout", 3600.0, description: "Timeout in seconds for the test execution to finish.")
-            ) {
+            ) { (testRun, deviceSet, output, destination, timeout) in
                 let configuration = RunTestsCommand.Configuration(
-                    testRun: $0.url,
-                    deviceSet: $1.url,
-                    output: $2.url,
-                    simulators: $3.map({ $0.simulatorConfiguration }),
-                    timeout: $4
+                    testRun: testRun.url,
+                    deviceSet: deviceSet.url,
+                    output: output.url,
+                    simulators: destination.map({ $0.simulatorConfiguration }),
+                    timeout: timeout
                 )
 
                 do {
