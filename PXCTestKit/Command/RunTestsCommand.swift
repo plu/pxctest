@@ -65,11 +65,15 @@ final class RunTestsCommand {
         var standardOutputReporters = [StandardOutputReporter]()
 
         for simulator in simulators {
-            let reporter = StandardOutputReporter(simulatorIdentifier: "\(simulator.deviceConfiguration.deviceName) (\(simulator.osConfiguration.name))")
-            standardOutputReporters.append(reporter)
+            let simulatorIdentifier = "\(simulator.deviceConfiguration.deviceName) (\(simulator.osConfiguration.name))"
+            let standardOutputReporter = StandardOutputReporter(simulatorIdentifier: simulatorIdentifier)
+            standardOutputReporters.append(standardOutputReporter)
             try simulator.interact
                 .installApplication(application)
-                .startTest(with: testLaunchConfiguration, reporter: reporter)
+                .startTest(
+                    with: testLaunchConfiguration,
+                    reporter: FBTestManagerTestReporterComposite.withTestReporters([standardOutputReporter, SummaryReporter()])
+                )
                 .perform()
         }
 
@@ -80,6 +84,10 @@ final class RunTestsCommand {
         }
 
         StandardOutputReporter.writeSummary(reporters: standardOutputReporters)
+
+        if SummaryReporter.total.failureCount > 0 {
+            exit(1)
+        }
     }
 
 }

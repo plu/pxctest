@@ -18,9 +18,13 @@ final class StandardOutputReporter: FBTestManagerTestReporterBase {
     }
 
     static func writeSummary(reporters: [StandardOutputReporter]) {
-        reporters.first?.write(line: "\nFinished.")
+        guard let writer = reporters.first else { return }
+        writer.write(line: "\nFinished.")
         reporters.forEach { $0.writeFailures() }
         reporters.forEach { $0.writeSummary() }
+        let total = SummaryReporter.total
+        let output = String(format: "Total - Finished executing %d tests. %d Failures, %d Unexpected\n", total.runCount, total.failureCount, total.unexpected)
+        writer.write(output: output)
     }
 
     private func writeSummary() {
@@ -39,8 +43,6 @@ final class StandardOutputReporter: FBTestManagerTestReporterBase {
         case .failed:
             write(output: "F")
         }
-
-        guard status == .failed else { return }
 
         super.testManagerMediator(mediator, testCaseDidFinishForTestClass: testClass, method: method, with: status, duration: duration)
     }
