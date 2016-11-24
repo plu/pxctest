@@ -20,6 +20,7 @@
 		05BABCF31DE58E730012BC5B /* DestinationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BABCF21DE58E730012BC5B /* DestinationTests.swift */; };
 		05E1B2FB1DE6F62A00C38DB1 /* Locale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E1B2FA1DE6F62A00C38DB1 /* Locale.swift */; };
 		05E1B2FF1DE6FD8F00C38DB1 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E1B2FE1DE6FD8F00C38DB1 /* Preferences.swift */; };
+		05E1B3011DE7066E00C38DB1 /* Only.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E1B3001DE7066E00C38DB1 /* Only.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -191,6 +192,7 @@
 		05BABCF21DE58E730012BC5B /* DestinationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationTests.swift; sourceTree = "<group>"; };
 		05E1B2FA1DE6F62A00C38DB1 /* Locale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locale.swift; sourceTree = "<group>"; };
 		05E1B2FE1DE6FD8F00C38DB1 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		05E1B3001DE7066E00C38DB1 /* Only.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Only.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -329,6 +331,7 @@
 				05BABCEA1DE582BC0012BC5B /* ExistingFileURL.swift */,
 				05BABCEB1DE582BC0012BC5B /* FileURL.swift */,
 				05E1B2FA1DE6F62A00C38DB1 /* Locale.swift */,
+				05E1B3001DE7066E00C38DB1 /* Only.swift */,
 				05E1B2FE1DE6FD8F00C38DB1 /* Preferences.swift */,
 			);
 			path = Option;
@@ -576,6 +579,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0541E15D1DE5A02C00D65F16 /* StandardOutputReporter.swift in Sources */,
+				05E1B3011DE7066E00C38DB1 /* Only.swift in Sources */,
 				05BABCEC1DE582BC0012BC5B /* ExistingFileURL.swift in Sources */,
 				05BABCF11DE586B10012BC5B /* Destination.swift in Sources */,
 				0593871D1DE6E12500038A6E /* SummaryReporter.swift in Sources */,

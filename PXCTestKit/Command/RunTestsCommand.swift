@@ -16,6 +16,7 @@ final class RunTestsCommand {
         let deviceSet: URL
         let locale: Locale
         let preferences: [String: Any]
+        let testsToRun: Set<String>
         let simulators: [FBSimulatorConfiguration]
         let timeout: Double
     }
@@ -68,7 +69,7 @@ final class RunTestsCommand {
             .withApplicationLaunchConfiguration(applicationLaunchConfiguration)
             .withTimeout(configuration.timeout)
             .withTestsToSkip(testRun.testsToSkip)
-            .withTestsToRun(testRun.testsToRun)
+            .withTestsToRun(testRun.testsToRun.union(configuration.testsToRun))
 
         var standardOutputReporters = [StandardOutputReporter]()
 

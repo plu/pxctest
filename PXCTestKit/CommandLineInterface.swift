@@ -19,14 +19,16 @@ import FBSimulatorControl
                        Option<ExistingFileURL>("deviceset", ExistingFileURL(url: URL(fileURLWithPath: FBSimulatorControlConfiguration.defaultDeviceSetPath())), description: "Path to the Simulator device set."),
                        Option<Locale>("locale", Locale(identifier: "en"), description: "Locale to set for the Simulator."),
                        Option<Preferences>("preferences", Preferences(), description: "Path to some preferences.json to be applied with the Simulator."),
+                       Option<Only>("only", Only(), description: "Comma separated list of tests that should be executed only. Example: TestClass1/testFoo,TestClass2/testBar"),
                        VaradicOption<Destination>("destination", [], description: "A comma-separated set of key=value pairs describing the destination to use, just like xcodebuild -destination."),
                        Option<Double>("timeout", 3600.0, description: "Timeout in seconds for the test execution to finish.")
-            ) { (testRun, deviceSet, locale, preferences, destination, timeout) in
+            ) { (testRun, deviceSet, locale, preferences, only, destination, timeout) in
                 let configuration = RunTestsCommand.Configuration(
                     testRun: testRun.url,
                     deviceSet: deviceSet.url,
                     locale: locale,
                     preferences: preferences.dictionary,
+                    testsToRun: only.testsToRun,
                     simulators: destination.map({ $0.simulatorConfiguration }),
                     timeout: timeout
                 )

@@ -42,6 +42,42 @@ The `--destination` option can be passed in several times and will execute the t
 
 ![screencast](static/screencast.gif?raw=true "screencast")
 
+### run-tests options
+
+```shell
+--testrun - Path to the .xctestrun file.
+--deviceset - Path to the Simulator device set.
+--locale - Locale to set for the Simulator.
+--preferences - Path to some preferences.json to be applied with the Simulator.
+--only - Comma separated list of tests that should be executed only. Example: TestClass1/testFoo,TestClass2/testBar
+--destination - A comma-separated set of key=value pairs describing the destination to use, just like xcodebuild -destination.
+--timeout - Timeout in seconds for the test execution to finish.
+```
+
+Most of the options should be self explanatory. If not, please open an issue or submit pull requests. However the `--preferences` option needs a special section here.
+
+#### run-tests --preferences
+
+This option expects a path to a file, which contains some JSON. After loading the file, its content gets applied to the Simulator's preferences property list file located at `Library/Preferences/com.apple.Preferences.plist`.
+
+Example: You can turn off all keyboard settings that you can find in the Simulator's Settings app by using this JSON content:
+
+```json
+{
+  "KeyboardAllowPaddle": false,
+  "KeyboardAssistant": false,
+  "KeyboardAutocapitalization": false,
+  "KeyboardAutocorrection": false,
+  "KeyboardCapsLock": false,
+  "KeyboardCheckSpelling": false,
+  "KeyboardPeriodShortcut": false,
+  "KeyboardPrediction": false,
+  "KeyboardShowPredictionBar": false
+}
+```
+
+For this operation being successful, the Simulator must not be launched yet when using the `--preferences` option.
+
 ## Development
 
 After cloning the repository run this script:
