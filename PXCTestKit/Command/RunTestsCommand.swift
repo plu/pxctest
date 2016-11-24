@@ -14,7 +14,6 @@ final class RunTestsCommand {
     struct Configuration {
         let testRun: URL
         let deviceSet: URL
-        let output: URL
         let simulators: [FBSimulatorConfiguration]
         let timeout: Double
     }
