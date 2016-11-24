@@ -33,11 +33,20 @@ struct Destination: ArgumentConvertible, CustomStringConvertible {
         self.simulatorConfiguration = try Destination.parse(destinationIdentifier: destinationIdentifier)
     }
 
-    enum ParsingError: Error {
+    enum ParsingError: Error, CustomStringConvertible {
         case invalidOS(String)
         case invalidDevice(String)
         case unrecognizedDestination(String)
         case unrecognizedKey(String)
+
+        var description: String {
+            switch self {
+            case .invalidOS(let os): return "Invalid os identifier: \(os)"
+            case .invalidDevice(let device): return "Invalid device identifier: \(device)"
+            case .unrecognizedKey(let key): return "Invalid destination key: \(key)"
+            case .unrecognizedDestination(let destination): return "Invalid destination: \(destination)"
+            }
+        }
     }
 
     static func parse(destinationIdentifier: String) throws -> FBSimulatorConfiguration {
