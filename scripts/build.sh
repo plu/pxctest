@@ -11,6 +11,10 @@ if [ -z "$DESTINATION" ]; then
     exit 1
 fi
 
+pushd Dependencies/Commander
+xcrun swift package generate-xcodeproj --output ../
+popd
+
 xcodebuild \
   -IDEBuildLocationStyle=Custom \
   -IDECustomBuildLocationType=Absolute \
