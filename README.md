@@ -40,6 +40,14 @@ The `--destination` option can be passed in several times and will execute the t
 
 ![screencast](static/screencast.gif?raw=true "screencast")
 
+## Development
+
+After cloning the repository run this script:
+
+```shell
+scripts/bootstrap.sh
+```
+
 ## FBSimulatorControl
 
 The functionality provided by `pxctest` would not be possible without the
