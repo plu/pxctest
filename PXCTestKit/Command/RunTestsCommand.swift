@@ -15,6 +15,7 @@ final class RunTestsCommand {
         let testRun: URL
         let deviceSet: URL
         let locale: Locale
+        let preferences: [String: Any]
         let simulators: [FBSimulatorConfiguration]
         let timeout: Double
     }
@@ -48,6 +49,9 @@ final class RunTestsCommand {
                 continue
             }
             try simulator.interact
+                .editPropertyListFileRelative(fromRootPath: "Library/Preferences/com.apple.Preferences.plist") {
+                    $0.addEntries(from: self.configuration.preferences)
+                }
                 .prepare(forBoot: simulatorBootConfiguration)
                 .bootSimulator(simulatorBootConfiguration)
                 .perform()
