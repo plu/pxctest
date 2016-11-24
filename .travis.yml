@@ -4,6 +4,6 @@ install: echo
 before_install:
   - gem install xcpretty
 script:
-  - set -e -o pipefail
+  - set -o pipefail
   - scripts/bootstrap.sh
   - xcodebuild -scheme pxctest test | xcpretty -c
