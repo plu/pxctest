@@ -2,6 +2,8 @@
 
 Parallel XCTest - Execute XCTest suites in parallel on multiple iOS Simulators.
 
+[![Build Status](https://travis-ci.org/plu/pxctest.svg?branch=master)](https://travis-ci.org/plu/pxctest)
+
 ## Installation
 
 To install via Homebrew you can use the [plu/homebrew-pxctest](https://github.com/plu/homebrew-pxctest) tap:
