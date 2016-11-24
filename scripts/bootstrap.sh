@@ -3,5 +3,5 @@
 set -e
 
 pushd Dependencies/Commander
-xcrun swift package generate-xcodeproj --output ../
+xcrun swift package fetch
 popd

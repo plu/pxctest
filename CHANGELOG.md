@@ -1,3 +1,7 @@
+# 0.2.1
+
+* Fix duplicate symbols due to wrong run path
+
 # 0.2.0
 
 * Support --locale command line option
