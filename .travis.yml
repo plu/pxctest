@@ -1,0 +1,8 @@
+language: objective-c
+osx_image: xcode8.1
+install: echo
+before_install:
+  - gem install xcpretty
+script:
+  - set -o pipefail
+  - xcodebuild -scheme pxctest test | xcpretty -c
