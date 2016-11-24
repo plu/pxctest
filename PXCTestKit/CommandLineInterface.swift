@@ -37,6 +37,11 @@ import FBSimulatorControl
                     exit(1)
                 }
             }
+
+            $0.command("version") {
+                let version = Bundle(for: self).infoDictionary!["CFBundleShortVersionString"]!
+                print("pxctest \(version)")
+            }
         }.run()
     }
 
