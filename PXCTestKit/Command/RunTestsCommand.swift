@@ -14,6 +14,7 @@ final class RunTestsCommand {
     struct Configuration {
         let testRun: URL
         let deviceSet: URL
+        let locale: Locale
         let simulators: [FBSimulatorConfiguration]
         let timeout: Double
     }
@@ -39,12 +40,16 @@ final class RunTestsCommand {
             try control.pool.allocateSimulator(with: $0, options: [.create, .reuse])
         }
 
+        let simulatorBootConfiguration = FBSimulatorBootConfiguration
+            .withLocalizationOverride(FBLocalizationOverride.withLocale(configuration.locale))
+
         for simulator in simulators {
             if simulator.state == .booted {
                 continue
             }
             try simulator.interact
-                .bootSimulator()
+                .prepare(forBoot: simulatorBootConfiguration)
+                .bootSimulator(simulatorBootConfiguration)
                 .perform()
         }
 

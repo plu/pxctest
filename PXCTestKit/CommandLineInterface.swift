@@ -17,12 +17,14 @@ import FBSimulatorControl
             $0.command("run-tests",
                        Option<ExistingFileURL>("testrun", ExistingFileURL(url: URL(fileURLWithPath: "")), description: "Path to the .xctestrun file."),
                        Option<ExistingFileURL>("deviceset", ExistingFileURL(url: URL(fileURLWithPath: FBSimulatorControlConfiguration.defaultDeviceSetPath())), description: "Path to the Simulator device set."),
+                       Option<Locale>("locale", Locale(identifier: "en"), description: "Locale to set for the Simulator."),
                        VaradicOption<Destination>("destination", [], description: "A comma-separated set of key=value pairs describing the destination to use, just like xcodebuild -destination."),
                        Option<Double>("timeout", 3600.0, description: "Timeout in seconds for the test execution to finish.")
-            ) { (testRun, deviceSet, destination, timeout) in
+            ) { (testRun, deviceSet, locale, destination, timeout) in
                 let configuration = RunTestsCommand.Configuration(
                     testRun: testRun.url,
                     deviceSet: deviceSet.url,
+                    locale: locale,
                     simulators: destination.map({ $0.simulatorConfiguration }),
                     timeout: timeout
                 )
