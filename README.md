@@ -24,7 +24,7 @@ xcodebuild \
   -IDECustomBuildProductsPath="$PWD/build/Products" \
   -scheme 'MyApp' \
   -workspace 'MyApp.xcworkspace' \
-  -destination 'platform=iOS Simulator,name=iPhone 5,OS=9.3' \
+  -destination 'platform=iOS Simulator,name=iPhone 5,OS=10.1' \
   build-for-testing
 ```
 
