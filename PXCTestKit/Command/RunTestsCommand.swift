@@ -106,13 +106,14 @@ final class RunTestsCommand {
             .withTestsToRun(testRun.testsToRun.union(configuration.testsToRun))
 
         for simulator in simulators {
-            let simulatorIdentifier = "\(simulator.deviceConfiguration.deviceName) (\(simulator.osConfiguration.name))"
+            let simulatorIdentifier = "\(simulator.deviceConfiguration.deviceName) \(simulator.osConfiguration.name)"
             let consoleReporter = ConsoleReporter(simulatorIdentifier: simulatorIdentifier)
+            let junitReporter = FBTestManagerTestReporterJUnit.withOutputFileURL(configuration.output.appendingPathComponent("\(simulatorIdentifier)-junit.xml"))
             try simulator.interact
                 .installApplication(application)
                 .startTest(
                     with: testLaunchConfiguration,
-                    reporter: FBTestManagerTestReporterComposite.withTestReporters([consoleReporter, SummaryReporter()])
+                    reporter: FBTestManagerTestReporterComposite.withTestReporters([consoleReporter, junitReporter, SummaryReporter()])
                 )
                 .perform()
         }
