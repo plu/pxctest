@@ -52,6 +52,7 @@ final class RunTestsCommand {
 
         try boot(simulators: simulators)
         try test(simulators: simulators)
+        try extractDiagnostics(simulators: simulators)
 
         ConsoleReporter.writeSummary()
 
@@ -71,6 +72,10 @@ final class RunTestsCommand {
 
         try fileManager.createDirectory(at: configuration.output, withIntermediateDirectories: true, attributes: nil)
         fileManager.createFile(atPath: logFileURL.path, contents: nil, attributes: nil)
+
+        for simulatorConfiguration in configuration.simulators {
+            try fileManager.createDirectory(at: outputURL(simulatorConfiguration: simulatorConfiguration), withIntermediateDirectories: true, attributes: nil)
+        }
     }
 
     private func boot(simulators: [FBSimulator]) throws {
@@ -92,10 +97,14 @@ final class RunTestsCommand {
     }
 
     private func test(simulators: [FBSimulator]) throws {
+        var environment = testRun.environment
+        // Make Xcode output less noisy
+        environment["OS_ACTIVITY_MODE"] = "disable"
+
         let applicationLaunchConfiguration = FBApplicationLaunchConfiguration(
             application: application,
             arguments: testRun.arguments,
-            environment: testRun.environment,
+            environment: environment,
             options: []
         )
 
@@ -106,9 +115,9 @@ final class RunTestsCommand {
             .withTestsToRun(testRun.testsToRun.union(configuration.testsToRun))
 
         for simulator in simulators {
-            let simulatorIdentifier = "\(simulator.deviceConfiguration.deviceName) \(simulator.osConfiguration.name)"
-            let consoleReporter = ConsoleReporter(simulatorIdentifier: simulatorIdentifier)
-            let junitReporter = FBTestManagerTestReporterJUnit.withOutputFileURL(configuration.output.appendingPathComponent("\(simulatorIdentifier)-junit.xml"))
+            let simulatorConfiguration = simulator.configuration!
+            let consoleReporter = ConsoleReporter(simulatorIdentifier: identifier(simulatorConfiguration: simulatorConfiguration))
+            let junitReporter = FBTestManagerTestReporterJUnit.withOutputFileURL(outputURL(simulatorConfiguration: simulatorConfiguration).appendingPathComponent("junit.xml"))
             try simulator.interact
                 .installApplication(application)
                 .startTest(
@@ -123,6 +132,23 @@ final class RunTestsCommand {
                 .waitUntilAllTestRunnersHaveFinishedTesting(withTimeout: configuration.timeout)
                 .perform()
         }
+    }
+
+    private func extractDiagnostics(simulators: [FBSimulator]) throws {
+        for simulator in simulators {
+            guard let diagnostics = simulator.diagnostics.launchedProcessLogs().first(where: { $0.0.processName == application.name })?.value else { continue }
+            guard let logFilePath = diagnostics.asPath else { return }
+            let destinationPath = outputURL(simulatorConfiguration: simulator.configuration!).appendingPathComponent("\(application.name).log").path
+            try FileManager.default.copyItem(atPath: logFilePath, toPath: destinationPath)
+        }
+    }
+
+    private func outputURL(simulatorConfiguration: FBSimulatorConfiguration) -> URL {
+        return configuration.output.appendingPathComponent(identifier(simulatorConfiguration: simulatorConfiguration))
+    }
+
+    private func identifier(simulatorConfiguration: FBSimulatorConfiguration) -> String {
+        return "\(simulatorConfiguration.deviceName) - \(simulatorConfiguration.osVersionString)"
     }
 
 }
