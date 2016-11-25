@@ -48,7 +48,7 @@ final class RunTestsCommand {
         try boot(simulators: simulators)
         try test(simulators: simulators)
 
-        StandardOutputReporter.writeSummary()
+        ConsoleReporter.writeSummary()
 
         if SummaryReporter.total.failureCount > 0 {
             exit(1)
@@ -91,12 +91,12 @@ final class RunTestsCommand {
 
         for simulator in simulators {
             let simulatorIdentifier = "\(simulator.deviceConfiguration.deviceName) (\(simulator.osConfiguration.name))"
-            let standardOutputReporter = StandardOutputReporter(simulatorIdentifier: simulatorIdentifier)
+            let consoleReporter = ConsoleReporter(simulatorIdentifier: simulatorIdentifier)
             try simulator.interact
                 .installApplication(application)
                 .startTest(
                     with: testLaunchConfiguration,
-                    reporter: FBTestManagerTestReporterComposite.withTestReporters([standardOutputReporter, SummaryReporter()])
+                    reporter: FBTestManagerTestReporterComposite.withTestReporters([consoleReporter, SummaryReporter()])
                 )
                 .perform()
         }

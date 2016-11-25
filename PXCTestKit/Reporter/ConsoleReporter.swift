@@ -1,5 +1,5 @@
 //
-//  StandardOutputReporter.swift
+//  ConsoleReporter.swift
 //  pxctest
 //
 //  Created by Johannes Plunien on 23/11/16.
@@ -9,14 +9,14 @@
 import FBSimulatorControl
 import Foundation
 
-final class StandardOutputReporter: FBTestManagerTestReporterBase {
+final class ConsoleReporter: FBTestManagerTestReporterBase {
 
     private let simulatorIdentifier: String
 
     init(simulatorIdentifier: String) {
         self.simulatorIdentifier = simulatorIdentifier
         super.init()
-        StandardOutputReporter.register(reporter: self)
+        ConsoleReporter.register(reporter: self)
     }
 
     private func writeSummary() {
@@ -77,9 +77,9 @@ final class StandardOutputReporter: FBTestManagerTestReporterBase {
 
     // MARK: - Static
 
-    private static var reporters: [StandardOutputReporter] = []
+    private static var reporters: [ConsoleReporter] = []
 
-    static func register(reporter: StandardOutputReporter) {
+    static func register(reporter: ConsoleReporter) {
         reporters.append(reporter)
     }
 
