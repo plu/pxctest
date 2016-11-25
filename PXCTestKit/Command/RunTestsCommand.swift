@@ -14,6 +14,7 @@ final class RunTestsCommand {
     struct Configuration {
         let testRun: URL
         let deviceSet: URL
+        let output: URL
         let locale: Locale
         let preferences: [String: Any]
         let testsToRun: Set<String>
@@ -22,22 +23,26 @@ final class RunTestsCommand {
     }
 
     private let configuration: Configuration
+    private let logFileURL: URL
 
     private var application: FBApplicationDescriptor!
     private var testRun: FBXCTestRun!
 
     init(configuration: Configuration) {
         self.configuration = configuration
+        self.logFileURL = configuration.output.appendingPathComponent("simulator.log")
     }
 
     func run() throws {
         try XCTestBootstrapFrameworkLoader.loadPrivateFrameworks(nil)
 
+        try resetOutput()
+
         testRun = try FBXCTestRun.withTestRunFile(atPath: configuration.testRun.path).build()
         application = try FBApplicationDescriptor.application(withPath: testRun.testHostPath)
 
-        // FIXME: Redirect logs to file, not /dev/null.
-        let logger = FBControlCoreLogger.aslLoggerWriting(toFileDescriptor: FileHandle.nullDevice.fileDescriptor, withDebugLogging: false)
+        let logFileHandle = try FileHandle(forWritingTo: logFileURL)
+        let logger = FBControlCoreLogger.aslLoggerWriting(toFileDescriptor: logFileHandle.fileDescriptor, withDebugLogging: false)
         let simulatorControlConfiguration = FBSimulatorControlConfiguration(deviceSetPath: configuration.deviceSet.path, options: [])
         let control = try FBSimulatorControl.withConfiguration(simulatorControlConfiguration, logger: logger)
 
@@ -56,6 +61,17 @@ final class RunTestsCommand {
     }
 
     // MARK: - Private
+
+    private func resetOutput() throws {
+        let fileManager = FileManager.default
+
+        if fileManager.fileExists(atPath: configuration.output.path) {
+            try fileManager.removeItem(at: configuration.output)
+        }
+
+        try fileManager.createDirectory(at: configuration.output, withIntermediateDirectories: true, attributes: nil)
+        fileManager.createFile(atPath: logFileURL.path, contents: nil, attributes: nil)
+    }
 
     private func boot(simulators: [FBSimulator]) throws {
         let simulatorBootConfiguration = FBSimulatorBootConfiguration
