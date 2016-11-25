@@ -12,7 +12,7 @@ if [ -z "$DESTINATION" ]; then
 fi
 
 pushd Dependencies/Commander
-xcrun swift package fetch
+xcrun swift package generate-xcodeproj --output ../
 popd
 
 xcodebuild \
