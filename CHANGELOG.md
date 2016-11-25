@@ -1,3 +1,9 @@
+# 0.2.3
+
+* Add JUnit report
+* Extract application logs
+* Write test reports and log files to output/
+
 # 0.2.2
 
 * Fix duplicate symbols when installed via Homebrew
