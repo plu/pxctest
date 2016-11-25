@@ -15,16 +15,8 @@ final class StandardOutputReporter: FBTestManagerTestReporterBase {
 
     init(simulatorIdentifier: String) {
         self.simulatorIdentifier = simulatorIdentifier
-    }
-
-    static func writeSummary(reporters: [StandardOutputReporter]) {
-        guard let writer = reporters.first else { return }
-        writer.write(line: "\nFinished.")
-        reporters.forEach { $0.writeFailures() }
-        reporters.forEach { $0.writeSummary() }
-        let total = SummaryReporter.total
-        let output = String(format: "Total - Finished executing %d tests. %d Failures, %d Unexpected\n", total.runCount, total.failureCount, total.unexpected)
-        writer.write(output: output)
+        super.init()
+        StandardOutputReporter.register(reporter: self)
     }
 
     private func writeSummary() {
@@ -81,6 +73,24 @@ final class StandardOutputReporter: FBTestManagerTestReporterBase {
         let fileHandle = FileHandle.standardOutput
         fileHandle.write(output.data(using: .utf8)!)
         fileHandle.synchronizeFile()
+    }
+
+    // MARK: - Static
+
+    private static var reporters: [StandardOutputReporter] = []
+
+    static func register(reporter: StandardOutputReporter) {
+        reporters.append(reporter)
+    }
+
+    static func writeSummary() {
+        guard let writer = reporters.first else { return }
+        writer.write(line: "\nFinished.")
+        reporters.forEach { $0.writeFailures() }
+        reporters.forEach { $0.writeSummary() }
+        let total = SummaryReporter.total
+        let output = String(format: "Total - Finished executing %d tests. %d Failures, %d Unexpected\n", total.runCount, total.failureCount, total.unexpected)
+        writer.write(output: output)
     }
 
 }

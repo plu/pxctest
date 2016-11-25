@@ -23,6 +23,9 @@ final class RunTestsCommand {
 
     private let configuration: Configuration
 
+    private var application: FBApplicationDescriptor!
+    private var testRun: FBXCTestRun!
+
     init(configuration: Configuration) {
         self.configuration = configuration
     }
@@ -30,8 +33,8 @@ final class RunTestsCommand {
     func run() throws {
         try XCTestBootstrapFrameworkLoader.loadPrivateFrameworks(nil)
 
-        let testRun = try FBXCTestRun.withTestRunFile(atPath: configuration.testRun.path).build()
-        let application = try FBApplicationDescriptor.application(withPath: testRun.testHostPath)
+        testRun = try FBXCTestRun.withTestRunFile(atPath: configuration.testRun.path).build()
+        application = try FBApplicationDescriptor.application(withPath: testRun.testHostPath)
 
         // FIXME: Redirect logs to file, not /dev/null.
         let logger = FBControlCoreLogger.aslLoggerWriting(toFileDescriptor: FileHandle.nullDevice.fileDescriptor, withDebugLogging: false)
@@ -42,6 +45,19 @@ final class RunTestsCommand {
             try control.pool.allocateSimulator(with: $0, options: [.create, .reuse])
         }
 
+        try boot(simulators: simulators)
+        try test(simulators: simulators)
+
+        StandardOutputReporter.writeSummary()
+
+        if SummaryReporter.total.failureCount > 0 {
+            exit(1)
+        }
+    }
+
+    // MARK: - Private
+
+    private func boot(simulators: [FBSimulator]) throws {
         let simulatorBootConfiguration = FBSimulatorBootConfiguration
             .withLocalizationOverride(FBLocalizationOverride.withLocale(configuration.locale))
 
@@ -57,7 +73,9 @@ final class RunTestsCommand {
                 .bootSimulator(simulatorBootConfiguration)
                 .perform()
         }
+    }
 
+    private func test(simulators: [FBSimulator]) throws {
         let applicationLaunchConfiguration = FBApplicationLaunchConfiguration(
             application: application,
             arguments: testRun.arguments,
@@ -71,12 +89,9 @@ final class RunTestsCommand {
             .withTestsToSkip(testRun.testsToSkip)
             .withTestsToRun(testRun.testsToRun.union(configuration.testsToRun))
 
-        var standardOutputReporters = [StandardOutputReporter]()
-
         for simulator in simulators {
             let simulatorIdentifier = "\(simulator.deviceConfiguration.deviceName) (\(simulator.osConfiguration.name))"
             let standardOutputReporter = StandardOutputReporter(simulatorIdentifier: simulatorIdentifier)
-            standardOutputReporters.append(standardOutputReporter)
             try simulator.interact
                 .installApplication(application)
                 .startTest(
@@ -90,12 +105,6 @@ final class RunTestsCommand {
             try simulator.interact
                 .waitUntilAllTestRunnersHaveFinishedTesting(withTimeout: configuration.timeout)
                 .perform()
-        }
-
-        StandardOutputReporter.writeSummary(reporters: standardOutputReporters)
-
-        if SummaryReporter.total.failureCount > 0 {
-            exit(1)
         }
     }
 
