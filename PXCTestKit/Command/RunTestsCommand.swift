@@ -11,6 +11,10 @@ import Foundation
 
 final class RunTestsCommand {
 
+    enum RunTestsError: Error {
+        case testRunHadFailures(Int)
+    }
+
     struct Configuration {
         let testRun: URL
         let deviceSet: URL
@@ -57,7 +61,7 @@ final class RunTestsCommand {
         ConsoleReporter.writeSummary()
 
         if SummaryReporter.total.failureCount > 0 {
-            exit(1)
+            throw RunTestsError.testRunHadFailures(SummaryReporter.total.failureCount)
         }
     }
 
