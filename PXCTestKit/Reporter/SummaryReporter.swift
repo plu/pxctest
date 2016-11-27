@@ -19,6 +19,10 @@ final class SummaryReporter: FBTestManagerTestReporterBase {
 
     static var total = Total()
 
+    static func reset() {
+        total = Total()
+    }
+
     override func testManagerMediatorDidFinishExecutingTestPlan(_ mediator: FBTestManagerAPIMediator!) {
         super.testManagerMediatorDidFinishExecutingTestPlan(mediator)
 

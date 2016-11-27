@@ -50,7 +50,11 @@ import FBSimulatorControl
                     preferences: preferences.dictionary,
                     testsToRun: only.testsToRun,
                     simulators: destination.map({ $0.simulatorConfiguration }),
-                    timeout: timeout
+                    timeout: timeout,
+                    consoleFileHandle: FileHandle.standardOutput,
+                    simulatorManagementOptions: [],
+                    simulatorAllocationOptions: [.create, .reuse],
+                    simulatorBootOptions: [.awaitServices]
                 )
 
                 do {

@@ -11,10 +11,12 @@ import Foundation
 
 final class ConsoleReporter: FBTestManagerTestReporterBase {
 
+    private let fileHandle: FileHandle
     private let simulatorIdentifier: String
     private let testTargetName: String
 
-    init(simulatorIdentifier: String, testTargetName: String) {
+    init(simulatorIdentifier: String, testTargetName: String, fileHandle: FileHandle = FileHandle.standardOutput) {
+        self.fileHandle = fileHandle
         self.simulatorIdentifier = simulatorIdentifier
         self.testTargetName = testTargetName
         super.init()
@@ -72,7 +74,6 @@ final class ConsoleReporter: FBTestManagerTestReporterBase {
     }
 
     private func write(output: String) {
-        let fileHandle = FileHandle.standardOutput
         fileHandle.write(output.data(using: .utf8)!)
         fileHandle.synchronizeFile()
     }
@@ -80,6 +81,10 @@ final class ConsoleReporter: FBTestManagerTestReporterBase {
     // MARK: - Static
 
     private static var reporters: [ConsoleReporter] = []
+
+    static func reset() {
+        reporters = []
+    }
 
     static func register(reporter: ConsoleReporter) {
         reporters.append(reporter)

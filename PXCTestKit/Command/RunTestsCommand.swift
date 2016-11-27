@@ -30,6 +30,10 @@ final class RunTestsCommand {
         let testsToRun: Set<String>
         let simulators: [FBSimulatorConfiguration]
         let timeout: Double
+        let consoleFileHandle: FileHandle
+        let simulatorManagementOptions: FBSimulatorManagementOptions
+        let simulatorAllocationOptions: FBSimulatorAllocationOptions
+        let simulatorBootOptions: FBSimulatorBootOptions
 
         func logFileURL() -> URL {
             return output.appendingPathComponent("simulator.log")
@@ -37,6 +41,7 @@ final class RunTestsCommand {
     }
 
     private let configuration: Configuration
+    internal var control: FBSimulatorControl!
 
     init(configuration: Configuration) {
         self.configuration = configuration
@@ -48,13 +53,13 @@ final class RunTestsCommand {
         try resetOutput(testRun: testRun)
 
         let logFileHandle = try FileHandle(forWritingTo: configuration.logFileURL())
-        let control = try FBSimulatorControl.withConfiguration(
-            FBSimulatorControlConfiguration(deviceSetPath: configuration.deviceSet.path, options: []),
+        control = try FBSimulatorControl.withConfiguration(
+            FBSimulatorControlConfiguration(deviceSetPath: configuration.deviceSet.path, options: configuration.simulatorManagementOptions),
             logger: FBControlCoreLogger.aslLoggerWriting(toFileDescriptor: logFileHandle.fileDescriptor, withDebugLogging: false)
         )
 
         let simulators = try configuration.simulators.map {
-            try control.pool.allocateSimulator(with: $0, options: [.create, .reuse])
+            try control.pool.allocateSimulator(with: $0, options: configuration.simulatorAllocationOptions)
         }
 
         try boot(simulators: simulators)
@@ -91,6 +96,7 @@ final class RunTestsCommand {
     private func boot(simulators: [FBSimulator]) throws {
         let simulatorBootConfiguration = FBSimulatorBootConfiguration
             .withLocalizationOverride(FBLocalizationOverride.withLocale(configuration.locale))
+            .withOptions(configuration.simulatorBootOptions)
 
         for simulator in simulators {
             if simulator.state == .booted {
@@ -117,7 +123,7 @@ final class RunTestsCommand {
 
             for simulator in simulators {
                 let simulatorIdentifier = "\(simulator.configuration!.deviceName) \(simulator.configuration!.osVersionString)"
-                let consoleReporter = ConsoleReporter(simulatorIdentifier: simulatorIdentifier, testTargetName: target.name)
+                let consoleReporter = ConsoleReporter(simulatorIdentifier: simulatorIdentifier, testTargetName: target.name, fileHandle: configuration.consoleFileHandle)
                 let junitReportURL = outputURL(for: simulator.configuration!, target: target)
                 let junitReporter = FBTestManagerTestReporterJUnit.withOutputFileURL(junitReportURL.appendingPathComponent("junit.xml"))
 

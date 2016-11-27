@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0541E15D1DE5A02C00D65F16 /* ConsoleReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0541E15C1DE5A02C00D65F16 /* ConsoleReporter.swift */; };
+		058FD55A1DEAC8490066CE4B /* testSampleAppTestRun.expected_output in Resources */ = {isa = PBXBuildFile; fileRef = 058FD5591DEAC8490066CE4B /* testSampleAppTestRun.expected_output */; };
+		058FD55C1DEAD7350066CE4B /* testSampleAppTestRunOnlySuccessfulTests.expected_output in Resources */ = {isa = PBXBuildFile; fileRef = 058FD55B1DEAD7350066CE4B /* testSampleAppTestRunOnlySuccessfulTests.expected_output */; };
 		0593871D1DE6E12500038A6E /* SummaryReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0593871C1DE6E12500038A6E /* SummaryReporter.swift */; };
 		05BABC861DE56DDE0012BC5B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BABC851DE56DDE0012BC5B /* main.m */; };
 		05BABC9B1DE56E390012BC5B /* PXCTestKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05BABC921DE56E390012BC5B /* PXCTestKit.framework */; };
@@ -18,6 +20,12 @@
 		05BABCEF1DE582D70012BC5B /* RunTestsCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BABCEE1DE582D70012BC5B /* RunTestsCommand.swift */; };
 		05BABCF11DE586B10012BC5B /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BABCF01DE586B10012BC5B /* Destination.swift */; };
 		05BABCF31DE58E730012BC5B /* DestinationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BABCF21DE58E730012BC5B /* DestinationTests.swift */; };
+		05BC2B2C1DEAB9EB00ED3F58 /* build.sh in Resources */ = {isa = PBXBuildFile; fileRef = 05BC2B121DEAB9EB00ED3F58 /* build.sh */; };
+		05BC2B3A1DEAB9EB00ED3F58 /* Sample_iphonesimulator10.1-i386.xctestrun in Resources */ = {isa = PBXBuildFile; fileRef = 05BC2B2B1DEAB9EB00ED3F58 /* Sample_iphonesimulator10.1-i386.xctestrun */; };
+		05BC2B4A1DEABA0A00ED3F58 /* RunTestsCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BC2B491DEABA0A00ED3F58 /* RunTestsCommandTests.swift */; };
+		05BC2B4C1DEABA3300ED3F58 /* Fixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BC2B4B1DEABA3300ED3F58 /* Fixtures.swift */; };
+		05BC2B4F1DEABC5A00ED3F58 /* Sample.app in Resources */ = {isa = PBXBuildFile; fileRef = 05BC2B4D1DEABC5A00ED3F58 /* Sample.app */; };
+		05BC2B501DEABC5A00ED3F58 /* SampleUITests-Runner.app in Resources */ = {isa = PBXBuildFile; fileRef = 05BC2B4E1DEABC5A00ED3F58 /* SampleUITests-Runner.app */; };
 		05E1B2FB1DE6F62A00C38DB1 /* Locale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E1B2FA1DE6F62A00C38DB1 /* Locale.swift */; };
 		05E1B2FF1DE6FD8F00C38DB1 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E1B2FE1DE6FD8F00C38DB1 /* Preferences.swift */; };
 		05E1B3011DE7066E00C38DB1 /* Only.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E1B3001DE7066E00C38DB1 /* Only.swift */; };
@@ -174,6 +182,10 @@
 /* Begin PBXFileReference section */
 		053634A11DE7E0F400F7BDB8 /* PXCTestKit.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PXCTestKit.xcconfig; sourceTree = "<group>"; };
 		0541E15C1DE5A02C00D65F16 /* ConsoleReporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleReporter.swift; sourceTree = "<group>"; };
+		058FD5501DEAC82D0066CE4B /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		058FD5511DEAC82D0066CE4B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		058FD5591DEAC8490066CE4B /* testSampleAppTestRun.expected_output */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testSampleAppTestRun.expected_output; sourceTree = "<group>"; };
+		058FD55B1DEAD7350066CE4B /* testSampleAppTestRunOnlySuccessfulTests.expected_output */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testSampleAppTestRunOnlySuccessfulTests.expected_output; sourceTree = "<group>"; };
 		0593871C1DE6E12500038A6E /* SummaryReporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryReporter.swift; sourceTree = "<group>"; };
 		05BABC821DE56DDE0012BC5B /* pxctest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pxctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		05BABC851DE56DDE0012BC5B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -191,6 +203,12 @@
 		05BABCEE1DE582D70012BC5B /* RunTestsCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTestsCommand.swift; sourceTree = "<group>"; };
 		05BABCF01DE586B10012BC5B /* Destination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
 		05BABCF21DE58E730012BC5B /* DestinationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationTests.swift; sourceTree = "<group>"; };
+		05BC2B121DEAB9EB00ED3F58 /* build.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = build.sh; sourceTree = "<group>"; };
+		05BC2B2B1DEAB9EB00ED3F58 /* Sample_iphonesimulator10.1-i386.xctestrun */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Sample_iphonesimulator10.1-i386.xctestrun"; sourceTree = "<group>"; };
+		05BC2B491DEABA0A00ED3F58 /* RunTestsCommandTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTestsCommandTests.swift; sourceTree = "<group>"; };
+		05BC2B4B1DEABA3300ED3F58 /* Fixtures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fixtures.swift; sourceTree = "<group>"; };
+		05BC2B4D1DEABC5A00ED3F58 /* Sample.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = Sample.app; sourceTree = "<group>"; };
+		05BC2B4E1DEABC5A00ED3F58 /* SampleUITests-Runner.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = "SampleUITests-Runner.app"; sourceTree = "<group>"; };
 		05E1B2FA1DE6F62A00C38DB1 /* Locale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locale.swift; sourceTree = "<group>"; };
 		05E1B2FE1DE6FD8F00C38DB1 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		05E1B3001DE7066E00C38DB1 /* Only.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Only.swift; sourceTree = "<group>"; };
@@ -234,11 +252,13 @@
 		05BABC791DE56DDE0012BC5B = {
 			isa = PBXGroup;
 			children = (
+				058FD5501DEAC82D0066CE4B /* CHANGELOG.md */,
 				05BABCAD1DE57DDB0012BC5B /* Dependencies */,
 				05BABC831DE56DDE0012BC5B /* Products */,
 				05BABC841DE56DDE0012BC5B /* pxctest */,
 				05BABC931DE56E390012BC5B /* PXCTestKit */,
 				05BABC9E1DE56E390012BC5B /* PXCTestKitTests */,
+				058FD5511DEAC82D0066CE4B /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -279,7 +299,10 @@
 			isa = PBXGroup;
 			children = (
 				05BABCF21DE58E730012BC5B /* DestinationTests.swift */,
+				05BC2B111DEAB9EB00ED3F58 /* Fixtures */,
+				05BC2B4B1DEABA3300ED3F58 /* Fixtures.swift */,
 				05BABCA11DE56E390012BC5B /* Info.plist */,
+				05BC2B491DEABA0A00ED3F58 /* RunTestsCommandTests.swift */,
 			);
 			path = PXCTestKitTests;
 			sourceTree = "<group>";
@@ -337,6 +360,19 @@
 				05E1B2FE1DE6FD8F00C38DB1 /* Preferences.swift */,
 			);
 			path = Option;
+			sourceTree = "<group>";
+		};
+		05BC2B111DEAB9EB00ED3F58 /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				05BC2B121DEAB9EB00ED3F58 /* build.sh */,
+				05BC2B2B1DEAB9EB00ED3F58 /* Sample_iphonesimulator10.1-i386.xctestrun */,
+				05BC2B4D1DEABC5A00ED3F58 /* Sample.app */,
+				05BC2B4E1DEABC5A00ED3F58 /* SampleUITests-Runner.app */,
+				058FD5591DEAC8490066CE4B /* testSampleAppTestRun.expected_output */,
+				058FD55B1DEAD7350066CE4B /* testSampleAppTestRunOnlySuccessfulTests.expected_output */,
+			);
+			path = Fixtures;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -447,6 +483,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 05BABC791DE56DDE0012BC5B;
 			productRefGroup = 05BABC831DE56DDE0012BC5B /* Products */;
@@ -487,7 +524,7 @@
 		};
 		05BABCBC1DE57DED0012BC5B /* CommanderTests.xctest */ = {
 			isa = PBXReferenceProxy;
-			fileType = file;
+			fileType = wrapper.cfbundle;
 			path = CommanderTests.xctest;
 			remoteRef = 05BABCBB1DE57DED0012BC5B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
@@ -562,6 +599,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05BC2B3A1DEAB9EB00ED3F58 /* Sample_iphonesimulator10.1-i386.xctestrun in Resources */,
+				05BC2B501DEABC5A00ED3F58 /* SampleUITests-Runner.app in Resources */,
+				058FD55C1DEAD7350066CE4B /* testSampleAppTestRunOnlySuccessfulTests.expected_output in Resources */,
+				05BC2B2C1DEAB9EB00ED3F58 /* build.sh in Resources */,
+				058FD55A1DEAC8490066CE4B /* testSampleAppTestRun.expected_output in Resources */,
+				05BC2B4F1DEABC5A00ED3F58 /* Sample.app in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -597,7 +640,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05BC2B4A1DEABA0A00ED3F58 /* RunTestsCommandTests.swift in Sources */,
 				05BABCF31DE58E730012BC5B /* DestinationTests.swift in Sources */,
+				05BC2B4C1DEABA3300ED3F58 /* Fixtures.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
