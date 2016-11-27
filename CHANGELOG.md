@@ -1,3 +1,5 @@
+* Support multiple test targets
+
 # 0.2.3
 
 * Add JUnit report

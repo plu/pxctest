@@ -12,9 +12,11 @@ import Foundation
 final class ConsoleReporter: FBTestManagerTestReporterBase {
 
     private let simulatorIdentifier: String
+    private let testTargetName: String
 
-    init(simulatorIdentifier: String) {
+    init(simulatorIdentifier: String, testTargetName: String) {
         self.simulatorIdentifier = simulatorIdentifier
+        self.testTargetName = testTargetName
         super.init()
         ConsoleReporter.register(reporter: self)
     }
@@ -22,7 +24,7 @@ final class ConsoleReporter: FBTestManagerTestReporterBase {
     private func writeSummary() {
         guard let summary = testSuite.summary else { return }
 
-        let output = String(format: "\(simulatorIdentifier) - Finished executing %d tests after %.03fs. %d Failures, %d Unexpected\n", summary.runCount, summary.totalDuration, summary.failureCount, summary.unexpected)
+        let output = String(format: "\(testTargetName) - \(simulatorIdentifier) - Finished executing %d tests after %.03fs. %d Failures, %d Unexpected\n", summary.runCount, summary.totalDuration, summary.failureCount, summary.unexpected)
         write(output: output)
     }
 
@@ -45,8 +47,8 @@ final class ConsoleReporter: FBTestManagerTestReporterBase {
         guard let summary = testSuite.summary else { return }
 
         if summary.failureCount > 0 {
-            write(line: simulatorIdentifier)
-            write(line: "`- Failures:")
+            write(line: testTargetName)
+            write(line: "  Failures on \(simulatorIdentifier):")
             writeFailures(testSuite: testSuite)
         }
     }
@@ -54,10 +56,10 @@ final class ConsoleReporter: FBTestManagerTestReporterBase {
     private func writeFailures(testSuite: FBTestManagerTestReporterTestSuite) {
         for testCase in testSuite.testCases {
             guard testCase.failures.count > 0 else { continue }
-            write(line: "  `- -[\(testCase.testClass) \(testCase.method)]")
+            write(line: "    -[\(testCase.testClass) \(testCase.method)]")
             for failure in testCase.failures {
                 let filename = URL(fileURLWithPath: failure.file).lastPathComponent
-                write(line: "    `- \(filename):\(failure.line) \(failure.message)")
+                write(line: "      \(filename):\(failure.line) \(failure.message)")
             }
         }
         for testSuite in testSuite.testSuites {
@@ -85,7 +87,7 @@ final class ConsoleReporter: FBTestManagerTestReporterBase {
 
     static func writeSummary() {
         guard let writer = reporters.first else { return }
-        writer.write(line: "\nFinished.")
+        writer.write(line: "")
         reporters.forEach { $0.writeFailures() }
         reporters.forEach { $0.writeSummary() }
         let total = SummaryReporter.total
