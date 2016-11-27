@@ -102,4 +102,4 @@ Both of them are more flexible than `pxctest`, so it might be worth having a loo
 
 ## License
 
-[BSD-licensed](LICENSE)
+[MIT](LICENSE)
