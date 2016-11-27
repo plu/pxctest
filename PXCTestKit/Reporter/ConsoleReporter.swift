@@ -20,10 +20,19 @@ final class ConsoleReporter: FBTestManagerTestReporterBase {
         self.simulatorIdentifier = simulatorIdentifier
         self.testTargetName = testTargetName
         super.init()
-        ConsoleReporter.register(reporter: self)
     }
 
-    private func writeSummary() {
+    func writeFailures() {
+        guard let summary = testSuite.summary else { return }
+
+        if summary.failureCount > 0 {
+            console.write(line: testTargetName)
+            console.write(line: "  Failures on \(simulatorIdentifier):")
+            writeFailures(testSuite: testSuite)
+        }
+    }
+
+    func writeSummary() {
         guard let summary = testSuite.summary else { return }
 
         let output = String(format: "\(testTargetName) - \(simulatorIdentifier) - Finished executing %d tests after %.03fs. %d Failures, %d Unexpected\n", summary.runCount, summary.totalDuration, summary.failureCount, summary.unexpected)
@@ -45,16 +54,6 @@ final class ConsoleReporter: FBTestManagerTestReporterBase {
 
     // MARK: - Private
 
-    private func writeFailures() {
-        guard let summary = testSuite.summary else { return }
-
-        if summary.failureCount > 0 {
-            console.write(line: testTargetName)
-            console.write(line: "  Failures on \(simulatorIdentifier):")
-            writeFailures(testSuite: testSuite)
-        }
-    }
-
     private func writeFailures(testSuite: FBTestManagerTestReporterTestSuite) {
         for testCase in testSuite.testCases {
             guard testCase.failures.count > 0 else { continue }
@@ -67,28 +66,6 @@ final class ConsoleReporter: FBTestManagerTestReporterBase {
         for testSuite in testSuite.testSuites {
             writeFailures(testSuite: testSuite)
         }
-    }
-
-    // MARK: - Static
-
-    private static var reporters: [ConsoleReporter] = []
-
-    static func reset() {
-        reporters = []
-    }
-
-    static func register(reporter: ConsoleReporter) {
-        reporters.append(reporter)
-    }
-
-    static func writeSummary() {
-        guard let reporter = reporters.first else { return }
-        reporter.console.write(line: "")
-        reporters.forEach { $0.writeFailures() }
-        reporters.forEach { $0.writeSummary() }
-        let total = SummaryReporter.total
-        let output = String(format: "Total - Finished executing %d tests. %d Failures, %d Unexpected\n", total.runCount, total.failureCount, total.unexpected)
-        reporter.console.write(output: output)
     }
 
 }

@@ -17,20 +17,16 @@ final class SummaryReporter: FBTestManagerTestReporterBase {
         var unexpected = 0
     }
 
-    static var total = Total()
-
-    static func reset() {
-        total = Total()
-    }
+    var total = Total()
 
     override func testManagerMediatorDidFinishExecutingTestPlan(_ mediator: FBTestManagerAPIMediator!) {
         super.testManagerMediatorDidFinishExecutingTestPlan(mediator)
 
         guard let summary = testSuite.summary else { return }
 
-        SummaryReporter.total.failureCount += summary.failureCount
-        SummaryReporter.total.runCount += summary.runCount
-        SummaryReporter.total.unexpected += summary.unexpected
+        total.failureCount += summary.failureCount
+        total.runCount += summary.runCount
+        total.unexpected += summary.unexpected
     }
 
 }

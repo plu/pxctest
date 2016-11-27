@@ -19,12 +19,6 @@ class RunTestsCommandTests: XCTestCase {
         let consoleOutput: String
     }
 
-    override func tearDown() {
-        ConsoleReporter.reset()
-        SummaryReporter.reset()
-        super.tearDown()
-    }
-
     func testSampleAppTestRun() throws {
         let result = try runTests(testRun: fixtures.sampleAppTestRun)
 

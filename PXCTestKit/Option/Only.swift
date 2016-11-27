@@ -2,7 +2,7 @@
 //  Only.swift
 //  pxctest
 //
-//  Created by Plunien, Johannes(AWF) on 24/11/16.
+//  Created by Johannes Plunien on 24/11/16.
 //  Copyright © 2016 Johannes Plunien. All rights reserved.
 //
 

@@ -40,7 +40,13 @@ final class RunTestsCommand {
         }
     }
 
+    struct Reporters {
+        var console: [ConsoleReporter] = []
+        var summary: [SummaryReporter] = []
+    }
+
     private let configuration: Configuration
+    private var reporters = Reporters()
     internal var control: FBSimulatorControl!
 
     init(configuration: Configuration) {
@@ -66,10 +72,11 @@ final class RunTestsCommand {
         try test(simulators: simulators, testRun: testRun)
         try extractDiagnostics(simulators: simulators, testRun: testRun)
 
-        ConsoleReporter.writeSummary()
+        writeConsoleOutputSummary()
 
-        if SummaryReporter.total.failureCount > 0 {
-            throw RunTestsError.testRunHadFailures(SummaryReporter.total.failureCount)
+        let failureCount = reporters.summary.reduce(0) { $0 + $1.total.failureCount }
+        if failureCount > 0 {
+            throw RunTestsError.testRunHadFailures(failureCount)
         }
     }
 
@@ -126,6 +133,10 @@ final class RunTestsCommand {
                 let consoleReporter = ConsoleReporter(simulatorIdentifier: simulatorIdentifier, testTargetName: target.name, consoleOutput: configuration.consoleOutput)
                 let junitReportURL = outputURL(for: simulator.configuration!, target: target)
                 let junitReporter = FBTestManagerTestReporterJUnit.withOutputFileURL(junitReportURL.appendingPathComponent("junit.xml"))
+                let summaryReporter = SummaryReporter()
+
+                reporters.console.append(consoleReporter)
+                reporters.summary.append(summaryReporter)
 
                 for application in target.applications {
                     try simulator.interact
@@ -136,7 +147,7 @@ final class RunTestsCommand {
                 try simulator.interact
                     .startTest(
                         with: testLaunchConfigurartion,
-                        reporter: FBTestManagerTestReporterComposite.withTestReporters([consoleReporter, junitReporter, SummaryReporter()])
+                        reporter: FBTestManagerTestReporterComposite.withTestReporters([consoleReporter, junitReporter, summaryReporter])
                     )
                     .perform()
             }
@@ -160,6 +171,19 @@ final class RunTestsCommand {
                 }
             }
         }
+    }
+
+    private func writeConsoleOutputSummary() {
+        let consoleOutput = configuration.consoleOutput
+        consoleOutput.write(line: "")
+        reporters.console.forEach { $0.writeFailures() }
+        reporters.console.forEach { $0.writeSummary() }
+
+        let runCount = reporters.summary.reduce(0) { $0 + $1.total.runCount }
+        let failureCount = reporters.summary.reduce(0) { $0 + $1.total.failureCount }
+        let unexpected = reporters.summary.reduce(0) { $0 + $1.total.unexpected }
+        let output = String(format: "Total - Finished executing %d tests. %d Failures, %d Unexpected", runCount, failureCount, unexpected)
+        consoleOutput.write(line: output)
     }
 
     private func outputURL(for simulatorConfiguration: FBSimulatorConfiguration, target: FBXCTestRunTarget) -> URL {
