@@ -1,3 +1,6 @@
+# 0.2.4
+
+* Add some integration tests
 * Support multiple test targets
 
 # 0.2.3
