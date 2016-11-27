@@ -12,6 +12,24 @@ import FBSimulatorControl
 
 @objc open class CommandLineInterface: NSObject {
 
+    enum ANSI: UInt8, CustomStringConvertible {
+        case reset = 0
+
+        case black = 30
+        case red
+        case green
+        case yellow
+        case blue
+        case magenta
+        case cyan
+        case white
+        case `default`
+
+        var description: String {
+            return "\u{001B}[\(self.rawValue)m"
+        }
+    }
+
     open static func bootstrap() {
         Group {
             $0.command("run-tests",
@@ -39,7 +57,7 @@ import FBSimulatorControl
                     try RunTestsCommand(configuration: configuration).run()
                 }
                 catch {
-                    print("\(error)")
+                    print("\(ANSI.red)\(error)\(ANSI.reset)")
                     exit(1)
                 }
             }

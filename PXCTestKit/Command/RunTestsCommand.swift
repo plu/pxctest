@@ -11,8 +11,14 @@ import Foundation
 
 final class RunTestsCommand {
 
-    enum RunTestsError: Error {
+    enum RunTestsError: Error, CustomStringConvertible {
         case testRunHadFailures(Int)
+
+        var description: String {
+            switch self {
+            case .testRunHadFailures(let count): return "Test run had \(count) failures"
+            }
+        }
     }
 
     struct Configuration {
