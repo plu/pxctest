@@ -242,6 +242,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		051D17951DEAEDCB00626C39 /* Documents */ = {
+			isa = PBXGroup;
+			children = (
+				058FD5501DEAC82D0066CE4B /* CHANGELOG.md */,
+				058FD5511DEAC82D0066CE4B /* README.md */,
+			);
+			name = Documents;
+			sourceTree = "<group>";
+		};
 		0541E15B1DE59FFF00D65F16 /* Reporter */ = {
 			isa = PBXGroup;
 			children = (
@@ -254,13 +263,12 @@
 		05BABC791DE56DDE0012BC5B = {
 			isa = PBXGroup;
 			children = (
-				058FD5501DEAC82D0066CE4B /* CHANGELOG.md */,
 				05BABCAD1DE57DDB0012BC5B /* Dependencies */,
+				051D17951DEAEDCB00626C39 /* Documents */,
 				05BABC831DE56DDE0012BC5B /* Products */,
 				05BABC841DE56DDE0012BC5B /* pxctest */,
 				05BABC931DE56E390012BC5B /* PXCTestKit */,
 				05BABC9E1DE56E390012BC5B /* PXCTestKitTests */,
-				058FD5511DEAC82D0066CE4B /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
