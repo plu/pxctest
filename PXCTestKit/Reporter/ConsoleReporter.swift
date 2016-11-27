@@ -11,12 +11,12 @@ import Foundation
 
 final class ConsoleReporter: FBTestManagerTestReporterBase {
 
-    private let fileHandle: FileHandle
+    private let console: ConsoleOutput
     private let simulatorIdentifier: String
     private let testTargetName: String
 
-    init(simulatorIdentifier: String, testTargetName: String, fileHandle: FileHandle = FileHandle.standardOutput) {
-        self.fileHandle = fileHandle
+    init(simulatorIdentifier: String, testTargetName: String, consoleOutput: ConsoleOutput) {
+        self.console = consoleOutput
         self.simulatorIdentifier = simulatorIdentifier
         self.testTargetName = testTargetName
         super.init()
@@ -27,17 +27,17 @@ final class ConsoleReporter: FBTestManagerTestReporterBase {
         guard let summary = testSuite.summary else { return }
 
         let output = String(format: "\(testTargetName) - \(simulatorIdentifier) - Finished executing %d tests after %.03fs. %d Failures, %d Unexpected\n", summary.runCount, summary.totalDuration, summary.failureCount, summary.unexpected)
-        write(output: output)
+        console.write(output: output)
     }
 
     override func testManagerMediator(_ mediator: FBTestManagerAPIMediator!, testCaseDidFinishForTestClass testClass: String!, method: String!, with status: FBTestReportStatus, duration: TimeInterval) {
         switch status {
         case .unknown:
-            write(output: "?")
+            console.write(output: "?")
         case .passed:
-            write(output: ".")
+            console.write(output: ".")
         case .failed:
-            write(output: "F")
+            console.write(output: "F")
         }
 
         super.testManagerMediator(mediator, testCaseDidFinishForTestClass: testClass, method: method, with: status, duration: duration)
@@ -49,8 +49,8 @@ final class ConsoleReporter: FBTestManagerTestReporterBase {
         guard let summary = testSuite.summary else { return }
 
         if summary.failureCount > 0 {
-            write(line: testTargetName)
-            write(line: "  Failures on \(simulatorIdentifier):")
+            console.write(line: testTargetName)
+            console.write(line: "  Failures on \(simulatorIdentifier):")
             writeFailures(testSuite: testSuite)
         }
     }
@@ -58,24 +58,15 @@ final class ConsoleReporter: FBTestManagerTestReporterBase {
     private func writeFailures(testSuite: FBTestManagerTestReporterTestSuite) {
         for testCase in testSuite.testCases {
             guard testCase.failures.count > 0 else { continue }
-            write(line: "    -[\(testCase.testClass) \(testCase.method)]")
+            console.write(line: "    -[\(testCase.testClass) \(testCase.method)]")
             for failure in testCase.failures {
                 let filename = URL(fileURLWithPath: failure.file).lastPathComponent
-                write(line: "      \(filename):\(failure.line) \(failure.message)")
+                console.write(line: "      \(filename):\(failure.line) \(failure.message)")
             }
         }
         for testSuite in testSuite.testSuites {
             writeFailures(testSuite: testSuite)
         }
-    }
-
-    private func write(line: String) {
-        write(output: "\(line)\n")
-    }
-
-    private func write(output: String) {
-        fileHandle.write(output.data(using: .utf8)!)
-        fileHandle.synchronizeFile()
     }
 
     // MARK: - Static
@@ -91,13 +82,13 @@ final class ConsoleReporter: FBTestManagerTestReporterBase {
     }
 
     static func writeSummary() {
-        guard let writer = reporters.first else { return }
-        writer.write(line: "")
+        guard let reporter = reporters.first else { return }
+        reporter.console.write(line: "")
         reporters.forEach { $0.writeFailures() }
         reporters.forEach { $0.writeSummary() }
         let total = SummaryReporter.total
         let output = String(format: "Total - Finished executing %d tests. %d Failures, %d Unexpected\n", total.runCount, total.failureCount, total.unexpected)
-        writer.write(output: output)
+        reporter.console.write(output: output)
     }
 
 }

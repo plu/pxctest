@@ -30,7 +30,7 @@ final class RunTestsCommand {
         let testsToRun: Set<String>
         let simulators: [FBSimulatorConfiguration]
         let timeout: Double
-        let consoleFileHandle: FileHandle
+        let consoleOutput: ConsoleOutput
         let simulatorManagementOptions: FBSimulatorManagementOptions
         let simulatorAllocationOptions: FBSimulatorAllocationOptions
         let simulatorBootOptions: FBSimulatorBootOptions
@@ -123,7 +123,7 @@ final class RunTestsCommand {
 
             for simulator in simulators {
                 let simulatorIdentifier = "\(simulator.configuration!.deviceName) \(simulator.configuration!.osVersionString)"
-                let consoleReporter = ConsoleReporter(simulatorIdentifier: simulatorIdentifier, testTargetName: target.name, fileHandle: configuration.consoleFileHandle)
+                let consoleReporter = ConsoleReporter(simulatorIdentifier: simulatorIdentifier, testTargetName: target.name, consoleOutput: configuration.consoleOutput)
                 let junitReportURL = outputURL(for: simulator.configuration!, target: target)
                 let junitReporter = FBTestManagerTestReporterJUnit.withOutputFileURL(junitReportURL.appendingPathComponent("junit.xml"))
 

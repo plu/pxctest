@@ -12,24 +12,6 @@ import FBSimulatorControl
 
 @objc open class CommandLineInterface: NSObject {
 
-    enum ANSI: UInt8, CustomStringConvertible {
-        case reset = 0
-
-        case black = 30
-        case red
-        case green
-        case yellow
-        case blue
-        case magenta
-        case cyan
-        case white
-        case `default`
-
-        var description: String {
-            return "\u{001B}[\(self.rawValue)m"
-        }
-    }
-
     open static func bootstrap() {
         Group {
             $0.command("run-tests",
@@ -42,6 +24,8 @@ import FBSimulatorControl
                        VaradicOption<Destination>("destination", [], description: "A comma-separated set of key=value pairs describing the destination to use, just like xcodebuild -destination."),
                        Option<Double>("timeout", 3600.0, description: "Timeout in seconds for the test execution to finish.")
             ) { (testRun, deviceSet, output, locale, preferences, only, destination, timeout) in
+                let consoleOutput = ConsoleOutput()
+
                 let configuration = RunTestsCommand.Configuration(
                     testRun: testRun.url,
                     deviceSet: deviceSet.url,
@@ -51,7 +35,7 @@ import FBSimulatorControl
                     testsToRun: only.testsToRun,
                     simulators: destination.map({ $0.simulatorConfiguration }),
                     timeout: timeout,
-                    consoleFileHandle: FileHandle.standardOutput,
+                    consoleOutput: consoleOutput,
                     simulatorManagementOptions: [],
                     simulatorAllocationOptions: [.create, .reuse],
                     simulatorBootOptions: [.awaitServices]
@@ -61,7 +45,7 @@ import FBSimulatorControl
                     try RunTestsCommand(configuration: configuration).run()
                 }
                 catch {
-                    print("\(ANSI.red)\(error)\(ANSI.reset)")
+                    consoleOutput.write(line: "\(ANSI.red)\(error)\(ANSI.reset)")
                     exit(1)
                 }
             }

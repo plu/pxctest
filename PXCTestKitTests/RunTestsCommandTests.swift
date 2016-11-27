@@ -104,7 +104,7 @@ extension RunTestsCommand.Configuration {
                 FBSimulatorConfiguration.iPadRetina().iOS_9_3(),
                 ],
             timeout: 600.0,
-            consoleFileHandle: FileHandle(forWritingAtPath: consoleFileHandlePath)!,
+            consoleOutput: ConsoleOutput(fileHandle: FileHandle(forWritingAtPath: consoleFileHandlePath)!),
             simulatorManagementOptions: [.killSpuriousSimulatorsOnFirstStart, .ignoreSpuriousKillFail],
             simulatorAllocationOptions: [.create, .reuse, .eraseOnAllocate],
             simulatorBootOptions: [.awaitServices, .enableDirectLaunch]
