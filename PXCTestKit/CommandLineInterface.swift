@@ -31,6 +31,7 @@ import FBSimulatorControl
                     deviceSet: deviceSet.url,
                     output: output.url,
                     locale: locale,
+                    environment: ProcessInfo.processInfo.environment,
                     preferences: preferences.dictionary,
                     testsToRun: only.testsToRun,
                     simulators: destination.map({ $0.simulatorConfiguration }),

@@ -26,6 +26,7 @@ final class RunTestsCommand {
         let deviceSet: URL
         let output: URL
         let locale: Locale
+        let environment: [String: String]
         let preferences: [String: Any]
         let testsToRun: Set<String>
         let simulators: [FBSimulatorConfiguration]
@@ -121,7 +122,7 @@ final class RunTestsCommand {
 
     private func test(simulators: [FBSimulator], testRun: FBXCTestRun) throws {
         for target in testRun.targets {
-            let testEnvironment = Environment.prepare(target.testLaunchConfiguration.testEnvironment, with: ProcessInfo.processInfo.environment)
+            let testEnvironment = Environment.prepare(target.testLaunchConfiguration.testEnvironment, with: configuration.environment)
             let testsToRun = target.testLaunchConfiguration.testsToRun.union(configuration.testsToRun)
             let testLaunchConfigurartion = target.testLaunchConfiguration
                 .withTestsToRun(testsToRun)

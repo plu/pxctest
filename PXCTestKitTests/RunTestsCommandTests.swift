@@ -27,7 +27,11 @@ class RunTestsCommandTests: XCTestCase {
     }
 
     func testSampleAppTestRunOnlySuccessfulTests() throws {
-        let testsToRun = Set<String>(["SampleTests/testInSampleTestsThatSucceeds", "SampleUITests/testInSampleUITestsThatSucceeds"])
+        let testsToRun = Set<String>([
+            "SampleTests/testEnvironmentVariableInjection",
+            "SampleTests/testInSampleTestsThatSucceeds",
+            "SampleUITests/testInSampleUITestsThatSucceeds"
+        ])
         let result = try runTests(testRun: fixtures.sampleAppTestRun, testsToRun: testsToRun)
 
         XCTAssertEqual(result.failureCount, 0)
@@ -91,6 +95,7 @@ extension RunTestsCommand.Configuration {
             deviceSet: temporaryDirectory.appendingPathComponent("simulators"),
             output: temporaryDirectory.appendingPathComponent("output"),
             locale: Locale.current,
+            environment: ["PXCTEST_CHILD_FOO": "BAR"],
             preferences: [:],
             testsToRun: testsToRun,
             simulators: [

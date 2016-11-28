@@ -16,4 +16,9 @@
     XCTAssertTrue(NO);
 }
 
+- (void)testEnvironmentVariableInjection
+{
+    XCTAssertEqualObjects([NSProcessInfo processInfo].environment[@"FOO"], @"BAR");
+}
+
 @end
