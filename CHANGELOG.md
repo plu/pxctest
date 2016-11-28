@@ -1,3 +1,5 @@
+* Inject PXCTEST_CHILD_ prefixed environment variables
+
 # 0.2.4
 
 * Add some integration tests

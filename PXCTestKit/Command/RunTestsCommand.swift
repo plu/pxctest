@@ -121,8 +121,7 @@ final class RunTestsCommand {
 
     private func test(simulators: [FBSimulator], testRun: FBXCTestRun) throws {
         for target in testRun.targets {
-            var testEnvironment = target.testLaunchConfiguration.testEnvironment ?? [:]
-            testEnvironment["OS_ACTIVITY_MODE"] = "disable"
+            let testEnvironment = Environment.prepare(target.testLaunchConfiguration.testEnvironment, with: ProcessInfo.processInfo.environment)
             let testsToRun = target.testLaunchConfiguration.testsToRun.union(configuration.testsToRun)
             let testLaunchConfigurartion = target.testLaunchConfiguration
                 .withTestsToRun(testsToRun)
