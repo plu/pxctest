@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0541E15D1DE5A02C00D65F16 /* ConsoleReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0541E15C1DE5A02C00D65F16 /* ConsoleReporter.swift */; };
-		058FD55A1DEAC8490066CE4B /* testSampleAppTestRun.expected_output in Resources */ = {isa = PBXBuildFile; fileRef = 058FD5591DEAC8490066CE4B /* testSampleAppTestRun.expected_output */; };
+		058FD55A1DEAC8490066CE4B /* testSampleAppTestRunOnlyFailingTests.expected_output in Resources */ = {isa = PBXBuildFile; fileRef = 058FD5591DEAC8490066CE4B /* testSampleAppTestRunOnlyFailingTests.expected_output */; };
 		058FD55C1DEAD7350066CE4B /* testSampleAppTestRunOnlySuccessfulTests.expected_output in Resources */ = {isa = PBXBuildFile; fileRef = 058FD55B1DEAD7350066CE4B /* testSampleAppTestRunOnlySuccessfulTests.expected_output */; };
 		0593871D1DE6E12500038A6E /* SummaryReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0593871C1DE6E12500038A6E /* SummaryReporter.swift */; };
 		05B2CA331DEBE93000795F07 /* ConsoleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B2CA321DEBE93000795F07 /* ConsoleOutput.swift */; };
@@ -187,7 +187,7 @@
 		0541E15C1DE5A02C00D65F16 /* ConsoleReporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleReporter.swift; sourceTree = "<group>"; };
 		058FD5501DEAC82D0066CE4B /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		058FD5511DEAC82D0066CE4B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		058FD5591DEAC8490066CE4B /* testSampleAppTestRun.expected_output */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testSampleAppTestRun.expected_output; sourceTree = "<group>"; };
+		058FD5591DEAC8490066CE4B /* testSampleAppTestRunOnlyFailingTests.expected_output */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testSampleAppTestRunOnlyFailingTests.expected_output; sourceTree = "<group>"; };
 		058FD55B1DEAD7350066CE4B /* testSampleAppTestRunOnlySuccessfulTests.expected_output */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testSampleAppTestRunOnlySuccessfulTests.expected_output; sourceTree = "<group>"; };
 		0593871C1DE6E12500038A6E /* SummaryReporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryReporter.swift; sourceTree = "<group>"; };
 		05B2CA321DEBE93000795F07 /* ConsoleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleOutput.swift; sourceTree = "<group>"; };
@@ -386,7 +386,7 @@
 				05BC2B2B1DEAB9EB00ED3F58 /* Sample_iphonesimulator10.1-i386.xctestrun */,
 				05BC2B4D1DEABC5A00ED3F58 /* Sample.app */,
 				05BC2B4E1DEABC5A00ED3F58 /* SampleUITests-Runner.app */,
-				058FD5591DEAC8490066CE4B /* testSampleAppTestRun.expected_output */,
+				058FD5591DEAC8490066CE4B /* testSampleAppTestRunOnlyFailingTests.expected_output */,
 				058FD55B1DEAD7350066CE4B /* testSampleAppTestRunOnlySuccessfulTests.expected_output */,
 			);
 			path = Fixtures;
@@ -620,7 +620,7 @@
 				05BC2B501DEABC5A00ED3F58 /* SampleUITests-Runner.app in Resources */,
 				058FD55C1DEAD7350066CE4B /* testSampleAppTestRunOnlySuccessfulTests.expected_output in Resources */,
 				05BC2B2C1DEAB9EB00ED3F58 /* build.sh in Resources */,
-				058FD55A1DEAC8490066CE4B /* testSampleAppTestRun.expected_output in Resources */,
+				058FD55A1DEAC8490066CE4B /* testSampleAppTestRunOnlyFailingTests.expected_output in Resources */,
 				05BC2B4F1DEABC5A00ED3F58 /* Sample.app in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

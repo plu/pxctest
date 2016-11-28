@@ -19,11 +19,15 @@ class RunTestsCommandTests: XCTestCase {
         let consoleOutput: String
     }
 
-    func testSampleAppTestRun() throws {
-        let result = try runTests(testRun: fixtures.sampleAppTestRun)
+    func testSampleAppTestRunOnlyFailingTests() throws {
+        let testsToRun = Set<String>([
+            "SampleTests/testInSampleTestsThatFails",
+            "SampleUITests/testInSampleUITestsThatFails"
+        ])
+        let result = try runTests(testRun: fixtures.sampleAppTestRun, testsToRun: testsToRun)
 
         XCTAssertEqual(result.failureCount, 4)
-        XCTAssertEqualConsoleOutput(result.consoleOutput, fixtures.testSampleAppTestRunExpectedOutput)
+        XCTAssertEqualConsoleOutput(result.consoleOutput, fixtures.testSampleAppTestRunOnlyFailingTestsOutput)
     }
 
     func testSampleAppTestRunOnlySuccessfulTests() throws {
@@ -35,7 +39,7 @@ class RunTestsCommandTests: XCTestCase {
         let result = try runTests(testRun: fixtures.sampleAppTestRun, testsToRun: testsToRun)
 
         XCTAssertEqual(result.failureCount, 0)
-        XCTAssertEqualConsoleOutput(result.consoleOutput, fixtures.testSampleAppTestRunOnlySuccessfulTests)
+        XCTAssertEqualConsoleOutput(result.consoleOutput, fixtures.testSampleAppTestRunOnlySuccessfulTestsOutput)
     }
 
 }

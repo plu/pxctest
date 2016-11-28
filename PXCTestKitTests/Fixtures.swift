@@ -18,11 +18,11 @@ final class Fixtures {
         return bundle.url(forResource: "Sample_iphonesimulator10.1-i386", withExtension: "xctestrun")!
     }
 
-    var testSampleAppTestRunExpectedOutput: String {
-        return try! String(contentsOf: bundle.url(forResource: "testSampleAppTestRun", withExtension: "expected_output")!)
+    var testSampleAppTestRunOnlyFailingTestsOutput: String {
+        return try! String(contentsOf: bundle.url(forResource: "testSampleAppTestRunOnlyFailingTests", withExtension: "expected_output")!)
     }
 
-    var testSampleAppTestRunOnlySuccessfulTests: String {
+    var testSampleAppTestRunOnlySuccessfulTestsOutput: String {
         return try! String(contentsOf: bundle.url(forResource: "testSampleAppTestRunOnlySuccessfulTests", withExtension: "expected_output")!)
     }
 

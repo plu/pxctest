@@ -1,4 +1,4 @@
-.F..F.F.F.
+FFFF
 SampleTests
   Failures on iPhone 5 iOS 9.3:
     -[SampleTests testInSampleTestsThatFails]
@@ -15,8 +15,8 @@ SampleUITests
   Failures on iPad Retina iOS 9.3:
     -[SampleUITests testInSampleUITestsThatFails]
       SampleUITests.m:24 ((NO) is true) failed
-SampleTests - iPhone 5 iOS 9.3 - Finished executing 3 tests after 1.234s. 1 Failures, 0 Unexpected
-SampleTests - iPad Retina iOS 9.3 - Finished executing 3 tests after 1.234s. 1 Failures, 0 Unexpected
-SampleUITests - iPhone 5 iOS 9.3 - Finished executing 2 tests after 1.234s. 1 Failures, 0 Unexpected
-SampleUITests - iPad Retina iOS 9.3 - Finished executing 2 tests after 1.234s. 1 Failures, 0 Unexpected
-Total - Finished executing 10 tests. 4 Failures, 0 Unexpected
+SampleTests - iPhone 5 iOS 9.3 - Finished executing 1 tests after 1.234s. 1 Failures, 0 Unexpected
+SampleTests - iPad Retina iOS 9.3 - Finished executing 1 tests after 1.234s. 1 Failures, 0 Unexpected
+SampleUITests - iPhone 5 iOS 9.3 - Finished executing 1 tests after 1.234s. 1 Failures, 0 Unexpected
+SampleUITests - iPad Retina iOS 9.3 - Finished executing 1 tests after 1.234s. 1 Failures, 0 Unexpected
+Total - Finished executing 4 tests. 4 Failures, 0 Unexpected
