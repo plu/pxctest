@@ -42,7 +42,6 @@ final class ConsoleOutput {
 
     func write(output: String) {
         fileHandle.write(output.data(using: .utf8)!)
-        fileHandle.synchronizeFile()
     }
 
 }
