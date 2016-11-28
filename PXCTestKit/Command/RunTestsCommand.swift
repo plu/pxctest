@@ -86,16 +86,22 @@ final class RunTestsCommand {
     private func resetOutput(testRun: FBXCTestRun) throws {
         let fileManager = FileManager.default
 
-        if fileManager.fileExists(atPath: configuration.output.path) {
-            try fileManager.removeItem(at: configuration.output)
+        if !fileManager.fileExists(atPath: configuration.output.path) {
+            try fileManager.createDirectory(at: configuration.output, withIntermediateDirectories: true, attributes: nil)
         }
 
-        try fileManager.createDirectory(at: configuration.output, withIntermediateDirectories: true, attributes: nil)
+        if fileManager.fileExists(atPath: configuration.logFileURL().path) {
+            try fileManager.removeItem(at: configuration.logFileURL())
+        }
+
         fileManager.createFile(atPath: configuration.logFileURL().path, contents: nil, attributes: nil)
 
         for target in testRun.targets {
             for simulatorConfiguration in configuration.simulators {
                 let url = outputURL(for: simulatorConfiguration, target: target)
+                if fileManager.fileExists(atPath: url.path) {
+                    try fileManager.removeItem(at: url)
+                }
                 try fileManager.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
             }
         }
