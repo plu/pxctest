@@ -10,8 +10,8 @@
 		0541E15D1DE5A02C00D65F16 /* ConsoleReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0541E15C1DE5A02C00D65F16 /* ConsoleReporter.swift */; };
 		058FD55A1DEAC8490066CE4B /* testSampleAppTestRun.expected_output in Resources */ = {isa = PBXBuildFile; fileRef = 058FD5591DEAC8490066CE4B /* testSampleAppTestRun.expected_output */; };
 		058FD55C1DEAD7350066CE4B /* testSampleAppTestRunOnlySuccessfulTests.expected_output in Resources */ = {isa = PBXBuildFile; fileRef = 058FD55B1DEAD7350066CE4B /* testSampleAppTestRunOnlySuccessfulTests.expected_output */; };
-		058FD5601DEAE7310066CE4B /* ConsoleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058FD55F1DEAE7310066CE4B /* ConsoleOutput.swift */; };
 		0593871D1DE6E12500038A6E /* SummaryReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0593871C1DE6E12500038A6E /* SummaryReporter.swift */; };
+		05B2CA331DEBE93000795F07 /* ConsoleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B2CA321DEBE93000795F07 /* ConsoleOutput.swift */; };
 		05BABC861DE56DDE0012BC5B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BABC851DE56DDE0012BC5B /* main.m */; };
 		05BABC9B1DE56E390012BC5B /* PXCTestKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05BABC921DE56E390012BC5B /* PXCTestKit.framework */; };
 		05BABCA21DE56E390012BC5B /* PXCTestKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 05BABC941DE56E390012BC5B /* PXCTestKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -187,8 +187,8 @@
 		058FD5511DEAC82D0066CE4B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		058FD5591DEAC8490066CE4B /* testSampleAppTestRun.expected_output */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testSampleAppTestRun.expected_output; sourceTree = "<group>"; };
 		058FD55B1DEAD7350066CE4B /* testSampleAppTestRunOnlySuccessfulTests.expected_output */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testSampleAppTestRunOnlySuccessfulTests.expected_output; sourceTree = "<group>"; };
-		058FD55F1DEAE7310066CE4B /* ConsoleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleOutput.swift; sourceTree = "<group>"; };
 		0593871C1DE6E12500038A6E /* SummaryReporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryReporter.swift; sourceTree = "<group>"; };
+		05B2CA321DEBE93000795F07 /* ConsoleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleOutput.swift; sourceTree = "<group>"; };
 		05BABC821DE56DDE0012BC5B /* pxctest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pxctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		05BABC851DE56DDE0012BC5B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		05BABC8C1DE56E070012BC5B /* pxctest.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = pxctest.xcconfig; sourceTree = "<group>"; };
@@ -254,6 +254,7 @@
 		0541E15B1DE59FFF00D65F16 /* Reporter */ = {
 			isa = PBXGroup;
 			children = (
+				05B2CA321DEBE93000795F07 /* ConsoleOutput.swift */,
 				0541E15C1DE5A02C00D65F16 /* ConsoleReporter.swift */,
 				0593871C1DE6E12500038A6E /* SummaryReporter.swift */,
 			);
@@ -296,7 +297,6 @@
 			children = (
 				05BABCE81DE5829D0012BC5B /* Command */,
 				05BABCAB1DE56E9A0012BC5B /* CommandLineInterface.swift */,
-				058FD55F1DEAE7310066CE4B /* ConsoleOutput.swift */,
 				05BABC951DE56E390012BC5B /* Info.plist */,
 				05BABCE91DE5829D0012BC5B /* Option */,
 				05BABC941DE56E390012BC5B /* PXCTestKit.h */,
@@ -638,7 +638,7 @@
 				05E1B3011DE7066E00C38DB1 /* Only.swift in Sources */,
 				05BABCEC1DE582BC0012BC5B /* ExistingFileURL.swift in Sources */,
 				05BABCF11DE586B10012BC5B /* Destination.swift in Sources */,
-				058FD5601DEAE7310066CE4B /* ConsoleOutput.swift in Sources */,
+				05B2CA331DEBE93000795F07 /* ConsoleOutput.swift in Sources */,
 				0593871D1DE6E12500038A6E /* SummaryReporter.swift in Sources */,
 				05BABCED1DE582BC0012BC5B /* FileURL.swift in Sources */,
 				05BABCAC1DE56E9A0012BC5B /* CommandLineInterface.swift in Sources */,
