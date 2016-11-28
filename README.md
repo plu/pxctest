@@ -1,6 +1,6 @@
 # pxctest
 
-Parallel XCTest - Execute XCTest suites in parallel on multiple iOS Simulators.
+Execute tests in parallel on multiple iOS Simulators.
 
 [![Build Status](https://travis-ci.org/plu/pxctest.svg?branch=master)](https://travis-ci.org/plu/pxctest)
 
