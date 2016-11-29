@@ -107,6 +107,7 @@ extension RunTestsCommand.Context {
             locale: Locale.current,
             environment: ["PXCTEST_CHILD_FOO": "BAR"],
             preferences: [:],
+            reporterType: RSpecReporter.self,
             testsToRun: testsToRun,
             simulators: [
                 FBSimulatorConfiguration.iPhone5().iOS_9_3(),

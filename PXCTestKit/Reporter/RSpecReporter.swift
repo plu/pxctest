@@ -1,5 +1,5 @@
 //
-//  ConsoleReporter.swift
+//  RSpecReporter.swift
 //  pxctest
 //
 //  Created by Johannes Plunien on 23/11/16.
@@ -9,7 +9,7 @@
 import FBSimulatorControl
 import Foundation
 
-final class RSpecLikeReporter: FBTestManagerTestReporterBase, ConsoleReporter {
+final class RSpecReporter: FBTestManagerTestReporterBase, ConsoleReporter {
 
     let console: ConsoleOutput
     let simulatorIdentifier: String

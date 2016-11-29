@@ -6,9 +6,10 @@
 //  Copyright © 2016 Johannes Plunien. All rights reserved.
 //
 
+import FBSimulatorControl
 import Foundation
 
-protocol ConsoleReporter {
+protocol ConsoleReporter: FBTestManagerTestReporter {
 
     var console: ConsoleOutput { get }
     var simulatorIdentifier: String { get }

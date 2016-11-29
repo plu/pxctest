@@ -1,4 +1,5 @@
 * Support abort via SIGINT
+* Support JSON stream reporter (similar to xctool's JSON stream)
 
 # 0.2.6
 

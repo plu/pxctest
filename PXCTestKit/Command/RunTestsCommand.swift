@@ -28,6 +28,7 @@ final class RunTestsCommand: Command {
         let locale: Locale
         let environment: [String: String]
         let preferences: [String: Any]
+        let reporterType: ConsoleReporter.Type
         let testsToRun: Set<String>
         let simulators: [FBSimulatorConfiguration]
         let timeout: Double
@@ -154,15 +155,6 @@ final class RunTestsCommand: Command {
                 .withTestEnvironment(testEnvironment)
 
             for simulator in simulators {
-                let simulatorIdentifier = "\(simulator.configuration!.deviceName) \(simulator.configuration!.osVersionString)"
-                let consoleReporter = RSpecLikeReporter(simulatorIdentifier: simulatorIdentifier, testTargetName: target.name, consoleOutput: context.consoleOutput)
-                let junitReportURL = outputURL(for: simulator.configuration!, target: target)
-                let junitReporter = FBTestManagerTestReporterJUnit.withOutputFileURL(junitReportURL.appendingPathComponent("junit.xml"))
-                let summaryReporter = SummaryReporter()
-
-                reporters.console.append(consoleReporter)
-                reporters.summary.append(summaryReporter)
-
                 for application in target.applications {
                     try simulator.interact
                         .installApplication(application)
@@ -172,7 +164,7 @@ final class RunTestsCommand: Command {
                 try simulator.interact
                     .startTest(
                         with: testLaunchConfigurartion,
-                        reporter: FBTestManagerTestReporterComposite.withTestReporters([consoleReporter, junitReporter, summaryReporter])
+                        reporter: reporter(for: simulator, target: target)
                     )
                     .perform()
             }
@@ -183,6 +175,19 @@ final class RunTestsCommand: Command {
                     .perform()
             }
         }
+    }
+
+    private func reporter(for simulator: FBSimulator, target: FBXCTestRunTarget) -> FBTestManagerTestReporter {
+        let simulatorIdentifier = "\(simulator.configuration!.deviceName) \(simulator.configuration!.osVersionString)"
+        let consoleReporter = context.reporterType.init(simulatorIdentifier: simulatorIdentifier, testTargetName: target.name, consoleOutput: context.consoleOutput)
+        let junitReportURL = outputURL(for: simulator.configuration!, target: target)
+        let junitReporter = FBTestManagerTestReporterJUnit.withOutputFileURL(junitReportURL.appendingPathComponent("junit.xml"))
+        let summaryReporter = SummaryReporter()
+
+        reporters.console.append(consoleReporter)
+        reporters.summary.append(summaryReporter)
+
+        return FBTestManagerTestReporterComposite.withTestReporters([consoleReporter, junitReporter, summaryReporter])
     }
 
     private func extractDiagnostics(simulators: [FBSimulator], testRun: FBXCTestRun) throws {
@@ -204,11 +209,13 @@ final class RunTestsCommand: Command {
         reporters.console.forEach { $0.writeFailures() }
         reporters.console.forEach { $0.writeSummary() }
 
-        let runCount = reporters.summary.reduce(0) { $0 + $1.total.runCount }
-        let failureCount = reporters.summary.reduce(0) { $0 + $1.total.failureCount }
-        let unexpected = reporters.summary.reduce(0) { $0 + $1.total.unexpected }
-        let output = String(format: "\(ANSI.bold)Total - Finished executing %d tests. %d Failures, %d Unexpected\(ANSI.reset)", runCount, failureCount, unexpected)
-        consoleOutput.write(line: output)
+        if context.reporterType == RSpecReporter.self {
+            let runCount = reporters.summary.reduce(0) { $0 + $1.total.runCount }
+            let failureCount = reporters.summary.reduce(0) { $0 + $1.total.failureCount }
+            let unexpected = reporters.summary.reduce(0) { $0 + $1.total.unexpected }
+            let output = String(format: "\(ANSI.bold)Total - Finished executing %d tests. %d Failures, %d Unexpected\(ANSI.reset)", runCount, failureCount, unexpected)
+            consoleOutput.write(line: output)
+        }
     }
 
     private func outputURL(for simulatorConfiguration: FBSimulatorConfiguration, target: FBXCTestRunTarget) -> URL {
