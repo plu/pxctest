@@ -1,3 +1,6 @@
+# 0.2.6
+
+* Fix crash on Jenkins caused by `synchronizeFile`
 * Support --no-color command line option
 
 # 0.2.5
