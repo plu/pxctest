@@ -54,13 +54,13 @@ The `--destination` option can be passed in several times and will execute the t
 --timeout - Timeout in seconds for the test execution to finish.
 ```
 
-Most of the options should be self explanatory. If not, please open an issue or submit pull requests. However the `--preferences` option needs a special section here.
+Most of the options should be self-explanatory. If not, please open an issue or submit some pull request. However the `--preferences` option needs a special section here.
 
 #### run-tests --preferences
 
-This option expects a path to a file, which contains some JSON. After loading the file, its content gets applied to the Simulator's preferences property list file located at `Library/Preferences/com.apple.Preferences.plist`.
+This option expects a path to a file, which contains some JSON. After loading this file, its content gets applied to the Simulator's preferences property list file located at `Library/Preferences/com.apple.Preferences.plist`.
 
-Example: You can turn off all keyboard settings that you can find in the Simulator's Settings app by using this JSON content:
+Example: You can turn off all keyboard settings that you can find in the Simulator's Settings app by using following JSON content:
 
 ```json
 {
@@ -76,7 +76,7 @@ Example: You can turn off all keyboard settings that you can find in the Simulat
 }
 ```
 
-For this operation being successful, the Simulator must not be launched yet when using the `--preferences` option.
+For this operation to succeed, the Simulator must not be launched yet when using the `--preferences` option.
 
 ## Development
 
@@ -88,7 +88,7 @@ scripts/bootstrap.sh
 
 ## FBSimulatorControl
 
-The functionality provided by `pxctest` would not be possible without the
+The functionality of `pxctest` would not be possible without the
 great [FBSimulatorControl Framework](https://github.com/facebook/FBSimulatorControl)
 provided by [Lawrence Lomax](https://github.com/lawrencelomax) at
 [Facebook](https://github.com/facebook).
