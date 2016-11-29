@@ -11,6 +11,7 @@ import Foundation
 enum ANSI: UInt8, CustomStringConvertible {
 
     case reset = 0
+    case bold
 
     case black = 30
     case red

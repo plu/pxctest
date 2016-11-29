@@ -188,7 +188,7 @@ final class RunTestsCommand {
         let runCount = reporters.summary.reduce(0) { $0 + $1.total.runCount }
         let failureCount = reporters.summary.reduce(0) { $0 + $1.total.failureCount }
         let unexpected = reporters.summary.reduce(0) { $0 + $1.total.unexpected }
-        let output = String(format: "Total - Finished executing %d tests. %d Failures, %d Unexpected", runCount, failureCount, unexpected)
+        let output = String(format: "\(ANSI.bold)Total - Finished executing %d tests. %d Failures, %d Unexpected\(ANSI.reset)", runCount, failureCount, unexpected)
         consoleOutput.write(line: output)
     }
 

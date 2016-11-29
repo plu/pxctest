@@ -26,8 +26,8 @@ final class ConsoleReporter: FBTestManagerTestReporterBase {
         guard let summary = testSuite.summary else { return }
 
         if summary.failureCount > 0 {
-            console.write(line: testTargetName)
-            console.write(line: "  Failures on \(simulatorIdentifier):")
+            console.write(line: "\(ANSI.bold)\(testTargetName)\(ANSI.reset)")
+            console.write(line: "  \(ANSI.bold)Failures on \(simulatorIdentifier):\(ANSI.reset)")
             writeFailures(testSuite: testSuite)
         }
     }
