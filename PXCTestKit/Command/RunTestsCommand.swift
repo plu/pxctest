@@ -205,11 +205,15 @@ final class RunTestsCommand: Command {
 
     private func writeConsoleOutputSummary() {
         let console = context.consoleOutput
+
+        if context.reporterType == RSpecReporter.self {
+            console.write(line: "")
+        }
+
         reporters.console.forEach { $0.writeFailures() }
         reporters.console.forEach { $0.writeSummary() }
 
         if context.reporterType == RSpecReporter.self {
-            console.write(line: "")
             let runCount = reporters.summary.reduce(0) { $0 + $1.total.runCount }
             let failureCount = reporters.summary.reduce(0) { $0 + $1.total.failureCount }
             let unexpected = reporters.summary.reduce(0) { $0 + $1.total.unexpected }
