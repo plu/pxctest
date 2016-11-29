@@ -65,10 +65,10 @@ extension RunTestsCommandTests {
         let temporaryDirectory = URL(fileURLWithPath: "\(NSTemporaryDirectory())/\(UUID().uuidString)")
         try FileManager.default.createDirectory(at: temporaryDirectory, withIntermediateDirectories: true, attributes: nil)
 
-        let configuration = RunTestsCommand.Configuration(temporaryDirectory: temporaryDirectory, testRun: testRun, testsToRun: testsToRun)
+        let context = RunTestsCommand.Context(temporaryDirectory: temporaryDirectory, testRun: testRun, testsToRun: testsToRun)
         var failureCount = 0
 
-        let command = RunTestsCommand(configuration: configuration)
+        let command = RunTestsCommand(context: context)
 
         defer {
             do {
@@ -95,7 +95,7 @@ extension RunTestsCommandTests {
 
 }
 
-extension RunTestsCommand.Configuration {
+extension RunTestsCommand.Context {
 
     init(temporaryDirectory: URL, testRun: URL, testsToRun: Set<String>) {
         let consoleFileHandlePath = temporaryDirectory.appendingPathComponent("console.log").path

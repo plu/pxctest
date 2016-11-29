@@ -21,7 +21,7 @@ final class RunTestsCommand: Command {
         }
     }
 
-    struct Configuration {
+    struct Context {
         let testRun: URL
         let deviceSet: URL
         let output: URL
@@ -46,15 +46,15 @@ final class RunTestsCommand: Command {
         var summary: [SummaryReporter] = []
     }
 
-    private let configuration: Configuration
+    private let context: Context
     private var reporters = Reporters()
     private var simulators: [FBSimulator] = []
     private var testRun: FBXCTestRun!
 
     internal var control: FBSimulatorControl!
 
-    init(configuration: Configuration) {
-        self.configuration = configuration
+    init(context: Context) {
+        self.context = context
     }
 
     func abort() {
@@ -70,22 +70,22 @@ final class RunTestsCommand: Command {
                 }
             }
         }
-        configuration.consoleOutput.write(line: "\(ANSI.red)Test run was aborted\(ANSI.reset)")
+        context.consoleOutput.write(line: "\(ANSI.red)Test run was aborted\(ANSI.reset)")
     }
 
     func run() throws {
-        testRun = try FBXCTestRun.withTestRunFile(atPath: configuration.testRun.path).build()
+        testRun = try FBXCTestRun.withTestRunFile(atPath: context.testRun.path).build()
 
         try resetOutput(testRun: testRun)
 
-        let logFileHandle = try FileHandle(forWritingTo: configuration.logFileURL())
+        let logFileHandle = try FileHandle(forWritingTo: context.logFileURL())
         control = try FBSimulatorControl.withConfiguration(
-            FBSimulatorControlConfiguration(deviceSetPath: configuration.deviceSet.path, options: configuration.simulatorManagementOptions),
+            FBSimulatorControlConfiguration(deviceSetPath: context.deviceSet.path, options: context.simulatorManagementOptions),
             logger: FBControlCoreLogger.aslLoggerWriting(toFileDescriptor: logFileHandle.fileDescriptor, withDebugLogging: false)
         )
 
-        simulators = try configuration.simulators.map {
-            try control.pool.allocateSimulator(with: $0, options: configuration.simulatorAllocationOptions)
+        simulators = try context.simulators.map {
+            try control.pool.allocateSimulator(with: $0, options: context.simulatorAllocationOptions)
         }
 
         try boot(simulators: simulators)
@@ -105,18 +105,18 @@ final class RunTestsCommand: Command {
     private func resetOutput(testRun: FBXCTestRun) throws {
         let fileManager = FileManager.default
 
-        if !fileManager.fileExists(atPath: configuration.output.path) {
-            try fileManager.createDirectory(at: configuration.output, withIntermediateDirectories: true, attributes: nil)
+        if !fileManager.fileExists(atPath: context.output.path) {
+            try fileManager.createDirectory(at: context.output, withIntermediateDirectories: true, attributes: nil)
         }
 
-        if fileManager.fileExists(atPath: configuration.logFileURL().path) {
-            try fileManager.removeItem(at: configuration.logFileURL())
+        if fileManager.fileExists(atPath: context.logFileURL().path) {
+            try fileManager.removeItem(at: context.logFileURL())
         }
 
-        fileManager.createFile(atPath: configuration.logFileURL().path, contents: nil, attributes: nil)
+        fileManager.createFile(atPath: context.logFileURL().path, contents: nil, attributes: nil)
 
         for target in testRun.targets {
-            for simulatorConfiguration in configuration.simulators {
+            for simulatorConfiguration in context.simulators {
                 let url = outputURL(for: simulatorConfiguration, target: target)
                 if fileManager.fileExists(atPath: url.path) {
                     try fileManager.removeItem(at: url)
@@ -128,8 +128,8 @@ final class RunTestsCommand: Command {
 
     private func boot(simulators: [FBSimulator]) throws {
         let simulatorBootConfiguration = FBSimulatorBootConfiguration
-            .withLocalizationOverride(FBLocalizationOverride.withLocale(configuration.locale))
-            .withOptions(configuration.simulatorBootOptions)
+            .withLocalizationOverride(FBLocalizationOverride.withLocale(context.locale))
+            .withOptions(context.simulatorBootOptions)
 
         for simulator in simulators {
             if simulator.state == .booted {
@@ -137,7 +137,7 @@ final class RunTestsCommand: Command {
             }
             try simulator.interact
                 .editPropertyListFileRelative(fromRootPath: "Library/Preferences/com.apple.Preferences.plist") {
-                    $0.addEntries(from: self.configuration.preferences)
+                    $0.addEntries(from: self.context.preferences)
                 }
                 .prepare(forBoot: simulatorBootConfiguration)
                 .bootSimulator(simulatorBootConfiguration)
@@ -147,15 +147,15 @@ final class RunTestsCommand: Command {
 
     private func test(simulators: [FBSimulator], testRun: FBXCTestRun) throws {
         for target in testRun.targets {
-            let testEnvironment = Environment.prepare(target.testLaunchConfiguration.testEnvironment, with: configuration.environment)
-            let testsToRun = target.testLaunchConfiguration.testsToRun.union(configuration.testsToRun)
+            let testEnvironment = Environment.prepare(target.testLaunchConfiguration.testEnvironment, with: context.environment)
+            let testsToRun = target.testLaunchConfiguration.testsToRun.union(context.testsToRun)
             let testLaunchConfigurartion = target.testLaunchConfiguration
                 .withTestsToRun(testsToRun)
                 .withTestEnvironment(testEnvironment)
 
             for simulator in simulators {
                 let simulatorIdentifier = "\(simulator.configuration!.deviceName) \(simulator.configuration!.osVersionString)"
-                let consoleReporter = ConsoleReporter(simulatorIdentifier: simulatorIdentifier, testTargetName: target.name, consoleOutput: configuration.consoleOutput)
+                let consoleReporter = ConsoleReporter(simulatorIdentifier: simulatorIdentifier, testTargetName: target.name, consoleOutput: context.consoleOutput)
                 let junitReportURL = outputURL(for: simulator.configuration!, target: target)
                 let junitReporter = FBTestManagerTestReporterJUnit.withOutputFileURL(junitReportURL.appendingPathComponent("junit.xml"))
                 let summaryReporter = SummaryReporter()
@@ -179,7 +179,7 @@ final class RunTestsCommand: Command {
 
             for simulator in simulators {
                 try simulator.interact
-                    .waitUntilAllTestRunnersHaveFinishedTesting(withTimeout: configuration.timeout)
+                    .waitUntilAllTestRunnersHaveFinishedTesting(withTimeout: context.timeout)
                     .perform()
             }
         }
@@ -199,7 +199,7 @@ final class RunTestsCommand: Command {
     }
 
     private func writeConsoleOutputSummary() {
-        let consoleOutput = configuration.consoleOutput
+        let consoleOutput = context.consoleOutput
         consoleOutput.write(line: "")
         reporters.console.forEach { $0.writeFailures() }
         reporters.console.forEach { $0.writeSummary() }
@@ -212,7 +212,7 @@ final class RunTestsCommand: Command {
     }
 
     private func outputURL(for simulatorConfiguration: FBSimulatorConfiguration, target: FBXCTestRunTarget) -> URL {
-        return configuration.output
+        return context.output
             .appendingPathComponent(target.name)
             .appendingPathComponent(simulatorConfiguration.osVersionString)
             .appendingPathComponent(simulatorConfiguration.deviceName)

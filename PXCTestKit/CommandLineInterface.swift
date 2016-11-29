@@ -34,7 +34,7 @@ import FBSimulatorControl
                 ANSI.disabled = noColor
                 let consoleOutput = ConsoleOutput()
 
-                let configuration = RunTestsCommand.Configuration(
+                let context = RunTestsCommand.Context(
                     testRun: testRun.url,
                     deviceSet: deviceSet.url,
                     output: output.url,
@@ -50,7 +50,7 @@ import FBSimulatorControl
                     simulatorBootOptions: [.awaitServices]
                 )
 
-                CommandLineInterface.command = RunTestsCommand(configuration: configuration)
+                CommandLineInterface.command = RunTestsCommand(context: context)
 
                 do {
                     try CommandLineInterface.command.run()
