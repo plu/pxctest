@@ -9,7 +9,7 @@
 import FBSimulatorControl
 import Foundation
 
-final class RunTestsCommand {
+final class RunTestsCommand: Command {
 
     enum RunTestsError: Error, CustomStringConvertible {
         case testRunHadFailures(Int)
@@ -48,14 +48,33 @@ final class RunTestsCommand {
 
     private let configuration: Configuration
     private var reporters = Reporters()
+    private var simulators: [FBSimulator] = []
+    private var testRun: FBXCTestRun!
+
     internal var control: FBSimulatorControl!
 
     init(configuration: Configuration) {
         self.configuration = configuration
     }
 
+    func abort() {
+        for simulator in simulators {
+            for target in testRun.targets {
+                for application in target.applications {
+                    do {
+                        try simulator.killApplication(withBundleID: application.bundleID)
+                    }
+                    catch {
+                        // Ignore
+                    }
+                }
+            }
+        }
+        configuration.consoleOutput.write(line: "\(ANSI.red)Test run was aborted\(ANSI.reset)")
+    }
+
     func run() throws {
-        let testRun = try FBXCTestRun.withTestRunFile(atPath: configuration.testRun.path).build()
+        testRun = try FBXCTestRun.withTestRunFile(atPath: configuration.testRun.path).build()
 
         try resetOutput(testRun: testRun)
 
@@ -65,7 +84,7 @@ final class RunTestsCommand {
             logger: FBControlCoreLogger.aslLoggerWriting(toFileDescriptor: logFileHandle.fileDescriptor, withDebugLogging: false)
         )
 
-        let simulators = try configuration.simulators.map {
+        simulators = try configuration.simulators.map {
             try control.pool.allocateSimulator(with: $0, options: configuration.simulatorAllocationOptions)
         }
 

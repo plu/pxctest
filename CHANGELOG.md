@@ -1,3 +1,5 @@
+* Support abort via SIGINT
+
 # 0.2.6
 
 * Fix crash on Jenkins caused by `synchronizeFile`

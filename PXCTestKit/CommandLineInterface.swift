@@ -12,7 +12,13 @@ import FBSimulatorControl
 
 @objc open class CommandLineInterface: NSObject {
 
+    static var command: Command!
+
     open static func bootstrap() {
+        SignalHandler.trap(.INT) {
+            CommandLineInterface.command.abort()
+        }
+
         Group {
             $0.command("run-tests",
                        Option<ExistingFileURL>("testrun", ExistingFileURL(url: URL(fileURLWithPath: "")), description: "Path to the .xctestrun file."),
@@ -44,8 +50,10 @@ import FBSimulatorControl
                     simulatorBootOptions: [.awaitServices]
                 )
 
+                CommandLineInterface.command = RunTestsCommand(configuration: configuration)
+
                 do {
-                    try RunTestsCommand(configuration: configuration).run()
+                    try CommandLineInterface.command.run()
                 }
                 catch {
                     consoleOutput.write(line: "\(ANSI.red)\(error)\(ANSI.reset)")

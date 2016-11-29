@@ -32,6 +32,8 @@
 		05E1B2FB1DE6F62A00C38DB1 /* Locale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E1B2FA1DE6F62A00C38DB1 /* Locale.swift */; };
 		05E1B2FF1DE6FD8F00C38DB1 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E1B2FE1DE6FD8F00C38DB1 /* Preferences.swift */; };
 		05E1B3011DE7066E00C38DB1 /* Only.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E1B3001DE7066E00C38DB1 /* Only.swift */; };
+		05E3DE6E1DED319D005A1459 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E3DE6D1DED319D005A1459 /* Command.swift */; };
+		05E3DE701DED328D005A1459 /* SignalHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E3DE6F1DED328D005A1459 /* SignalHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -218,6 +220,8 @@
 		05E1B2FA1DE6F62A00C38DB1 /* Locale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locale.swift; sourceTree = "<group>"; };
 		05E1B2FE1DE6FD8F00C38DB1 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		05E1B3001DE7066E00C38DB1 /* Only.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Only.swift; sourceTree = "<group>"; };
+		05E3DE6D1DED319D005A1459 /* Command.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
+		05E3DE6F1DED328D005A1459 /* SignalHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignalHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -361,7 +365,9 @@
 		05BABCE81DE5829D0012BC5B /* Command */ = {
 			isa = PBXGroup;
 			children = (
+				05E3DE6D1DED319D005A1459 /* Command.swift */,
 				05BABCEE1DE582D70012BC5B /* RunTestsCommand.swift */,
+				05E3DE6F1DED328D005A1459 /* SignalHandler.swift */,
 			);
 			path = Command;
 			sourceTree = "<group>";
@@ -650,7 +656,9 @@
 				05BABCED1DE582BC0012BC5B /* FileURL.swift in Sources */,
 				05BABCAC1DE56E9A0012BC5B /* CommandLineInterface.swift in Sources */,
 				05BABCEF1DE582D70012BC5B /* RunTestsCommand.swift in Sources */,
+				05E3DE6E1DED319D005A1459 /* Command.swift in Sources */,
 				05E1B2FB1DE6F62A00C38DB1 /* Locale.swift in Sources */,
+				05E3DE701DED328D005A1459 /* SignalHandler.swift in Sources */,
 				05E1B2FF1DE6FD8F00C38DB1 /* Preferences.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
