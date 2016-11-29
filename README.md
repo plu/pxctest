@@ -80,10 +80,11 @@ For this operation to succeed, the Simulator must not be launched yet when using
 
 ## Development
 
-After cloning the repository run this script:
-
 ```shell
+git clone --recursive https://github.com/plu/pxctest.git pxctest
+cd pxctest
 scripts/bootstrap.sh
+NSUnbufferedIO=YES xcodebuild -scheme pxctest test | xcpretty -c
 ```
 
 ## FBSimulatorControl
