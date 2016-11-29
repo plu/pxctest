@@ -155,7 +155,7 @@ final class RunTestsCommand: Command {
 
             for simulator in simulators {
                 let simulatorIdentifier = "\(simulator.configuration!.deviceName) \(simulator.configuration!.osVersionString)"
-                let consoleReporter = ConsoleReporter(simulatorIdentifier: simulatorIdentifier, testTargetName: target.name, consoleOutput: context.consoleOutput)
+                let consoleReporter = RSpecLikeReporter(simulatorIdentifier: simulatorIdentifier, testTargetName: target.name, consoleOutput: context.consoleOutput)
                 let junitReportURL = outputURL(for: simulator.configuration!, target: target)
                 let junitReporter = FBTestManagerTestReporterJUnit.withOutputFileURL(junitReportURL.appendingPathComponent("junit.xml"))
                 let summaryReporter = SummaryReporter()
