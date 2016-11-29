@@ -19,6 +19,12 @@ class RunTestsCommandTests: XCTestCase {
         let consoleOutput: String
     }
 
+    override func setUp() {
+        super.setUp()
+
+        ANSI.disabled = true
+    }
+
     func testSampleAppTestRunOnlyFailingTests() throws {
         let testsToRun = Set<String>([
             "SampleTests/testInSampleTestsThatFails",

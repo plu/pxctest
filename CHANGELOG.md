@@ -1,3 +1,5 @@
+* Support --no-color command line option
+
 # 0.2.5
 
 * Inject PXCTEST_CHILD_ prefixed environment variables

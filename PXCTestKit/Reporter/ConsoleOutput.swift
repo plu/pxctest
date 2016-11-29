@@ -10,6 +10,8 @@ import Foundation
 
 enum ANSI: UInt8, CustomStringConvertible {
 
+    static var disabled = false
+
     case reset = 0
     case bold
 
@@ -24,7 +26,7 @@ enum ANSI: UInt8, CustomStringConvertible {
     case `default`
 
     var description: String {
-        return "\u{001B}[\(self.rawValue)m"
+        return ANSI.disabled ?  "" : "\u{001B}[\(self.rawValue)m"
     }
 
 }

@@ -22,8 +22,10 @@ import FBSimulatorControl
                        Option<Preferences>("preferences", Preferences(), description: "Path to some preferences.json to be applied with the Simulator."),
                        Option<Only>("only", Only(), description: "Comma separated list of tests that should be executed only. Example: TestClass1/testFoo,TestClass2/testBar"),
                        VaradicOption<Destination>("destination", [], description: "A comma-separated set of key=value pairs describing the destination to use, just like xcodebuild -destination."),
-                       Option<Double>("timeout", 3600.0, description: "Timeout in seconds for the test execution to finish.")
-            ) { (testRun, deviceSet, output, locale, preferences, only, destination, timeout) in
+                       Option<Double>("timeout", 3600.0, description: "Timeout in seconds for the test execution to finish."),
+                       Flag("no-color", description: "")
+            ) { (testRun, deviceSet, output, locale, preferences, only, destination, timeout, noColor) in
+                ANSI.disabled = noColor
                 let consoleOutput = ConsoleOutput()
 
                 let configuration = RunTestsCommand.Configuration(
