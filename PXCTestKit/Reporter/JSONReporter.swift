@@ -44,14 +44,14 @@ final class JSONReporter: NSObject, FBTestManagerTestReporter, ConsoleReporter {
             case .begin(let target, let simulator): return [
                 "event": "begin-ocunit",
                 "testType": "application-test", // FIXME
-                "bundleName": "", // FIXME
+                "bundleName": "\(target).xctest",
                 "targetName": target,
                 "simulatorName": simulator,
             ]
             case .end(let target, let simulator, let success): return [
                 "event": "end-ocunit",
                 "testType": "application-test", // FIXME
-                "bundleName": "", // FIXME
+                "bundleName": "\(target).xctest",
                 "targetName": target,
                 "simulatorName": simulator,
                 "succeeded": success,
