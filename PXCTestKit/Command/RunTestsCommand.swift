@@ -29,7 +29,7 @@ final class RunTestsCommand: Command {
         let environment: [String: String]
         let preferences: [String: Any]
         let reporterType: ConsoleReporter.Type
-        let testsToRun: Set<String>
+        let testsToRun: [String: Set<String>]
         let simulators: [FBSimulatorConfiguration]
         let timeout: Double
         let consoleOutput: ConsoleOutput
@@ -148,8 +148,15 @@ final class RunTestsCommand: Command {
 
     private func test(simulators: [FBSimulator], testRun: FBXCTestRun) throws {
         for target in testRun.targets {
+            if context.testsToRun.count > 0 && context.testsToRun[target.name] == nil {
+                continue
+            }
+
+            var testsToRun = target.testLaunchConfiguration.testsToRun
+            if context.testsToRun.count > 0, let targetTestsToRun = context.testsToRun[target.name] {
+                testsToRun = target.testLaunchConfiguration.testsToRun.union(targetTestsToRun)
+            }
             let testEnvironment = Environment.prepare(target.testLaunchConfiguration.testEnvironment, with: context.environment)
-            let testsToRun = target.testLaunchConfiguration.testsToRun.union(context.testsToRun)
             let testLaunchConfigurartion = target.testLaunchConfiguration
                 .withTestsToRun(testsToRun)
                 .withTestEnvironment(testEnvironment)

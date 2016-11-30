@@ -26,4 +26,12 @@ final class Fixtures {
         return try! String(contentsOf: bundle.url(forResource: "testSampleAppTestRunOnlySuccessfulTests", withExtension: "expected_output")!)
     }
 
+    var testSampleAppTestRunOnlyOneTarget: String {
+        return try! String(contentsOf: bundle.url(forResource: "testSampleAppTestRunOnlyOneTarget", withExtension: "expected_output")!)
+    }
+
+    var testSampleAppTestRunRunWithAllTargetsAndJSONReporter: String {
+        return try! String(contentsOf: bundle.url(forResource: "testSampleAppTestRunRunWithAllTargetsAndJSONReporter", withExtension: "expected_output")!)
+    }
+
 }

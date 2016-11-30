@@ -26,46 +26,50 @@ class RunTestsCommandTests: XCTestCase {
     }
 
     func testSampleAppTestRunOnlyFailingTests() throws {
-        let testsToRun = Set<String>([
-            "SampleTests/testInSampleTestsThatFails",
-            "SampleUITests/testInSampleUITestsThatFails"
-        ])
+        var testsToRun = Dictionary<String, Set<String>>()
+        testsToRun["SampleTests"] = Set(["SampleTests/testInSampleTestsThatFails"])
+        testsToRun["SampleUITests"] = Set(["SampleUITests/testInSampleUITestsThatFails"])
         let result = try runTests(testRun: fixtures.sampleAppTestRun, testsToRun: testsToRun)
 
         XCTAssertEqual(result.failureCount, 4)
-        XCTAssertEqualConsoleOutput(result.consoleOutput, fixtures.testSampleAppTestRunOnlyFailingTestsOutput)
+        XCTAssertEqualRSpecOutput(result.consoleOutput, fixtures.testSampleAppTestRunOnlyFailingTestsOutput)
     }
 
     func testSampleAppTestRunOnlySuccessfulTests() throws {
-        let testsToRun = Set<String>([
-            "SampleTests/testEnvironmentVariableInjection",
-            "SampleTests/testInSampleTestsThatSucceeds",
-            "SampleUITests/testInSampleUITestsThatSucceeds"
-        ])
+        var testsToRun = Dictionary<String, Set<String>>()
+        testsToRun["SampleTests"] = Set(["SampleTests/testEnvironmentVariableInjection", "SampleTests/testInSampleTestsThatSucceeds"])
+        testsToRun["SampleUITests"] = Set(["SampleUITests/testInSampleUITestsThatSucceeds"])
         let result = try runTests(testRun: fixtures.sampleAppTestRun, testsToRun: testsToRun)
 
         XCTAssertEqual(result.failureCount, 0)
-        XCTAssertEqualConsoleOutput(result.consoleOutput, fixtures.testSampleAppTestRunOnlySuccessfulTestsOutput)
+        XCTAssertEqualRSpecOutput(result.consoleOutput, fixtures.testSampleAppTestRunOnlySuccessfulTestsOutput)
+    }
+
+    func testSampleAppTestRunOnlyOneTarget() throws {
+        var testsToRun = Dictionary<String, Set<String>>()
+        testsToRun["SuccessfulTests"] = Set()
+        let result = try runTests(testRun: fixtures.sampleAppTestRun, testsToRun: testsToRun)
+
+        XCTAssertEqual(result.failureCount, 0)
+        XCTAssertEqualRSpecOutput(result.consoleOutput, fixtures.testSampleAppTestRunOnlyOneTarget)
+    }
+
+    func testSampleAppTestRunRunWithAllTargetsAndJSONReporter() throws {
+        let result = try runTests(testRun: fixtures.sampleAppTestRun, reporterType: JSONReporter.self)
+
+        XCTAssertEqual(result.failureCount, 4)
+        XCTAssertEqualJSONOutput(result.consoleOutput, fixtures.testSampleAppTestRunRunWithAllTargetsAndJSONReporter)
     }
 
 }
 
 extension RunTestsCommandTests {
 
-    fileprivate func XCTAssertEqualConsoleOutput(_ expression1: String, _ expression2: String, file: StaticString = #file, line: UInt = #line) {
-        let regularExpression = try! NSRegularExpression(pattern: "\\d+\\.\\d{3}+s", options: [])
-        XCTAssertEqual(
-            regularExpression.stringByReplacingMatches(in: expression1, options: [], range: NSRange(location: 0, length: expression1.lengthOfBytes(using: .utf8)), withTemplate: "1.234s"),
-            regularExpression.stringByReplacingMatches(in: expression2, options: [], range: NSRange(location: 0, length: expression2.lengthOfBytes(using: .utf8)), withTemplate: "1.234s"),
-            file: file,
-            line: line)
-    }
-
-    fileprivate func runTests(testRun: URL, testsToRun: Set<String> = Set<String>()) throws -> Result {
+    fileprivate func runTests(testRun: URL, testsToRun: [String: Set<String>] = [String: Set<String>](), reporterType: ConsoleReporter.Type = RSpecReporter.self) throws -> Result {
         let temporaryDirectory = URL(fileURLWithPath: "\(NSTemporaryDirectory())/\(UUID().uuidString)")
         try FileManager.default.createDirectory(at: temporaryDirectory, withIntermediateDirectories: true, attributes: nil)
 
-        let context = RunTestsCommand.Context(temporaryDirectory: temporaryDirectory, testRun: testRun, testsToRun: testsToRun)
+        let context = RunTestsCommand.Context(temporaryDirectory: temporaryDirectory, testRun: testRun, testsToRun: testsToRun, reporterType: reporterType)
         var failureCount = 0
 
         let command = RunTestsCommand(context: context)
@@ -97,7 +101,7 @@ extension RunTestsCommandTests {
 
 extension RunTestsCommand.Context {
 
-    init(temporaryDirectory: URL, testRun: URL, testsToRun: Set<String>) {
+    init(temporaryDirectory: URL, testRun: URL, testsToRun: [String: Set<String>], reporterType: ConsoleReporter.Type = RSpecReporter.self) {
         let consoleFileHandlePath = temporaryDirectory.appendingPathComponent("console.log").path
         FileManager.default.createFile(atPath: consoleFileHandlePath, contents: nil, attributes: nil)
         self.init(
@@ -107,7 +111,7 @@ extension RunTestsCommand.Context {
             locale: Locale.current,
             environment: ["PXCTEST_CHILD_FOO": "BAR"],
             preferences: [:],
-            reporterType: RSpecReporter.self,
+            reporterType: reporterType,
             testsToRun: testsToRun,
             simulators: [
                 FBSimulatorConfiguration.iPhone5().iOS_9_3(),

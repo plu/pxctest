@@ -7,8 +7,9 @@
 		<key>BundleIdentifiersForCrashReportEmphasis</key>
 		<array>
 			<string>com.facebook.Sample</string>
-			<string>com.facebook.SampleTests</string>
+			<string>com.plunien.SuccessfulTests</string>
 			<string>com.facebook.SampleUITests</string>
+			<string>com.facebook.SampleTests</string>
 		</array>
 		<key>CommandLineArguments</key>
 		<array/>
@@ -16,6 +17,7 @@
 		<array>
 			<string>__TESTROOT__/Sample.app</string>
 			<string>__TESTROOT__/Sample.app/PlugIns/SampleTests.xctest</string>
+			<string>__TESTROOT__/Sample.app/PlugIns/SuccessfulTests.xctest</string>
 			<string>__TESTROOT__/SampleUITests-Runner.app/PlugIns/SampleUITests.xctest</string>
 		</array>
 		<key>EnvironmentVariables</key>
@@ -66,8 +68,9 @@
 		<key>BundleIdentifiersForCrashReportEmphasis</key>
 		<array>
 			<string>com.facebook.Sample</string>
-			<string>com.facebook.SampleTests</string>
+			<string>com.plunien.SuccessfulTests</string>
 			<string>com.facebook.SampleUITests</string>
+			<string>com.facebook.SampleTests</string>
 		</array>
 		<key>CommandLineArguments</key>
 		<array/>
@@ -75,6 +78,7 @@
 		<array>
 			<string>__TESTROOT__/Sample.app</string>
 			<string>__TESTROOT__/Sample.app/PlugIns/SampleTests.xctest</string>
+			<string>__TESTROOT__/Sample.app/PlugIns/SuccessfulTests.xctest</string>
 			<string>__TESTROOT__/SampleUITests-Runner.app/PlugIns/SampleUITests.xctest</string>
 		</array>
 		<key>EnvironmentVariables</key>
@@ -117,6 +121,67 @@
 		<array/>
 		<key>UITargetAppPath</key>
 		<string>__TESTROOT__/Sample.app</string>
+	</dict>
+	<key>SuccessfulTests</key>
+	<dict>
+		<key>BundleIdentifiersForCrashReportEmphasis</key>
+		<array>
+			<string>com.facebook.Sample</string>
+			<string>com.plunien.SuccessfulTests</string>
+			<string>com.facebook.SampleUITests</string>
+			<string>com.facebook.SampleTests</string>
+		</array>
+		<key>CommandLineArguments</key>
+		<array/>
+		<key>DependentProductPaths</key>
+		<array>
+			<string>__TESTROOT__/Sample.app</string>
+			<string>__TESTROOT__/Sample.app/PlugIns/SampleTests.xctest</string>
+			<string>__TESTROOT__/Sample.app/PlugIns/SuccessfulTests.xctest</string>
+			<string>__TESTROOT__/SampleUITests-Runner.app/PlugIns/SampleUITests.xctest</string>
+		</array>
+		<key>EnvironmentVariables</key>
+		<dict>
+			<key>DYLD_FRAMEWORK_PATH</key>
+			<string>/Users/joplunien/Development/pxctest/PXCTestKitTests/Fixtures</string>
+			<key>DYLD_LIBRARY_PATH</key>
+			<string>/Users/joplunien/Development/pxctest/PXCTestKitTests/Fixtures</string>
+			<key>OS_ACTIVITY_DT_MODE</key>
+			<string>YES</string>
+			<key>__XCODE_BUILT_PRODUCTS_DIR_PATHS</key>
+			<string>/Users/joplunien/Development/pxctest/PXCTestKitTests/Fixtures</string>
+			<key>__XPC_DYLD_FRAMEWORK_PATH</key>
+			<string>/Users/joplunien/Development/pxctest/PXCTestKitTests/Fixtures</string>
+			<key>__XPC_DYLD_LIBRARY_PATH</key>
+			<string>/Users/joplunien/Development/pxctest/PXCTestKitTests/Fixtures</string>
+		</dict>
+		<key>IsAppHostedTestBundle</key>
+		<true/>
+		<key>ProductModuleName</key>
+		<string>SuccessfulTests</string>
+		<key>TestBundlePath</key>
+		<string>__TESTHOST__/PlugIns/SuccessfulTests.xctest</string>
+		<key>TestHostBundleIdentifier</key>
+		<string>com.facebook.Sample</string>
+		<key>TestHostPath</key>
+		<string>__TESTROOT__/Sample.app</string>
+		<key>TestingEnvironmentVariables</key>
+		<dict>
+			<key>DTX_CONNECTION_SERVICES_PATH</key>
+			<string>__PLATFORMS__/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/Developer/Library/PrivateFrameworks/DTXConnectionServices.framework</string>
+			<key>DYLD_FRAMEWORK_PATH</key>
+			<string>__TESTROOT__:__PLATFORMS__/iPhoneSimulator.platform/Developer/Library/Frameworks</string>
+			<key>DYLD_INSERT_LIBRARIES</key>
+			<string>__PLATFORMS__/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/IDEBundleInjection.framework/IDEBundleInjection</string>
+			<key>DYLD_LIBRARY_PATH</key>
+			<string>__TESTROOT__:__PLATFORMS__/iPhoneSimulator.platform/Developer/Library/Frameworks</string>
+			<key>XCInjectBundleInto</key>
+			<string>__TESTHOST__/Sample</string>
+			<key>XCODE_DBG_XPC_EXCLUSIONS</key>
+			<string>com.apple.dt.xctestSymbolicator</string>
+		</dict>
+		<key>ToolchainsSettingValue</key>
+		<array/>
 	</dict>
 </dict>
 </plist>

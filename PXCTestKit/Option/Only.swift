@@ -12,22 +12,24 @@ import Foundation
 struct Only: ArgumentConvertible {
 
     let testsToRun: Set<String>
+    let targetName: String
 
     var description: String {
         return testsToRun.description
     }
 
-    init(testsToRun: Set<String>) {
+    init(targetName: String, testsToRun: Set<String>) {
+        self.targetName = targetName
         self.testsToRun = testsToRun
-    }
-
-    init() {
-        self.init(testsToRun: Set<String>())
     }
 
     init(parser: ArgumentParser) throws {
         if let value = parser.shift() {
-            self.init(testsToRun: Set<String>(value.components(separatedBy: ",")))
+            var parts = value.components(separatedBy: ":")
+            guard let tests = parts.popLast(), let targetName = parts.popLast(), parts.count == 0 else {
+                throw ArgumentError.invalidType(value: value, type: "only", argument: nil)
+            }
+            self.init(targetName: targetName, testsToRun: Set<String>(tests.components(separatedBy: ",")))
         } else {
             throw ArgumentError.missingValue(argument: nil)
         }

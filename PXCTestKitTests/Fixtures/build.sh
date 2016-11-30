@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
-
 rm -r *.app *.xctestrun
 
 pushd Sample.source
