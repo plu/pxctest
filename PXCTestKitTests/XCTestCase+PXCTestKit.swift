@@ -11,36 +11,44 @@ import XCTest
 
 extension XCTestCase {
 
+    func parse(jsonOutput json: String) throws -> [[String: NSObject]] {
+        return try json
+            .components(separatedBy: "\n")
+            .filter { $0.characters.count > 0 }
+            .flatMap {
+                try JSONSerialization.jsonObject(with: $0.data(using: .utf8) ?? Data(), options: []) as? [String: NSObject]
+            }
+            .sorted { return ($0.0["timestamp"] as? Double ?? 0.0) < ($0.1["timestamp"] as? Double ?? 0.0) }
+    }
+
     func XCTAssertEqualJSONOutput(_ testOutput: String, _ expectedOutput: String, file: StaticString = #file, line: UInt = #line) {
-        var testRecords = testOutput.components(separatedBy: "\n")
-        var expectedRecords = expectedOutput.components(separatedBy: "\n")
+        do {
+            var testRecords = try parse(jsonOutput: testOutput)
+            var expectedRecords = try parse(jsonOutput: expectedOutput)
 
-        XCTAssertEqual(testRecords.count, expectedRecords.count, "Different count of testRecords and expectedRecords", file: file, line: line)
+            XCTAssertGreaterThan(testRecords.count, 0, file: file, line: line)
+            XCTAssertGreaterThan(expectedRecords.count, 0, file: file, line: line)
+            XCTAssertEqual(testRecords.count, expectedRecords.count, "Different count of testRecords and expectedRecords", file: file, line: line)
 
-        repeat {
-            let testRecordJSON = testRecords.popLast() ?? ""
-            let expectedRecordJSON = expectedRecords.popLast() ?? ""
-            if testRecordJSON.characters.count == 0 && expectedRecordJSON.characters.count == 0 {
-                continue
-            }
-            var testRecord: [String: NSObject]!
-            var expectedRecord: [String: NSObject]!
-            do { testRecord = try JSONSerialization.jsonObject(with: testRecordJSON.data(using: .utf8) ?? Data(), options: []) as? [String: NSObject] } catch { XCTFail("\(error)") }
-            do { expectedRecord = try JSONSerialization.jsonObject(with: expectedRecordJSON.data(using: .utf8) ?? Data(), options: []) as? [String: NSObject] } catch { XCTFail("\(error)") }
-            if testRecord == nil || expectedRecord == nil {
-                XCTFail("Could not parse JSON")
-                continue
-            }
-            ["timestamp", "totalDuration", "testDuration"].forEach { (key: String) in
-                testRecord[key] = nil
-                expectedRecord[key] = nil
+            var recordNumber = 0
+
+            while var testRecord = testRecords.popLast(), var expectedRecord = expectedRecords.popLast() {
+                ["timestamp", "totalDuration", "testDuration"].forEach { (key: String) in
+                    let (_, _) = (
+                        testRecord.removeValue(forKey: key),
+                        expectedRecord.removeValue(forKey: key)
+                    )
+                }
+
+                XCTAssertEqual(testRecord, expectedRecord, "Record #\(recordNumber)", file: file, line: line)
+                recordNumber = recordNumber + 1
             }
 
-            XCTAssertEqual(testRecord, expectedRecord, file: file, line: line)
-        } while testRecords.count > 0 && expectedRecords.count > 0
-
-        XCTAssertEqual(testRecords.count, 0, "Not all testRecords were consumed: \(testRecords)")
-        XCTAssertEqual(expectedRecords.count, 0, "Not all expectedRecords were consumed: \(expectedRecords)")
+            XCTAssertEqual(testRecords.count, 0, "Not all testRecords were consumed: \(testRecords)", file: file, line: line)
+            XCTAssertEqual(expectedRecords.count, 0, "Not all expectedRecords were consumed: \(expectedRecords)", file: file, line: line)
+        } catch {
+            XCTFail("\(error)")
+        }
     }
 
     func XCTAssertEqualRSpecOutput(_ expression1: String, _ expression2: String, file: StaticString = #file, line: UInt = #line) {
