@@ -30,7 +30,7 @@ import FBSimulatorControl
                        VaradicOption<Only>("only", [], description: "Comma separated list of tests that should be executed only. Format: TARGET[:Class/case[,Class2/case2]]"),
                        VaradicOption<Destination>("destination", [], description: "A comma-separated set of key=value pairs describing the destination to use, just like xcodebuild -destination."),
                        Option<Double>("timeout", 3600.0, description: "Timeout in seconds for the test execution to finish."),
-                       Flag("no-color", description: "")
+                       Flag("no-color", description: "Do not add colors to console output.")
             ) { (testRun, deviceSet, output, locale, preferences, reporter, only, destination, timeout, noColor) in
                 ANSI.disabled = noColor
                 let consoleOutput = ConsoleOutput()
