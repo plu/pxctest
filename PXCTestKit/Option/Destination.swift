@@ -22,15 +22,15 @@ struct Destination: ArgumentConvertible, CustomStringConvertible {
 
     init(parser: ArgumentParser) throws {
         if let value = parser.shift() {
-            try self.init(destinationIdentifier: value)
+            try self.init(string: value)
         } else {
             throw ArgumentError.missingValue(argument: nil)
         }
     }
 
-    init(destinationIdentifier: String) throws {
-        self.destinationIdentifier = destinationIdentifier
-        self.simulatorConfiguration = try Destination.parse(destinationIdentifier: destinationIdentifier)
+    init(string: String) throws {
+        self.destinationIdentifier = string
+        self.simulatorConfiguration = try Destination.parse(string: string)
     }
 
     enum ParsingError: Error, CustomStringConvertible {
@@ -41,25 +41,25 @@ struct Destination: ArgumentConvertible, CustomStringConvertible {
 
         var description: String {
             switch self {
-            case .invalidOS(let os): return "Invalid os identifier: \(os)"
-            case .invalidDevice(let device): return "Invalid device identifier: \(device)"
+            case .invalidOS(let os): return "Invalid os: \(os)"
+            case .invalidDevice(let device): return "Invalid device: \(device)"
             case .unrecognizedKey(let key): return "Invalid destination key: \(key)"
-            case .unrecognizedDestination(let destination): return "Invalid destination: \(destination)"
+            case .unrecognizedDestination(let destination): return "Invalid destination format: \(destination)"
             }
         }
     }
 
-    static func parse(destinationIdentifier: String) throws -> FBSimulatorConfiguration {
+    static func parse(string: String) throws -> FBSimulatorConfiguration {
         var device: FBControlCoreConfiguration_Device?
         var os: FBControlCoreConfiguration_OS?
 
-        for part in destinationIdentifier.components(separatedBy: ",") {
+        for part in string.components(separatedBy: ",") {
             if part.lengthOfBytes(using: .utf8) == 0 {
                 continue
             }
 
             guard let equalsRange = part.range(of: "=") else {
-                throw ParsingError.unrecognizedDestination(destinationIdentifier)
+                throw ParsingError.unrecognizedDestination(string)
             }
 
             let key = part.substring(to: equalsRange.lowerBound)
