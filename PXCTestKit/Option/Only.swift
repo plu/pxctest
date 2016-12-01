@@ -11,28 +11,44 @@ import Foundation
 
 struct Only: ArgumentConvertible {
 
-    let testsToRun: Set<String>
     let targetName: String
+    let testsToRun: Set<String>
+
+    private let testsToRunIdentifier: String
 
     var description: String {
-        return testsToRun.description
-    }
-
-    init(targetName: String, testsToRun: Set<String>) {
-        self.targetName = targetName
-        self.testsToRun = testsToRun
+        return "\(testsToRunIdentifier)"
     }
 
     init(parser: ArgumentParser) throws {
         if let value = parser.shift() {
-            var parts = value.components(separatedBy: ":")
-            guard let tests = parts.popLast(), let targetName = parts.popLast(), parts.count == 0 else {
-                throw ArgumentError.invalidType(value: value, type: "only", argument: nil)
-            }
-            self.init(targetName: targetName, testsToRun: Set<String>(tests.components(separatedBy: ",")))
+            try self.init(string: value)
         } else {
             throw ArgumentError.missingValue(argument: nil)
         }
+    }
+
+    init(string: String) throws {
+        self.testsToRunIdentifier = string
+        (self.targetName, self.testsToRun) = try Only.parse(string: string)
+    }
+
+    enum ParsingError: Error, CustomStringConvertible {
+        case missingTarget(String)
+
+        var description: String {
+            switch self {
+            case .missingTarget(let only): return "Invalid only format: \(only)"
+            }
+        }
+    }
+
+    static func parse(string: String) throws -> (String, Set<String>) {
+        var parts = string.components(separatedBy: ":")
+        guard let tests = parts.popLast(), let targetName = parts.popLast(), parts.count == 0 else {
+            throw ParsingError.missingTarget(string)
+        }
+        return (targetName, Set<String>(tests.components(separatedBy: ",")))
     }
 
 }

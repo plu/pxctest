@@ -18,6 +18,7 @@
 		05B6EC0D1DEEF90B008CBBEE /* testSampleAppTestRunOnlyOneTarget.expected_output in Resources */ = {isa = PBXBuildFile; fileRef = 05B6EC0C1DEEF90B008CBBEE /* testSampleAppTestRunOnlyOneTarget.expected_output */; };
 		05B6EC1F1DEEFBD0008CBBEE /* testSampleAppTestRunRunWithAllTargetsAndJSONReporter.expected_output in Resources */ = {isa = PBXBuildFile; fileRef = 05B6EC1E1DEEFBD0008CBBEE /* testSampleAppTestRunRunWithAllTargetsAndJSONReporter.expected_output */; };
 		05B6EC211DEFC21D008CBBEE /* XCTestCase+PXCTestKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B6EC201DEFC21D008CBBEE /* XCTestCase+PXCTestKit.swift */; };
+		05B6EC231DEFC8ED008CBBEE /* OnlyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B6EC221DEFC8ED008CBBEE /* OnlyTests.swift */; };
 		05BABC861DE56DDE0012BC5B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BABC851DE56DDE0012BC5B /* main.m */; };
 		05BABC9B1DE56E390012BC5B /* PXCTestKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05BABC921DE56E390012BC5B /* PXCTestKit.framework */; };
 		05BABCA21DE56E390012BC5B /* PXCTestKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 05BABC941DE56E390012BC5B /* PXCTestKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -205,6 +206,7 @@
 		05B6EC0C1DEEF90B008CBBEE /* testSampleAppTestRunOnlyOneTarget.expected_output */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testSampleAppTestRunOnlyOneTarget.expected_output; sourceTree = "<group>"; };
 		05B6EC1E1DEEFBD0008CBBEE /* testSampleAppTestRunRunWithAllTargetsAndJSONReporter.expected_output */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testSampleAppTestRunRunWithAllTargetsAndJSONReporter.expected_output; sourceTree = "<group>"; };
 		05B6EC201DEFC21D008CBBEE /* XCTestCase+PXCTestKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+PXCTestKit.swift"; sourceTree = "<group>"; };
+		05B6EC221DEFC8ED008CBBEE /* OnlyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnlyTests.swift; sourceTree = "<group>"; };
 		05BABC821DE56DDE0012BC5B /* pxctest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pxctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		05BABC851DE56DDE0012BC5B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		05BABC8C1DE56E070012BC5B /* pxctest.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = pxctest.xcconfig; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 				05BC2B111DEAB9EB00ED3F58 /* Fixtures */,
 				05BC2B4B1DEABA3300ED3F58 /* Fixtures.swift */,
 				05BABCA11DE56E390012BC5B /* Info.plist */,
+				05B6EC221DEFC8ED008CBBEE /* OnlyTests.swift */,
 				05BC2B491DEABA0A00ED3F58 /* RunTestsCommandTests.swift */,
 				05B6EC201DEFC21D008CBBEE /* XCTestCase+PXCTestKit.swift */,
 			);
@@ -695,6 +698,7 @@
 				05BABCF31DE58E730012BC5B /* DestinationTests.swift in Sources */,
 				05B6EC211DEFC21D008CBBEE /* XCTestCase+PXCTestKit.swift in Sources */,
 				05BC2B4C1DEABA3300ED3F58 /* Fixtures.swift in Sources */,
+				05B6EC231DEFC8ED008CBBEE /* OnlyTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
