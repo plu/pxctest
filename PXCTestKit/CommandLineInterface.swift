@@ -43,11 +43,7 @@ import FBSimulatorControl
                     environment: ProcessInfo.processInfo.environment,
                     preferences: preferences.dictionary,
                     reporterType: reporter.type,
-                    testsToRun: only.reduce([String: Set<String>](), {
-                        var result = $0
-                        result[$1.targetName] = $1.testsToRun
-                        return result
-                    }),
+                    testsToRun: only.dictionary(),
                     simulators: destination.map({ $0.simulatorConfiguration }),
                     timeout: timeout,
                     consoleOutput: consoleOutput,

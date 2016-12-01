@@ -21,4 +21,15 @@ class OnlyTests: XCTestCase {
         XCTAssertThrowsError(try Only(string: "ClassOne/testThis,ClassTwo/testThat"))
     }
 
+    func testDictionary() throws {
+        let dictionary = [
+            try Only(string: "UITests:HomeScreen/testThis,SearchScreen/testThat"),
+            try Only(string: "UnitTests:UserService/testThis,SearchService/testThat"),
+        ].dictionary()
+        XCTAssertEqual(dictionary, [
+            "UnitTests": Set<String>(["UserService/testThis", "SearchService/testThat"]),
+            "UITests": Set<String>(["HomeScreen/testThis", "SearchScreen/testThat"]),
+        ])
+    }
+
 }

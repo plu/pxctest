@@ -52,3 +52,16 @@ struct Only: ArgumentConvertible {
     }
 
 }
+
+
+extension Sequence where Iterator.Element == Only {
+
+    func dictionary() -> [String: Set<String>] {
+        return reduce([String: Set<String>](), {
+            var result = $0
+            result[$1.targetName] = $1.testsToRun
+            return result
+        })
+    }
+
+}
