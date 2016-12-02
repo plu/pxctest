@@ -89,7 +89,7 @@ final class XcodeReporter: NSObject, FBTestManagerTestReporter {
 extension Int {
 
     func forOutput(_ string: String) -> String {
-        return self == 1 ? "\(string)" : "\(string)s"
+        return self == 1 ? "\(self) \(string)" : "\(self) \(string)s"
     }
 
 }
