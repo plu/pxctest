@@ -42,7 +42,7 @@ final class XcodeReporter: NSObject, FBTestManagerTestReporter {
     func testManagerMediator(_ mediator: FBTestManagerAPIMediator!, testCaseDidFinishForTestClass testClass: String!, method: String!, with status: FBTestReportStatus, duration: TimeInterval) {
         write(String(
             format: "Test Case '-[%@ %@]' %@ (%.03fs) seconds).",
-            testClass!, method!, FBTestManagerResultSummary.statusString(for: status), duration
+            testClass!, method!, FBTestManagerResultSummary.statusString(for: status).lowercased(), duration
         ))
     }
 
