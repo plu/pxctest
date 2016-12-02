@@ -1,3 +1,5 @@
+# 0.2.7
+
 * Support abort via SIGINT
 * Support JSON stream reporter (similar to xctool's JSON stream)
 * Breaking change: --only expects a new format: TARGET[:Class/case[,Class2/case2]]
