@@ -12,11 +12,12 @@ import FBSimulatorControl
 
 @objc open class CommandLineInterface: NSObject {
 
-    static var command: Command!
+    static var command: Command?
 
     open static func bootstrap() {
         SignalHandler.trap(.INT) {
-            CommandLineInterface.command.abort()
+            CommandLineInterface.command?.abort()
+            exit(2)
         }
 
         Group {
@@ -55,7 +56,7 @@ import FBSimulatorControl
                 CommandLineInterface.command = RunTestsCommand(context: context)
 
                 do {
-                    try CommandLineInterface.command.run()
+                    try CommandLineInterface.command?.run()
                 }
                 catch {
                     consoleOutput.write(line: "\(ANSI.red)\(error)\(ANSI.reset)")

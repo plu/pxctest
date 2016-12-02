@@ -71,7 +71,7 @@ final class RunTestsCommand: Command {
                 }
             }
         }
-        context.consoleOutput.write(line: "\(ANSI.red)Test run was aborted\(ANSI.reset)")
+        context.consoleOutput.write(line: "\n\(ANSI.red)Test run was aborted\(ANSI.reset)")
     }
 
     func run() throws {
