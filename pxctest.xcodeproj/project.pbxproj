@@ -10,6 +10,7 @@
 		050207091DED8BFC00AB14FB /* Reporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050207081DED8BFC00AB14FB /* Reporter.swift */; };
 		050207101DED963E00AB14FB /* SummaryReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0502070F1DED963E00AB14FB /* SummaryReporter.swift */; };
 		0541E15D1DE5A02C00D65F16 /* RSpecReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0541E15C1DE5A02C00D65F16 /* RSpecReporter.swift */; };
+		055DCD6E1DF035AE00BB6B82 /* XcodeReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055DCD6D1DF035AE00BB6B82 /* XcodeReporter.swift */; };
 		058FD55A1DEAC8490066CE4B /* testSampleAppTestRunOnlyFailingTests.expected_output in Resources */ = {isa = PBXBuildFile; fileRef = 058FD5591DEAC8490066CE4B /* testSampleAppTestRunOnlyFailingTests.expected_output */; };
 		058FD55C1DEAD7350066CE4B /* testSampleAppTestRunOnlySuccessfulTests.expected_output in Resources */ = {isa = PBXBuildFile; fileRef = 058FD55B1DEAD7350066CE4B /* testSampleAppTestRunOnlySuccessfulTests.expected_output */; };
 		05B2CA331DEBE93000795F07 /* ConsoleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B2CA321DEBE93000795F07 /* ConsoleOutput.swift */; };
@@ -196,6 +197,7 @@
 		0502070F1DED963E00AB14FB /* SummaryReporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryReporter.swift; sourceTree = "<group>"; };
 		053634A11DE7E0F400F7BDB8 /* PXCTestKit.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PXCTestKit.xcconfig; sourceTree = "<group>"; };
 		0541E15C1DE5A02C00D65F16 /* RSpecReporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSpecReporter.swift; sourceTree = "<group>"; };
+		055DCD6D1DF035AE00BB6B82 /* XcodeReporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XcodeReporter.swift; sourceTree = "<group>"; };
 		058FD5501DEAC82D0066CE4B /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		058FD5511DEAC82D0066CE4B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		058FD5591DEAC8490066CE4B /* testSampleAppTestRunOnlyFailingTests.expected_output */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testSampleAppTestRunOnlyFailingTests.expected_output; sourceTree = "<group>"; };
@@ -276,11 +278,12 @@
 		0541E15B1DE59FFF00D65F16 /* Reporter */ = {
 			isa = PBXGroup;
 			children = (
-				0502070F1DED963E00AB14FB /* SummaryReporter.swift */,
 				05B2CA321DEBE93000795F07 /* ConsoleOutput.swift */,
 				05E3DE731DED574B005A1459 /* ConsoleReporter.swift */,
 				05E3DE751DED58ED005A1459 /* JSONReporter.swift */,
 				0541E15C1DE5A02C00D65F16 /* RSpecReporter.swift */,
+				0502070F1DED963E00AB14FB /* SummaryReporter.swift */,
+				055DCD6D1DF035AE00BB6B82 /* XcodeReporter.swift */,
 			);
 			path = Reporter;
 			sourceTree = "<group>";
@@ -683,6 +686,7 @@
 				05BABCEF1DE582D70012BC5B /* RunTestsCommand.swift in Sources */,
 				05E3DE6E1DED319D005A1459 /* Command.swift in Sources */,
 				05E1B2FB1DE6F62A00C38DB1 /* Locale.swift in Sources */,
+				055DCD6E1DF035AE00BB6B82 /* XcodeReporter.swift in Sources */,
 				05E3DE761DED58ED005A1459 /* JSONReporter.swift in Sources */,
 				05E3DE701DED328D005A1459 /* SignalHandler.swift in Sources */,
 				05E1B2FF1DE6FD8F00C38DB1 /* Preferences.swift in Sources */,

@@ -187,14 +187,16 @@ final class RunTestsCommand: Command {
     private func reporter(for simulator: FBSimulator, target: FBXCTestRunTarget) -> FBTestManagerTestReporter {
         let simulatorIdentifier = "\(simulator.configuration!.deviceName) \(simulator.configuration!.osVersionString)"
         let consoleReporter = context.reporterType.init(simulatorIdentifier: simulatorIdentifier, testTargetName: target.name, consoleOutput: context.consoleOutput)
-        let junitReportURL = outputURL(for: simulator.configuration!, target: target)
-        let junitReporter = FBTestManagerTestReporterJUnit.withOutputFileURL(junitReportURL.appendingPathComponent("junit.xml"))
+        let junitReportURL = outputURL(for: simulator.configuration!, target: target).appendingPathComponent("junit.xml")
+        let junitReporter = FBTestManagerTestReporterJUnit.withOutputFileURL(junitReportURL)
+        let xcodeReportURL = outputURL(for: simulator.configuration!, target: target).appendingPathComponent("test.log")
+        let xcodeReporter = XcodeReporter(fileURL: xcodeReportURL)
         let summaryReporter = SummaryReporter()
 
         reporters.console.append(consoleReporter)
         reporters.summary.append(summaryReporter)
 
-        return FBTestManagerTestReporterComposite.withTestReporters([consoleReporter, junitReporter, summaryReporter])
+        return FBTestManagerTestReporterComposite.withTestReporters([consoleReporter, junitReporter, summaryReporter, xcodeReporter])
     }
 
     private func extractDiagnostics(simulators: [FBSimulator], testRun: FBXCTestRun) throws {
