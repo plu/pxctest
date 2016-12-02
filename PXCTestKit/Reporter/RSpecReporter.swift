@@ -14,6 +14,7 @@ final class RSpecReporter: FBTestManagerTestReporterBase, ConsoleReporter {
     let console: ConsoleOutput
     let simulatorIdentifier: String
     let testTargetName: String
+    let writeTotalSummary = true
 
     init(simulatorIdentifier: String, testTargetName: String, consoleOutput: ConsoleOutput) {
         self.console = consoleOutput

@@ -14,6 +14,7 @@ protocol ConsoleReporter: FBTestManagerTestReporter {
     var console: ConsoleOutput { get }
     var simulatorIdentifier: String { get }
     var testTargetName: String { get }
+    var writeTotalSummary: Bool { get }
 
     init(simulatorIdentifier: String, testTargetName: String, consoleOutput: ConsoleOutput)
 

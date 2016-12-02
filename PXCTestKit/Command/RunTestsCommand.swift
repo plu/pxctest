@@ -214,15 +214,16 @@ final class RunTestsCommand: Command {
 
     private func writeConsoleOutputSummary() {
         let console = context.consoleOutput
+        let writeTotalSummary = reporters.console.reduce(true, { return $0 && $1.writeTotalSummary })
 
-        if context.reporterType == RSpecReporter.self {
+        if writeTotalSummary {
             console.write(line: "")
         }
 
         reporters.console.forEach { $0.writeFailures() }
         reporters.console.forEach { $0.writeSummary() }
 
-        if context.reporterType == RSpecReporter.self {
+        if writeTotalSummary {
             let runCount = reporters.summary.reduce(0) { $0 + $1.total.runCount }
             let failureCount = reporters.summary.reduce(0) { $0 + $1.total.failureCount }
             let unexpected = reporters.summary.reduce(0) { $0 + $1.total.unexpected }

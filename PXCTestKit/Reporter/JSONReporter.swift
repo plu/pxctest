@@ -14,6 +14,7 @@ final class JSONReporter: NSObject, FBTestManagerTestReporter, ConsoleReporter {
     let console: ConsoleOutput
     let simulatorIdentifier: String
     let testTargetName: String
+    let writeTotalSummary = false
 
     private var exceptions: [String: [[String: String]]] = [:]
 
