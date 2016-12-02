@@ -1,6 +1,7 @@
 * Support abort via SIGINT
 * Support JSON stream reporter (similar to xctool's JSON stream)
 * Breaking change: --only expects a new format: TARGET[:Class/case[,Class2/case2]]
+* Write test log file in format similar to Xcode
 
 # 0.2.6
 
