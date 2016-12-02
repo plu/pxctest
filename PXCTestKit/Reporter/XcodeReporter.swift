@@ -54,9 +54,10 @@ final class XcodeReporter: NSObject, FBTestManagerTestReporter {
     }
 
     func testManagerMediator(_ mediator: FBTestManagerAPIMediator!, finishedWith summary: FBTestManagerResultSummary!) {
+        let testSuiteResult = summary.failureCount > 0 ? "failed" : "passed"
         write(String(
-            format: "Test Suite '%@' failed at %@.",
-            summary.testSuite, summary.finishTime
+            format: "Test Suite '%@' %@ at %@.",
+            summary.testSuite, testSuiteResult, summary.finishTime
         ))
         write(String(
             format: "      Executed %@, with %@ (%d unexpected) in %.03fs (%.03fs) seconds",
