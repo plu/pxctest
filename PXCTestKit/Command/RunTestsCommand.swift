@@ -11,7 +11,7 @@ import Foundation
 
 final class RunTestsCommand: Command {
 
-    enum RunTestsError: Error, CustomStringConvertible {
+    enum RuntimeError: Error, CustomStringConvertible {
         case testRunHadFailures(Int)
         case testRunHadErrors([TestError])
 
@@ -103,14 +103,14 @@ final class RunTestsCommand: Command {
         try extractDiagnostics(simulators: simulators, testRun: testRun, testErrors: testErrors)
 
         if testErrors.count > 0 {
-            throw RunTestsError.testRunHadErrors(testErrors)
+            throw RuntimeError.testRunHadErrors(testErrors)
         }
 
         writeConsoleOutputSummary()
 
         let failureCount = reporters.summary.reduce(0) { $0 + $1.total.failureCount }
         if failureCount > 0 {
-            throw RunTestsError.testRunHadFailures(failureCount)
+            throw RuntimeError.testRunHadFailures(failureCount)
         }
     }
 

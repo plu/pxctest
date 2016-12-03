@@ -106,10 +106,10 @@ extension RunTestsCommandTests {
         do {
             try command.run()
         }
-        catch RunTestsCommand.RunTestsError.testRunHadFailures(let count) {
+        catch RunTestsCommand.RuntimeError.testRunHadFailures(let count) {
             failureCount = count
         }
-        catch RunTestsCommand.RunTestsError.testRunHadErrors(let errors) {
+        catch RunTestsCommand.RuntimeError.testRunHadErrors(let errors) {
             testErrors = errors
         }
 
