@@ -17,6 +17,7 @@ class RunTestsCommandTests: XCTestCase {
     fileprivate struct Result {
         let failureCount: Int
         let consoleOutput: String
+        let testErrors: [RunTestsCommand.TestError]?
     }
 
     override func setUp() {
@@ -24,6 +25,8 @@ class RunTestsCommandTests: XCTestCase {
 
         ANSI.disabled = true
     }
+
+    // MARK: - Sample.app
 
     func testSampleAppTestRunOnlyFailingTests() throws {
         var testsToRun = Dictionary<String, Set<String>>()
@@ -33,6 +36,7 @@ class RunTestsCommandTests: XCTestCase {
 
         XCTAssertEqual(result.failureCount, 4)
         XCTAssertEqualRSpecOutput(result.consoleOutput, fixtures.testSampleAppTestRunOnlyFailingTestsOutput)
+        XCTAssertNil(result.testErrors)
     }
 
     func testSampleAppTestRunOnlySuccessfulTests() throws {
@@ -43,6 +47,7 @@ class RunTestsCommandTests: XCTestCase {
 
         XCTAssertEqual(result.failureCount, 0)
         XCTAssertEqualRSpecOutput(result.consoleOutput, fixtures.testSampleAppTestRunOnlySuccessfulTestsOutput)
+        XCTAssertNil(result.testErrors)
     }
 
     func testSampleAppTestRunOnlyOneTarget() throws {
@@ -52,6 +57,7 @@ class RunTestsCommandTests: XCTestCase {
 
         XCTAssertEqual(result.failureCount, 0)
         XCTAssertEqualRSpecOutput(result.consoleOutput, fixtures.testSampleAppTestRunOnlyOneTarget)
+        XCTAssertNil(result.testErrors)
     }
 
     func testSampleAppTestRunRunWithAllTargetsAndJSONReporter() throws {
@@ -59,6 +65,17 @@ class RunTestsCommandTests: XCTestCase {
 
         XCTAssertEqual(result.failureCount, 4)
         XCTAssertEqualJSONOutput(result.consoleOutput, fixtures.testSampleAppTestRunRunWithAllTargetsAndJSONReporter)
+        XCTAssertNil(result.testErrors)
+    }
+
+    // MARK: - Crash.app
+
+    func testCrashAppTestRun() throws {
+        let result = try runTests(testRun: fixtures.crashAppTestRun)
+
+        XCTAssertEqual(result.failureCount, 0)
+        XCTAssertEqualRSpecOutput(result.consoleOutput, "..")
+        XCTAssertEqual(result.testErrors?.count, 2)
     }
 
 }
@@ -84,16 +101,22 @@ extension RunTestsCommandTests {
             }
         }
 
+        var testErrors: [RunTestsCommand.TestError]? = nil
+
         do {
             try command.run()
         }
         catch RunTestsCommand.RunTestsError.testRunHadFailures(let count) {
             failureCount = count
         }
+        catch RunTestsCommand.RunTestsError.testRunHadErrors(let errors) {
+            testErrors = errors
+        }
 
         return Result(
             failureCount: failureCount,
-            consoleOutput: try String(contentsOf: temporaryDirectory.appendingPathComponent("console.log"))
+            consoleOutput: try String(contentsOf: temporaryDirectory.appendingPathComponent("console.log")),
+            testErrors: testErrors
         )
     }
 

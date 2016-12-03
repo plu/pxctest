@@ -13,6 +13,17 @@ xcodebuild \
   clean build-for-testing
 popd
 
+pushd Crash.source
+xcodebuild \
+  -IDEBuildLocationStyle=Custom \
+  -IDECustomBuildLocationType=Absolute \
+  -IDECustomBuildProductsPath=$PWD/../ \
+  -scheme Crash \
+  -project Crash.xcodeproj \
+  -destination 'platform=iOS Simulator,name=iPhone 5,OS=latest' \
+  clean build-for-testing
+popd
+
 mv Debug-iphonesimulator/* .
 rmdir Debug-iphonesimulator
 

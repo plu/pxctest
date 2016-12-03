@@ -13,10 +13,12 @@ final class RunTestsCommand: Command {
 
     enum RunTestsError: Error, CustomStringConvertible {
         case testRunHadFailures(Int)
+        case testRunHadErrors([TestError])
 
         var description: String {
             switch self {
             case .testRunHadFailures(let count): return "Test run had \(count) failures"
+            case .testRunHadErrors(let errors): return "Test run had errors: \(errors)"
             }
         }
     }
@@ -45,6 +47,13 @@ final class RunTestsCommand: Command {
     struct Reporters {
         var console: [ConsoleReporter] = []
         var summary: [SummaryReporter] = []
+    }
+
+    struct TestError {
+        let simulator: FBSimulator
+        let target: String
+        let errors: [Error]
+        let crashes: [FBDiagnostic]
     }
 
     private let context: Context
@@ -90,8 +99,12 @@ final class RunTestsCommand: Command {
         }
 
         try boot(simulators: simulators)
-        try test(simulators: simulators, testRun: testRun)
-        try extractDiagnostics(simulators: simulators, testRun: testRun)
+        let testErrors = try test(simulators: simulators, testRun: testRun)
+        try extractDiagnostics(simulators: simulators, testRun: testRun, testErrors: testErrors)
+
+        if testErrors.count > 0 {
+            throw RunTestsError.testRunHadErrors(testErrors)
+        }
 
         writeConsoleOutputSummary()
 
@@ -118,7 +131,7 @@ final class RunTestsCommand: Command {
 
         for target in testRun.targets {
             for simulatorConfiguration in context.simulators {
-                let url = outputURL(for: simulatorConfiguration, target: target)
+                let url = outputURL(for: simulatorConfiguration, target: target.name)
                 if fileManager.fileExists(atPath: url.path) {
                     try fileManager.removeItem(at: url)
                 }
@@ -146,7 +159,9 @@ final class RunTestsCommand: Command {
         }
     }
 
-    private func test(simulators: [FBSimulator], testRun: FBXCTestRun) throws {
+    private func test(simulators: [FBSimulator], testRun: FBXCTestRun) throws -> [TestError] {
+        var errors: [TestError] = []
+
         for target in testRun.targets {
             if context.testsToRun.count > 0 && context.testsToRun[target.name] == nil {
                 continue
@@ -177,19 +192,29 @@ final class RunTestsCommand: Command {
             }
 
             for simulator in simulators {
-                try simulator.interact
-                    .waitUntilAllTestRunnersHaveFinishedTesting(withTimeout: context.timeout)
-                    .perform()
+                let testManagerResults = simulator.resourceSink.testManagers.flatMap { $0.waitUntilTestingHasFinished(withTimeout: context.timeout) }
+                if testManagerResults.reduce(true, { $0 && $1.didEndSuccessfully }) {
+                    continue
+                }
+                let error = TestError(
+                    simulator: simulator,
+                    target: target.name,
+                    errors: testManagerResults.flatMap { $0.error },
+                    crashes: testManagerResults.flatMap { $0.crashDiagnostic }
+                )
+                errors.append(error)
             }
         }
+
+        return errors
     }
 
     private func reporter(for simulator: FBSimulator, target: FBXCTestRunTarget) -> FBTestManagerTestReporter {
         let simulatorIdentifier = "\(simulator.configuration!.deviceName) \(simulator.configuration!.osVersionString)"
         let consoleReporter = context.reporterType.init(simulatorIdentifier: simulatorIdentifier, testTargetName: target.name, consoleOutput: context.consoleOutput)
-        let junitReportURL = outputURL(for: simulator.configuration!, target: target).appendingPathComponent("junit.xml")
+        let junitReportURL = outputURL(for: simulator.configuration!, target: target.name).appendingPathComponent("junit.xml")
         let junitReporter = FBTestManagerTestReporterJUnit.withOutputFileURL(junitReportURL)
-        let xcodeReportURL = outputURL(for: simulator.configuration!, target: target).appendingPathComponent("test.log")
+        let xcodeReportURL = outputURL(for: simulator.configuration!, target: target.name).appendingPathComponent("test.log")
         let xcodeReporter = XcodeReporter(fileURL: xcodeReportURL)
         let summaryReporter = SummaryReporter()
 
@@ -199,15 +224,20 @@ final class RunTestsCommand: Command {
         return FBTestManagerTestReporterComposite.withTestReporters([consoleReporter, junitReporter, summaryReporter, xcodeReporter])
     }
 
-    private func extractDiagnostics(simulators: [FBSimulator], testRun: FBXCTestRun) throws {
+    private func extractDiagnostics(simulators: [FBSimulator], testRun: FBXCTestRun, testErrors: [TestError]) throws {
         for simulator in simulators {
             for target in testRun.targets {
                 for application in target.applications {
                     guard let diagnostics = simulator.diagnostics.launchedProcessLogs().first(where: { $0.0.processName == application.name })?.value else { continue }
-                    guard let logFilePath = diagnostics.asPath else { return }
-                    let destinationPath = outputURL(for: simulator.configuration!, target: target).appendingPathComponent("\(application.name).log").path
-                    try FileManager.default.copyItem(atPath: logFilePath, toPath: destinationPath)
+                    let destinationPath = outputURL(for: simulator.configuration!, target: target.name).path
+                    try diagnostics.writeOut(toDirectory: destinationPath)
                 }
+            }
+        }
+        for error in testErrors {
+            for crash in error.crashes {
+                let destinationPath = outputURL(for: error.simulator.configuration!, target: error.target).path
+                try crash.writeOut(toDirectory: destinationPath)
             }
         }
     }
@@ -232,9 +262,9 @@ final class RunTestsCommand: Command {
         }
     }
 
-    private func outputURL(for simulatorConfiguration: FBSimulatorConfiguration, target: FBXCTestRunTarget) -> URL {
+    private func outputURL(for simulatorConfiguration: FBSimulatorConfiguration, target: String) -> URL {
         return context.output
-            .appendingPathComponent(target.name)
+            .appendingPathComponent(target)
             .appendingPathComponent(simulatorConfiguration.osVersionString)
             .appendingPathComponent(simulatorConfiguration.deviceName)
     }

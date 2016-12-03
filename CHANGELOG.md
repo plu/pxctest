@@ -1,3 +1,5 @@
+* Extract crash logs
+
 # 0.2.7
 
 * Support abort via SIGINT

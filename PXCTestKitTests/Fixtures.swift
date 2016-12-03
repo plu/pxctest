@@ -14,6 +14,8 @@ final class Fixtures {
         return Bundle(for: type(of: self))
     }
 
+    // MARK: - Sample.app
+
     var sampleAppTestRun: URL {
         return bundle.url(forResource: "Sample_iphonesimulator10.1-i386", withExtension: "xctestrun")!
     }
@@ -32,6 +34,12 @@ final class Fixtures {
 
     var testSampleAppTestRunRunWithAllTargetsAndJSONReporter: String {
         return try! String(contentsOf: bundle.url(forResource: "testSampleAppTestRunRunWithAllTargetsAndJSONReporter", withExtension: "expected_output")!)
+    }
+
+    // MARK: - Crash.app
+
+    var crashAppTestRun: URL {
+        return bundle.url(forResource: "Crash_iphonesimulator10.1-i386", withExtension: "xctestrun")!
     }
 
 }
