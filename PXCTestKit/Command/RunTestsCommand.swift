@@ -69,14 +69,12 @@ final class RunTestsCommand: Command {
 
     func abort() {
         for simulator in simulators {
-            for target in testRun.targets {
-                for application in target.applications {
-                    do {
-                        try simulator.killApplication(withBundleID: application.bundleID)
-                    }
-                    catch {
-                        context.consoleOutput.write(line: "\(error)")
-                    }
+            for application in testRun.targets.flatMap({ $0.applications }) {
+                do {
+                    try simulator.killApplication(withBundleID: application.bundleID)
+                }
+                catch {
+                    context.consoleOutput.write(line: "\(error)")
                 }
             }
         }
