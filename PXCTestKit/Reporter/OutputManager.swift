@@ -15,7 +15,7 @@ final class OutputManager {
         return url.appendingPathComponent("simulator.log")
     }
 
-    private let url: URL
+    let url: URL
 
     init(url: URL) {
         self.url = url

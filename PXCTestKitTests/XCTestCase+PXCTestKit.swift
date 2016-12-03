@@ -60,4 +60,16 @@ extension XCTestCase {
             line: line)
     }
 
+    func XCTAssertDirectoryExists(_ path: String, file: StaticString = #file, line: UInt = #line) {
+        var isDirectory: ObjCBool = false
+        XCTAssertTrue(FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory), "Directory does not exist: \(path)", file: file, line: line)
+        XCTAssertTrue(isDirectory.boolValue, "Directory is a file: \(path)", file: file, line: line)
+    }
+
+    func XCTAssertFileExists(_ path: String, file: StaticString = #file, line: UInt = #line) {
+        var isDirectory: ObjCBool = false
+        XCTAssertTrue(FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory), "File does not exist: \(path)", file: file, line: line)
+        XCTAssertFalse(isDirectory.boolValue, "File is a directory: \(path)", file: file, line: line)
+    }
+
 }

@@ -43,6 +43,7 @@
 		05E3DE741DED574B005A1459 /* ConsoleReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E3DE731DED574B005A1459 /* ConsoleReporter.swift */; };
 		05E3DE761DED58ED005A1459 /* JSONReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E3DE751DED58ED005A1459 /* JSONReporter.swift */; };
 		3EB0AEA61DF2AA11003D72CC /* OutputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB0AEA51DF2AA11003D72CC /* OutputManager.swift */; };
+		3EB0AEA81DF2B4FE003D72CC /* OutputManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB0AEA71DF2B4FE003D72CC /* OutputManagerTests.swift */; };
 		3EFC1B9E1DF26FEF0011E88B /* Crash_iphonesimulator10.1-i386.xctestrun in Resources */ = {isa = PBXBuildFile; fileRef = 3EFC1B9C1DF26FEF0011E88B /* Crash_iphonesimulator10.1-i386.xctestrun */; };
 		3EFC1B9F1DF26FEF0011E88B /* Crash.app in Resources */ = {isa = PBXBuildFile; fileRef = 3EFC1B9D1DF26FEF0011E88B /* Crash.app */; };
 /* End PBXBuildFile section */
@@ -242,6 +243,7 @@
 		05E3DE731DED574B005A1459 /* ConsoleReporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleReporter.swift; sourceTree = "<group>"; };
 		05E3DE751DED58ED005A1459 /* JSONReporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONReporter.swift; sourceTree = "<group>"; };
 		3EB0AEA51DF2AA11003D72CC /* OutputManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputManager.swift; sourceTree = "<group>"; };
+		3EB0AEA71DF2B4FE003D72CC /* OutputManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputManagerTests.swift; sourceTree = "<group>"; };
 		3EFC1B9C1DF26FEF0011E88B /* Crash_iphonesimulator10.1-i386.xctestrun */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Crash_iphonesimulator10.1-i386.xctestrun"; sourceTree = "<group>"; };
 		3EFC1B9D1DF26FEF0011E88B /* Crash.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = Crash.app; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -350,6 +352,7 @@
 				05BC2B4B1DEABA3300ED3F58 /* Fixtures.swift */,
 				05BABCA11DE56E390012BC5B /* Info.plist */,
 				05B6EC221DEFC8ED008CBBEE /* OnlyTests.swift */,
+				3EB0AEA71DF2B4FE003D72CC /* OutputManagerTests.swift */,
 				05BC2B491DEABA0A00ED3F58 /* RunTestsCommandTests.swift */,
 				05B6EC201DEFC21D008CBBEE /* XCTestCase+PXCTestKit.swift */,
 			);
@@ -711,6 +714,7 @@
 			files = (
 				05BC2B4A1DEABA0A00ED3F58 /* RunTestsCommandTests.swift in Sources */,
 				05B2CA371DEBEA1F00795F07 /* EnvironmentTests.swift in Sources */,
+				3EB0AEA81DF2B4FE003D72CC /* OutputManagerTests.swift in Sources */,
 				05BABCF31DE58E730012BC5B /* DestinationTests.swift in Sources */,
 				05B6EC211DEFC21D008CBBEE /* XCTestCase+PXCTestKit.swift in Sources */,
 				05BC2B4C1DEABA3300ED3F58 /* Fixtures.swift in Sources */,
