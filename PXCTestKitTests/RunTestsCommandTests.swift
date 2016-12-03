@@ -136,7 +136,7 @@ extension RunTestsCommand.Context {
             preferences: [:],
             reporterType: reporterType,
             testsToRun: testsToRun,
-            simulators: [
+            simulatorConfigurations: [
                 FBSimulatorConfiguration.iPhone5().iOS_9_3(),
                 FBSimulatorConfiguration.iPadRetina().iOS_9_3(),
                 ],

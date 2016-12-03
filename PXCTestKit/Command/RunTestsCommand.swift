@@ -32,7 +32,7 @@ final class RunTestsCommand: Command {
         let preferences: [String: Any]
         let reporterType: ConsoleReporter.Type
         let testsToRun: [String: Set<String>]
-        let simulators: [FBSimulatorConfiguration]
+        let simulatorConfigurations: [FBSimulatorConfiguration]
         let timeout: Double
         let consoleOutput: ConsoleOutput
         let simulatorManagementOptions: FBSimulatorManagementOptions
@@ -82,7 +82,7 @@ final class RunTestsCommand: Command {
 
         try context.output.reset(
             targets: testRun.targets.map({ $0.name }),
-            simulatorConfigurations: context.simulators
+            simulatorConfigurations: context.simulatorConfigurations
         )
 
         let logFileHandle = try FileHandle(forWritingTo: context.output.logFile)
@@ -91,7 +91,7 @@ final class RunTestsCommand: Command {
             logger: FBControlCoreLogger.aslLoggerWriting(toFileDescriptor: logFileHandle.fileDescriptor, withDebugLogging: false)
         )
 
-        simulators = try context.simulators.map {
+        simulators = try context.simulatorConfigurations.map {
             try control.pool.allocateSimulator(with: $0, options: context.simulatorAllocationOptions)
         }
 

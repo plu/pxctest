@@ -45,7 +45,7 @@ import FBSimulatorControl
                     preferences: preferences.dictionary,
                     reporterType: reporter.type,
                     testsToRun: only.dictionary(),
-                    simulators: destination.map({ $0.simulatorConfiguration }),
+                    simulatorConfigurations: destination.map({ $0.simulatorConfiguration }),
                     timeout: timeout,
                     consoleOutput: consoleOutput,
                     simulatorManagementOptions: [],
