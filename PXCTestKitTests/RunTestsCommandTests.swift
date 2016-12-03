@@ -130,7 +130,7 @@ extension RunTestsCommand.Context {
         self.init(
             testRun: testRun,
             deviceSet: temporaryDirectory.appendingPathComponent("simulators"),
-            output: temporaryDirectory.appendingPathComponent("output"),
+            output: OutputManager(url: temporaryDirectory.appendingPathComponent("output")),
             locale: Locale.current,
             environment: ["PXCTEST_CHILD_FOO": "BAR"],
             preferences: [:],

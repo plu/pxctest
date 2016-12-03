@@ -26,7 +26,7 @@ final class RunTestsCommand: Command {
     struct Context {
         let testRun: URL
         let deviceSet: URL
-        let output: URL
+        let output: OutputManager
         let locale: Locale
         let environment: [String: String]
         let preferences: [String: Any]
@@ -38,10 +38,6 @@ final class RunTestsCommand: Command {
         let simulatorManagementOptions: FBSimulatorManagementOptions
         let simulatorAllocationOptions: FBSimulatorAllocationOptions
         let simulatorBootOptions: FBSimulatorBootOptions
-
-        func logFileURL() -> URL {
-            return output.appendingPathComponent("simulator.log")
-        }
     }
 
     struct Reporters {
@@ -84,9 +80,12 @@ final class RunTestsCommand: Command {
     func run() throws {
         testRun = try FBXCTestRun.withTestRunFile(atPath: context.testRun.path).build()
 
-        try resetOutput(testRun: testRun)
+        try context.output.reset(
+            targets: testRun.targets.map({ $0.name }),
+            simulatorConfigurations: context.simulators
+        )
 
-        let logFileHandle = try FileHandle(forWritingTo: context.logFileURL())
+        let logFileHandle = try FileHandle(forWritingTo: context.output.logFile)
         control = try FBSimulatorControl.withConfiguration(
             FBSimulatorControlConfiguration(deviceSetPath: context.deviceSet.path, options: context.simulatorManagementOptions),
             logger: FBControlCoreLogger.aslLoggerWriting(toFileDescriptor: logFileHandle.fileDescriptor, withDebugLogging: false)
@@ -113,30 +112,6 @@ final class RunTestsCommand: Command {
     }
 
     // MARK: - Private
-
-    private func resetOutput(testRun: FBXCTestRun) throws {
-        let fileManager = FileManager.default
-
-        if !fileManager.fileExists(atPath: context.output.path) {
-            try fileManager.createDirectory(at: context.output, withIntermediateDirectories: true, attributes: nil)
-        }
-
-        if fileManager.fileExists(atPath: context.logFileURL().path) {
-            try fileManager.removeItem(at: context.logFileURL())
-        }
-
-        fileManager.createFile(atPath: context.logFileURL().path, contents: nil, attributes: nil)
-
-        for target in testRun.targets {
-            for simulatorConfiguration in context.simulators {
-                let url = outputURL(for: simulatorConfiguration, target: target.name)
-                if fileManager.fileExists(atPath: url.path) {
-                    try fileManager.removeItem(at: url)
-                }
-                try fileManager.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
-            }
-        }
-    }
 
     private func boot(simulators: [FBSimulator]) throws {
         let simulatorBootConfiguration = FBSimulatorBootConfiguration
@@ -210,9 +185,9 @@ final class RunTestsCommand: Command {
     private func reporter(for simulator: FBSimulator, target: FBXCTestRunTarget) -> FBTestManagerTestReporter {
         let simulatorIdentifier = "\(simulator.configuration!.deviceName) \(simulator.configuration!.osVersionString)"
         let consoleReporter = context.reporterType.init(simulatorIdentifier: simulatorIdentifier, testTargetName: target.name, consoleOutput: context.consoleOutput)
-        let junitReportURL = outputURL(for: simulator.configuration!, target: target.name).appendingPathComponent("junit.xml")
+        let junitReportURL = context.output.url(for: simulator.configuration!, target: target.name).appendingPathComponent("junit.xml")
         let junitReporter = FBTestManagerTestReporterJUnit.withOutputFileURL(junitReportURL)
-        let xcodeReportURL = outputURL(for: simulator.configuration!, target: target.name).appendingPathComponent("test.log")
+        let xcodeReportURL = context.output.url(for: simulator.configuration!, target: target.name).appendingPathComponent("test.log")
         let xcodeReporter = XcodeReporter(fileURL: xcodeReportURL)
         let summaryReporter = SummaryReporter()
 
@@ -227,14 +202,14 @@ final class RunTestsCommand: Command {
             for target in testRun.targets {
                 for application in target.applications {
                     guard let diagnostics = simulator.diagnostics.launchedProcessLogs().first(where: { $0.0.processName == application.name })?.value else { continue }
-                    let destinationPath = outputURL(for: simulator.configuration!, target: target.name).path
+                    let destinationPath = context.output.url(for: simulator.configuration!, target: target.name).path
                     try diagnostics.writeOut(toDirectory: destinationPath)
                 }
             }
         }
         for error in testErrors {
             for crash in error.crashes {
-                let destinationPath = outputURL(for: error.simulator.configuration!, target: error.target).path
+                let destinationPath = context.output.url(for: error.simulator.configuration!, target: error.target).path
                 try crash.writeOut(toDirectory: destinationPath)
             }
         }
@@ -258,13 +233,6 @@ final class RunTestsCommand: Command {
             let output = String(format: "\(ANSI.bold)Total - Finished executing %d tests. %d Failures, %d Unexpected\(ANSI.reset)", runCount, failureCount, unexpected)
             console.write(line: output)
         }
-    }
-
-    private func outputURL(for simulatorConfiguration: FBSimulatorConfiguration, target: String) -> URL {
-        return context.output
-            .appendingPathComponent(target)
-            .appendingPathComponent(simulatorConfiguration.osVersionString)
-            .appendingPathComponent(simulatorConfiguration.deviceName)
     }
 
 }

@@ -42,6 +42,7 @@
 		05E3DE701DED328D005A1459 /* SignalHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E3DE6F1DED328D005A1459 /* SignalHandler.swift */; };
 		05E3DE741DED574B005A1459 /* ConsoleReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E3DE731DED574B005A1459 /* ConsoleReporter.swift */; };
 		05E3DE761DED58ED005A1459 /* JSONReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E3DE751DED58ED005A1459 /* JSONReporter.swift */; };
+		3EB0AEA61DF2AA11003D72CC /* OutputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB0AEA51DF2AA11003D72CC /* OutputManager.swift */; };
 		3EFC1B9E1DF26FEF0011E88B /* Crash_iphonesimulator10.1-i386.xctestrun in Resources */ = {isa = PBXBuildFile; fileRef = 3EFC1B9C1DF26FEF0011E88B /* Crash_iphonesimulator10.1-i386.xctestrun */; };
 		3EFC1B9F1DF26FEF0011E88B /* Crash.app in Resources */ = {isa = PBXBuildFile; fileRef = 3EFC1B9D1DF26FEF0011E88B /* Crash.app */; };
 /* End PBXBuildFile section */
@@ -240,6 +241,7 @@
 		05E3DE6F1DED328D005A1459 /* SignalHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignalHandler.swift; sourceTree = "<group>"; };
 		05E3DE731DED574B005A1459 /* ConsoleReporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleReporter.swift; sourceTree = "<group>"; };
 		05E3DE751DED58ED005A1459 /* JSONReporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONReporter.swift; sourceTree = "<group>"; };
+		3EB0AEA51DF2AA11003D72CC /* OutputManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputManager.swift; sourceTree = "<group>"; };
 		3EFC1B9C1DF26FEF0011E88B /* Crash_iphonesimulator10.1-i386.xctestrun */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Crash_iphonesimulator10.1-i386.xctestrun"; sourceTree = "<group>"; };
 		3EFC1B9D1DF26FEF0011E88B /* Crash.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = Crash.app; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -285,6 +287,7 @@
 				05B2CA321DEBE93000795F07 /* ConsoleOutput.swift */,
 				05E3DE731DED574B005A1459 /* ConsoleReporter.swift */,
 				05E3DE751DED58ED005A1459 /* JSONReporter.swift */,
+				3EB0AEA51DF2AA11003D72CC /* OutputManager.swift */,
 				0541E15C1DE5A02C00D65F16 /* RSpecReporter.swift */,
 				0502070F1DED963E00AB14FB /* SummaryReporter.swift */,
 				055DCD6D1DF035AE00BB6B82 /* XcodeReporter.swift */,
@@ -697,6 +700,7 @@
 				055DCD6E1DF035AE00BB6B82 /* XcodeReporter.swift in Sources */,
 				05E3DE761DED58ED005A1459 /* JSONReporter.swift in Sources */,
 				05E3DE701DED328D005A1459 /* SignalHandler.swift in Sources */,
+				3EB0AEA61DF2AA11003D72CC /* OutputManager.swift in Sources */,
 				05E1B2FF1DE6FD8F00C38DB1 /* Preferences.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
