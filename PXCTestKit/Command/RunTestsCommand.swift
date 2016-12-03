@@ -75,7 +75,7 @@ final class RunTestsCommand: Command {
                         try simulator.killApplication(withBundleID: application.bundleID)
                     }
                     catch {
-                        // Ignore
+                        context.consoleOutput.write(line: "\(error)")
                     }
                 }
             }
