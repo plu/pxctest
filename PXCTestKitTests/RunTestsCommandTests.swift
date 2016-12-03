@@ -91,10 +91,15 @@ extension RunTestsCommandTests {
 
         let command = RunTestsCommand(context: context)
 
+        let control = try FBSimulatorControl.withConfiguration(
+            FBSimulatorControlConfiguration(deviceSetPath: context.deviceSet.path, options: context.simulatorManagementOptions),
+            logger: FBControlCoreLogger.aslLoggerWriting(toFileDescriptor: FileHandle.nullDevice.fileDescriptor, withDebugLogging: false)
+        )
+
         defer {
             do {
-                try command.control.pool.set.killAll()
-                try command.control.pool.set.deleteAll()
+                try control.pool.set.killAll()
+                try control.pool.set.deleteAll()
             }
             catch {
                 // Ignore.
@@ -104,7 +109,7 @@ extension RunTestsCommandTests {
         var testErrors: [RunTestsCommand.TestError]? = nil
 
         do {
-            try command.run()
+            try command.run(control: control)
         }
         catch RunTestsCommand.RuntimeError.testRunHadFailures(let count) {
             failureCount = count

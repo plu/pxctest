@@ -36,6 +36,16 @@ class OutputManagerTests: XCTestCase {
         XCTAssertDirectoryExists(outputManager.url.path.appending("/IntegrationTests/iOS 9.3/iPad Retina"))
         XCTAssertDirectoryExists(outputManager.url.path.appending("/UnitTests/iOS 9.3/iPhone 5"))
         XCTAssertDirectoryExists(outputManager.url.path.appending("/UnitTests/iOS 9.3/iPad Retina"))
+    }
+
+    func testCreateLogFile() {
+        do {
+            let _ = try outputManager.createLogFile()
+        }
+        catch {
+            XCTFail("\(error)")
+        }
+
         XCTAssertFileExists(outputManager.logFile.path)
     }
 

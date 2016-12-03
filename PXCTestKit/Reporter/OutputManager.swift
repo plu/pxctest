@@ -21,7 +21,7 @@ final class OutputManager {
         self.url = url
     }
 
-    func reset(targets: [String], simulatorConfigurations: [FBSimulatorConfiguration]) throws {
+    func createLogFile() throws -> FileHandle {
         let fileManager = FileManager.default
 
         if !fileManager.fileExists(atPath: url.path) {
@@ -33,6 +33,16 @@ final class OutputManager {
         }
 
         fileManager.createFile(atPath: logFile.path, contents: nil, attributes: nil)
+
+        return try FileHandle(forWritingTo: logFile)
+    }
+
+    func reset(targets: [String], simulatorConfigurations: [FBSimulatorConfiguration]) throws {
+        let fileManager = FileManager.default
+
+        if !fileManager.fileExists(atPath: url.path) {
+            try fileManager.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
+        }
 
         for target in targets {
             for simulatorConfiguration in simulatorConfigurations {

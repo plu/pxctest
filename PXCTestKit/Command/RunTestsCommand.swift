@@ -57,8 +57,6 @@ final class RunTestsCommand: Command {
     private var simulators: [FBSimulator] = []
     private var testRun: FBXCTestRun!
 
-    internal var control: FBSimulatorControl!
-
     init(context: Context) {
         self.context = context
     }
@@ -78,17 +76,20 @@ final class RunTestsCommand: Command {
     }
 
     func run() throws {
+        let logFileHandle = try context.output.createLogFile()
+        let control = try FBSimulatorControl.withConfiguration(
+            FBSimulatorControlConfiguration(deviceSetPath: context.deviceSet.path, options: context.simulatorManagementOptions),
+            logger: FBControlCoreLogger.aslLoggerWriting(toFileDescriptor: logFileHandle.fileDescriptor, withDebugLogging: false)
+        )
+        try run(control: control)
+    }
+
+    func run(control: FBSimulatorControl) throws {
         testRun = try FBXCTestRun.withTestRunFile(atPath: context.testRun.path).build()
 
         try context.output.reset(
             targets: testRun.targets.map({ $0.name }),
             simulatorConfigurations: context.simulatorConfigurations
-        )
-
-        let logFileHandle = try FileHandle(forWritingTo: context.output.logFile)
-        control = try FBSimulatorControl.withConfiguration(
-            FBSimulatorControlConfiguration(deviceSetPath: context.deviceSet.path, options: context.simulatorManagementOptions),
-            logger: FBControlCoreLogger.aslLoggerWriting(toFileDescriptor: logFileHandle.fileDescriptor, withDebugLogging: false)
         )
 
         simulators = try context.simulatorConfigurations.map {
