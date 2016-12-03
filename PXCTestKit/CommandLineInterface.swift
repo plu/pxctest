@@ -59,7 +59,7 @@ import FBSimulatorControl
                     try CommandLineInterface.command?.run()
                 }
                 catch {
-                    consoleOutput.write(line: "\(ANSI.red)\(error)\(ANSI.reset)")
+                    consoleOutput.write(line: "\n\(ANSI.red)\(error)\(ANSI.reset)")
                     exit(1)
                 }
             }
