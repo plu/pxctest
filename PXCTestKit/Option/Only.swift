@@ -34,21 +34,41 @@ struct Only: ArgumentConvertible {
     }
 
     enum ParsingError: Error, CustomStringConvertible {
+        case invalidFormat(String)
         case missingTarget(String)
 
         var description: String {
             switch self {
+            case .invalidFormat(let only): return "Invalid only format: \(only)"
             case .missingTarget(let only): return "Invalid only format: \(only)"
             }
         }
     }
 
     static func parse(string: String) throws -> (String, Set<String>) {
-        var parts = string.components(separatedBy: ":")
-        guard let tests = parts.popLast(), let targetName = parts.popLast(), parts.count == 0 else {
+        if string.contains(",") && !string.contains(":") {
+            throw ParsingError.invalidFormat(string)
+        }
+
+        var tests = Set<String>()
+        var parts = Array(string.components(separatedBy: ":").reversed())
+
+        guard let targetName = parts.popLast() else {
             throw ParsingError.missingTarget(string)
         }
-        return (targetName, Set<String>(tests.components(separatedBy: ",")))
+
+        if let testsString = parts.popLast() {
+            testsString
+                .components(separatedBy: ",")
+                .filter { $0.characters.count > 0 }
+                .forEach { tests.insert($0) }
+        }
+
+        if parts.count != 0 {
+            throw ParsingError.invalidFormat(string)
+        }
+
+        return (targetName, tests)
     }
 
 }

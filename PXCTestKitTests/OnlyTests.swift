@@ -17,8 +17,21 @@ class OnlyTests: XCTestCase {
         XCTAssertEqual(only.testsToRun, Set(["ClassOne/testThis", "ClassTwo/testThat"]))
     }
 
+    func testParsingTargetOnly() throws {
+        let only = try Only(string: "TestTarget")
+        XCTAssertEqual(only.targetName, "TestTarget")
+        XCTAssertEqual(only.testsToRun, Set())
+    }
+
+    func testParsingTargetWithEmptyListOfTests() throws {
+        let only = try Only(string: "TestTarget:")
+        XCTAssertEqual(only.targetName, "TestTarget")
+        XCTAssertEqual(only.testsToRun, Set())
+    }
+
     func testParsingInvalidFormat() throws {
         XCTAssertThrowsError(try Only(string: "ClassOne/testThis,ClassTwo/testThat"))
+        XCTAssertThrowsError(try Only(string: "FOO:BAR:BLA"))
     }
 
     func testDictionary() throws {
