@@ -14,10 +14,10 @@ struct Destination: ArgumentConvertible, CustomStringConvertible {
 
     let simulatorConfiguration: FBSimulatorConfiguration
 
-    private let destinationIdentifier: String
-
     var description: String {
-        return destinationIdentifier
+        let name = simulatorConfiguration.deviceName
+        let os = simulatorConfiguration.osVersionString
+        return "name=\(name),os=\(os)"
     }
 
     init(parser: ArgumentParser) throws {
@@ -29,8 +29,11 @@ struct Destination: ArgumentConvertible, CustomStringConvertible {
     }
 
     init(string: String) throws {
-        self.destinationIdentifier = string
         self.simulatorConfiguration = try Destination.parse(string: string)
+    }
+
+    init() {
+        self.simulatorConfiguration = FBSimulatorConfiguration.default()
     }
 
     enum ParsingError: Error, CustomStringConvertible {
