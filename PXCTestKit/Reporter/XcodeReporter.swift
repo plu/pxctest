@@ -11,16 +11,16 @@ import Foundation
 
 final class XcodeReporter: NSObject, FBTestManagerTestReporter {
 
-    private let fileURL: URL
-    private var output = Data()
+    private let fileHandle: FileHandle
 
-    init(fileURL: URL) {
-        self.fileURL = fileURL
+    init(fileURL: URL) throws {
+        FileManager.default.createFile(atPath: fileURL.path, contents: nil, attributes: nil)
+        self.fileHandle = try FileHandle(forWritingTo: fileURL)
     }
 
     private func write(_ string: String) {
         guard let data = "\(string)\n".data(using: .utf8) else { return }
-        output.append(data)
+        fileHandle.write(data)
     }
 
     // MARK: - FBTestManagerTestReporter
@@ -70,12 +70,6 @@ final class XcodeReporter: NSObject, FBTestManagerTestReporter {
     }
 
     func testManagerMediatorDidFinishExecutingTestPlan(_ mediator: FBTestManagerAPIMediator!) {
-        do {
-            try output.write(to: fileURL)
-        }
-        catch {
-            // FIXME: Handle error
-        }
     }
 
     func testManagerMediatorDidBeginExecutingTestPlan(_ mediator: FBTestManagerAPIMediator!) {

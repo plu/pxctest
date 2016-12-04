@@ -142,7 +142,7 @@ final class RunTestsCommand: Command {
                 try simulator.interact
                     .startTest(
                         with: testLaunchConfigurartion,
-                        reporter: reporter(for: simulator, target: target)
+                        reporter: try reporter(for: simulator, target: target)
                     )
                     .perform()
             }
@@ -165,13 +165,13 @@ final class RunTestsCommand: Command {
         return errors
     }
 
-    private func reporter(for simulator: FBSimulator, target: FBXCTestRunTarget) -> FBTestManagerTestReporter {
+    private func reporter(for simulator: FBSimulator, target: FBXCTestRunTarget) throws -> FBTestManagerTestReporter {
         let simulatorIdentifier = "\(simulator.configuration!.deviceName) \(simulator.configuration!.osVersionString)"
         let consoleReporter = context.reporterType.init(simulatorIdentifier: simulatorIdentifier, testTargetName: target.name, consoleOutput: context.consoleOutput)
         let junitReportURL = context.output.url(for: simulator.configuration!, target: target.name).appendingPathComponent("junit.xml")
         let junitReporter = FBTestManagerTestReporterJUnit.withOutputFileURL(junitReportURL)
         let xcodeReportURL = context.output.url(for: simulator.configuration!, target: target.name).appendingPathComponent("test.log")
-        let xcodeReporter = XcodeReporter(fileURL: xcodeReportURL)
+        let xcodeReporter = try XcodeReporter(fileURL: xcodeReportURL)
         let summaryReporter = SummaryReporter()
 
         reporters.console.append(consoleReporter)
