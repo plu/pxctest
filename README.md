@@ -4,6 +4,8 @@ Execute tests in parallel on multiple iOS Simulators.
 
 [![Build Status](https://travis-ci.org/plu/pxctest.svg?branch=master)](https://travis-ci.org/plu/pxctest)
 
+![screencast](static/screencast.gif?raw=true "screencast")
+
 ## Installation
 
 To install via Homebrew you can use the [plu/homebrew-pxctest](https://github.com/plu/homebrew-pxctest) tap:
@@ -39,8 +41,6 @@ pxctest \
 ```
 
 The `--destination` option can be passed in several times and will execute the tests in parallel on all Simulators.
-
-![screencast](static/screencast.gif?raw=true "screencast")
 
 ### run-tests options
 
