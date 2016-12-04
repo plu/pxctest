@@ -59,7 +59,8 @@ import Foundation
                     try CommandLineInterface.command?.run()
                 }
                 catch {
-                    consoleOutput.write(line: "\n\(ANSI.red)\(error)\(ANSI.reset)")
+                    let output = "\n\(ANSI.red)\(error)\(ANSI.reset)"
+                    FileHandle.standardError.write(output.data(using: .utf8)!)
                     exit(1)
                 }
             }
