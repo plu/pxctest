@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		050207091DED8BFC00AB14FB /* Reporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050207081DED8BFC00AB14FB /* Reporter.swift */; };
 		050207101DED963E00AB14FB /* SummaryReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0502070F1DED963E00AB14FB /* SummaryReporter.swift */; };
+		0511CB501DF3F550009B8B2F /* FBSimulator+PXCTestKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0511CB4F1DF3F550009B8B2F /* FBSimulator+PXCTestKit.swift */; };
 		0541E15D1DE5A02C00D65F16 /* RSpecReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0541E15C1DE5A02C00D65F16 /* RSpecReporter.swift */; };
 		055DCD6E1DF035AE00BB6B82 /* XcodeReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055DCD6D1DF035AE00BB6B82 /* XcodeReporter.swift */; };
 		058FD55A1DEAC8490066CE4B /* testSampleAppTestRunOnlyFailingTests.expected_output in Resources */ = {isa = PBXBuildFile; fileRef = 058FD5591DEAC8490066CE4B /* testSampleAppTestRunOnlyFailingTests.expected_output */; };
@@ -199,6 +200,7 @@
 /* Begin PBXFileReference section */
 		050207081DED8BFC00AB14FB /* Reporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reporter.swift; sourceTree = "<group>"; };
 		0502070F1DED963E00AB14FB /* SummaryReporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryReporter.swift; sourceTree = "<group>"; };
+		0511CB4F1DF3F550009B8B2F /* FBSimulator+PXCTestKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FBSimulator+PXCTestKit.swift"; sourceTree = "<group>"; };
 		053634A11DE7E0F400F7BDB8 /* PXCTestKit.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PXCTestKit.xcconfig; sourceTree = "<group>"; };
 		0541E15C1DE5A02C00D65F16 /* RSpecReporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSpecReporter.swift; sourceTree = "<group>"; };
 		055DCD6D1DF035AE00BB6B82 /* XcodeReporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XcodeReporter.swift; sourceTree = "<group>"; };
@@ -274,6 +276,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0511CB491DF3F542009B8B2F /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				0511CB4F1DF3F550009B8B2F /* FBSimulator+PXCTestKit.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		051D17951DEAEDCB00626C39 /* Documents */ = {
 			isa = PBXGroup;
 			children = (
@@ -334,6 +344,7 @@
 				05BABCE81DE5829D0012BC5B /* Command */,
 				05BABCAB1DE56E9A0012BC5B /* CommandLineInterface.swift */,
 				05B2CA341DEBE94F00795F07 /* Environment.swift */,
+				0511CB491DF3F542009B8B2F /* Extension */,
 				05BABC951DE56E390012BC5B /* Info.plist */,
 				05BABCE91DE5829D0012BC5B /* Option */,
 				05BABC941DE56E390012BC5B /* PXCTestKit.h */,
@@ -699,6 +710,7 @@
 				05BABCAC1DE56E9A0012BC5B /* CommandLineInterface.swift in Sources */,
 				05BABCEF1DE582D70012BC5B /* RunTestsCommand.swift in Sources */,
 				05E3DE6E1DED319D005A1459 /* Command.swift in Sources */,
+				0511CB501DF3F550009B8B2F /* FBSimulator+PXCTestKit.swift in Sources */,
 				05E1B2FB1DE6F62A00C38DB1 /* Locale.swift in Sources */,
 				055DCD6E1DF035AE00BB6B82 /* XcodeReporter.swift in Sources */,
 				05E3DE761DED58ED005A1459 /* JSONReporter.swift in Sources */,

@@ -96,7 +96,8 @@ final class RunTestsCommand: Command {
             try control.pool.allocateSimulator(with: $0, options: context.simulatorAllocationOptions)
         }
 
-        try boot(simulators: simulators)
+        try simulators.boot(context: context)
+
         let testErrors = try test(simulators: simulators, testRun: testRun)
         try extractDiagnostics(simulators: simulators, testRun: testRun, testErrors: testErrors)
 
@@ -113,25 +114,6 @@ final class RunTestsCommand: Command {
     }
 
     // MARK: - Private
-
-    private func boot(simulators: [FBSimulator]) throws {
-        let simulatorBootConfiguration = FBSimulatorBootConfiguration
-            .withLocalizationOverride(FBLocalizationOverride.withLocale(context.locale))
-            .withOptions(context.simulatorBootOptions)
-
-        for simulator in simulators {
-            if simulator.state == .booted {
-                continue
-            }
-            try simulator.interact
-                .editPropertyListFileRelative(fromRootPath: "Library/Preferences/com.apple.Preferences.plist") {
-                    $0.addEntries(from: self.context.preferences)
-                }
-                .prepare(forBoot: simulatorBootConfiguration)
-                .bootSimulator(simulatorBootConfiguration)
-                .perform()
-        }
-    }
 
     private func test(simulators: [FBSimulator], testRun: FBXCTestRun) throws -> [TestError] {
         var errors: [TestError] = []
