@@ -39,10 +39,10 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertEqualRSpecOutput(result.consoleOutput, fixtures.testSampleAppTestRunOnlyFailingTestsOutput)
         XCTAssertNil(result.testErrors)
         ["SampleTests", "SampleUITests"].forEach { (target) in
-            ["iPhone 5", "iPad Retina"].forEach { (device) in
-                XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("\(target)/iOS 9.3/\(device)/junit.xml").path, 0)
-                XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("\(target)/iOS 9.3/\(device)/Sample.log").path, 0)
-                XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("\(target)/iOS 9.3/\(device)/test.log").path, 0)
+            result.context.simulatorConfigurations.forEach { (simulator) in
+                XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("\(target)/\(simulator.osVersionString)/\(simulator.deviceName)/junit.xml").path, 0)
+                XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("\(target)/\(simulator.osVersionString)/\(simulator.deviceName)/Sample.log").path, 0)
+                XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("\(target)/\(simulator.osVersionString)/\(simulator.deviceName)/test.log").path, 0)
             }
         }
     }
@@ -57,10 +57,10 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertEqualRSpecOutput(result.consoleOutput, fixtures.testSampleAppTestRunOnlySuccessfulTestsOutput)
         XCTAssertNil(result.testErrors)
         ["SampleTests", "SampleUITests"].forEach { (target) in
-            ["iPhone 5", "iPad Retina"].forEach { (device) in
-                XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("\(target)/iOS 9.3/\(device)/junit.xml").path, 0)
-                XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("\(target)/iOS 9.3/\(device)/Sample.log").path, 0)
-                XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("\(target)/iOS 9.3/\(device)/test.log").path, 0)
+            result.context.simulatorConfigurations.forEach { (simulator) in
+                XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("\(target)/\(simulator.osVersionString)/\(simulator.deviceName)/junit.xml").path, 0)
+                XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("\(target)/\(simulator.osVersionString)/\(simulator.deviceName)/Sample.log").path, 0)
+                XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("\(target)/\(simulator.osVersionString)/\(simulator.deviceName)/test.log").path, 0)
             }
         }
     }
@@ -73,10 +73,10 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertEqual(result.failureCount, 0)
         XCTAssertEqualRSpecOutput(result.consoleOutput, fixtures.testSampleAppTestRunOnlyOneTarget)
         XCTAssertNil(result.testErrors)
-        ["iPhone 5", "iPad Retina"].forEach { (device) in
-            XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("SuccessfulTests/iOS 9.3/\(device)/junit.xml").path, 0)
-            XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("SuccessfulTests/iOS 9.3/\(device)/Sample.log").path, 0)
-            XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("SuccessfulTests/iOS 9.3/\(device)/test.log").path, 0)
+        result.context.simulatorConfigurations.forEach { (simulator) in
+            XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("SuccessfulTests/\(simulator.osVersionString)/\(simulator.deviceName)/junit.xml").path, 0)
+            XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("SuccessfulTests/\(simulator.osVersionString)/\(simulator.deviceName)/Sample.log").path, 0)
+            XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("SuccessfulTests/\(simulator.osVersionString)/\(simulator.deviceName)/test.log").path, 0)
         }
     }
 
@@ -87,10 +87,10 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertEqualJSONOutput(result.consoleOutput, fixtures.testSampleAppTestRunRunWithAllTargetsAndJSONReporter)
         XCTAssertNil(result.testErrors)
         ["SampleTests", "SampleUITests", "SuccessfulTests"].forEach { (target) in
-            ["iPhone 5", "iPad Retina"].forEach { (device) in
-                XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("\(target)/iOS 9.3/\(device)/junit.xml").path, 0)
-                XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("\(target)/iOS 9.3/\(device)/Sample.log").path, 0)
-                XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("\(target)/iOS 9.3/\(device)/test.log").path, 0)
+            result.context.simulatorConfigurations.forEach { (simulator) in
+                XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("\(target)/\(simulator.osVersionString)/\(simulator.deviceName)/junit.xml").path, 0)
+                XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("\(target)/\(simulator.osVersionString)/\(simulator.deviceName)/Sample.log").path, 0)
+                XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("\(target)/\(simulator.osVersionString)/\(simulator.deviceName)/test.log").path, 0)
             }
         }
     }
@@ -103,10 +103,10 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertEqual(result.failureCount, 0)
         XCTAssertEqualRSpecOutput(result.consoleOutput, "..")
         XCTAssertEqual(result.testErrors?.count, 2)
-        ["iPhone 5", "iPad Retina"].forEach { (device) in
-            XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("CrashTests/iOS 9.3/\(device)/Crash.log").path, 0)
-            XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("CrashTests/iOS 9.3/\(device)/test.log").path, 0)
-            XCTAssertDirectoryContainsFileThatHasSuffix(result.context.output.url.appendingPathComponent("CrashTests/iOS 9.3/\(device)").path, ".crash")
+        result.context.simulatorConfigurations.forEach { (simulator) in
+            XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("CrashTests/\(simulator.osVersionString)/\(simulator.deviceName)/Crash.log").path, 0)
+            XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("CrashTests/\(simulator.osVersionString)/\(simulator.deviceName)/test.log").path, 0)
+            XCTAssertDirectoryContainsFileThatHasSuffix(result.context.output.url.appendingPathComponent("CrashTests/\(simulator.osVersionString)/\(simulator.deviceName)").path, ".crash")
         }
     }
 
