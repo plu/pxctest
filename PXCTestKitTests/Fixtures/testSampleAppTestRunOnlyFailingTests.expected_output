@@ -1,22 +1,22 @@
 FFFF
 SampleTests
-  Failures on iPhone 5 iOS 9.3:
+  Failures on iPhone 6 iOS 9.3:
     -[SampleTests testInSampleTestsThatFails]
       SampleTests.m:16 ((NO) is true) failed
 SampleTests
-  Failures on iPad Retina iOS 9.3:
+  Failures on iPad Air iOS 9.3:
     -[SampleTests testInSampleTestsThatFails]
       SampleTests.m:16 ((NO) is true) failed
 SampleUITests
-  Failures on iPhone 5 iOS 9.3:
+  Failures on iPhone 6 iOS 9.3:
     -[SampleUITests testInSampleUITestsThatFails]
       SampleUITests.m:24 ((NO) is true) failed
 SampleUITests
-  Failures on iPad Retina iOS 9.3:
+  Failures on iPad Air iOS 9.3:
     -[SampleUITests testInSampleUITestsThatFails]
       SampleUITests.m:24 ((NO) is true) failed
-SampleTests - iPhone 5 iOS 9.3 - Finished executing 1 tests after 1.234s. 1 Failures, 0 Unexpected
-SampleTests - iPad Retina iOS 9.3 - Finished executing 1 tests after 1.234s. 1 Failures, 0 Unexpected
-SampleUITests - iPhone 5 iOS 9.3 - Finished executing 1 tests after 1.234s. 1 Failures, 0 Unexpected
-SampleUITests - iPad Retina iOS 9.3 - Finished executing 1 tests after 1.234s. 1 Failures, 0 Unexpected
+SampleTests - iPhone 6 iOS 9.3 - Finished executing 1 tests after 1.234s. 1 Failures, 0 Unexpected
+SampleTests - iPad Air iOS 9.3 - Finished executing 1 tests after 1.234s. 1 Failures, 0 Unexpected
+SampleUITests - iPhone 6 iOS 9.3 - Finished executing 1 tests after 1.234s. 1 Failures, 0 Unexpected
+SampleUITests - iPad Air iOS 9.3 - Finished executing 1 tests after 1.234s. 1 Failures, 0 Unexpected
 Total - Finished executing 4 tests. 4 Failures, 0 Unexpected

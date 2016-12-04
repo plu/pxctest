@@ -9,7 +9,7 @@ xcodebuild \
   -IDECustomBuildProductsPath=$PWD/../ \
   -scheme Sample \
   -project Sample.xcodeproj \
-  -destination 'platform=iOS Simulator,name=iPhone 5,OS=latest' \
+  -destination 'generic/platform=iOS Simulator' \
   clean build-for-testing
 popd
 
@@ -20,7 +20,7 @@ xcodebuild \
   -IDECustomBuildProductsPath=$PWD/../ \
   -scheme Crash \
   -project Crash.xcodeproj \
-  -destination 'platform=iOS Simulator,name=iPhone 5,OS=latest' \
+  -destination 'generic/platform=iOS Simulator' \
   clean build-for-testing
 popd
 

@@ -43,8 +43,6 @@
 		<string>__TESTROOT__/Crash.app</string>
 		<key>TestingEnvironmentVariables</key>
 		<dict>
-			<key>DTX_CONNECTION_SERVICES_PATH</key>
-			<string>__PLATFORMS__/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/Developer/Library/PrivateFrameworks/DTXConnectionServices.framework</string>
 			<key>DYLD_FRAMEWORK_PATH</key>
 			<string>__TESTROOT__:__PLATFORMS__/iPhoneSimulator.platform/Developer/Library/Frameworks</string>
 			<key>DYLD_INSERT_LIBRARIES</key>

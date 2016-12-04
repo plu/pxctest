@@ -6,8 +6,8 @@
 	<dict>
 		<key>BundleIdentifiersForCrashReportEmphasis</key>
 		<array>
-			<string>com.plunien.SuccessfulTests</string>
 			<string>com.plunien.SampleTests</string>
+			<string>com.plunien.SuccessfulTests</string>
 			<string>com.plunien.SampleUITests</string>
 			<string>com.plunien.Sample</string>
 		</array>
@@ -15,10 +15,10 @@
 		<array/>
 		<key>DependentProductPaths</key>
 		<array>
-			<string>__TESTROOT__/Sample.app</string>
-			<string>__TESTROOT__/Sample.app/PlugIns/SuccessfulTests.xctest</string>
-			<string>__TESTROOT__/SampleUITests-Runner.app/PlugIns/SampleUITests.xctest</string>
 			<string>__TESTROOT__/Sample.app/PlugIns/SampleTests.xctest</string>
+			<string>__TESTROOT__/Sample.app</string>
+			<string>__TESTROOT__/SampleUITests-Runner.app/PlugIns/SampleUITests.xctest</string>
+			<string>__TESTROOT__/Sample.app/PlugIns/SuccessfulTests.xctest</string>
 		</array>
 		<key>EnvironmentVariables</key>
 		<dict>
@@ -47,8 +47,6 @@
 		<string>__TESTROOT__/Sample.app</string>
 		<key>TestingEnvironmentVariables</key>
 		<dict>
-			<key>DTX_CONNECTION_SERVICES_PATH</key>
-			<string>__PLATFORMS__/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/Developer/Library/PrivateFrameworks/DTXConnectionServices.framework</string>
 			<key>DYLD_FRAMEWORK_PATH</key>
 			<string>__TESTROOT__:__PLATFORMS__/iPhoneSimulator.platform/Developer/Library/Frameworks</string>
 			<key>DYLD_INSERT_LIBRARIES</key>
@@ -67,8 +65,8 @@
 	<dict>
 		<key>BundleIdentifiersForCrashReportEmphasis</key>
 		<array>
-			<string>com.plunien.SuccessfulTests</string>
 			<string>com.plunien.SampleTests</string>
+			<string>com.plunien.SuccessfulTests</string>
 			<string>com.plunien.SampleUITests</string>
 			<string>com.plunien.Sample</string>
 		</array>
@@ -76,10 +74,10 @@
 		<array/>
 		<key>DependentProductPaths</key>
 		<array>
-			<string>__TESTROOT__/Sample.app</string>
-			<string>__TESTROOT__/Sample.app/PlugIns/SuccessfulTests.xctest</string>
-			<string>__TESTROOT__/SampleUITests-Runner.app/PlugIns/SampleUITests.xctest</string>
 			<string>__TESTROOT__/Sample.app/PlugIns/SampleTests.xctest</string>
+			<string>__TESTROOT__/Sample.app</string>
+			<string>__TESTROOT__/SampleUITests-Runner.app/PlugIns/SampleUITests.xctest</string>
+			<string>__TESTROOT__/Sample.app/PlugIns/SuccessfulTests.xctest</string>
 		</array>
 		<key>EnvironmentVariables</key>
 		<dict>
@@ -108,8 +106,6 @@
 		<string>__TESTROOT__/SampleUITests-Runner.app</string>
 		<key>TestingEnvironmentVariables</key>
 		<dict>
-			<key>DTX_CONNECTION_SERVICES_PATH</key>
-			<string>__PLATFORMS__/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/Developer/Library/PrivateFrameworks/DTXConnectionServices.framework</string>
 			<key>DYLD_FRAMEWORK_PATH</key>
 			<string>__TESTROOT__:__PLATFORMS__/iPhoneSimulator.platform/Developer/Library/Frameworks</string>
 			<key>DYLD_LIBRARY_PATH</key>
@@ -126,8 +122,8 @@
 	<dict>
 		<key>BundleIdentifiersForCrashReportEmphasis</key>
 		<array>
-			<string>com.plunien.SuccessfulTests</string>
 			<string>com.plunien.SampleTests</string>
+			<string>com.plunien.SuccessfulTests</string>
 			<string>com.plunien.SampleUITests</string>
 			<string>com.plunien.Sample</string>
 		</array>
@@ -135,10 +131,10 @@
 		<array/>
 		<key>DependentProductPaths</key>
 		<array>
-			<string>__TESTROOT__/Sample.app</string>
-			<string>__TESTROOT__/Sample.app/PlugIns/SuccessfulTests.xctest</string>
-			<string>__TESTROOT__/SampleUITests-Runner.app/PlugIns/SampleUITests.xctest</string>
 			<string>__TESTROOT__/Sample.app/PlugIns/SampleTests.xctest</string>
+			<string>__TESTROOT__/Sample.app</string>
+			<string>__TESTROOT__/SampleUITests-Runner.app/PlugIns/SampleUITests.xctest</string>
+			<string>__TESTROOT__/Sample.app/PlugIns/SuccessfulTests.xctest</string>
 		</array>
 		<key>EnvironmentVariables</key>
 		<dict>
@@ -167,8 +163,6 @@
 		<string>__TESTROOT__/Sample.app</string>
 		<key>TestingEnvironmentVariables</key>
 		<dict>
-			<key>DTX_CONNECTION_SERVICES_PATH</key>
-			<string>__PLATFORMS__/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/Developer/Library/PrivateFrameworks/DTXConnectionServices.framework</string>
 			<key>DYLD_FRAMEWORK_PATH</key>
 			<string>__TESTROOT__:__PLATFORMS__/iPhoneSimulator.platform/Developer/Library/Frameworks</string>
 			<key>DYLD_INSERT_LIBRARIES</key>

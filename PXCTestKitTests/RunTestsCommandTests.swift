@@ -180,9 +180,9 @@ extension RunTestsCommand.Context {
             reporterType: reporterType,
             testsToRun: testsToRun,
             simulatorConfigurations: [
-                FBSimulatorConfiguration.iPhone5().iOS_9_3(),
-                FBSimulatorConfiguration.iPadRetina().iOS_9_3(),
-                ],
+                FBSimulatorConfiguration.iPhone6().iOS_9_3(),
+                FBSimulatorConfiguration.iPadAir().iOS_9_3(),
+            ],
             timeout: 600.0,
             consoleOutput: ConsoleOutput(fileHandle: FileHandle(forWritingAtPath: consoleFileHandlePath)!),
             simulatorManagementOptions: [.killSpuriousSimulatorsOnFirstStart, .ignoreSpuriousKillFail],
