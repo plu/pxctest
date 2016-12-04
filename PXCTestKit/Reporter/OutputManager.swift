@@ -46,7 +46,7 @@ final class OutputManager {
 
         for target in targets {
             for simulatorConfiguration in simulatorConfigurations {
-                let targetSimulatorURL = url(for: simulatorConfiguration, target: target)
+                let targetSimulatorURL = urlFor(simulatorConfiguration: simulatorConfiguration, target: target)
                 if fileManager.fileExists(atPath: targetSimulatorURL.path) {
                     try fileManager.removeItem(at: targetSimulatorURL)
                 }
@@ -55,7 +55,7 @@ final class OutputManager {
         }
     }
 
-    func url(for simulatorConfiguration: FBSimulatorConfiguration, target: String) -> URL {
+    func urlFor(simulatorConfiguration: FBSimulatorConfiguration, target: String) -> URL {
         return url
             .appendingPathComponent(target)
             .appendingPathComponent(simulatorConfiguration.osVersionString)

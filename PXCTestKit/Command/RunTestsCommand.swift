@@ -168,9 +168,9 @@ final class RunTestsCommand: Command {
     private func reporter(for simulator: FBSimulator, target: FBXCTestRunTarget) throws -> FBTestManagerTestReporter {
         let simulatorIdentifier = "\(simulator.configuration!.deviceName) \(simulator.configuration!.osVersionString)"
         let consoleReporter = context.reporterType.init(simulatorIdentifier: simulatorIdentifier, testTargetName: target.name, consoleOutput: context.consoleOutput)
-        let junitReportURL = context.output.url(for: simulator.configuration!, target: target.name).appendingPathComponent("junit.xml")
+        let junitReportURL = context.output.urlFor(simulatorConfiguration: simulator.configuration!, target: target.name).appendingPathComponent("junit.xml")
         let junitReporter = FBTestManagerTestReporterJUnit.withOutputFileURL(junitReportURL)
-        let xcodeReportURL = context.output.url(for: simulator.configuration!, target: target.name).appendingPathComponent("test.log")
+        let xcodeReportURL = context.output.urlFor(simulatorConfiguration: simulator.configuration!, target: target.name).appendingPathComponent("test.log")
         let xcodeReporter = try XcodeReporter(fileURL: xcodeReportURL)
         let summaryReporter = SummaryReporter()
 
@@ -185,14 +185,14 @@ final class RunTestsCommand: Command {
             for target in testRun.targets {
                 for application in target.applications {
                     guard let diagnostics = simulator.diagnostics.launchedProcessLogs().first(where: { $0.0.processName == application.name })?.value else { continue }
-                    let destinationPath = context.output.url(for: simulator.configuration!, target: target.name).path
+                    let destinationPath = context.output.urlFor(simulatorConfiguration: simulator.configuration!, target: target.name).path
                     try diagnostics.writeOut(toDirectory: destinationPath)
                 }
             }
         }
         for error in testErrors {
             for crash in error.crashes {
-                let destinationPath = context.output.url(for: error.simulator.configuration!, target: error.target).path
+                let destinationPath = context.output.urlFor(simulatorConfiguration: error.simulator.configuration!, target: error.target).path
                 try crash.writeOut(toDirectory: destinationPath)
             }
         }

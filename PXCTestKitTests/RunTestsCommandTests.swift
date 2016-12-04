@@ -15,8 +15,9 @@ class RunTestsCommandTests: XCTestCase {
     private let fixtures = Fixtures()
 
     fileprivate struct Result {
-        let failureCount: Int
+        let context: RunTestsCommand.Context
         let consoleOutput: String
+        let failureCount: Int
         let testErrors: [RunTestsCommand.TestError]?
     }
 
@@ -37,6 +38,13 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertEqual(result.failureCount, 4)
         XCTAssertEqualRSpecOutput(result.consoleOutput, fixtures.testSampleAppTestRunOnlyFailingTestsOutput)
         XCTAssertNil(result.testErrors)
+        ["SampleTests", "SampleUITests"].forEach { (target) in
+            ["iPhone 5", "iPad Retina"].forEach { (device) in
+                XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("\(target)/iOS 9.3/\(device)/junit.xml").path, 0)
+                XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("\(target)/iOS 9.3/\(device)/Sample.log").path, 0)
+                XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("\(target)/iOS 9.3/\(device)/test.log").path, 0)
+            }
+        }
     }
 
     func testSampleAppTestRunOnlySuccessfulTests() throws {
@@ -48,6 +56,13 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertEqual(result.failureCount, 0)
         XCTAssertEqualRSpecOutput(result.consoleOutput, fixtures.testSampleAppTestRunOnlySuccessfulTestsOutput)
         XCTAssertNil(result.testErrors)
+        ["SampleTests", "SampleUITests"].forEach { (target) in
+            ["iPhone 5", "iPad Retina"].forEach { (device) in
+                XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("\(target)/iOS 9.3/\(device)/junit.xml").path, 0)
+                XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("\(target)/iOS 9.3/\(device)/Sample.log").path, 0)
+                XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("\(target)/iOS 9.3/\(device)/test.log").path, 0)
+            }
+        }
     }
 
     func testSampleAppTestRunOnlyOneTarget() throws {
@@ -58,6 +73,11 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertEqual(result.failureCount, 0)
         XCTAssertEqualRSpecOutput(result.consoleOutput, fixtures.testSampleAppTestRunOnlyOneTarget)
         XCTAssertNil(result.testErrors)
+        ["iPhone 5", "iPad Retina"].forEach { (device) in
+            XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("SuccessfulTests/iOS 9.3/\(device)/junit.xml").path, 0)
+            XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("SuccessfulTests/iOS 9.3/\(device)/Sample.log").path, 0)
+            XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("SuccessfulTests/iOS 9.3/\(device)/test.log").path, 0)
+        }
     }
 
     func testSampleAppTestRunRunWithAllTargetsAndJSONReporter() throws {
@@ -66,6 +86,13 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertEqual(result.failureCount, 4)
         XCTAssertEqualJSONOutput(result.consoleOutput, fixtures.testSampleAppTestRunRunWithAllTargetsAndJSONReporter)
         XCTAssertNil(result.testErrors)
+        ["SampleTests", "SampleUITests", "SuccessfulTests"].forEach { (target) in
+            ["iPhone 5", "iPad Retina"].forEach { (device) in
+                XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("\(target)/iOS 9.3/\(device)/junit.xml").path, 0)
+                XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("\(target)/iOS 9.3/\(device)/Sample.log").path, 0)
+                XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("\(target)/iOS 9.3/\(device)/test.log").path, 0)
+            }
+        }
     }
 
     // MARK: - Crash.app
@@ -76,6 +103,11 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertEqual(result.failureCount, 0)
         XCTAssertEqualRSpecOutput(result.consoleOutput, "..")
         XCTAssertEqual(result.testErrors?.count, 2)
+        ["iPhone 5", "iPad Retina"].forEach { (device) in
+            XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("CrashTests/iOS 9.3/\(device)/Crash.log").path, 0)
+            XCTAssertFileSizeGreaterThan(result.context.output.url.appendingPathComponent("CrashTests/iOS 9.3/\(device)/test.log").path, 0)
+            XCTAssertDirectoryContainsFileThatHasSuffix(result.context.output.url.appendingPathComponent("CrashTests/iOS 9.3/\(device)").path, ".crash")
+        }
     }
 
 }
@@ -119,8 +151,9 @@ extension RunTestsCommandTests {
         }
 
         return Result(
-            failureCount: failureCount,
+            context: context,
             consoleOutput: try String(contentsOf: temporaryDirectory.appendingPathComponent("console.log")),
+            failureCount: failureCount,
             testErrors: testErrors
         )
     }

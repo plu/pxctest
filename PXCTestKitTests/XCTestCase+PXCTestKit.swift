@@ -72,4 +72,28 @@ extension XCTestCase {
         XCTAssertFalse(isDirectory.boolValue, "File is a directory: \(path)", file: file, line: line)
     }
 
+    func XCTAssertFileSizeGreaterThan(_ path: String, _ expectedSize: UInt64, file: StaticString = #file, line: UInt = #line) {
+        XCTAssertFileExists(path, file: file, line: line)
+        do {
+            let attr = try FileManager.default.attributesOfItem(atPath: path)
+            let fileSize = attr[.size] as? UInt64 ?? 0
+            XCTAssertGreaterThan(fileSize, expectedSize)
+        }
+        catch {
+            XCTFail("\(error)", file: file, line: line)
+        }
+    }
+
+    func XCTAssertDirectoryContainsFileThatHasSuffix(_ path: String, _ suffix: String, file: StaticString = #file, line: UInt = #line) {
+        XCTAssertDirectoryExists(path, file: file, line: line)
+        var count = 0
+        do {
+            count = try FileManager.default.contentsOfDirectory(atPath: path).filter { $0.hasSuffix(suffix) }.count
+        }
+        catch {
+            XCTFail("\(error)", file: file, line: line)
+        }
+        XCTAssertGreaterThan(count, 0, "Directory \(path) contains \(count) files that have the suffix \(suffix)", file: file, line: line)
+    }
+
 }

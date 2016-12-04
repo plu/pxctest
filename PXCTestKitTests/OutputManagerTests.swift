@@ -50,7 +50,7 @@ class OutputManagerTests: XCTestCase {
     }
 
     func testUrlFor() {
-        var pathComponents = outputManager.url(for: FBSimulatorConfiguration.iPhone5().iOS_9_3(), target: "UnitTests").pathComponents
+        var pathComponents = outputManager.urlFor(simulatorConfiguration: FBSimulatorConfiguration.iPhone5().iOS_9_3(), target: "UnitTests").pathComponents
         XCTAssertEqual(pathComponents.popLast(), "iPhone 5")
         XCTAssertEqual(pathComponents.popLast(), "iOS 9.3")
         XCTAssertEqual(pathComponents.popLast(), "UnitTests")
