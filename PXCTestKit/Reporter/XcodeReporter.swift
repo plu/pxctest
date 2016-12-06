@@ -57,7 +57,7 @@ final class XcodeReporter: NSObject, FBTestManagerTestReporter {
         let testSuiteResult = summary.failureCount > 0 ? "failed" : "passed"
         write(String(
             format: "Test Suite '%@' %@ at %@.",
-            summary.testSuite, testSuiteResult, summary.finishTime
+            summary.testSuite, testSuiteResult, summary.finishTime.description
         ))
         write(String(
             format: "      Executed %@, with %@ (%d unexpected) in %.03fs (%.03fs) seconds",

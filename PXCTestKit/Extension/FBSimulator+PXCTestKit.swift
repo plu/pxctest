@@ -20,12 +20,18 @@ extension Sequence where Iterator.Element == FBSimulator {
             if simulator.state == .booted {
                 continue
             }
+
             try simulator.interact
-                .editPropertyListFileRelative(fromRootPath: "Library/Preferences/com.apple.Preferences.plist") {
-                    $0.addEntries(from: context.preferences)
-                }
                 .prepare(forBoot: simulatorBootConfiguration)
                 .bootSimulator(simulatorBootConfiguration)
+                .perform()
+        }
+    }
+
+    func loadPreferences(context: RunTestsCommand.Context) throws {
+        for simulator in self {
+            try simulator.interact
+                .loadPreferences(context.preferences)
                 .perform()
         }
     }

@@ -72,8 +72,6 @@ Example: You can turn off all keyboard settings that you can find in the Simulat
 }
 ```
 
-For this operation to succeed, the Simulator must not be launched yet when using the `--preferences` option.
-
 ## Development
 
 ```shell

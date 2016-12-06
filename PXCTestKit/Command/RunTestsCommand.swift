@@ -96,6 +96,7 @@ final class RunTestsCommand: Command {
             try control.pool.allocateSimulator(with: $0, options: context.simulatorAllocationOptions)
         }
 
+        try simulators.loadPreferences(context: context)
         try simulators.boot(context: context)
 
         let testErrors = try test(simulators: simulators, testRun: testRun)
