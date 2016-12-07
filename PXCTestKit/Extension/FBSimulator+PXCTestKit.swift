@@ -9,30 +9,38 @@
 import FBSimulatorControl
 import Foundation
 
-extension Sequence where Iterator.Element == FBSimulator {
+extension FBSimulator {
 
     func boot(context: RunTestsCommand.Context) throws {
+        guard state != .booted else { return }
         let simulatorBootConfiguration = FBSimulatorBootConfiguration
             .withLocalizationOverride(FBLocalizationOverride.withLocale(context.locale))
             .withOptions(context.simulatorBootOptions)
+        try interact
+            .prepare(forBoot: simulatorBootConfiguration)
+            .bootSimulator(simulatorBootConfiguration)
+            .perform()
+    }
 
+    func loadPreferences(context: RunTestsCommand.Context) throws {
+        try interact
+            .loadPreferences(context.preferences)
+            .perform()
+    }
+
+}
+
+extension Sequence where Iterator.Element == FBSimulator {
+
+    func boot(context: RunTestsCommand.Context) throws {
         for simulator in self {
-            if simulator.state == .booted {
-                continue
-            }
-
-            try simulator.interact
-                .prepare(forBoot: simulatorBootConfiguration)
-                .bootSimulator(simulatorBootConfiguration)
-                .perform()
+            try simulator.boot(context: context)
         }
     }
 
     func loadPreferences(context: RunTestsCommand.Context) throws {
         for simulator in self {
-            try simulator.interact
-                .loadPreferences(context.preferences)
-                .perform()
+            try simulator.loadPreferences(context: context)
         }
     }
 
