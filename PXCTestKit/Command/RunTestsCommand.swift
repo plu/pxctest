@@ -23,23 +23,6 @@ final class RunTestsCommand: Command {
         }
     }
 
-    struct Context {
-        let testRun: URL
-        let deviceSet: URL
-        let output: OutputManager
-        let locale: Locale
-        let environment: [String: String]
-        let preferences: [String: Any]
-        let reporterType: ConsoleReporter.Type
-        let testsToRun: [String: Set<String>]
-        let simulatorConfigurations: [FBSimulatorConfiguration]
-        let timeout: Double
-        let consoleOutput: ConsoleOutput
-        let simulatorManagementOptions: FBSimulatorManagementOptions
-        let simulatorAllocationOptions: FBSimulatorAllocationOptions
-        let simulatorBootOptions: FBSimulatorBootOptions
-    }
-
     struct Reporters {
         var console: [ConsoleReporter] = []
         var summary: [SummaryReporter] = []
@@ -76,12 +59,7 @@ final class RunTestsCommand: Command {
     }
 
     func run() throws {
-        let logFileHandle = try context.output.createLogFile()
-        let control = try FBSimulatorControl.withConfiguration(
-            FBSimulatorControlConfiguration(deviceSetPath: context.deviceSet.path, options: context.simulatorManagementOptions),
-            logger: FBControlCoreLogger.aslLoggerWriting(toFileDescriptor: logFileHandle.fileDescriptor, withDebugLogging: false)
-        )
-        try run(control: control)
+        try run(control: FBSimulatorControl.withContext(context))
     }
 
     func run(control: FBSimulatorControl) throws {

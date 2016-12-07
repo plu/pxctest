@@ -11,7 +11,7 @@ import Foundation
 
 extension FBSimulator {
 
-    func boot(context: RunTestsCommand.Context) throws {
+    func boot(context: BootContext) throws {
         guard state != .booted else { return }
         let simulatorBootConfiguration = FBSimulatorBootConfiguration
             .withLocalizationOverride(FBLocalizationOverride.withLocale(context.locale))
@@ -22,7 +22,7 @@ extension FBSimulator {
             .perform()
     }
 
-    func loadPreferences(context: RunTestsCommand.Context) throws {
+    func loadPreferences(context: PreferencesContext) throws {
         try interact
             .loadPreferences(context.preferences)
             .perform()
@@ -32,13 +32,13 @@ extension FBSimulator {
 
 extension Sequence where Iterator.Element == FBSimulator {
 
-    func boot(context: RunTestsCommand.Context) throws {
+    func boot(context: BootContext) throws {
         for simulator in self {
             try simulator.boot(context: context)
         }
     }
 
-    func loadPreferences(context: RunTestsCommand.Context) throws {
+    func loadPreferences(context: PreferencesContext) throws {
         for simulator in self {
             try simulator.loadPreferences(context: context)
         }
