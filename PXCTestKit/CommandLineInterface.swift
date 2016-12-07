@@ -22,14 +22,14 @@ import Foundation
 
         Group {
             $0.command("run-tests",
-                       Option<ExistingFileURL>("testrun", ExistingFileURL(url: URL(fileURLWithPath: "")), description: "Path to the .xctestrun file."),
-                       Option<ExistingFileURL>("deviceset", ExistingFileURL(url: URL(fileURLWithPath: FBSimulatorControlConfiguration.defaultDeviceSetPath())), description: "Path to the Simulator device set."),
-                       Option<FileURL>("output", FileURL(url: URL(fileURLWithPath: "output")), description: "Output path where the test reports and log files should be stored."),
+                       Option<ExistingFileURLOption>("testrun", ExistingFileURLOption(url: URL(fileURLWithPath: "")), description: "Path to the .xctestrun file."),
+                       Option<ExistingFileURLOption>("deviceset", ExistingFileURLOption(url: URL(fileURLWithPath: FBSimulatorControlConfiguration.defaultDeviceSetPath())), description: "Path to the Simulator device set."),
+                       Option<FileURLOption>("output", FileURLOption(url: URL(fileURLWithPath: "output")), description: "Output path where the test reports and log files should be stored."),
                        Option<Locale>("locale", Locale(identifier: "en"), description: "Locale to set for the Simulator."),
-                       Option<Defaults>("defaults", Defaults(), description: "Path to some defaults.json to be applied with the Simulator."),
-                       Option<Reporter>("reporter", .rspec, description: "Console reporter type. Supported values: rspec, json"),
-                       VaradicOption<Only>("only", [], description: "Comma separated list of tests that should be executed only. Format: TARGET[:Class/case[,Class2/case2]]"),
-                       VaradicOption<Destination>("destination", [Destination()], description: "A comma-separated set of key=value pairs describing the destination to use. Default: \(Destination().description)"),
+                       Option<DefaultsOption>("defaults", DefaultsOption(), description: "Path to some defaults.json to be applied with the Simulator."),
+                       Option<ReporterOption>("reporter", .rspec, description: "Console reporter type. Supported values: rspec, json"),
+                       VaradicOption<OnlyOption>("only", [], description: "Comma separated list of tests that should be executed only. Format: TARGET[:Class/case[,Class2/case2]]"),
+                       VaradicOption<DestinationOption>("destination", [DestinationOption.default], description: "A comma-separated set of key=value pairs describing the destination to use. Default: \(DestinationOption.default.description)"),
                        Option<Double>("timeout", 3600.0, description: "Timeout in seconds for the test execution to finish."),
                        Flag("no-color", description: "Do not add colors to console output.")
             ) { (testRun, deviceSet, output, locale, defaults, reporter, only, destination, timeout, noColor) in

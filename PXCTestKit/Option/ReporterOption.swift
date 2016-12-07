@@ -1,5 +1,5 @@
 //
-//  Reporter.swift
+//  ReporterOption.swift
 //  pxctest
 //
 //  Created by Johannes Plunien on 29/11/16.
@@ -9,7 +9,7 @@
 import Commander
 import Foundation
 
-enum Reporter: ArgumentConvertible {
+enum ReporterOption: ArgumentConvertible {
 
     case json, rspec
 

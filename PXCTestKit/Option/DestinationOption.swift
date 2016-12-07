@@ -1,5 +1,5 @@
 //
-//  Destination.swift
+//  DestinationOption.swift
 //  pxctest
 //
 //  Created by Johannes Plunien on 23/11/16.
@@ -10,9 +10,13 @@ import Commander
 import Foundation
 import FBSimulatorControl
 
-struct Destination: ArgumentConvertible, CustomStringConvertible {
+struct DestinationOption: ArgumentConvertible, CustomStringConvertible {
 
     let simulatorConfiguration: FBSimulatorConfiguration
+
+    static var `default`: DestinationOption {
+        return DestinationOption(simulatorConfiguration: FBSimulatorConfiguration.default())
+    }
 
     var description: String {
         let name = simulatorConfiguration.deviceName
@@ -29,11 +33,11 @@ struct Destination: ArgumentConvertible, CustomStringConvertible {
     }
 
     init(string: String) throws {
-        self.simulatorConfiguration = try Destination.parse(string: string)
+        self.simulatorConfiguration = try DestinationOption.parse(string: string)
     }
 
-    init() {
-        self.simulatorConfiguration = FBSimulatorConfiguration.default()
+    private init(simulatorConfiguration: FBSimulatorConfiguration) {
+        self.simulatorConfiguration = simulatorConfiguration
     }
 
     enum ParsingError: Error, CustomStringConvertible {

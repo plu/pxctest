@@ -1,5 +1,5 @@
 //
-//  OnlyTests.swift
+//  OnlyOptionTests.swift
 //  pxctest
 //
 //  Created by Johannes Plunien on 01/12/16.
@@ -9,35 +9,35 @@
 import XCTest
 @testable import PXCTestKit
 
-class OnlyTests: XCTestCase {
+class OnlyOptionTests: XCTestCase {
 
     func testParsingValidFormat() throws {
-        let only = try Only(string: "TestTarget:ClassOne/testThis,ClassTwo/testThat")
+        let only = try OnlyOption(string: "TestTarget:ClassOne/testThis,ClassTwo/testThat")
         XCTAssertEqual(only.targetName, "TestTarget")
         XCTAssertEqual(only.testsToRun, Set(["ClassOne/testThis", "ClassTwo/testThat"]))
     }
 
-    func testParsingTargetOnly() throws {
-        let only = try Only(string: "TestTarget")
+    func testParsingTargetOnlyOption() throws {
+        let only = try OnlyOption(string: "TestTarget")
         XCTAssertEqual(only.targetName, "TestTarget")
         XCTAssertEqual(only.testsToRun, Set())
     }
 
     func testParsingTargetWithEmptyListOfTests() throws {
-        let only = try Only(string: "TestTarget:")
+        let only = try OnlyOption(string: "TestTarget:")
         XCTAssertEqual(only.targetName, "TestTarget")
         XCTAssertEqual(only.testsToRun, Set())
     }
 
     func testParsingInvalidFormat() throws {
-        XCTAssertThrowsError(try Only(string: "ClassOne/testThis,ClassTwo/testThat"))
-        XCTAssertThrowsError(try Only(string: "FOO:BAR:BLA"))
+        XCTAssertThrowsError(try OnlyOption(string: "ClassOne/testThis,ClassTwo/testThat"))
+        XCTAssertThrowsError(try OnlyOption(string: "FOO:BAR:BLA"))
     }
 
     func testDictionary() throws {
         let dictionary = [
-            try Only(string: "UITests:HomeScreen/testThis,SearchScreen/testThat"),
-            try Only(string: "UnitTests:UserService/testThis,SearchService/testThat"),
+            try OnlyOption(string: "UITests:HomeScreen/testThis,SearchScreen/testThat"),
+            try OnlyOption(string: "UnitTests:UserService/testThis,SearchService/testThat"),
         ].dictionary()
         XCTAssertEqual(dictionary, [
             "UnitTests": Set<String>(["UserService/testThis", "SearchService/testThat"]),

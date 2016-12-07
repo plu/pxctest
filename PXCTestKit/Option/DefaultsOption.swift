@@ -1,5 +1,5 @@
 //
-//  Defaults.swift
+//  DefaultsOption.swift
 //  pxctest
 //
 //  Created by Johannes Plunien on 24/11/16.
@@ -31,7 +31,7 @@ import Foundation
  * Simulator's Settings app.
  */
 
-struct Defaults: ArgumentConvertible {
+struct DefaultsOption: ArgumentConvertible {
 
     let dictionary: [String: [String: Any]]
 

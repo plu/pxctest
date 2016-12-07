@@ -1,5 +1,5 @@
 //
-//  FileURL.swift
+//  FileURLOption.swift
 //  pxctest
 //
 //  Created by Johannes Plunien on 23/11/16.
@@ -9,7 +9,7 @@
 import Commander
 import Foundation
 
-struct FileURL: ArgumentConvertible {
+struct FileURLOption: ArgumentConvertible {
 
     let url: URL
 

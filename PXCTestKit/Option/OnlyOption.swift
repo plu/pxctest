@@ -1,5 +1,5 @@
 //
-//  Only.swift
+//  OnlyOption.swift
 //  pxctest
 //
 //  Created by Johannes Plunien on 24/11/16.
@@ -9,7 +9,7 @@
 import Commander
 import Foundation
 
-struct Only: ArgumentConvertible {
+struct OnlyOption: ArgumentConvertible {
 
     let targetName: String
     let testsToRun: Set<String>
@@ -30,7 +30,7 @@ struct Only: ArgumentConvertible {
 
     init(string: String) throws {
         self.testsToRunIdentifier = string
-        (self.targetName, self.testsToRun) = try Only.parse(string: string)
+        (self.targetName, self.testsToRun) = try OnlyOption.parse(string: string)
     }
 
     enum ParsingError: Error, CustomStringConvertible {
@@ -74,7 +74,7 @@ struct Only: ArgumentConvertible {
 }
 
 
-extension Sequence where Iterator.Element == Only {
+extension Sequence where Iterator.Element == OnlyOption {
 
     func dictionary() -> [String: Set<String>] {
         return reduce([String: Set<String>](), {
