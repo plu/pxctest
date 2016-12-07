@@ -50,11 +50,11 @@ To see a list of possible options, just run:
 pxctest run-tests --help
 ```
 
-Most of the options should be self-explanatory. If not, please open an issue or submit some pull request. However the `--preferences` option needs a special section here.
+Most of the options should be self-explanatory. If not, please open an issue or submit some pull request. However the `--defaults` option needs a special section here.
 
-#### run-tests --preferences
+#### run-tests --defaults
 
-This option expects a path to a file, which contains some JSON. After loading this file, its content gets applied to the Simulator's preferences property list file located at `Library/Preferences/com.apple.Preferences.plist`.
+This option expects a path to a file, which contains some JSON. After loading this file, its content gets applied to the Simulator's defaults. On the top level the keys must be either a relative path or a domain where the defaults are located.
 
 Example: You can turn off all keyboard settings that you can find in the Simulator's Settings app by using following JSON content:
 
