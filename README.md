@@ -60,15 +60,17 @@ Example: You can turn off all keyboard settings that you can find in the Simulat
 
 ```json
 {
-  "KeyboardAllowPaddle": false,
-  "KeyboardAssistant": false,
-  "KeyboardAutocapitalization": false,
-  "KeyboardAutocorrection": false,
-  "KeyboardCapsLock": false,
-  "KeyboardCheckSpelling": false,
-  "KeyboardPeriodShortcut": false,
-  "KeyboardPrediction": false,
-  "KeyboardShowPredictionBar": false
+  "com.apple.Preferences": {
+    "KeyboardAllowPaddle": false,
+    "KeyboardAssistant": false,
+    "KeyboardAutocapitalization": false,
+    "KeyboardAutocorrection": false,
+    "KeyboardCapsLock": false,
+    "KeyboardCheckSpelling": false,
+    "KeyboardPeriodShortcut": false,
+    "KeyboardPrediction": false,
+    "KeyboardShowPredictionBar": false
+  }
 }
 ```
 

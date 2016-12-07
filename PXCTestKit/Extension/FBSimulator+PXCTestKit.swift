@@ -22,10 +22,12 @@ extension FBSimulator {
             .perform()
     }
 
-    func loadPreferences(context: PreferencesContext) throws {
-        try interact
-            .loadPreferences(context.preferences)
-            .perform()
+    func loadDefaults(context: DefaultsContext) throws {
+        for (domainOrPath, defaults) in context.defaults {
+            try interact
+                .loadDefaults(inDomainOrPath: domainOrPath, defaults: defaults)
+                .perform()
+        }
     }
 
 }
@@ -38,9 +40,9 @@ extension Sequence where Iterator.Element == FBSimulator {
         }
     }
 
-    func loadPreferences(context: PreferencesContext) throws {
+    func loadDefaults(context: DefaultsContext) throws {
         for simulator in self {
-            try simulator.loadPreferences(context: context)
+            try simulator.loadDefaults(context: context)
         }
     }
 

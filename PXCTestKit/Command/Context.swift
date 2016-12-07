@@ -20,19 +20,19 @@ protocol ControlContext {
     var simulatorManagementOptions: FBSimulatorManagementOptions { get }
 }
 
-protocol PreferencesContext {
-    var preferences: [String: Any] { get }
+protocol DefaultsContext {
+    var defaults: [String: [String: Any]] { get }
 }
 
 extension RunTestsCommand {
 
-    struct Context: BootContext, ControlContext, PreferencesContext {
+    struct Context: BootContext, ControlContext, DefaultsContext {
         let testRun: URL
         let deviceSet: URL
         let output: OutputManager
         let locale: Locale
         let environment: [String: String]
-        let preferences: [String: Any]
+        let defaults: [String: [String: Any]]
         let reporterType: ConsoleReporter.Type
         let testsToRun: [String: Set<String>]
         let simulatorConfigurations: [FBSimulatorConfiguration]

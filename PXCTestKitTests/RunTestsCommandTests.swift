@@ -176,7 +176,7 @@ extension RunTestsCommand.Context {
             output: OutputManager(url: temporaryDirectory.appendingPathComponent("output")),
             locale: Locale.current,
             environment: ["PXCTEST_CHILD_FOO": "BAR"],
-            preferences: [:],
+            defaults: [:],
             reporterType: reporterType,
             testsToRun: testsToRun,
             simulatorConfigurations: [
