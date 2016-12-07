@@ -1,3 +1,5 @@
+# 0.2.8
+
 * Extract crash logs
 * Breaking change: --preferences was renamed to --defaults. Also the JSON format changed
 
