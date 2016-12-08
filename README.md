@@ -160,14 +160,14 @@ So why is this important? A booted iPhone 7 Simulator is not just one process, i
 First we [set the nvram boot argument](https://support.apple.com/en-ae/HT202528):
 
 ```shell
-sudo nvram boot-args="serverperfmode=1 $(nvram boot-args 2>/dev/null | cut -f 2-)"
+$ sudo nvram boot-args="serverperfmode=1 $(nvram boot-args 2>/dev/null | cut -f 2-)"
 ```
 
 Next step is to make `launchd` set the new limits:
 
 ```shell
-sudo cp config/limit.maxfiles.plist /Library/LaunchDaemons/limit.maxfiles.plist
-sudo cp config/limit.maxproc.plist /Library/LaunchDaemons/limit.maxproc.plist
+$ sudo cp config/limit.maxfiles.plist /Library/LaunchDaemons/limit.maxfiles.plist
+$ sudo cp config/limit.maxproc.plist /Library/LaunchDaemons/limit.maxproc.plist
 ```
 
 The two files can be found in this repository:
@@ -175,7 +175,24 @@ The two files can be found in this repository:
 * [limit.maxfiles.plist](config/limit.maxfiles.plist)
 * [limit.maxproc.plist](config/limit.maxproc.plist)
 
-And we reboot!
+And we reboot! Afterwards you can check:
+
+```shell
+$ ulimit -a
+core file size          (blocks, -c) 0
+data seg size           (kbytes, -d) unlimited
+file size               (blocks, -f) unlimited
+max locked memory       (kbytes, -l) unlimited
+max memory size         (kbytes, -m) unlimited
+open files                      (-n) 524288
+pipe size            (512 bytes, -p) 1
+stack size              (kbytes, -s) 8192
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 5000
+virtual memory          (kbytes, -v) unlimited
+```
+
+The `open files` part should say `524288`, and `max user processes` should be `5000`.
 
 ## License
 
