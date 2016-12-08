@@ -101,15 +101,7 @@ final class RunTestsCommand: Command {
                 .withTestEnvironment(testEnvironment)
 
             try simulators.install(applications: target.applications)
-
-            for simulator in simulators {
-                try simulator.interact
-                    .startTest(
-                        with: testLaunchConfigurartion,
-                        reporter: try reporterRegistry.addReporter(for: simulator, target: target)
-                    )
-                    .perform()
-            }
+            try simulators.startTest(testLaunchConfigurartion: testLaunchConfigurartion, target: target, reporterRegistry: reporterRegistry)
 
             for simulator in simulators {
                 let testManagerResults = simulator.resourceSink.testManagers.flatMap { $0.waitUntilTestingHasFinished(withTimeout: context.timeout) }

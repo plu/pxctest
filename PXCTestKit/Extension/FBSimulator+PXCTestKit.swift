@@ -54,4 +54,11 @@ extension Sequence where Iterator.Element == FBSimulator {
         }
     }
 
+    func startTest(testLaunchConfigurartion: FBTestLaunchConfiguration, target: FBXCTestRunTarget, reporterRegistry: ReporterRegistry) throws {
+        for simulator in self {
+            let reporter = try reporterRegistry.addReporter(for: simulator, target: target)
+            try simulator.interact.startTest(with: testLaunchConfigurartion, reporter: reporter).perform()
+        }
+    }
+
 }
