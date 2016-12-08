@@ -185,7 +185,7 @@ extension RunTestsCommand.Context {
             ],
             timeout: 600.0,
             consoleOutput: ConsoleOutput(outputHandle: FileHandle(forWritingAtPath: consoleFileHandlePath)!),
-            simulatorManagementOptions: [.killSpuriousSimulatorsOnFirstStart, .ignoreSpuriousKillFail],
+            simulatorManagementOptions: [],
             simulatorAllocationOptions: [.create, .reuse, .eraseOnAllocate],
             simulatorBootOptions: [.awaitServices, .enableDirectLaunch]
         )
