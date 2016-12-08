@@ -65,8 +65,10 @@ import Foundation
             }
 
             $0.command("version") {
-                let version = Bundle(for: self).infoDictionary!["CFBundleShortVersionString"]!
-                print("pxctest \(version)")
+                let infoDictionary = Bundle(for: self).infoDictionary!
+                let version = infoDictionary["CFBundleShortVersionString"]!
+                let commit = infoDictionary["GIT_COMMIT"]!
+                print("pxctest \(version) (\(commit))")
             }
         }.run()
     }

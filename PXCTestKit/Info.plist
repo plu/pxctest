@@ -22,5 +22,7 @@
 	<string>Copyright © 2016 Johannes Plunien. All rights reserved.</string>
 	<key>NSPrincipalClass</key>
 	<string></string>
+	<key>GIT_COMMIT</key>
+	<string></string>
 </dict>
 </plist>
