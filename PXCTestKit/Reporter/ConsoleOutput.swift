@@ -27,7 +27,7 @@ final class ConsoleOutput {
     }
 
     func write(error: Error) {
-        let output = String(format: "\n%@%@%@\n", ANSI.red.description, ConsoleErrorFormatter.format(error: error), ANSI.reset.description)
+        let output = String(format: "\n%@\n", ConsoleErrorFormatter.format(error: error))
         errorFileHandle.write(output.data(using: .utf8)!)
     }
 

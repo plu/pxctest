@@ -25,9 +25,9 @@ final class ConsoleErrorFormatter {
     private static func format(runtimeError: RunTestsCommand.RuntimeError) -> String {
         switch runtimeError {
         case .testRunHadErrors(let errors):
-            return "Test run had errors\n\(format(testErrors: errors))"
+            return "\(format(testErrors: errors))\n\(ANSI.red)Test run had \(errors.count) errors\(ANSI.reset)"
         case .testRunHadFailures(let count):
-            return "Test run had \(count) failures"
+            return "\(ANSI.red)Test run had \(count) failures\(ANSI.reset)"
         }
     }
 
@@ -36,9 +36,10 @@ final class ConsoleErrorFormatter {
     }
 
     private static func format(testError: RunTestsCommand.TestError) -> String {
+        let simulatorConfiguration = testError.simulator.configuration!
         var output = [
-            "\(ANSI.red)\(ANSI.bold)Simulator: \(ANSI.reset)\(testError.simulator)",
-            "\(ANSI.red)\(ANSI.bold)Target: \(ANSI.reset)\(testError.target)",
+            "\(ANSI.bold)\(testError.target)\(ANSI.reset)",
+            "\(ANSI.bold)  Errors on \(simulatorConfiguration.deviceName) \(simulatorConfiguration.osVersionString):\(ANSI.reset)",
         ]
         if let errors = format(errors: testError.errors) {
             output.append(errors)
@@ -51,24 +52,18 @@ final class ConsoleErrorFormatter {
 
     private static func format(errors: [Error]) -> String? {
         guard errors.count > 0 else { return nil }
-        if (errors.count == 1) {
-            return "\(ANSI.red)\(ANSI.bold)Error:\(ANSI.reset) \(errors.first!)"
-        }
-        var output = ["\(ANSI.red)\(ANSI.bold)Errors:\(ANSI.reset)"]
+        var output: [String] = []
         for error in errors {
-            output.append("  \(error)")
+            output.append("    \((error as NSError).localizedDescription)")
         }
         return output.joined(separator: "\n")
     }
 
     private static func format(crashes: [FBDiagnostic]) -> String? {
         guard crashes.count > 0 else { return nil }
-        if (crashes.count == 1) {
-            return "\(ANSI.red)\(ANSI.bold)Crash:\(ANSI.reset) \(crashes.first!)"
-        }
-        var output = ["\(ANSI.red)\(ANSI.bold)Crashes:\(ANSI.reset)"]
+        var output: [String] = []
         for crash in crashes {
-            output.append("  \(crash.destination)")
+            output.append("    \(crash.destination)")
         }
         return output.joined(separator: "\n")
     }
