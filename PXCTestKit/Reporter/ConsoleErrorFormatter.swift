@@ -25,9 +25,9 @@ final class ConsoleErrorFormatter {
     private static func format(runtimeError: RunTestsCommand.RuntimeError) -> String {
         switch runtimeError {
         case .testRunHadErrors(let errors):
-            return format(testErrors: errors)
-        case .testRunHadFailures:
-            return "\(runtimeError)"
+            return "Test run had errors\n\(format(testErrors: errors))"
+        case .testRunHadFailures(let count):
+            return "Test run had \(count) failures"
         }
     }
 

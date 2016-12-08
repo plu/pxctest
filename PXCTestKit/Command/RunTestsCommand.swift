@@ -11,16 +11,9 @@ import Foundation
 
 final class RunTestsCommand: Command {
 
-    enum RuntimeError: Error, CustomStringConvertible {
+    enum RuntimeError: Error {
         case testRunHadFailures(Int)
         case testRunHadErrors([TestError])
-
-        var description: String {
-            switch self {
-            case .testRunHadFailures(let count): return "Test run had \(count) failures"
-            case .testRunHadErrors(let errors): return "Test run had errors: \(errors)"
-            }
-        }
     }
 
     struct Reporters {
