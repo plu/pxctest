@@ -11,8 +11,7 @@ Execute tests in parallel on multiple iOS Simulators.
 To install via Homebrew you can use the [plu/homebrew-pxctest](https://github.com/plu/homebrew-pxctest) tap:
 
 ```shell
-brew tap plu/pxctest
-brew install pxctest
+$ brew tap plu/pxctest && brew install pxctest
 ```
 
 ## Usage
@@ -20,24 +19,24 @@ brew install pxctest
 Compile your tests with `build-for-testing`, example:
 
 ```shell
-xcodebuild \
-  -IDEBuildLocationStyle=Custom \
-  -IDECustomBuildLocationType=Absolute \
-  -IDECustomBuildProductsPath="$PWD/build/Products" \
-  -scheme 'MyApp' \
-  -workspace 'MyApp.xcworkspace' \
-  -destination 'platform=iOS Simulator,name=iPhone 5,OS=10.1' \
-  build-for-testing
+$ xcodebuild \
+    -IDEBuildLocationStyle=Custom \
+    -IDECustomBuildLocationType=Absolute \
+    -IDECustomBuildProductsPath="$PWD/build/Products" \
+    -scheme 'MyApp' \
+    -workspace 'MyApp.xcworkspace' \
+    -destination 'platform=iOS Simulator,name=iPhone 5,OS=10.1' \
+    build-for-testing
 ```
 
 In `build/Products` you should find a `.xctestrun` file. This can then be passed to `pxctest`:
 
 ```shell
-pxctest \
-  run-tests \
-  --destination 'name=iPhone 5,os=iOS 9.3' \
-  --destination 'name=iPhone 5,os=iOS 10.1' \
-  --testrun build/Products/MyApp_iphonesimulator10.1-i386.xctestrun
+$ pxctest \
+    run-tests \
+    --destination 'name=iPhone 5,os=iOS 9.3' \
+    --destination 'name=iPhone 5,os=iOS 10.1' \
+    --testrun build/Products/MyApp_iphonesimulator10.1-i386.xctestrun
 ```
 
 The `--destination` option can be passed in several times and will execute the tests in parallel on all Simulators.
@@ -47,7 +46,7 @@ The `--destination` option can be passed in several times and will execute the t
 To see a list of possible options, just run:
 
 ```shell
-pxctest run-tests --help
+$ pxctest run-tests --help
 ```
 
 Most of the options should be self-explanatory. If not, please open an issue or submit some pull request. However the `--defaults` option needs a special section here.
