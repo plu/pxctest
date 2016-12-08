@@ -8,35 +8,14 @@
 
 import Foundation
 
-enum ANSI: UInt8, CustomStringConvertible {
-
-    static var disabled = false
-
-    case reset = 0
-    case bold
-
-    case black = 30
-    case red
-    case green
-    case yellow
-    case blue
-    case magenta
-    case cyan
-    case white
-    case `default`
-
-    var description: String {
-        return ANSI.disabled ?  "" : "\u{001B}[\(self.rawValue)m"
-    }
-
-}
-
 final class ConsoleOutput {
 
-    private let fileHandle: FileHandle
+    private let outputFileHandle: FileHandle
+    private let errorFileHandle: FileHandle
 
-    init(fileHandle: FileHandle = FileHandle.standardOutput) {
-        self.fileHandle = fileHandle
+    init(outputHandle: FileHandle = FileHandle.standardOutput, errorFileHandle: FileHandle = FileHandle.standardError) {
+        self.outputFileHandle = outputHandle
+        self.errorFileHandle = outputHandle
     }
 
     func write(line: String) {
@@ -44,7 +23,12 @@ final class ConsoleOutput {
     }
 
     func write(output: String) {
-        fileHandle.write(output.data(using: .utf8)!)
+        outputFileHandle.write(output.data(using: .utf8)!)
+    }
+
+    func write(error: Error) {
+        let output = String(format: "\n%@%@%@\n", ANSI.red.description, ConsoleErrorFormatter.format(error: error), ANSI.reset.description)
+        errorFileHandle.write(output.data(using: .utf8)!)
     }
 
 }

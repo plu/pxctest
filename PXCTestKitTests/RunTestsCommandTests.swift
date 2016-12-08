@@ -184,7 +184,7 @@ extension RunTestsCommand.Context {
                 FBSimulatorConfiguration.iPadAir().iOS_9_3(),
             ],
             timeout: 600.0,
-            consoleOutput: ConsoleOutput(fileHandle: FileHandle(forWritingAtPath: consoleFileHandlePath)!),
+            consoleOutput: ConsoleOutput(outputHandle: FileHandle(forWritingAtPath: consoleFileHandlePath)!),
             simulatorManagementOptions: [.killSpuriousSimulatorsOnFirstStart, .ignoreSpuriousKillFail],
             simulatorAllocationOptions: [.create, .reuse, .eraseOnAllocate],
             simulatorBootOptions: [.awaitServices, .enableDirectLaunch]
