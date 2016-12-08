@@ -40,6 +40,14 @@ extension Sequence where Iterator.Element == FBSimulator {
         }
     }
 
+    func install(applications: [FBApplicationDescriptor]) throws {
+        for simulator in self {
+            for application in applications {
+                try simulator.interact.installApplication(application).perform()
+            }
+        }
+    }
+
     func loadDefaults(context: DefaultsContext) throws {
         for simulator in self {
             try simulator.loadDefaults(context: context)

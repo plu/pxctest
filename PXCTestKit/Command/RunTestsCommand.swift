@@ -104,13 +104,9 @@ final class RunTestsCommand: Command {
                 .withTestsToRun(testsToRun)
                 .withTestEnvironment(testEnvironment)
 
-            for simulator in simulators {
-                for application in target.applications {
-                    try simulator.interact
-                        .installApplication(application)
-                        .perform()
-                }
+            try simulators.install(applications: target.applications)
 
+            for simulator in simulators {
                 try simulator.interact
                     .startTest(
                         with: testLaunchConfigurartion,
