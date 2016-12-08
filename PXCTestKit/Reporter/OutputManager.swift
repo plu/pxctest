@@ -37,6 +37,24 @@ final class OutputManager {
         return try FileHandle(forWritingTo: logFile)
     }
 
+    func extractDiagnostics(simulators: [FBSimulator], testRun: FBXCTestRun, testErrors: [RunTestsCommand.TestError]) throws {
+        for simulator in simulators {
+            for target in testRun.targets {
+                for application in target.applications {
+                    guard let diagnostics = simulator.diagnostics.launchedProcessLogs().first(where: { $0.0.processName == application.name })?.value else { continue }
+                    let destinationPath = urlFor(simulatorConfiguration: simulator.configuration!, target: target.name).path
+                    try diagnostics.writeOut(toDirectory: destinationPath)
+                }
+            }
+        }
+        for error in testErrors {
+            for crash in error.crashes {
+                let destinationPath = urlFor(simulatorConfiguration: error.simulator.configuration!, target: error.target).path
+                try crash.writeOut(toDirectory: destinationPath)
+            }
+        }
+    }
+
     func reset(targets: [String], simulatorConfigurations: [FBSimulatorConfiguration]) throws {
         let fileManager = FileManager.default
 

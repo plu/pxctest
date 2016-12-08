@@ -78,7 +78,7 @@ final class RunTestsCommand: Command {
         try simulators.boot(context: context)
 
         let testErrors = try test(simulators: simulators, testRun: testRun)
-        try extractDiagnostics(simulators: simulators, testRun: testRun, testErrors: testErrors)
+        try context.output.extractDiagnostics(simulators: simulators, testRun: testRun, testErrors: testErrors)
 
         if testErrors.count > 0 {
             throw RuntimeError.testRunHadErrors(testErrors)
@@ -157,24 +157,6 @@ final class RunTestsCommand: Command {
         reporters.summary.append(summaryReporter)
 
         return FBTestManagerTestReporterComposite.withTestReporters([consoleReporter, junitReporter, summaryReporter, xcodeReporter])
-    }
-
-    private func extractDiagnostics(simulators: [FBSimulator], testRun: FBXCTestRun, testErrors: [TestError]) throws {
-        for simulator in simulators {
-            for target in testRun.targets {
-                for application in target.applications {
-                    guard let diagnostics = simulator.diagnostics.launchedProcessLogs().first(where: { $0.0.processName == application.name })?.value else { continue }
-                    let destinationPath = context.output.urlFor(simulatorConfiguration: simulator.configuration!, target: target.name).path
-                    try diagnostics.writeOut(toDirectory: destinationPath)
-                }
-            }
-        }
-        for error in testErrors {
-            for crash in error.crashes {
-                let destinationPath = context.output.urlFor(simulatorConfiguration: error.simulator.configuration!, target: error.target).path
-                try crash.writeOut(toDirectory: destinationPath)
-            }
-        }
     }
 
     private func writeConsoleOutputSummary() {
