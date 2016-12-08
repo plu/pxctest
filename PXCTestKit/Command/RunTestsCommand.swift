@@ -16,11 +16,6 @@ final class RunTestsCommand: Command {
         case testRunHadErrors([TestError])
     }
 
-    struct Reporters {
-        var console: [ConsoleReporter] = []
-        var summary: [SummaryReporter] = []
-    }
-
     struct TestError {
         let simulator: FBSimulator
         let target: String
@@ -29,12 +24,13 @@ final class RunTestsCommand: Command {
     }
 
     private let context: Context
-    private var reporters = Reporters()
+    private let reporterRegistry: ReporterRegistry
     private var simulators: [FBSimulator] = []
     private var testRun: FBXCTestRun!
 
     init(context: Context) {
         self.context = context
+        self.reporterRegistry = ReporterRegistry(context: context)
     }
 
     func abort() {
@@ -79,7 +75,7 @@ final class RunTestsCommand: Command {
 
         writeConsoleOutputSummary()
 
-        let failureCount = reporters.summary.reduce(0) { $0 + $1.total.failureCount }
+        let failureCount = reporterRegistry.summary.reduce(0) { $0 + $1.total.failureCount }
         if failureCount > 0 {
             throw RuntimeError.testRunHadFailures(failureCount)
         }
@@ -110,7 +106,7 @@ final class RunTestsCommand: Command {
                 try simulator.interact
                     .startTest(
                         with: testLaunchConfigurartion,
-                        reporter: try reporter(for: simulator, target: target)
+                        reporter: try reporterRegistry.addReporter(for: simulator, target: target)
                     )
                     .perform()
             }
@@ -133,36 +129,21 @@ final class RunTestsCommand: Command {
         return errors
     }
 
-    private func reporter(for simulator: FBSimulator, target: FBXCTestRunTarget) throws -> FBTestManagerTestReporter {
-        let simulatorIdentifier = "\(simulator.configuration!.deviceName) \(simulator.configuration!.osVersionString)"
-        let consoleReporter = context.reporterType.init(simulatorIdentifier: simulatorIdentifier, testTargetName: target.name, consoleOutput: context.consoleOutput)
-        let junitReportURL = context.output.urlFor(simulatorConfiguration: simulator.configuration!, target: target.name).appendingPathComponent("junit.xml")
-        let junitReporter = FBTestManagerTestReporterJUnit.withOutputFileURL(junitReportURL)
-        let xcodeReportURL = context.output.urlFor(simulatorConfiguration: simulator.configuration!, target: target.name).appendingPathComponent("test.log")
-        let xcodeReporter = try XcodeReporter(fileURL: xcodeReportURL)
-        let summaryReporter = SummaryReporter()
-
-        reporters.console.append(consoleReporter)
-        reporters.summary.append(summaryReporter)
-
-        return FBTestManagerTestReporterComposite.withTestReporters([consoleReporter, junitReporter, summaryReporter, xcodeReporter])
-    }
-
     private func writeConsoleOutputSummary() {
         let console = context.consoleOutput
-        let writeTotalSummary = reporters.console.reduce(true, { return $0 && $1.writeTotalSummary })
+        let writeTotalSummary = reporterRegistry.console.reduce(true, { return $0 && $1.writeTotalSummary })
 
         if writeTotalSummary {
             console.write(line: "")
         }
 
-        reporters.console.forEach { $0.writeFailures() }
-        reporters.console.forEach { $0.writeSummary() }
+        reporterRegistry.console.forEach { $0.writeFailures() }
+        reporterRegistry.console.forEach { $0.writeSummary() }
 
         if writeTotalSummary {
-            let runCount = reporters.summary.reduce(0) { $0 + $1.total.runCount }
-            let failureCount = reporters.summary.reduce(0) { $0 + $1.total.failureCount }
-            let unexpected = reporters.summary.reduce(0) { $0 + $1.total.unexpected }
+            let runCount = reporterRegistry.summary.reduce(0) { $0 + $1.total.runCount }
+            let failureCount = reporterRegistry.summary.reduce(0) { $0 + $1.total.failureCount }
+            let unexpected = reporterRegistry.summary.reduce(0) { $0 + $1.total.unexpected }
             let output = String(format: "\(ANSI.bold)Total - Finished executing %d tests. %d Failures, %d Unexpected\(ANSI.reset)", runCount, failureCount, unexpected)
             console.write(line: output)
         }

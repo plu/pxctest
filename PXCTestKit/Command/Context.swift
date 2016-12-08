@@ -24,9 +24,15 @@ protocol DefaultsContext {
     var defaults: [String: [String: Any]] { get }
 }
 
+protocol ReporterContext {
+    var consoleOutput: ConsoleOutput { get }
+    var output: OutputManager { get }
+    var reporterType: ConsoleReporter.Type { get }
+}
+
 extension RunTestsCommand {
 
-    struct Context: BootContext, ControlContext, DefaultsContext {
+    struct Context: BootContext, ControlContext, DefaultsContext, ReporterContext {
         let testRun: URL
         let deviceSet: URL
         let output: OutputManager
