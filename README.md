@@ -107,7 +107,7 @@ KIF Tests - iPad Retina iOS 9.3 - Finished executing 10 tests after 25.119s. 0 F
 Total - Finished executing 20 tests. 0 Failures, 0 Unexpected
 ```
 
-If you still see some `Simulator.app` window popping up, it might have different reasons:
+If you still see some `Simulator.app` window showing up, it might have different reasons:
 
 * something went wrong pre-booting the devices earlier
 * you forgot the `--deviceset` option
@@ -125,7 +125,7 @@ $ xcrun simctl --set /tmp/test-simulators list
 
 The `Booted` state here however does not mean "is ready for launching apps or running tests". After booting a device it enters the `Booted` state quickly, but still showing the loading bar above the Springboard (you can see that if you boot them via `Simulator.app` and keep watching the state that `xcrun simctl` reports).
 
-Here you can see that the tests are running, but no `Simulator.app` window is popping up:
+Here you can see that the tests are running, but no `Simulator.app` window is visible:
 
 ![headless_screencast](static/headless_screencast.gif?raw=true "headless screencast")
 
