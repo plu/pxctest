@@ -74,6 +74,61 @@ Example: You can turn off all keyboard settings that you can find in the Simulat
 }
 ```
 
+### Headless testing
+
+It's possible to execute the tests without actually launching a `Simulator.app` window. This can be convenient because it will separate your test workflow from your development. If the tests run in the `Simulator.app` window and you launch your app during the test run from Xcode, it will stop the tests. There's not much we can do about that, it's just the way Xcode is handling `Simulator.app` - it takes control over all instances.
+
+First you need to pre-boot some Simulators in the background, with a custom device set path:
+
+```shell
+$ mkdir /tmp/test-simulators
+$ xcrun simctl --set /tmp/test-simulators create 'iPhone 5' 'iPhone 5' com.apple.CoreSimulator.SimRuntime.iOS-9-3
+716A9864-08BD-4200-96ED-20EA1E81BE65
+$ xcrun simctl --set /tmp/test-simulators create 'iPad Retina' 'iPad Retina' com.apple.CoreSimulator.SimRuntime.iOS-9-3
+D2EB2BB9-8862-4F0D-A933-079C9BA0342A
+$ xcrun simctl --set /tmp/test-simulators boot 716A9864-08BD-4200-96ED-20EA1E81BE65
+$ xcrun simctl --set /tmp/test-simulators boot D2EB2BB9-8862-4F0D-A933-079C9BA0342A
+```
+
+Booting the Simulators in a usable state can take some time. Since they don't have a window, we cannot see the loading indicator on top of the Springboard to identifiy if they are ready or not. So just give them some time to finish booting before you make your first test run.
+
+To launch your tests on these Simulators, you just need to pass the `--deviceset` option to `pxctest`:
+
+```shell
+$ pxctest run-tests \
+    --testrun build/Products/KIF_iphonesimulator10.1-i386.xctestrun \
+    --deviceset /tmp/test-simulators \
+    --destination 'name=iPhone 5,os=iOS 9.3' \
+    --destination 'name=iPad Retina,os=iOS 9.3' \
+    --only 'KIF Tests:TappingTests'
+....................
+KIF Tests - iPhone 5 iOS 9.3 - Finished executing 10 tests after 25.252s. 0 Failures, 0 Unexpected
+KIF Tests - iPad Retina iOS 9.3 - Finished executing 10 tests after 25.119s. 0 Failures, 0 Unexpected
+Total - Finished executing 20 tests. 0 Failures, 0 Unexpected
+```
+
+If you still see some `Simulator.app` window popping up, it might have different reasons:
+
+* something went wrong pre-booting the devices earlier
+* you forgot the `--deviceset` option
+* you didn't pre-boot all devices that you're using as `--destination` options now
+
+You can verify the state of your devices via:
+
+```shell
+$ xcrun simctl --set /tmp/test-simulators list
+== Devices ==
+-- iOS 9.3 --
+    iPhone 5 (716A9864-08BD-4200-96ED-20EA1E81BE65) (Booted)
+    iPad Retina (D2EB2BB9-8862-4F0D-A933-079C9BA0342A) (Booted)
+```
+
+The `Booted` state here however does not mean "is ready for launching apps or running tests". After booting a device it enters the `Booted` state quickly, but still showing the loading bar above the Springboard (you can see that if you boot them via `Simulator.app` and keep watching the state that `xcrun simctl` reports).
+
+Here you can see that the tests are running, but no `Simulator.app` window is popping up:
+
+![headless_screencast](static/headless_screencast.gif?raw=true "headless screencast")
+
 ## Development
 
 ```shell
