@@ -151,6 +151,32 @@ There are two command line tools that come with [FBSimulatorControl](https://git
 
 Both of them are more flexible than `pxctest`, so it might be worth having a look at them.
 
+## Resource limits
+
+By default the resource limitations (maximum processes per user, maximum open files) on Mac OS are quite small. There even seems to be a hard limit baked into the kernel of 2500 maximum processes per user. But there's some boot arguments that can be set to raise this limit to at least 5000.
+
+So why is this important? A booted iPhone 7 Simulator is not just one process, it comes with a whole set of running processes. If you boot a couple Simulators at the same time, add your other running programs/processes on top of that, then you will hit these limits soon.
+
+First we [set the nvram boot argument](https://support.apple.com/en-ae/HT202528):
+
+```shell
+sudo nvram boot-args="serverperfmode=1 $(nvram boot-args 2>/dev/null | cut -f 2-)"
+```
+
+Next step is to make `launchd` set the new limits:
+
+```shell
+sudo cp config/limit.maxfiles.plist /Library/LaunchDaemons/limit.maxfiles.plist
+sudo cp config/limit.maxproc.plist /Library/LaunchDaemons/limit.maxproc.plist
+```
+
+The two files can be found in this repository:
+
+* [limit.maxfiles.plist](config/limit.maxfiles.plist)
+* [limit.maxproc.plist](config/limit.maxproc.plist)
+
+And we reboot!
+
 ## License
 
 [MIT](LICENSE)
