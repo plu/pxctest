@@ -14,9 +14,9 @@ final class ConsoleOutput {
     private let errorFileHandle: FileHandle
     private var lastOutputContainedNewLine = false
 
-    init(outputHandle: FileHandle = FileHandle.standardOutput, errorFileHandle: FileHandle = FileHandle.standardError) {
-        self.outputFileHandle = outputHandle
-        self.errorFileHandle = outputHandle
+    init(outputFileHandle: FileHandle = FileHandle.standardOutput, errorFileHandle: FileHandle = FileHandle.standardError) {
+        self.outputFileHandle = outputFileHandle
+        self.errorFileHandle = errorFileHandle
     }
 
     func write(line: String) {

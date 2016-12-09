@@ -28,7 +28,7 @@ class ConsoleOutputTests: XCTestCase {
         outputPath = "\(NSTemporaryDirectory())/\(UUID().uuidString)"
         FileManager.default.createFile(atPath: outputPath, contents: nil, attributes: nil)
         let fileHandle = FileHandle(forWritingAtPath: outputPath)!
-        consoleOutput = ConsoleOutput(outputHandle: fileHandle, errorFileHandle: fileHandle)
+        consoleOutput = ConsoleOutput(outputFileHandle: fileHandle, errorFileHandle: fileHandle)
     }
 
     func testWritingOutput() {

@@ -16,7 +16,8 @@ class RunTestsCommandTests: XCTestCase {
 
     fileprivate struct Result {
         let context: RunTestsCommand.Context
-        let consoleOutput: String
+        let standardError: String
+        let standardOutput: String
         let failureCount: Int
         let testErrors: [RunTestsCommand.TestError]?
     }
@@ -35,9 +36,12 @@ class RunTestsCommandTests: XCTestCase {
         testsToRun["SampleUITests"] = Set(["SampleUITests/testInSampleUITestsThatFails"])
         let result = try runTests(testRun: fixtures.sampleAppTestRun, testsToRun: testsToRun)
 
+        XCTAssertEqualRSpecOutput(result.standardError, "Test run had 4 failures\n")
+        XCTAssertEqualRSpecOutput(result.standardOutput, fixtures.testSampleAppTestRunOnlyFailingTestsOutput)
+
         XCTAssertEqual(result.failureCount, 4)
-        XCTAssertEqualRSpecOutput(result.consoleOutput, fixtures.testSampleAppTestRunOnlyFailingTestsOutput)
         XCTAssertNil(result.testErrors)
+
         ["SampleTests", "SampleUITests"].forEach { (target) in
             result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
                 let url = result.context.outputManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: target)
@@ -54,9 +58,12 @@ class RunTestsCommandTests: XCTestCase {
         testsToRun["SampleUITests"] = Set(["SampleUITests/testInSampleUITestsThatSucceeds"])
         let result = try runTests(testRun: fixtures.sampleAppTestRun, testsToRun: testsToRun)
 
+        XCTAssertEqualRSpecOutput(result.standardError, "")
+        XCTAssertEqualRSpecOutput(result.standardOutput, fixtures.testSampleAppTestRunOnlySuccessfulTestsOutput)
+
         XCTAssertEqual(result.failureCount, 0)
-        XCTAssertEqualRSpecOutput(result.consoleOutput, fixtures.testSampleAppTestRunOnlySuccessfulTestsOutput)
         XCTAssertNil(result.testErrors)
+
         ["SampleTests", "SampleUITests"].forEach { (target) in
             result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
                 let url = result.context.outputManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: target)
@@ -72,9 +79,12 @@ class RunTestsCommandTests: XCTestCase {
         testsToRun["SuccessfulTests"] = Set()
         let result = try runTests(testRun: fixtures.sampleAppTestRun, testsToRun: testsToRun)
 
+        XCTAssertEqualRSpecOutput(result.standardError, "")
+        XCTAssertEqualRSpecOutput(result.standardOutput, fixtures.testSampleAppTestRunOnlyOneTarget)
+
         XCTAssertEqual(result.failureCount, 0)
-        XCTAssertEqualRSpecOutput(result.consoleOutput, fixtures.testSampleAppTestRunOnlyOneTarget)
         XCTAssertNil(result.testErrors)
+
         result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
             let url = result.context.outputManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: "SuccessfulTests")
             XCTAssertFileSizeGreaterThan(url.appendingPathComponent("junit.xml").path, 0)
@@ -86,9 +96,12 @@ class RunTestsCommandTests: XCTestCase {
     func testSampleAppTestRunRunWithAllTargetsAndJSONReporter() throws {
         let result = try runTests(testRun: fixtures.sampleAppTestRun, reporterType: JSONReporter.self)
 
+        XCTAssertEqualRSpecOutput(result.standardError, "Test run had 4 failures\n")
+        XCTAssertEqualJSONOutput(result.standardOutput, fixtures.testSampleAppTestRunRunWithAllTargetsAndJSONReporter)
+
         XCTAssertEqual(result.failureCount, 4)
-        XCTAssertEqualJSONOutput(result.consoleOutput, fixtures.testSampleAppTestRunRunWithAllTargetsAndJSONReporter)
         XCTAssertNil(result.testErrors)
+
         ["SampleTests", "SampleUITests", "SuccessfulTests"].forEach { (target) in
             result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
                 let url = result.context.outputManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: target)
@@ -104,9 +117,11 @@ class RunTestsCommandTests: XCTestCase {
     func testCrashAppTestRun() throws {
         let result = try runTests(testRun: fixtures.crashAppTestRun)
 
+        XCTAssertEqualRSpecOutput(result.standardOutput, "..")
+
         XCTAssertEqual(result.failureCount, 0)
-        XCTAssertEqualRSpecOutput(result.consoleOutput, "..")
         XCTAssertEqual(result.testErrors?.count, 2)
+
         result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
             let url = result.context.outputManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: "CrashTests")
             XCTAssertFileSizeGreaterThan(url.appendingPathComponent("Crash.log").path, 0)
@@ -148,16 +163,23 @@ extension RunTestsCommandTests {
         do {
             try command.run(control: control)
         }
-        catch RunTestsCommand.RuntimeError.testRunHadFailures(let count) {
-            failureCount = count
-        }
-        catch RunTestsCommand.RuntimeError.testRunHadErrors(let errors) {
-            testErrors = errors
+        catch {
+            switch error {
+            case RunTestsCommand.RuntimeError.testRunHadFailures(let count):
+                context.consoleOutput.write(error: error)
+                failureCount = count
+            case RunTestsCommand.RuntimeError.testRunHadErrors(let errors):
+                context.consoleOutput.write(error: error)
+                testErrors = errors
+            default:
+                throw error
+            }
         }
 
         return Result(
             context: context,
-            consoleOutput: try String(contentsOf: temporaryDirectory.appendingPathComponent("console.log")),
+            standardError: try String(contentsOf: temporaryDirectory.appendingPathComponent("stderr.log")),
+            standardOutput: try String(contentsOf: temporaryDirectory.appendingPathComponent("stdout.log")),
             failureCount: failureCount,
             testErrors: testErrors
         )
@@ -168,8 +190,10 @@ extension RunTestsCommandTests {
 extension RunTestsCommand.Context {
 
     init(temporaryDirectory: URL, testRun: URL, testsToRun: [String: Set<String>], reporterType: ConsoleReporter.Type = RSpecReporter.self) {
-        let consoleFileHandlePath = temporaryDirectory.appendingPathComponent("console.log").path
-        FileManager.default.createFile(atPath: consoleFileHandlePath, contents: nil, attributes: nil)
+        let standardOutputPath = temporaryDirectory.appendingPathComponent("stdout.log").path
+        let standardErrorPath = temporaryDirectory.appendingPathComponent("stderr.log").path
+        FileManager.default.createFile(atPath: standardOutputPath, contents: nil, attributes: nil)
+        FileManager.default.createFile(atPath: standardErrorPath, contents: nil, attributes: nil)
         self.init(
             testRun: testRun,
             deviceSet: temporaryDirectory.appendingPathComponent("simulators"),
@@ -184,7 +208,10 @@ extension RunTestsCommand.Context {
                 FBSimulatorConfiguration.iPadAir().iOS_9_3(),
             ],
             timeout: 600.0,
-            consoleOutput: ConsoleOutput(outputHandle: FileHandle(forWritingAtPath: consoleFileHandlePath)!),
+            consoleOutput: ConsoleOutput(
+                outputFileHandle: FileHandle(forWritingAtPath: standardOutputPath)!,
+                errorFileHandle: FileHandle(forWritingAtPath: standardErrorPath)!
+            ),
             simulatorManagementOptions: [],
             simulatorAllocationOptions: [.create, .reuse, .eraseOnAllocate],
             simulatorBootOptions: [.awaitServices, .enableDirectLaunch]
