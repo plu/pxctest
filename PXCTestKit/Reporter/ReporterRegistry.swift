@@ -35,8 +35,8 @@ final class ReporterRegistry {
         return FBTestManagerTestReporterComposite.withTestReporters([consoleReporter, junitReporter, xcodeReporter])
     }
 
-    func finishReporting() throws {
-        try reporterType.finishReporting(reporters: reporters)
+    func finishReporting(console: ConsoleOutput) throws {
+        try reporterType.finishReporting(console: console, reporters: reporters)
     }
 
 }

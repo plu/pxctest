@@ -73,7 +73,7 @@ final class RunTestsCommand: Command {
             throw RuntimeError.testRunHadErrors(testErrors)
         }
 
-        try reporterRegistry.finishReporting()
+        try reporterRegistry.finishReporting(console: context.consoleOutput)
     }
 
     // MARK: - Private

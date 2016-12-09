@@ -25,9 +25,7 @@ final class RSpecReporter: FBTestManagerTestReporterBase, ConsoleReporter {
         super.init()
     }
 
-    static func finishReporting(reporters: [ConsoleReporter]) throws {
-        guard let console = reporters.first?.console else { return }
-
+    static func finishReporting(console: ConsoleOutput, reporters: [ConsoleReporter]) throws {
         reporters.flatMap { $0 as? RSpecReporter }.forEach { $0.writeFailures() }
         reporters.flatMap { $0 as? RSpecReporter }.forEach { $0.writeSummary() }
 
@@ -35,6 +33,7 @@ final class RSpecReporter: FBTestManagerTestReporterBase, ConsoleReporter {
         let failureCount = reporters.reduce(0) { $0 + ($1.summary?.failureCount ?? 0) }
         let unexpected = reporters.reduce(0) { $0 + ($1.summary?.unexpected ?? 0) }
         let output = String(format: "\(ANSI.bold)Total - Finished executing %d tests. %d Failures, %d Unexpected\(ANSI.reset)", runCount, failureCount, unexpected)
+
         console.write(line: output)
 
         try raiseTestRunHadFailures(reporters: reporters)

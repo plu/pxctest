@@ -163,7 +163,7 @@ final class JSONReporter: NSObject, FBTestManagerTestReporter, ConsoleReporter {
 
     // MARK: - ConsoleReporter
 
-    static func finishReporting(reporters: [ConsoleReporter]) throws {
+    static func finishReporting(console: ConsoleOutput, reporters: [ConsoleReporter]) throws {
         try raiseTestRunHadFailures(reporters: reporters)
     }
 

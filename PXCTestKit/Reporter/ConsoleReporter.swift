@@ -18,7 +18,7 @@ protocol ConsoleReporter: FBTestManagerTestReporter {
 
     init(simulatorIdentifier: String, testTargetName: String, consoleOutput: ConsoleOutput)
 
-    static func finishReporting(reporters: [ConsoleReporter]) throws
+    static func finishReporting(console: ConsoleOutput, reporters: [ConsoleReporter]) throws
 
 }
 
