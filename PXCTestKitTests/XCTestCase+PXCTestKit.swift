@@ -54,8 +54,8 @@ extension XCTestCase {
     func XCTAssertEqualRSpecOutput(_ expression1: String, _ expression2: String, file: StaticString = #file, line: UInt = #line) {
         let regularExpression = try! NSRegularExpression(pattern: "\\d+\\.\\d{3}+s", options: [])
         XCTAssertEqual(
-            regularExpression.stringByReplacingMatches(in: expression1, options: [], range: NSRange(location: 0, length: expression1.lengthOfBytes(using: .utf8)), withTemplate: "1.234s"),
-            regularExpression.stringByReplacingMatches(in: expression2, options: [], range: NSRange(location: 0, length: expression2.lengthOfBytes(using: .utf8)), withTemplate: "1.234s"),
+            regularExpression.stringByReplacingMatches(in: expression1, options: [], range: NSRange(location: 0, length: expression1.characters.count), withTemplate: "1.234s"),
+            regularExpression.stringByReplacingMatches(in: expression2, options: [], range: NSRange(location: 0, length: expression2.characters.count), withTemplate: "1.234s"),
             file: file,
             line: line)
     }
