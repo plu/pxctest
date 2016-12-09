@@ -12,6 +12,7 @@ final class ConsoleOutput {
 
     private let outputFileHandle: FileHandle
     private let errorFileHandle: FileHandle
+    private var lastOutputContainedNewLine = false
 
     init(outputHandle: FileHandle = FileHandle.standardOutput, errorFileHandle: FileHandle = FileHandle.standardError) {
         self.outputFileHandle = outputHandle
@@ -19,16 +20,21 @@ final class ConsoleOutput {
     }
 
     func write(line: String) {
-        write(output: "\(line)\n")
+        let output = lastOutputContainedNewLine ? "\(line)\n" : "\n\(line)\n"
+        outputFileHandle.write(output.data(using: .utf8)!)
+        lastOutputContainedNewLine = true
     }
 
     func write(output: String) {
+        lastOutputContainedNewLine = false
         outputFileHandle.write(output.data(using: .utf8)!)
     }
 
     func write(error: Error) {
-        let output = String(format: "\n%@\n", ConsoleErrorFormatter.format(error: error))
+        let formattedError = ConsoleErrorFormatter.format(error: error)
+        let output = lastOutputContainedNewLine ? "\(formattedError)\n" : "\n\(formattedError)\n"
         errorFileHandle.write(output.data(using: .utf8)!)
+        lastOutputContainedNewLine = true
     }
 
 }

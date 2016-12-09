@@ -96,4 +96,16 @@ extension XCTestCase {
         XCTAssertGreaterThan(count, 0, "Directory \(path) contains \(count) files that have the suffix \(suffix)", file: file, line: line)
     }
 
+    func XCTAssertContentOfFileAtPath(_ path: String, _ content: String, file: StaticString = #file, line: UInt = #line) {
+        XCTAssertFileExists(path, file: file, line: line)
+        var fileContent = ""
+        do {
+            fileContent = try String(contentsOfFile: path)
+        }
+        catch {
+            XCTFail("\(error)", file: file, line: line)
+        }
+        XCTAssertEqual(content, fileContent, file: file, line: line)
+    }
+
 }

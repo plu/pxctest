@@ -28,7 +28,6 @@ final class RSpecReporter: FBTestManagerTestReporterBase, ConsoleReporter {
     static func finishReporting(reporters: [ConsoleReporter]) throws {
         guard let console = reporters.first?.console else { return }
 
-        console.write(line: "")
         reporters.flatMap { $0 as? RSpecReporter }.forEach { $0.writeFailures() }
         reporters.flatMap { $0 as? RSpecReporter }.forEach { $0.writeSummary() }
 
@@ -85,8 +84,8 @@ final class RSpecReporter: FBTestManagerTestReporterBase, ConsoleReporter {
     private func writeSummary() {
         guard let summary = testSuite.summary else { return }
 
-        let output = String(format: "\(testTargetName) - \(simulatorIdentifier) - Finished executing %d tests after %.03fs. %d Failures, %d Unexpected\n", summary.runCount, summary.totalDuration, summary.failureCount, summary.unexpected)
-        console.write(output: output)
+        let output = String(format: "\(testTargetName) - \(simulatorIdentifier) - Finished executing %d tests after %.03fs. %d Failures, %d Unexpected", summary.runCount, summary.totalDuration, summary.failureCount, summary.unexpected)
+        console.write(line: output)
     }
 
 }
