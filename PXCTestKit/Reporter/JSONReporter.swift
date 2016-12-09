@@ -11,7 +11,7 @@ import Foundation
 
 final class JSONReporter: NSObject, FBTestManagerTestReporter, ConsoleReporter {
 
-    let console: ConsoleOutput
+    let consoleOutput: ConsoleOutput
     let simulatorIdentifier: String
     var summary: FBTestManagerResultSummary? = nil
     let testTargetName: String
@@ -19,7 +19,7 @@ final class JSONReporter: NSObject, FBTestManagerTestReporter, ConsoleReporter {
     private var exceptions: [String: [[String: String]]] = [:]
 
     init(simulatorIdentifier: String, testTargetName: String, consoleOutput: ConsoleOutput) {
-        self.console = consoleOutput
+        self.consoleOutput = consoleOutput
         self.simulatorIdentifier = simulatorIdentifier
         self.testTargetName = testTargetName
         super.init()
@@ -108,13 +108,13 @@ final class JSONReporter: NSObject, FBTestManagerTestReporter, ConsoleReporter {
             json = try String(data: JSONSerialization.data(withJSONObject: dictionary, options: []), encoding: .utf8)
         }
         catch {
-            console.write(line: "{\"event\":\"json-error\", \"message\": \"Could not serialize event in JSON format.\"}")
+            consoleOutput.write(line: "{\"event\":\"json-error\", \"message\": \"Could not serialize event in JSON format.\"}")
         }
         if let json = json {
-            console.write(line: json)
+            consoleOutput.write(line: json)
         }
         else {
-            console.write(line: "{\"event\":\"json-error\", \"message\": \"Could not serialize event in JSON format.\"}")
+            consoleOutput.write(line: "{\"event\":\"json-error\", \"message\": \"Could not serialize event in JSON format.\"}")
         }
     }
 
@@ -163,7 +163,7 @@ final class JSONReporter: NSObject, FBTestManagerTestReporter, ConsoleReporter {
 
     // MARK: - ConsoleReporter
 
-    static func finishReporting(console: ConsoleOutput, reporters: [ConsoleReporter]) throws {
+    static func finishReporting(consoleOutput: ConsoleOutput, reporters: [ConsoleReporter]) throws {
         try raiseTestRunHadFailures(reporters: reporters)
     }
 

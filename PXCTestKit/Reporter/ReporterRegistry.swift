@@ -12,22 +12,22 @@ import Foundation
 final class ReporterRegistry {
 
     private let consoleOutput: ConsoleOutput
-    private let output: OutputManager
+    private let outputManager: OutputManager
     private let reporterType: ConsoleReporter.Type
     private var reporters: [ConsoleReporter] = []
 
     init(context: ReporterContext) {
         consoleOutput = context.consoleOutput
-        output = context.output
+        outputManager = context.outputManager
         reporterType = context.reporterType
     }
 
     func addReporter(for simulator: FBSimulator, target: FBXCTestRunTarget) throws -> FBTestManagerTestReporter {
         let simulatorIdentifier = "\(simulator.configuration!.deviceName) \(simulator.configuration!.osVersionString)"
         let consoleReporter = reporterType.init(simulatorIdentifier: simulatorIdentifier, testTargetName: target.name, consoleOutput: consoleOutput)
-        let junitReportURL = output.urlFor(simulatorConfiguration: simulator.configuration!, target: target.name).appendingPathComponent("junit.xml")
+        let junitReportURL = outputManager.urlFor(simulatorConfiguration: simulator.configuration!, target: target.name).appendingPathComponent("junit.xml")
         let junitReporter = FBTestManagerTestReporterJUnit.withOutputFileURL(junitReportURL)
-        let xcodeReportURL = output.urlFor(simulatorConfiguration: simulator.configuration!, target: target.name).appendingPathComponent("test.log")
+        let xcodeReportURL = outputManager.urlFor(simulatorConfiguration: simulator.configuration!, target: target.name).appendingPathComponent("test.log")
         let xcodeReporter = try XcodeReporter(fileURL: xcodeReportURL)
 
         reporters.append(consoleReporter)
@@ -35,8 +35,8 @@ final class ReporterRegistry {
         return FBTestManagerTestReporterComposite.withTestReporters([consoleReporter, junitReporter, xcodeReporter])
     }
 
-    func finishReporting(console: ConsoleOutput) throws {
-        try reporterType.finishReporting(console: console, reporters: reporters)
+    func finishReporting(consoleOutput: ConsoleOutput) throws {
+        try reporterType.finishReporting(consoleOutput: consoleOutput, reporters: reporters)
     }
 
 }

@@ -54,7 +54,7 @@ final class RunTestsCommand: Command {
     func run(control: FBSimulatorControl) throws {
         testRun = try FBXCTestRun.withTestRunFile(atPath: context.testRun.path).build()
 
-        try context.output.reset(
+        try context.outputManager.reset(
             targets: testRun.targets.map({ $0.name }),
             simulatorConfigurations: context.simulatorConfigurations
         )
@@ -67,13 +67,13 @@ final class RunTestsCommand: Command {
         try simulators.boot(context: context)
 
         let testErrors = try test(simulators: simulators, testRun: testRun)
-        try context.output.extractDiagnostics(simulators: simulators, testRun: testRun, testErrors: testErrors)
+        try context.outputManager.extractDiagnostics(simulators: simulators, testRun: testRun, testErrors: testErrors)
 
         if testErrors.count > 0 {
             throw RuntimeError.testRunHadErrors(testErrors)
         }
 
-        try reporterRegistry.finishReporting(console: context.consoleOutput)
+        try reporterRegistry.finishReporting(consoleOutput: context.consoleOutput)
     }
 
     // MARK: - Private

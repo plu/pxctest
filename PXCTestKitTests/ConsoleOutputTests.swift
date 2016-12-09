@@ -11,7 +11,7 @@ import XCTest
 
 class ConsoleOutputTests: XCTestCase {
 
-    private var console: ConsoleOutput!
+    private var consoleOutput: ConsoleOutput!
     private var outputPath: String!
 
     enum Barf: Error, CustomStringConvertible {
@@ -28,17 +28,17 @@ class ConsoleOutputTests: XCTestCase {
         outputPath = "\(NSTemporaryDirectory())/\(UUID().uuidString)"
         FileManager.default.createFile(atPath: outputPath, contents: nil, attributes: nil)
         let fileHandle = FileHandle(forWritingAtPath: outputPath)!
-        console = ConsoleOutput(outputHandle: fileHandle, errorFileHandle: fileHandle)
+        consoleOutput = ConsoleOutput(outputHandle: fileHandle, errorFileHandle: fileHandle)
     }
 
     func testWritingOutput() {
-        console.write(output: ".F.F.F")
-        console.write(line: "foo bar")
-        console.write(output: "F.F.F.")
-        console.write(error: Barf.loud)
-        console.write(line: "bla fasel")
-        console.write(error: Barf.loud)
-        console.write(error: Barf.loud)
+        consoleOutput.write(output: ".F.F.F")
+        consoleOutput.write(line: "foo bar")
+        consoleOutput.write(output: "F.F.F.")
+        consoleOutput.write(error: Barf.loud)
+        consoleOutput.write(line: "bla fasel")
+        consoleOutput.write(error: Barf.loud)
+        consoleOutput.write(error: Barf.loud)
         XCTAssertContentOfFileAtPath(outputPath, [
             ".F.F.F",
             "foo bar",

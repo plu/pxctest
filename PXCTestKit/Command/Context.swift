@@ -15,7 +15,7 @@ protocol BootContext {
 }
 
 protocol ControlContext {
-    var output: OutputManager { get }
+    var outputManager: OutputManager { get }
     var deviceSet: URL { get }
     var simulatorManagementOptions: FBSimulatorManagementOptions { get }
 }
@@ -26,7 +26,7 @@ protocol DefaultsContext {
 
 protocol ReporterContext {
     var consoleOutput: ConsoleOutput { get }
-    var output: OutputManager { get }
+    var outputManager: OutputManager { get }
     var reporterType: ConsoleReporter.Type { get }
 }
 
@@ -35,7 +35,7 @@ extension RunTestsCommand {
     struct Context: BootContext, ControlContext, DefaultsContext, ReporterContext {
         let testRun: URL
         let deviceSet: URL
-        let output: OutputManager
+        let outputManager: OutputManager
         let locale: Locale
         let environment: [String: String]
         let defaults: [String: [String: Any]]

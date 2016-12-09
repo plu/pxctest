@@ -11,14 +11,14 @@ import Foundation
 
 protocol ConsoleReporter: FBTestManagerTestReporter {
 
-    var console: ConsoleOutput { get }
+    var consoleOutput: ConsoleOutput { get }
     var simulatorIdentifier: String { get }
     var summary: FBTestManagerResultSummary? { get }
     var testTargetName: String { get }
 
     init(simulatorIdentifier: String, testTargetName: String, consoleOutput: ConsoleOutput)
 
-    static func finishReporting(console: ConsoleOutput, reporters: [ConsoleReporter]) throws
+    static func finishReporting(consoleOutput: ConsoleOutput, reporters: [ConsoleReporter]) throws
 
 }
 

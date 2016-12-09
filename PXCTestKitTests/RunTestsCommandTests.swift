@@ -40,7 +40,7 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertNil(result.testErrors)
         ["SampleTests", "SampleUITests"].forEach { (target) in
             result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
-                let url = result.context.output.urlFor(simulatorConfiguration: simulatorConfiguration, target: target)
+                let url = result.context.outputManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: target)
                 XCTAssertFileSizeGreaterThan(url.appendingPathComponent("junit.xml").path, 0)
                 XCTAssertFileSizeGreaterThan(url.appendingPathComponent("Sample.log").path, 0)
                 XCTAssertFileSizeGreaterThan(url.appendingPathComponent("test.log").path, 0)
@@ -59,7 +59,7 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertNil(result.testErrors)
         ["SampleTests", "SampleUITests"].forEach { (target) in
             result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
-                let url = result.context.output.urlFor(simulatorConfiguration: simulatorConfiguration, target: target)
+                let url = result.context.outputManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: target)
                 XCTAssertFileSizeGreaterThan(url.appendingPathComponent("junit.xml").path, 0)
                 XCTAssertFileSizeGreaterThan(url.appendingPathComponent("Sample.log").path, 0)
                 XCTAssertFileSizeGreaterThan(url.appendingPathComponent("test.log").path, 0)
@@ -76,7 +76,7 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertEqualRSpecOutput(result.consoleOutput, fixtures.testSampleAppTestRunOnlyOneTarget)
         XCTAssertNil(result.testErrors)
         result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
-            let url = result.context.output.urlFor(simulatorConfiguration: simulatorConfiguration, target: "SuccessfulTests")
+            let url = result.context.outputManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: "SuccessfulTests")
             XCTAssertFileSizeGreaterThan(url.appendingPathComponent("junit.xml").path, 0)
             XCTAssertFileSizeGreaterThan(url.appendingPathComponent("Sample.log").path, 0)
             XCTAssertFileSizeGreaterThan(url.appendingPathComponent("test.log").path, 0)
@@ -91,7 +91,7 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertNil(result.testErrors)
         ["SampleTests", "SampleUITests", "SuccessfulTests"].forEach { (target) in
             result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
-                let url = result.context.output.urlFor(simulatorConfiguration: simulatorConfiguration, target: target)
+                let url = result.context.outputManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: target)
                 XCTAssertFileSizeGreaterThan(url.appendingPathComponent("junit.xml").path, 0)
                 XCTAssertFileSizeGreaterThan(url.appendingPathComponent("Sample.log").path, 0)
                 XCTAssertFileSizeGreaterThan(url.appendingPathComponent("test.log").path, 0)
@@ -108,7 +108,7 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertEqualRSpecOutput(result.consoleOutput, "..")
         XCTAssertEqual(result.testErrors?.count, 2)
         result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
-            let url = result.context.output.urlFor(simulatorConfiguration: simulatorConfiguration, target: "CrashTests")
+            let url = result.context.outputManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: "CrashTests")
             XCTAssertFileSizeGreaterThan(url.appendingPathComponent("Crash.log").path, 0)
             XCTAssertFileSizeGreaterThan(url.appendingPathComponent("test.log").path, 0)
             XCTAssertDirectoryContainsFileThatHasSuffix(url.path, ".crash")
@@ -173,7 +173,7 @@ extension RunTestsCommand.Context {
         self.init(
             testRun: testRun,
             deviceSet: temporaryDirectory.appendingPathComponent("simulators"),
-            output: OutputManager(url: temporaryDirectory.appendingPathComponent("output")),
+            outputManager: OutputManager(url: temporaryDirectory.appendingPathComponent("output")),
             locale: Locale.current,
             environment: ["PXCTEST_CHILD_FOO": "BAR"],
             defaults: [:],

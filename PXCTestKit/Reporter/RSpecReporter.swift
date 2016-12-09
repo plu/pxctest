@@ -11,7 +11,7 @@ import Foundation
 
 final class RSpecReporter: FBTestManagerTestReporterBase, ConsoleReporter {
 
-    let console: ConsoleOutput
+    let consoleOutput: ConsoleOutput
     let simulatorIdentifier: String
     var summary: FBTestManagerResultSummary? {
         return testSuite.summary
@@ -19,13 +19,13 @@ final class RSpecReporter: FBTestManagerTestReporterBase, ConsoleReporter {
     let testTargetName: String
 
     init(simulatorIdentifier: String, testTargetName: String, consoleOutput: ConsoleOutput) {
-        self.console = consoleOutput
+        self.consoleOutput = consoleOutput
         self.simulatorIdentifier = simulatorIdentifier
         self.testTargetName = testTargetName
         super.init()
     }
 
-    static func finishReporting(console: ConsoleOutput, reporters: [ConsoleReporter]) throws {
+    static func finishReporting(consoleOutput: ConsoleOutput, reporters: [ConsoleReporter]) throws {
         reporters.flatMap { $0 as? RSpecReporter }.forEach { $0.writeFailures() }
         reporters.flatMap { $0 as? RSpecReporter }.forEach { $0.writeSummary() }
 
@@ -34,7 +34,7 @@ final class RSpecReporter: FBTestManagerTestReporterBase, ConsoleReporter {
         let unexpected = reporters.reduce(0) { $0 + ($1.summary?.unexpected ?? 0) }
         let output = String(format: "\(ANSI.bold)Total - Finished executing %d tests. %d Failures, %d Unexpected\(ANSI.reset)", runCount, failureCount, unexpected)
 
-        console.write(line: output)
+        consoleOutput.write(line: output)
 
         try raiseTestRunHadFailures(reporters: reporters)
     }
@@ -44,11 +44,11 @@ final class RSpecReporter: FBTestManagerTestReporterBase, ConsoleReporter {
     override func testManagerMediator(_ mediator: FBTestManagerAPIMediator!, testCaseDidFinishForTestClass testClass: String!, method: String!, with status: FBTestReportStatus, duration: TimeInterval) {
         switch status {
         case .unknown:
-            console.write(output: "?")
+            consoleOutput.write(output: "?")
         case .passed:
-            console.write(output: ".")
+            consoleOutput.write(output: ".")
         case .failed:
-            console.write(output: "F")
+            consoleOutput.write(output: "F")
         }
 
         super.testManagerMediator(mediator, testCaseDidFinishForTestClass: testClass, method: method, with: status, duration: duration)
@@ -60,8 +60,8 @@ final class RSpecReporter: FBTestManagerTestReporterBase, ConsoleReporter {
         guard let summary = testSuite.summary else { return }
 
         if summary.failureCount > 0 {
-            console.write(line: "\(ANSI.bold)\(testTargetName)\(ANSI.reset)")
-            console.write(line: "  \(ANSI.bold)Failures on \(simulatorIdentifier):\(ANSI.reset)")
+            consoleOutput.write(line: "\(ANSI.bold)\(testTargetName)\(ANSI.reset)")
+            consoleOutput.write(line: "  \(ANSI.bold)Failures on \(simulatorIdentifier):\(ANSI.reset)")
             writeFailures(testSuite: testSuite)
         }
     }
@@ -69,10 +69,10 @@ final class RSpecReporter: FBTestManagerTestReporterBase, ConsoleReporter {
     private func writeFailures(testSuite: FBTestManagerTestReporterTestSuite) {
         for testCase in testSuite.testCases {
             guard testCase.failures.count > 0 else { continue }
-            console.write(line: "    -[\(testCase.testClass) \(testCase.method)]")
+            consoleOutput.write(line: "    -[\(testCase.testClass) \(testCase.method)]")
             for failure in testCase.failures {
                 let filename = URL(fileURLWithPath: failure.file).lastPathComponent
-                console.write(line: "      \(filename):\(failure.line) \(failure.message)")
+                consoleOutput.write(line: "      \(filename):\(failure.line) \(failure.message)")
             }
         }
         for testSuite in testSuite.testSuites {
@@ -84,7 +84,7 @@ final class RSpecReporter: FBTestManagerTestReporterBase, ConsoleReporter {
         guard let summary = testSuite.summary else { return }
 
         let output = String(format: "\(testTargetName) - \(simulatorIdentifier) - Finished executing %d tests after %.03fs. %d Failures, %d Unexpected", summary.runCount, summary.totalDuration, summary.failureCount, summary.unexpected)
-        console.write(line: output)
+        consoleOutput.write(line: output)
     }
 
 }

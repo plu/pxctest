@@ -39,7 +39,7 @@ import Foundation
                 let context = RunTestsCommand.Context(
                     testRun: testRun.url,
                     deviceSet: deviceSet.url,
-                    output: OutputManager(url: output.url),
+                    outputManager: OutputManager(url: output.url),
                     locale: locale,
                     environment: ProcessInfo.processInfo.environment,
                     defaults: defaults.dictionary,
