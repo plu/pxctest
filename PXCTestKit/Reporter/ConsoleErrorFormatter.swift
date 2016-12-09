@@ -36,10 +36,9 @@ final class ConsoleErrorFormatter {
     }
 
     private static func format(testError: RunTestsCommand.TestError) -> String {
-        let simulatorConfiguration = testError.simulator.configuration!
         var output = [
             "\(ANSI.bold)\(testError.target)\(ANSI.reset)",
-            "\(ANSI.bold)  Errors on \(simulatorConfiguration.deviceName) \(simulatorConfiguration.osVersionString):\(ANSI.reset)",
+            "\(ANSI.bold)  Errors on \(testError.simulator.identifier):\(ANSI.reset)",
         ]
         if let errors = format(errors: testError.errors) {
             output.append(errors)

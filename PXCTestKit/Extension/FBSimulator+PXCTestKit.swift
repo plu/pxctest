@@ -11,6 +11,10 @@ import Foundation
 
 extension FBSimulator {
 
+    var identifier: String {
+        return "\(configuration!.deviceName) \(configuration!.osVersionString)"
+    }
+
     func boot(context: BootContext) throws {
         guard state != .booted else { return }
         let simulatorBootConfiguration = FBSimulatorBootConfiguration

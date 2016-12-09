@@ -23,8 +23,7 @@ final class ReporterRegistry {
     }
 
     func addReporter(for simulator: FBSimulator, target: FBXCTestRunTarget) throws -> FBTestManagerTestReporter {
-        let simulatorIdentifier = "\(simulator.configuration!.deviceName) \(simulator.configuration!.osVersionString)"
-        let consoleReporter = reporterType.init(simulatorIdentifier: simulatorIdentifier, testTargetName: target.name, consoleOutput: consoleOutput)
+        let consoleReporter = reporterType.init(simulatorIdentifier: simulator.identifier, testTargetName: target.name, consoleOutput: consoleOutput)
         let junitReportURL = outputManager.urlFor(simulatorConfiguration: simulator.configuration!, target: target.name).appendingPathComponent("junit.xml")
         let junitReporter = FBTestManagerTestReporterJUnit.withOutputFileURL(junitReportURL)
         let xcodeReportURL = outputManager.urlFor(simulatorConfiguration: simulator.configuration!, target: target.name).appendingPathComponent("test.log")
