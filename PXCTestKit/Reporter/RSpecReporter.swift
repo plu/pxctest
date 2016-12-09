@@ -13,8 +13,10 @@ final class RSpecReporter: FBTestManagerTestReporterBase, ConsoleReporter {
 
     let console: ConsoleOutput
     let simulatorIdentifier: String
+    var summary: FBTestManagerResultSummary? {
+        return testSuite.summary
+    }
     let testTargetName: String
-    let writeTotalSummary = true
 
     init(simulatorIdentifier: String, testTargetName: String, consoleOutput: ConsoleOutput) {
         self.console = consoleOutput
@@ -23,22 +25,23 @@ final class RSpecReporter: FBTestManagerTestReporterBase, ConsoleReporter {
         super.init()
     }
 
-    func writeFailures() {
-        guard let summary = testSuite.summary else { return }
+    static func finishReporting(reporters: [ConsoleReporter]) throws {
+        guard let console = reporters.first?.console else { return }
 
-        if summary.failureCount > 0 {
-            console.write(line: "\(ANSI.bold)\(testTargetName)\(ANSI.reset)")
-            console.write(line: "  \(ANSI.bold)Failures on \(simulatorIdentifier):\(ANSI.reset)")
-            writeFailures(testSuite: testSuite)
-        }
+        console.write(line: "")
+        reporters.flatMap { $0 as? RSpecReporter }.forEach { $0.writeFailures() }
+        reporters.flatMap { $0 as? RSpecReporter }.forEach { $0.writeSummary() }
+
+        let runCount = reporters.reduce(0) { $0 + ($1.summary?.runCount ?? 0) }
+        let failureCount = reporters.reduce(0) { $0 + ($1.summary?.failureCount ?? 0) }
+        let unexpected = reporters.reduce(0) { $0 + ($1.summary?.unexpected ?? 0) }
+        let output = String(format: "\(ANSI.bold)Total - Finished executing %d tests. %d Failures, %d Unexpected\(ANSI.reset)", runCount, failureCount, unexpected)
+        console.write(line: output)
+
+        try raiseTestRunHadFailures(reporters: reporters)
     }
 
-    func writeSummary() {
-        guard let summary = testSuite.summary else { return }
-
-        let output = String(format: "\(testTargetName) - \(simulatorIdentifier) - Finished executing %d tests after %.03fs. %d Failures, %d Unexpected\n", summary.runCount, summary.totalDuration, summary.failureCount, summary.unexpected)
-        console.write(output: output)
-    }
+    // MARK: - FBTestManagerTestReporter
 
     override func testManagerMediator(_ mediator: FBTestManagerAPIMediator!, testCaseDidFinishForTestClass testClass: String!, method: String!, with status: FBTestReportStatus, duration: TimeInterval) {
         switch status {
@@ -55,6 +58,16 @@ final class RSpecReporter: FBTestManagerTestReporterBase, ConsoleReporter {
 
     // MARK: - Private
 
+    private func writeFailures() {
+        guard let summary = testSuite.summary else { return }
+
+        if summary.failureCount > 0 {
+            console.write(line: "\(ANSI.bold)\(testTargetName)\(ANSI.reset)")
+            console.write(line: "  \(ANSI.bold)Failures on \(simulatorIdentifier):\(ANSI.reset)")
+            writeFailures(testSuite: testSuite)
+        }
+    }
+
     private func writeFailures(testSuite: FBTestManagerTestReporterTestSuite) {
         for testCase in testSuite.testCases {
             guard testCase.failures.count > 0 else { continue }
@@ -67,6 +80,13 @@ final class RSpecReporter: FBTestManagerTestReporterBase, ConsoleReporter {
         for testSuite in testSuite.testSuites {
             writeFailures(testSuite: testSuite)
         }
+    }
+
+    private func writeSummary() {
+        guard let summary = testSuite.summary else { return }
+
+        let output = String(format: "\(testTargetName) - \(simulatorIdentifier) - Finished executing %d tests after %.03fs. %d Failures, %d Unexpected\n", summary.runCount, summary.totalDuration, summary.failureCount, summary.unexpected)
+        console.write(output: output)
     }
 
 }

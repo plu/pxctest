@@ -12,13 +12,11 @@ import Foundation
 final class ReporterRegistry {
 
     private let context: ReporterContext
+    private var reporters: [ConsoleReporter] = []
 
     init(context: ReporterContext) {
         self.context = context
     }
-
-    private(set) var console: [ConsoleReporter] = []
-    private(set) var summary: [SummaryReporter] = []
 
     func addReporter(for simulator: FBSimulator, target: FBXCTestRunTarget) throws -> FBTestManagerTestReporter {
         let simulatorIdentifier = "\(simulator.configuration!.deviceName) \(simulator.configuration!.osVersionString)"
@@ -27,12 +25,14 @@ final class ReporterRegistry {
         let junitReporter = FBTestManagerTestReporterJUnit.withOutputFileURL(junitReportURL)
         let xcodeReportURL = context.output.urlFor(simulatorConfiguration: simulator.configuration!, target: target.name).appendingPathComponent("test.log")
         let xcodeReporter = try XcodeReporter(fileURL: xcodeReportURL)
-        let summaryReporter = SummaryReporter()
 
-        console.append(consoleReporter)
-        summary.append(summaryReporter)
+        reporters.append(consoleReporter)
 
-        return FBTestManagerTestReporterComposite.withTestReporters([consoleReporter, junitReporter, summaryReporter, xcodeReporter])
+        return FBTestManagerTestReporterComposite.withTestReporters([consoleReporter, junitReporter, xcodeReporter])
+    }
+
+    func finishReporting() throws {
+        try context.reporterType.finishReporting(reporters: reporters)
     }
 
 }

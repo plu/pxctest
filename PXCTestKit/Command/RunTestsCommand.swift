@@ -73,12 +73,7 @@ final class RunTestsCommand: Command {
             throw RuntimeError.testRunHadErrors(testErrors)
         }
 
-        writeConsoleOutputSummary()
-
-        let failureCount = reporterRegistry.summary.reduce(0) { $0 + $1.total.failureCount }
-        if failureCount > 0 {
-            throw RuntimeError.testRunHadFailures(failureCount)
-        }
+        try reporterRegistry.finishReporting()
     }
 
     // MARK: - Private
@@ -119,26 +114,6 @@ final class RunTestsCommand: Command {
         }
 
         return errors
-    }
-
-    private func writeConsoleOutputSummary() {
-        let console = context.consoleOutput
-        let writeTotalSummary = reporterRegistry.console.reduce(true, { return $0 && $1.writeTotalSummary })
-
-        if writeTotalSummary {
-            console.write(line: "")
-        }
-
-        reporterRegistry.console.forEach { $0.writeFailures() }
-        reporterRegistry.console.forEach { $0.writeSummary() }
-
-        if writeTotalSummary {
-            let runCount = reporterRegistry.summary.reduce(0) { $0 + $1.total.runCount }
-            let failureCount = reporterRegistry.summary.reduce(0) { $0 + $1.total.failureCount }
-            let unexpected = reporterRegistry.summary.reduce(0) { $0 + $1.total.unexpected }
-            let output = String(format: "\(ANSI.bold)Total - Finished executing %d tests. %d Failures, %d Unexpected\(ANSI.reset)", runCount, failureCount, unexpected)
-            console.write(line: output)
-        }
     }
 
 }

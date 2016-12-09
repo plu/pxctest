@@ -13,8 +13,8 @@ final class JSONReporter: NSObject, FBTestManagerTestReporter, ConsoleReporter {
 
     let console: ConsoleOutput
     let simulatorIdentifier: String
+    var summary: FBTestManagerResultSummary? = nil
     let testTargetName: String
-    let writeTotalSummary = false
 
     private var exceptions: [String: [[String: String]]] = [:]
 
@@ -118,16 +118,6 @@ final class JSONReporter: NSObject, FBTestManagerTestReporter, ConsoleReporter {
         }
     }
 
-    // MARK: - ConsoleReporter
-
-    func writeFailures() {
-        // Nothing.
-    }
-
-    func writeSummary() {
-        // Nothing.
-    }
-
     // MARK: - FBTestManagerTestReporter
 
     private func key(_ testClass: String, _ testMethod: String) -> String {
@@ -163,11 +153,18 @@ final class JSONReporter: NSObject, FBTestManagerTestReporter, ConsoleReporter {
     }
 
     func testManagerMediator(_ mediator: FBTestManagerAPIMediator!, finishedWith summary: FBTestManagerResultSummary!) {
+        self.summary = summary
         write(event: .testSuiteFinish(testTargetName, simulatorIdentifier, summary))
     }
 
     func testManagerMediatorDidFinishExecutingTestPlan(_ mediator: FBTestManagerAPIMediator!) {
         write(event: .end(testTargetName, simulatorIdentifier, true)) // FIXME
+    }
+
+    // MARK: - ConsoleReporter
+
+    static func finishReporting(reporters: [ConsoleReporter]) throws {
+        try raiseTestRunHadFailures(reporters: reporters)
     }
 
 }

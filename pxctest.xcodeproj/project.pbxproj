@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		050207091DED8BFC00AB14FB /* ReporterOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050207081DED8BFC00AB14FB /* ReporterOption.swift */; };
-		050207101DED963E00AB14FB /* SummaryReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0502070F1DED963E00AB14FB /* SummaryReporter.swift */; };
 		0511CB501DF3F550009B8B2F /* FBSimulator+PXCTestKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0511CB4F1DF3F550009B8B2F /* FBSimulator+PXCTestKit.swift */; };
 		0515A48B1DF7C0C900D2F855 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0515A48A1DF7C0C900D2F855 /* Context.swift */; };
 		0515A4921DF7C12F00D2F855 /* FBSimulatorControl+PXCTestKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0515A4911DF7C12F00D2F855 /* FBSimulatorControl+PXCTestKit.swift */; };
@@ -205,7 +204,6 @@
 
 /* Begin PBXFileReference section */
 		050207081DED8BFC00AB14FB /* ReporterOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReporterOption.swift; sourceTree = "<group>"; };
-		0502070F1DED963E00AB14FB /* SummaryReporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryReporter.swift; sourceTree = "<group>"; };
 		0511CB4F1DF3F550009B8B2F /* FBSimulator+PXCTestKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FBSimulator+PXCTestKit.swift"; sourceTree = "<group>"; };
 		0515A48A1DF7C0C900D2F855 /* Context.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
 		0515A4911DF7C12F00D2F855 /* FBSimulatorControl+PXCTestKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FBSimulatorControl+PXCTestKit.swift"; sourceTree = "<group>"; };
@@ -318,7 +316,6 @@
 				3EB0AEA51DF2AA11003D72CC /* OutputManager.swift */,
 				3E9D46151DF9A042006DDB10 /* ReporterRegistry.swift */,
 				0541E15C1DE5A02C00D65F16 /* RSpecReporter.swift */,
-				0502070F1DED963E00AB14FB /* SummaryReporter.swift */,
 				055DCD6D1DF035AE00BB6B82 /* XcodeReporter.swift */,
 			);
 			path = Reporter;
@@ -739,7 +736,6 @@
 				0515A4921DF7C12F00D2F855 /* FBSimulatorControl+PXCTestKit.swift in Sources */,
 				05BABCEC1DE582BC0012BC5B /* ExistingFileURLOption.swift in Sources */,
 				050207091DED8BFC00AB14FB /* ReporterOption.swift in Sources */,
-				050207101DED963E00AB14FB /* SummaryReporter.swift in Sources */,
 				05BABCF11DE586B10012BC5B /* DestinationOption.swift in Sources */,
 				05B2CA331DEBE93000795F07 /* ConsoleOutput.swift in Sources */,
 				05E3DE741DED574B005A1459 /* ConsoleReporter.swift in Sources */,
