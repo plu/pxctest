@@ -35,6 +35,7 @@ import Foundation
             ) { (testRun, deviceSet, output, locale, defaults, reporter, only, destination, timeout, noColor) in
                 ANSI.disabled = noColor
                 let consoleOutput = ConsoleOutput()
+                let notificationHandler = NotificationHandler()
 
                 let context = RunTestsCommand.Context(
                     testRun: testRun.url,
@@ -57,9 +58,11 @@ import Foundation
 
                 do {
                     try CommandLineInterface.command?.run()
+                    notificationHandler.deliverSuccessNotification()
                 }
                 catch {
                     consoleOutput.write(error: error)
+                    notificationHandler.deliverFailureNotification(error: error)
                     exit(1)
                 }
             }

@@ -61,8 +61,8 @@ final class XcodeReporter: NSObject, FBTestManagerTestReporter {
         ))
         write(String(
             format: "      Executed %@, with %@ (%d unexpected) in %.03fs (%.03fs) seconds",
-            summary.runCount.forOutput("test"),
-            summary.failureCount.forOutput("failure"),
+            summary.runCount.pluralized("test"),
+            summary.failureCount.pluralized("failure"),
             summary.unexpected,
             summary.testDuration,
             summary.totalDuration
@@ -76,14 +76,6 @@ final class XcodeReporter: NSObject, FBTestManagerTestReporter {
     }
 
     func testManagerMediator(_ mediator: FBTestManagerAPIMediator!, testBundleReadyWithProtocolVersion protocolVersion: Int, minimumVersion: Int) {
-    }
-
-}
-
-extension Int {
-
-    func forOutput(_ string: String) -> String {
-        return self == 1 ? "\(self) \(string)" : "\(self) \(string)s"
     }
 
 }

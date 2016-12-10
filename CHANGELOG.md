@@ -1,3 +1,5 @@
+* Send user notifications about test results
+
 # 0.2.8
 
 * Extract crash logs
