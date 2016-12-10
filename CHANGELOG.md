@@ -1,3 +1,5 @@
+# 0.2.9
+
 * Send user notifications about test results
 * Show commit in version output
 
