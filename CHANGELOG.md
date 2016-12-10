@@ -1,4 +1,5 @@
 * Send user notifications about test results
+* Show commit in version output
 
 # 0.2.8
 
