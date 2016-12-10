@@ -77,6 +77,8 @@ Example: You can turn off all keyboard settings that you can find in the Simulat
 
 It's possible to execute the tests without actually launching a `Simulator.app` window. This can be convenient because it will separate your test workflow from your development. If the tests run in the `Simulator.app` window and you launch your app during the test run from Xcode, it will stop the tests. There's not much we can do about that, it's just the way Xcode is handling `Simulator.app` - it takes control over all instances.
 
+![headless_screencast](static/headless_screencast.gif?raw=true "headless screencast")
+
 First you need to pre-boot some Simulators in the background, with a custom device set path:
 
 ```shell
@@ -123,10 +125,6 @@ $ xcrun simctl --set /tmp/test-simulators list
 ```
 
 The `Booted` state here however does not mean "is ready for launching apps or running tests". After booting a device it enters the `Booted` state quickly, but still showing the loading bar above the Springboard (you can see that if you boot them via `Simulator.app` and keep watching the state that `xcrun simctl` reports).
-
-Here you can see that the tests are running, but no `Simulator.app` window is visible:
-
-![headless_screencast](static/headless_screencast.gif?raw=true "headless screencast")
 
 ## Development
 
