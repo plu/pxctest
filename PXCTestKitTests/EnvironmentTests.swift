@@ -15,7 +15,7 @@ class EnvironmentTests: XCTestCase {
         let environment = ["FOO": "BAR"]
         let processInfoEnvironment = ["PXCTEST_CHILD_BLA": "FASEL"]
         let result = Environment.prepare(environment, with: processInfoEnvironment)
-        XCTAssertEqual(result, ["FOO": "BAR", "BLA": "FASEL", "OS_ACTIVITY_MODE": "disable"])
+        XCTAssertEqual(result, ["FOO": "BAR", "BLA": "FASEL"])
     }
 
 }

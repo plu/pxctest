@@ -14,7 +14,6 @@ final class Environment {
 
     static func prepare(_ environmentVariables: [String: String]?, with otherEnvironmentVariables: [String: String]) -> [String: String] {
         var result = environmentVariables ?? [:]
-        result["OS_ACTIVITY_MODE"] = "disable"
         for (key, value) in otherEnvironmentVariables {
             if !key.hasPrefix(prefix) {
                 continue
