@@ -948,6 +948,10 @@
 			buildSettings = {
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				DEVELOPMENT_TEAM = V5XAHL2VLY;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"NDEBUG=1",
+					"NS_BLOCK_ASSERTIONS=1",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/pxctest/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.plunien.pxctest;
 				PRODUCT_NAME = "$(TARGET_NAME)";

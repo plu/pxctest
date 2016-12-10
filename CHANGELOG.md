@@ -1,3 +1,5 @@
+* Block assertions in release builds
+
 # 0.2.9
 
 * Send user notifications about test results

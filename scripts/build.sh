@@ -21,7 +21,8 @@ xcodebuild \
   -IDECustomBuildProductsPath="$PRODUCTS" \
   -configuration $CONFIGURATION \
   -scheme pxctest \
-  -project pxctest.xcodeproj
+  -project pxctest.xcodeproj \
+  GCC_PREPROCESSOR_DEFINITIONS='$(inherited) NDEBUG=1 NS_BLOCK_ASSERTIONS=1'
 
 mkdir -p "$DESTINATION"
 
