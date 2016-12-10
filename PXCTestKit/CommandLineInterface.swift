@@ -28,8 +28,8 @@ import Foundation
                        Option<Locale>("locale", Locale(identifier: "en"), description: "Locale to set for the Simulator."),
                        Option<DefaultsOption>("defaults", DefaultsOption(), description: "Path to some defaults.json to be applied with the Simulator."),
                        Option<ReporterOption>("reporter", .rspec, description: "Console reporter type. Supported values: rspec, json"),
-                       VaradicOption<OnlyOption>("only", [], description: "Comma separated list of tests that should be executed only. Format: TARGET[:Class/case[,Class2/case2]]"),
-                       VaradicOption<DestinationOption>("destination", [DestinationOption.default], description: "A comma-separated set of key=value pairs describing the destination to use. Default: \(DestinationOption.default.description)"),
+                       VariadicOption<OnlyOption>("only", [], description: "Comma separated list of tests that should be executed only. Format: TARGET[:Class/case[,Class2/case2]]"),
+                       VariadicOption<DestinationOption>("destination", [DestinationOption.default], description: "A comma-separated set of key=value pairs describing the destination to use. Default: \(DestinationOption.default.description)"),
                        Option<Double>("timeout", 3600.0, description: "Timeout in seconds for the test execution to finish."),
                        Flag("no-color", description: "Do not add colors to console output.")
             ) { (testRun, deviceSet, output, locale, defaults, reporter, only, destination, timeout, noColor) in
