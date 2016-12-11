@@ -40,7 +40,7 @@ class OutputManagerTests: XCTestCase {
 
     func testCreateLogFile() {
         do {
-            let _ = try outputManager.createLogFile()
+            let _ = try outputManager.createNewSimulatorLogFile()
         }
         catch {
             XCTFail("\(error)")

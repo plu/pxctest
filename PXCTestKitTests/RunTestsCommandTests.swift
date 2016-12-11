@@ -42,6 +42,8 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertEqual(result.failureCount, 4)
         XCTAssertNil(result.testErrors)
 
+        XCTAssertFileSizeGreaterThan(result.context.outputManager.logFile.path, 0)
+
         ["SampleTests", "SampleUITests"].forEach { (target) in
             result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
                 let url = result.context.outputManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: target)
@@ -64,6 +66,8 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertEqual(result.failureCount, 0)
         XCTAssertNil(result.testErrors)
 
+        XCTAssertFileSizeGreaterThan(result.context.outputManager.logFile.path, 0)
+
         ["SampleTests", "SampleUITests"].forEach { (target) in
             result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
                 let url = result.context.outputManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: target)
@@ -85,6 +89,8 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertEqual(result.failureCount, 0)
         XCTAssertNil(result.testErrors)
 
+        XCTAssertFileSizeGreaterThan(result.context.outputManager.logFile.path, 0)
+
         result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
             let url = result.context.outputManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: "SuccessfulTests")
             XCTAssertFileSizeGreaterThan(url.appendingPathComponent("junit.xml").path, 0)
@@ -101,6 +107,8 @@ class RunTestsCommandTests: XCTestCase {
 
         XCTAssertEqual(result.failureCount, 4)
         XCTAssertNil(result.testErrors)
+
+        XCTAssertFileSizeGreaterThan(result.context.outputManager.logFile.path, 0)
 
         ["SampleTests", "SampleUITests", "SuccessfulTests"].forEach { (target) in
             result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
@@ -121,6 +129,8 @@ class RunTestsCommandTests: XCTestCase {
 
         XCTAssertEqual(result.failureCount, 0)
         XCTAssertEqual(result.testErrors?.count, 2)
+
+        XCTAssertFileSizeGreaterThan(result.context.outputManager.logFile.path, 0)
 
         result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
             let url = result.context.outputManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: "CrashTests")
@@ -145,7 +155,10 @@ extension RunTestsCommandTests {
 
         let control = try FBSimulatorControl.withConfiguration(
             FBSimulatorControlConfiguration(deviceSetPath: context.deviceSet.path, options: context.simulatorManagementOptions),
-            logger: FBControlCoreLogger.aslLoggerWriting(toFileDescriptor: FileHandle.nullDevice.fileDescriptor, withDebugLogging: false)
+            logger: FBControlCoreLogger.aslLoggerWriting(
+                toFileDescriptor: try context.outputManager.createNewSimulatorLogFile().fileDescriptor,
+                withDebugLogging: false
+            )
         )
 
         defer {

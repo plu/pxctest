@@ -1,4 +1,5 @@
 * Block assertions in release builds
+* Fix writing simulator.log
 
 # 0.2.9
 

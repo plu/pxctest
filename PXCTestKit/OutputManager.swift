@@ -17,11 +17,17 @@ final class OutputManager {
 
     let url: URL
 
+    private var logFileHandle: FileHandle? = nil
+
     init(url: URL) {
         self.url = url
     }
 
-    func createLogFile() throws -> FileHandle {
+    deinit {
+        logFileHandle?.closeFile()
+    }
+
+    func createNewSimulatorLogFile() throws -> FileHandle {
         let fileManager = FileManager.default
 
         if !fileManager.fileExists(atPath: url.path) {
@@ -34,7 +40,9 @@ final class OutputManager {
 
         fileManager.createFile(atPath: logFile.path, contents: nil, attributes: nil)
 
-        return try FileHandle(forWritingTo: logFile)
+        logFileHandle = try FileHandle(forWritingTo: logFile)
+
+        return logFileHandle!
     }
 
     func extractDiagnostics(simulators: [FBSimulator], testRun: FBXCTestRun, testErrors: [RunTestsCommand.TestError]) throws {
