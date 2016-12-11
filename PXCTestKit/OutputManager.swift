@@ -49,7 +49,7 @@ final class OutputManager {
         for simulator in simulators {
             for target in testRun.targets {
                 for application in target.applications {
-                    guard let diagnostics = simulator.diagnostics.launchedProcessLogs().first(where: { $0.0.processName == application.name })?.value else { continue }
+                    guard let diagnostics = simulator.simulatorDiagnostics.launchedProcessLogs().first(where: { $0.0.processName == application.name })?.value else { continue }
                     let destinationPath = urlFor(simulatorConfiguration: simulator.configuration!, target: target.name).path
                     try diagnostics.writeOut(toDirectory: destinationPath)
                 }
