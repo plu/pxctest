@@ -77,7 +77,7 @@ extension XCTestCase {
         do {
             let attr = try FileManager.default.attributesOfItem(atPath: path)
             let fileSize = attr[.size] as? UInt64 ?? 0
-            XCTAssertGreaterThan(fileSize, expectedSize)
+            XCTAssertGreaterThan(fileSize, expectedSize, file: file, line: line)
         }
         catch {
             XCTFail("\(error)", file: file, line: line)

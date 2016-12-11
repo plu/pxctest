@@ -1,5 +1,6 @@
 * Block assertions in release builds
 * Fix writing simulator.log
+* Add --debug flag
 
 # 0.2.9
 

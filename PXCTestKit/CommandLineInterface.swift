@@ -31,8 +31,9 @@ import Foundation
                        VariadicOption<OnlyOption>("only", [], description: "Comma separated list of tests that should be executed only. Format: TARGET[:Class/case[,Class2/case2]]"),
                        VariadicOption<DestinationOption>("destination", [DestinationOption.default], description: "A comma-separated set of key=value pairs describing the destination to use. Default: \(DestinationOption.default.description)"),
                        Option<Double>("timeout", 3600.0, description: "Timeout in seconds for the test execution to finish."),
-                       Flag("no-color", description: "Do not add colors to console output.")
-            ) { (testRun, deviceSet, output, locale, defaults, reporter, only, destination, timeout, noColor) in
+                       Flag("no-color", description: "Do not add colors to console output."),
+                       Flag("debug", description: "Enable debug logging (in simulator.log).")
+            ) { (testRun, deviceSet, output, locale, defaults, reporter, only, destination, timeout, noColor, debugLogging) in
                 ANSI.disabled = noColor
                 let consoleOutput = ConsoleOutput()
                 let notificationHandler = NotificationHandler()
@@ -51,7 +52,8 @@ import Foundation
                     consoleOutput: consoleOutput,
                     simulatorManagementOptions: [],
                     simulatorAllocationOptions: [.create, .reuse],
-                    simulatorBootOptions: [.awaitServices]
+                    simulatorBootOptions: [.awaitServices],
+                    debugLogging: debugLogging
                 )
 
                 CommandLineInterface.command = RunTestsCommand(context: context)

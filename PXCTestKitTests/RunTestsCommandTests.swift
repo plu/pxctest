@@ -227,7 +227,8 @@ extension RunTestsCommand.Context {
             ),
             simulatorManagementOptions: [],
             simulatorAllocationOptions: [.create, .reuse, .eraseOnAllocate],
-            simulatorBootOptions: [.awaitServices, .enableDirectLaunch]
+            simulatorBootOptions: [.awaitServices, .enableDirectLaunch],
+            debugLogging: false
         )
     }
 

@@ -15,7 +15,7 @@ extension FBSimulatorControl {
         let logFileHandle = try context.outputManager.createNewSimulatorLogFile()
         return try FBSimulatorControl.withConfiguration(
             FBSimulatorControlConfiguration(deviceSetPath: context.deviceSet.path, options: context.simulatorManagementOptions),
-            logger: FBControlCoreLogger.aslLoggerWriting(toFileDescriptor: logFileHandle.fileDescriptor, withDebugLogging: false)
+            logger: FBControlCoreLogger.aslLoggerWriting(toFileDescriptor: logFileHandle.fileDescriptor, withDebugLogging: context.debugLogging)
         )
     }
 

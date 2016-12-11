@@ -18,6 +18,7 @@ protocol ControlContext {
     var outputManager: OutputManager { get }
     var deviceSet: URL { get }
     var simulatorManagementOptions: FBSimulatorManagementOptions { get }
+    var debugLogging: Bool { get }
 }
 
 protocol DefaultsContext {
@@ -47,6 +48,7 @@ extension RunTestsCommand {
         let simulatorManagementOptions: FBSimulatorManagementOptions
         let simulatorAllocationOptions: FBSimulatorAllocationOptions
         let simulatorBootOptions: FBSimulatorBootOptions
+        let debugLogging: Bool
     }
 
 }
