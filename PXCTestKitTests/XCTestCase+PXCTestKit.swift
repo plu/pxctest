@@ -26,8 +26,8 @@ extension XCTestCase {
             var testRecords = try parse(jsonOutput: testOutput)
             var expectedRecords = try parse(jsonOutput: expectedOutput)
 
-            XCTAssertGreaterThan(testRecords.count, 0, file: file, line: line)
-            XCTAssertGreaterThan(expectedRecords.count, 0, file: file, line: line)
+            XCTAssertGreaterThan(testRecords.count, 0, "Test records is empty", file: file, line: line)
+            XCTAssertGreaterThan(expectedRecords.count, 0, "Expected records is empty", file: file, line: line)
             XCTAssertEqual(testRecords.count, expectedRecords.count, "Different count of testRecords and expectedRecords", file: file, line: line)
 
             var recordNumber = 0
@@ -77,7 +77,7 @@ extension XCTestCase {
         do {
             let attr = try FileManager.default.attributesOfItem(atPath: path)
             let fileSize = attr[.size] as? UInt64 ?? 0
-            XCTAssertGreaterThan(fileSize, expectedSize, file: file, line: line)
+            XCTAssertGreaterThan(fileSize, expectedSize, "File size of \(path) is not greater than \(expectedSize)", file: file, line: line)
         }
         catch {
             XCTFail("\(error)", file: file, line: line)
@@ -105,7 +105,7 @@ extension XCTestCase {
         catch {
             XCTFail("\(error)", file: file, line: line)
         }
-        XCTAssertEqual(content, fileContent, file: file, line: line)
+        XCTAssertEqual(content, fileContent, "File \(path) has different content", file: file, line: line)
     }
 
 }
