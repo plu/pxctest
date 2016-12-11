@@ -24,6 +24,7 @@ final class OutputManager {
     }
 
     deinit {
+        logFileHandle?.synchronizeFile()
         logFileHandle?.closeFile()
     }
 
