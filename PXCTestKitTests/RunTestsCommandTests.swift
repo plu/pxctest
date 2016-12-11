@@ -13,6 +13,7 @@ import XCTest
 class RunTestsCommandTests: XCTestCase {
 
     private let fixtures = Fixtures()
+    private let isSierra = ProcessInfo.processInfo.operatingSystemVersion.minorVersion == 12
 
     fileprivate struct Result {
         let context: RunTestsCommand.Context
@@ -42,7 +43,9 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertEqual(result.failureCount, 4)
         XCTAssertNil(result.testErrors)
 
-        XCTAssertFileSizeGreaterThan(result.context.outputManager.logFile.path, 0)
+        if !isSierra {
+            XCTAssertFileSizeGreaterThan(result.context.outputManager.logFile.path, 0)
+        }
 
         ["SampleTests", "SampleUITests"].forEach { (target) in
             result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
@@ -66,7 +69,9 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertEqual(result.failureCount, 0)
         XCTAssertNil(result.testErrors)
 
-        XCTAssertFileSizeGreaterThan(result.context.outputManager.logFile.path, 0)
+        if !isSierra {
+            XCTAssertFileSizeGreaterThan(result.context.outputManager.logFile.path, 0)
+        }
 
         ["SampleTests", "SampleUITests"].forEach { (target) in
             result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
@@ -89,7 +94,9 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertEqual(result.failureCount, 0)
         XCTAssertNil(result.testErrors)
 
-        XCTAssertFileSizeGreaterThan(result.context.outputManager.logFile.path, 0)
+        if !isSierra {
+            XCTAssertFileSizeGreaterThan(result.context.outputManager.logFile.path, 0)
+        }
 
         result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
             let url = result.context.outputManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: "SuccessfulTests")
@@ -108,7 +115,9 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertEqual(result.failureCount, 4)
         XCTAssertNil(result.testErrors)
 
-        XCTAssertFileSizeGreaterThan(result.context.outputManager.logFile.path, 0)
+        if !isSierra {
+            XCTAssertFileSizeGreaterThan(result.context.outputManager.logFile.path, 0)
+        }
 
         ["SampleTests", "SampleUITests", "SuccessfulTests"].forEach { (target) in
             result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
@@ -130,7 +139,9 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertEqual(result.failureCount, 0)
         XCTAssertEqual(result.testErrors?.count, 2)
 
-        XCTAssertFileSizeGreaterThan(result.context.outputManager.logFile.path, 0)
+        if !isSierra {
+            XCTAssertFileSizeGreaterThan(result.context.outputManager.logFile.path, 0)
+        }
 
         result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
             let url = result.context.outputManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: "CrashTests")
