@@ -1,6 +1,7 @@
 * Block assertions in release builds
 * Fix writing simulator.log
 * Add --debug flag
+* Uninstall application before test run
 
 # 0.2.9
 
