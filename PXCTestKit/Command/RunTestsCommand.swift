@@ -96,6 +96,7 @@ final class RunTestsCommand: Command {
                 .withTestEnvironment(testEnvironment)
 
             try simulators.install(applications: target.applications)
+            try simulators.overrideWatchDogTimer(applications: target.applications)
             try simulators.startTest(testLaunchConfigurartion: testLaunchConfigurartion, target: target, reporterRegistry: reporterRegistry)
 
             for simulator in simulators {

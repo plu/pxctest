@@ -2,6 +2,7 @@
 * Fix writing simulator.log
 * Add --debug flag
 * Uninstall application before test run
+* Override watchdog timeout to 60s
 
 # 0.2.9
 
