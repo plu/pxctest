@@ -83,17 +83,15 @@ First you need to pre-boot some Simulators in the background, with a custom devi
 
 ```shell
 $ mkdir /tmp/test-simulators
-$ xcrun simctl --set /tmp/test-simulators create 'iPhone 5' 'iPhone 5' com.apple.CoreSimulator.SimRuntime.iOS-9-3
-716A9864-08BD-4200-96ED-20EA1E81BE65
-$ xcrun simctl --set /tmp/test-simulators create 'iPad Retina' 'iPad Retina' com.apple.CoreSimulator.SimRuntime.iOS-9-3
-D2EB2BB9-8862-4F0D-A933-079C9BA0342A
-$ xcrun simctl --set /tmp/test-simulators boot 716A9864-08BD-4200-96ED-20EA1E81BE65
-$ xcrun simctl --set /tmp/test-simulators boot D2EB2BB9-8862-4F0D-A933-079C9BA0342A
+$ pxctest boot-simulators \
+    --deviceset /tmp/test-simulators \
+    --destination 'name=iPhone 5,os=iOS 9.3' \
+    --destination 'name=iPad Retina,os=iOS 9.3'
 ```
 
-Booting the Simulators in a usable state can take some time. Since they don't have a window, we cannot see the loading indicator on top of the Springboard to identifiy if they are ready or not. So just give them some time to finish booting before you make your first test run.
+Once the command has finisihed, the Simulators are in a usable state and we can begin running tests on them.
 
-To launch your tests on these Simulators, you just need to pass the `--deviceset` option to `pxctest`:
+To launch your tests on these Simulators, you just need to pass the `--deviceset` option to the `run-tests` command:
 
 ```shell
 $ pxctest run-tests \
