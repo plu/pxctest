@@ -3,6 +3,7 @@
 * Add --debug flag
 * Uninstall application before test run
 * Override watchdog timeout to 60s
+* Add boot-simulators command
 
 # 0.2.9
 

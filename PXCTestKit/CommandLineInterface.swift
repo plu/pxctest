@@ -21,6 +21,30 @@ import Foundation
         }
 
         Group {
+            $0.command("boot-simulators",
+                       Option<ExistingFileURLOption>("deviceset", ExistingFileURLOption(url: URL(fileURLWithPath: FBSimulatorControlConfiguration.defaultDeviceSetPath())), description: "Path to the Simulator device set."),
+                       Option<Locale>("locale", Locale(identifier: "en"), description: "Locale to set for the Simulator."),
+                       Option<DefaultsOption>("defaults", DefaultsOption(), description: "Path to some defaults.json to be applied with the Simulator."),
+                       VariadicOption<DestinationOption>("destination", [DestinationOption.default], description: "A comma-separated set of key=value pairs describing the destination to use. Default: \(DestinationOption.default.description)"),
+                       VariadicOption<String>("application", [], description: "Bundle ID of application to prepare the Simulators for."),
+                       description: "Boots Simulators in the background."
+            ) { (deviceSet, locale, defaults, destination, applications) in
+                let context = BootSimulatorsCommand.Context(
+                    deviceSet: deviceSet.url,
+                    locale: locale,
+                    defaults: defaults.dictionary,
+                    simulatorConfigurations: destination.map({ $0.simulatorConfiguration }),
+                    simulatorManagementOptions: [.killAllOnFirstStart],
+                    simulatorAllocationOptions: [.create, .reuse, .eraseOnAllocate],
+                    simulatorBootOptions: [.awaitServices, .enablePersistentLaunch],
+                    applications: applications
+                )
+
+                CommandLineInterface.command = BootSimulatorsCommand(context: context)
+
+                try CommandLineInterface.command?.run()
+            }
+
             $0.command("run-tests",
                        Option<ExistingFileURLOption>("testrun", ExistingFileURLOption(url: URL(fileURLWithPath: "")), description: "Path to the .xctestrun file."),
                        Option<ExistingFileURLOption>("deviceset", ExistingFileURLOption(url: URL(fileURLWithPath: FBSimulatorControlConfiguration.defaultDeviceSetPath())), description: "Path to the Simulator device set."),
@@ -32,7 +56,8 @@ import Foundation
                        VariadicOption<DestinationOption>("destination", [DestinationOption.default], description: "A comma-separated set of key=value pairs describing the destination to use. Default: \(DestinationOption.default.description)"),
                        Option<Double>("timeout", 3600.0, description: "Timeout in seconds for the test execution to finish."),
                        Flag("no-color", description: "Do not add colors to console output."),
-                       Flag("debug", description: "Enable debug logging (in simulator.log).")
+                       Flag("debug", description: "Enable debug logging (in simulator.log)."),
+                       description: "Runs tests on Simulators."
             ) { (testRun, deviceSet, output, locale, defaults, reporter, only, destination, timeout, noColor, debugLogging) in
                 ANSI.disabled = noColor
                 let consoleOutput = ConsoleOutput()

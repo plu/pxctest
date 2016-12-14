@@ -31,6 +31,21 @@ protocol ReporterContext {
     var reporterType: ConsoleReporter.Type { get }
 }
 
+extension BootSimulatorsCommand {
+
+    struct Context: BootContext, DefaultsContext {
+        let deviceSet: URL
+        let locale: Locale
+        let defaults: [String: [String: Any]]
+        let simulatorConfigurations: [FBSimulatorConfiguration]
+        let simulatorManagementOptions: FBSimulatorManagementOptions
+        let simulatorAllocationOptions: FBSimulatorAllocationOptions
+        let simulatorBootOptions: FBSimulatorBootOptions
+        let applications: [String]
+    }
+
+}
+
 extension RunTestsCommand {
 
     struct Context: BootContext, ControlContext, DefaultsContext, ReporterContext {
