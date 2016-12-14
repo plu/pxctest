@@ -11,14 +11,20 @@ import XCTest
 
 extension XCTestCase {
 
-    func parse(jsonOutput json: String) throws -> [[String: NSObject]] {
+    private func parse(jsonOutput json: String) throws -> [[String: NSObject]] {
         return try json
             .components(separatedBy: "\n")
             .filter { $0.characters.count > 0 }
             .flatMap {
                 try JSONSerialization.jsonObject(with: $0.data(using: .utf8) ?? Data(), options: []) as? [String: NSObject]
             }
-            .sorted { return ($0.0["timestamp"] as? Double ?? 0.0) < ($0.1["timestamp"] as? Double ?? 0.0) }
+            .flatMap {
+                var record = $0
+                record.removeValue(forKey: "timestamp")
+                record.removeValue(forKey: "totalDuration")
+                record.removeValue(forKey: "testDuration")
+                return record
+            }
     }
 
     func XCTAssertEqualJSONOutput(_ testOutput: String, _ expectedOutput: String, file: StaticString = #file, line: UInt = #line) {
@@ -30,18 +36,10 @@ extension XCTestCase {
             XCTAssertGreaterThan(expectedRecords.count, 0, "Expected records is empty", file: file, line: line)
             XCTAssertEqual(testRecords.count, expectedRecords.count, "Different count of testRecords and expectedRecords", file: file, line: line)
 
-            var recordNumber = 0
-
-            while var testRecord = testRecords.popLast(), var expectedRecord = expectedRecords.popLast() {
-                ["timestamp", "totalDuration", "testDuration"].forEach { (key: String) in
-                    let (_, _) = (
-                        testRecord.removeValue(forKey: key),
-                        expectedRecord.removeValue(forKey: key)
-                    )
+            while let testRecord = testRecords.popLast() {
+                if let index = expectedRecords.index(where: { return $0 == testRecord }) {
+                    expectedRecords.remove(at: index)
                 }
-
-                XCTAssertEqual(testRecord, expectedRecord, "Record #\(recordNumber)", file: file, line: line)
-                recordNumber = recordNumber + 1
             }
 
             XCTAssertEqual(testRecords.count, 0, "Not all testRecords were consumed: \(testRecords)", file: file, line: line)
