@@ -64,6 +64,7 @@ final class RunTestsCommand: Command {
         }
 
         try simulators.loadDefaults(context: context)
+        try simulators.overrideWatchDogTimer(targets: testRun.targets)
         try simulators.boot(context: context)
 
         let testErrors = try test(simulators: simulators, testRun: testRun)
@@ -96,7 +97,6 @@ final class RunTestsCommand: Command {
                 .withTestEnvironment(testEnvironment)
 
             try simulators.install(applications: target.applications)
-            try simulators.overrideWatchDogTimer(applications: target.applications)
             try simulators.startTest(testLaunchConfigurartion: testLaunchConfigurartion, target: target, reporterRegistry: reporterRegistry)
 
             for simulator in simulators {

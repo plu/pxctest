@@ -34,9 +34,10 @@ extension FBSimulator {
         }
     }
 
-    func overrideWatchDogTimer(applications: [FBApplicationDescriptor]) throws {
+    func overrideWatchDogTimer(targets: [FBXCTestRunTarget]) throws {
+        let applications = targets.flatMap { $0.applications.map { $0.bundleID } }
         try interact
-            .overrideWatchDogTimer(forApplications: applications.map { $0.bundleID }, withTimeout: 60.0)
+            .overrideWatchDogTimer(forApplications: applications, withTimeout: 60.0)
             .perform()
     }
 
@@ -67,9 +68,9 @@ extension Sequence where Iterator.Element == FBSimulator {
         }
     }
 
-    func overrideWatchDogTimer(applications: [FBApplicationDescriptor]) throws {
+    func overrideWatchDogTimer(targets: [FBXCTestRunTarget]) throws {
         for simulator in self {
-            try simulator.overrideWatchDogTimer(applications: applications)
+            try simulator.overrideWatchDogTimer(targets: targets)
         }
     }
 
