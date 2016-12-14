@@ -89,7 +89,7 @@ $ pxctest boot-simulators \
     --destination 'name=iPad Retina,os=iOS 9.3'
 ```
 
-Once the command has finisihed, the Simulators are in a usable state and we can begin running tests on them.
+Once the command has finished, the Simulators are in a usable state and we can begin running tests on them.
 
 To launch your tests on these Simulators, you just need to pass the `--deviceset` option to the `run-tests` command:
 
