@@ -21,7 +21,6 @@ extension FBSimulator {
             .withLocalizationOverride(FBLocalizationOverride.withLocale(context.locale))
             .withOptions(context.simulatorBootOptions)
         try interact
-            .prepare(forBoot: simulatorBootConfiguration)
             .bootSimulator(simulatorBootConfiguration)
             .perform()
     }
