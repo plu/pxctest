@@ -9,3 +9,4 @@ script:
   - scripts/bootstrap.sh
   - NSUnbufferedIO=YES xcodebuild -scheme pxctest-list-tests -sdk iphonesimulator build | xcpretty -c
   - NSUnbufferedIO=YES xcodebuild -scheme pxctest test | xcpretty -c
+  - brew tap plu/pxctest && brew install pxctest --HEAD && pxctest version
