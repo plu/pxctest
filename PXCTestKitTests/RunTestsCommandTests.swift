@@ -12,12 +12,11 @@ import XCTest
 
 class RunTestsCommandTests: XCTestCase {
 
-    private let fixtures = Fixtures()
     private let isSierra = ProcessInfo.processInfo.operatingSystemVersion.minorVersion == 12
 
     fileprivate struct Result {
         let context: RunTestsCommand.Context
-        let standardError: String
+        let errorOutput: String
         let standardOutput: String
         let failureCount: Int
         let testErrors: [RunTestsCommand.TestError]?
@@ -37,7 +36,7 @@ class RunTestsCommandTests: XCTestCase {
         testsToRun["SampleUITests"] = Set(["SampleUITests/testInSampleUITestsThatFails"])
         let result = try runTests(testRun: fixtures.sampleAppTestRun, testsToRun: testsToRun)
 
-        XCTAssertEqualRSpecOutput(result.standardError, "Test run had 4 failures\n")
+        XCTAssertEqualRSpecOutput(result.errorOutput, "Test run had 4 failures\n")
         XCTAssertEqualRSpecOutput(result.standardOutput, fixtures.testSampleAppTestRunOnlyFailingTestsOutput)
 
         XCTAssertEqual(result.failureCount, 4)
@@ -63,7 +62,7 @@ class RunTestsCommandTests: XCTestCase {
         testsToRun["SampleUITests"] = Set(["SampleUITests/testInSampleUITestsThatSucceeds"])
         let result = try runTests(testRun: fixtures.sampleAppTestRun, testsToRun: testsToRun)
 
-        XCTAssertEqualRSpecOutput(result.standardError, "")
+        XCTAssertEqualRSpecOutput(result.errorOutput, "")
         XCTAssertEqualRSpecOutput(result.standardOutput, fixtures.testSampleAppTestRunOnlySuccessfulTestsOutput)
 
         XCTAssertEqual(result.failureCount, 0)
@@ -88,7 +87,7 @@ class RunTestsCommandTests: XCTestCase {
         testsToRun["SuccessfulTests"] = Set()
         let result = try runTests(testRun: fixtures.sampleAppTestRun, testsToRun: testsToRun)
 
-        XCTAssertEqualRSpecOutput(result.standardError, "")
+        XCTAssertEqualRSpecOutput(result.errorOutput, "")
         XCTAssertEqualRSpecOutput(result.standardOutput, fixtures.testSampleAppTestRunOnlyOneTarget)
 
         XCTAssertEqual(result.failureCount, 0)
@@ -109,7 +108,7 @@ class RunTestsCommandTests: XCTestCase {
     func testSampleAppTestRunRunWithAllTargetsAndJSONReporter() throws {
         let result = try runTests(testRun: fixtures.sampleAppTestRun, reporterType: JSONReporter.self)
 
-        XCTAssertEqualRSpecOutput(result.standardError, "Test run had 4 failures\n")
+        XCTAssertEqualRSpecOutput(result.errorOutput, "Test run had 4 failures\n")
         XCTAssertEqualJSONOutput(result.standardOutput, fixtures.testSampleAppTestRunRunWithAllTargetsAndJSONReporter)
 
         XCTAssertEqual(result.failureCount, 4)
@@ -156,10 +155,8 @@ class RunTestsCommandTests: XCTestCase {
 extension RunTestsCommandTests {
 
     fileprivate func runTests(testRun: URL, testsToRun: [String: Set<String>] = [String: Set<String>](), reporterType: ConsoleReporter.Type = RSpecReporter.self) throws -> Result {
-        let temporaryDirectory = URL(fileURLWithPath: "\(NSTemporaryDirectory())/\(UUID().uuidString)")
-        try FileManager.default.createDirectory(at: temporaryDirectory, withIntermediateDirectories: true, attributes: nil)
-
-        let context = RunTestsCommand.Context(temporaryDirectory: temporaryDirectory, testRun: testRun, testsToRun: testsToRun, reporterType: reporterType)
+        let testConsoleOutput = try TestConsoleOutput()
+        let context = try RunTestsCommand.Context(testRun: testRun, testsToRun: testsToRun, reporterType: reporterType, testConsoleOutput: testConsoleOutput)
         var failureCount = 0
 
         let command = RunTestsCommand(context: context)
@@ -202,8 +199,8 @@ extension RunTestsCommandTests {
 
         return Result(
             context: context,
-            standardError: try String(contentsOf: temporaryDirectory.appendingPathComponent("stderr.log")),
-            standardOutput: try String(contentsOf: temporaryDirectory.appendingPathComponent("stdout.log")),
+            errorOutput: try testConsoleOutput.errorOutput(),
+            standardOutput: try testConsoleOutput.standardOutput(),
             failureCount: failureCount,
             testErrors: testErrors
         )
@@ -213,11 +210,8 @@ extension RunTestsCommandTests {
 
 extension RunTestsCommand.Context {
 
-    init(temporaryDirectory: URL, testRun: URL, testsToRun: [String: Set<String>], reporterType: ConsoleReporter.Type = RSpecReporter.self) {
-        let standardOutputPath = temporaryDirectory.appendingPathComponent("stdout.log").path
-        let standardErrorPath = temporaryDirectory.appendingPathComponent("stderr.log").path
-        FileManager.default.createFile(atPath: standardOutputPath, contents: nil, attributes: nil)
-        FileManager.default.createFile(atPath: standardErrorPath, contents: nil, attributes: nil)
+    init(testRun: URL, testsToRun: [String: Set<String>], reporterType: ConsoleReporter.Type = RSpecReporter.self, testConsoleOutput: TestConsoleOutput) throws {
+        let temporaryDirectory = try fixtures.createNewTemporaryDirectory()
         self.init(
             testRun: testRun,
             deviceSet: temporaryDirectory.appendingPathComponent("simulators"),
@@ -227,18 +221,12 @@ extension RunTestsCommand.Context {
             defaults: [:],
             reporterType: reporterType,
             testsToRun: testsToRun,
-            simulatorConfigurations: [
-                FBSimulatorConfiguration.iPhone6().iOS_9_3(),
-                FBSimulatorConfiguration.iPadAir().iOS_9_3(),
-            ],
-            timeout: 600.0,
-            consoleOutput: ConsoleOutput(
-                outputFileHandle: FileHandle(forWritingAtPath: standardOutputPath)!,
-                errorFileHandle: FileHandle(forWritingAtPath: standardErrorPath)!
-            ),
-            simulatorManagementOptions: [],
-            simulatorAllocationOptions: [.create, .reuse, .eraseOnAllocate],
-            simulatorBootOptions: [.awaitServices, .enableDirectLaunch],
+            simulatorConfigurations: fixtures.simulatorConfigurations,
+            timeout: fixtures.timeout,
+            consoleOutput: testConsoleOutput.consoleOutput,
+            simulatorManagementOptions: fixtures.simulatorManagementOptions,
+            simulatorAllocationOptions: fixtures.simulatorAllocationOptions,
+            simulatorBootOptions: fixtures.simulatorBootOptions,
             debugLogging: false
         )
     }

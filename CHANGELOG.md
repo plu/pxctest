@@ -1,3 +1,5 @@
+* Add list-tests command (experimental)
+
 # 0.3.0
 
 * Block assertions in release builds

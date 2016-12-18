@@ -7,4 +7,5 @@ before_install:
 script:
   - set -o pipefail
   - scripts/bootstrap.sh
+  - NSUnbufferedIO=YES xcodebuild -scheme pxctest-list-tests -sdk iphonesimulator build | xcpretty -c
   - NSUnbufferedIO=YES xcodebuild -scheme pxctest test | xcpretty -c

@@ -6,7 +6,10 @@
 //  Copyright © 2016 Johannes Plunien. All rights reserved.
 //
 
+import FBSimulatorControl
 import Foundation
+
+let fixtures = Fixtures()
 
 final class Fixtures {
 
@@ -36,10 +39,33 @@ final class Fixtures {
         return try! String(contentsOf: bundle.url(forResource: "testSampleAppTestRunRunWithAllTargetsAndJSONReporter", withExtension: "expected_output")!)
     }
 
+    var testListSampleAppTests: String {
+        return try! String(contentsOf: bundle.url(forResource: "testListSampleAppTests", withExtension: "expected_output")!)
+    }
+
     // MARK: - Crash.app
 
     var crashAppTestRun: URL {
         return bundle.url(forResource: "Crash_iphonesimulator10.1-x86_64", withExtension: "xctestrun")!
+    }
+
+    // MARK: - FBSimulatorControl
+
+    let simulatorManagementOptions: FBSimulatorManagementOptions = []
+    let simulatorAllocationOptions: FBSimulatorAllocationOptions = [.create, .reuse]
+    let simulatorBootOptions: FBSimulatorBootOptions = [.awaitServices, .enableDirectLaunch]
+    let timeout = 180.0
+    let simulatorConfigurations = [
+        FBSimulatorConfiguration.iPhone6().iOS_9_3(),
+        FBSimulatorConfiguration.iPadAir().iOS_9_3(),
+    ]
+
+    // MARK: - Helper
+
+    func createNewTemporaryDirectory() throws -> URL {
+        let temporaryDirectory = URL(fileURLWithPath: "\(NSTemporaryDirectory())/\(UUID().uuidString)")
+        try FileManager.default.createDirectory(at: temporaryDirectory, withIntermediateDirectories: true, attributes: nil)
+        return temporaryDirectory
     }
 
 }

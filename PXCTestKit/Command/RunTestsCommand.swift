@@ -91,7 +91,7 @@ final class RunTestsCommand: Command {
             if context.testsToRun.count > 0, let targetTestsToRun = context.testsToRun[target.name] {
                 testsToRun = target.testLaunchConfiguration.testsToRun.union(targetTestsToRun)
             }
-            let testEnvironment = Environment.prepare(target.testLaunchConfiguration.testEnvironment, with: context.environment)
+            let testEnvironment = Environment.prepare(forRunningTests: target.testLaunchConfiguration.testEnvironment, with: context.environment)
             let testLaunchConfigurartion = target.testLaunchConfiguration
                 .withTestsToRun(testsToRun)
                 .withTestEnvironment(testEnvironment)

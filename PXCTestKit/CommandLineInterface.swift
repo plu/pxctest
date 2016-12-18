@@ -45,6 +45,37 @@ import Foundation
                 try CommandLineInterface.command?.run()
             }
 
+            $0.command("list-tests",
+                       Option<ExistingFileURLOption>("testrun", ExistingFileURLOption(url: URL(fileURLWithPath: "")), description: "Path to the .xctestrun file."),
+                       Option<ExistingFileURLOption>("deviceset", ExistingFileURLOption(url: URL(fileURLWithPath: FBSimulatorControlConfiguration.defaultDeviceSetPath())), description: "Path to the Simulator device set."),
+                       Option<DestinationOption>("destination", DestinationOption.default, description: "A comma-separated set of key=value pairs describing the destination to use. Default: \(DestinationOption.default.description)"),
+                       Option<Double>("timeout", 3600.0, description: "Timeout in seconds for the command to finish."),
+                       description: "Lists tests."
+            ) { (testRun, deviceSet, destination, timeout) in
+                let consoleOutput = ConsoleOutput()
+
+                let context = ListTestsCommand.Context(
+                    testRun: testRun.url,
+                    deviceSet: deviceSet.url,
+                    consoleOutput: consoleOutput,
+                    simulatorConfiguration: destination.simulatorConfiguration,
+                    simulatorManagementOptions: [],
+                    simulatorAllocationOptions: [.create, .reuse],
+                    simulatorBootOptions: [.awaitServices],
+                    timeout: timeout
+                )
+
+                CommandLineInterface.command = ListTestsCommand(context: context)
+
+                do {
+                    try CommandLineInterface.command?.run()
+                }
+                catch {
+                    consoleOutput.write(error: error)
+                    exit(1)
+                }
+            }
+
             $0.command("run-tests",
                        Option<ExistingFileURLOption>("testrun", ExistingFileURLOption(url: URL(fileURLWithPath: "")), description: "Path to the .xctestrun file."),
                        Option<ExistingFileURLOption>("deviceset", ExistingFileURLOption(url: URL(fileURLWithPath: FBSimulatorControlConfiguration.defaultDeviceSetPath())), description: "Path to the Simulator device set."),

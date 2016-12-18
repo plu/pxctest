@@ -25,6 +25,15 @@ extension FBSimulator {
             .perform()
     }
 
+    func install(applications: [FBApplicationDescriptor]) throws {
+        for application in applications {
+            if installedApplications.filter({ $0.bundleID == application.bundleID }).count == 1 {
+                try interact.uninstallApplication(withBundleID: application.bundleID).perform()
+            }
+            try interact.installApplication(application).perform()
+        }
+    }
+
     func loadDefaults(context: DefaultsContext) throws {
         for (domainOrPath, defaults) in context.defaults {
             try interact
@@ -56,12 +65,7 @@ extension Sequence where Iterator.Element == FBSimulator {
 
     func install(applications: [FBApplicationDescriptor]) throws {
         for simulator in self {
-            for application in applications {
-                if simulator.installedApplications.filter({ $0.bundleID == application.bundleID }).count == 1 {
-                    try simulator.interact.uninstallApplication(withBundleID: application.bundleID).perform()
-                }
-                try simulator.interact.installApplication(application).perform()
-            }
+            try simulator.install(applications: applications)
         }
     }
 

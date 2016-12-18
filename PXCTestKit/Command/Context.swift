@@ -46,6 +46,21 @@ extension BootSimulatorsCommand {
 
 }
 
+extension ListTestsCommand {
+
+    struct Context {
+        let testRun: URL
+        let deviceSet: URL
+        let consoleOutput: ConsoleOutput
+        let simulatorConfiguration: FBSimulatorConfiguration
+        let simulatorManagementOptions: FBSimulatorManagementOptions
+        let simulatorAllocationOptions: FBSimulatorAllocationOptions
+        let simulatorBootOptions: FBSimulatorBootOptions
+        let timeout: Double
+    }
+
+}
+
 extension RunTestsCommand {
 
     struct Context: BootContext, ControlContext, DefaultsContext, ReporterContext {
