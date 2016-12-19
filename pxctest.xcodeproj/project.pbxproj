@@ -556,7 +556,8 @@
 				05BABC8E1DE56E390012BC5B /* Frameworks */,
 				05BABC8F1DE56E390012BC5B /* Headers */,
 				05BABC901DE56E390012BC5B /* Resources */,
-				05F5ADF81DF95A8F00F7E51C /* ShellScript */,
+				05F5ADF81DF95A8F00F7E51C /* Set GIT_COMMIT */,
+				0554B69C1E078A7300299699 /* Build pxctest-list-tests */,
 			);
 			buildRules = (
 			);
@@ -580,7 +581,6 @@
 				05BABC961DE56E390012BC5B /* Sources */,
 				05BABC971DE56E390012BC5B /* Frameworks */,
 				05BABC981DE56E390012BC5B /* Resources */,
-				05BE2F951E0680CE0097B23D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -599,7 +599,7 @@
 				3EE721D01DFC080500EF99E1 /* Sources */,
 				3EE721D11DFC080500EF99E1 /* Frameworks */,
 				3EE721D21DFC080500EF99E1 /* CopyFiles */,
-				3EE721DD1DFC091600EF99E1 /* ShellScript */,
+				3EE721DD1DFC091600EF99E1 /* Codesign */,
 			);
 			buildRules = (
 			);
@@ -782,39 +782,42 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		05BE2F951E0680CE0097B23D /* ShellScript */ = {
+		0554B69C1E078A7300299699 /* Build pxctest-list-tests */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Build pxctest-list-tests";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "xcodebuild -scheme pxctest-list-tests -sdk iphonesimulator build";
 		};
-		05F5ADF81DF95A8F00F7E51C /* ShellScript */ = {
+		05F5ADF81DF95A8F00F7E51C /* Set GIT_COMMIT */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Set GIT_COMMIT";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/libexec/PlistBuddy -c \"Set :GIT_COMMIT $(git rev-parse --short HEAD)\" \"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\"";
 		};
-		3EE721DD1DFC091600EF99E1 /* ShellScript */ = {
+		3EE721DD1DFC091600EF99E1 /* Codesign */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = Codesign;
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
