@@ -33,7 +33,7 @@ final class Environment {
             .deletingLastPathComponent()
             .appendingPathComponent(listTestsShimName)
             .path
-        assert(FileManager.default.fileExists(atPath: listTestsShimPath))
+        assert(fileManager.fileExists(atPath: listTestsShimPath))
         let destinationPath = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(listTestsShimName).path
         if !fileManager.fileExists(atPath: destinationPath) {
             try fileManager.copyItem(atPath: listTestsShimPath, toPath: destinationPath)
