@@ -39,7 +39,7 @@ final class ListTestsCommand: Command {
         }
 
         for target in testRun.targets {
-            let environment = Environment.prepare(forListingTests: target.testLaunchConfiguration.testEnvironment)
+            let environment = try Environment.prepare(forListingTests: target.testLaunchConfiguration.testEnvironment)
             let testLaunchConfiguration = target.testLaunchConfiguration.withTestEnvironment(environment)
             let reporter = JSONReporter(simulatorIdentifier: simulator.identifier, testTargetName: target.name, consoleOutput: context.consoleOutput)
 

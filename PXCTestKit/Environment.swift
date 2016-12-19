@@ -11,6 +11,9 @@ import Foundation
 final class Environment {
 
     private static let prefix = "PXCTEST_CHILD_"
+    private static let fileManager = FileManager.default
+    private static let insertLibrariesKey = "DYLD_INSERT_LIBRARIES"
+    private static let listTestsShimName = "libpxctest-list-tests.dylib"
 
     static func prepare(forRunningTests environmentVariables: [String: String]?, with otherEnvironmentVariables: [String: String]) -> [String: String] {
         var result = environmentVariables ?? [:]
@@ -23,14 +26,19 @@ final class Environment {
         return result
     }
 
-    static func prepare(forListingTests environmentVariables: [String: String]?) -> [String: String] {
+    static func prepare(forListingTests environmentVariables: [String: String]?) throws -> [String: String] {
         var result = environmentVariables ?? [:]
-        let insertLibraries = result["DYLD_INSERT_LIBRARIES"] ?? ""
-        let listTestsShim = URL(fileURLWithPath: Bundle(for: self).bundlePath)
+        let insertLibraries = result[insertLibrariesKey] ?? ""
+        let listTestsShimPath = URL(fileURLWithPath: Bundle(for: self).bundlePath)
             .deletingLastPathComponent()
-            .appendingPathComponent("libpxctest-list-tests.dylib")
-        assert(FileManager.default.fileExists(atPath: listTestsShim.path))
-        result["DYLD_INSERT_LIBRARIES"] = [listTestsShim.path, insertLibraries].joined(separator: ":")
+            .appendingPathComponent(listTestsShimName)
+            .path
+        assert(FileManager.default.fileExists(atPath: listTestsShimPath))
+        let destinationPath = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(listTestsShimName).path
+        if !fileManager.fileExists(atPath: destinationPath) {
+            try fileManager.copyItem(atPath: listTestsShimPath, toPath: destinationPath)
+        }
+        result[insertLibrariesKey] = [destinationPath, insertLibraries].joined(separator: ":")
         return result
     }
 
