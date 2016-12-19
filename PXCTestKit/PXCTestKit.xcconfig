@@ -1,1 +1,15 @@
-LD_RUNPATH_SEARCH_PATHS = $(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx
+#include "../config/shared.xcconfig"
+
+DEFINES_MODULE = YES
+DYLIB_COMPATIBILITY_VERSION = 1
+DYLIB_CURRENT_VERSION = 1
+DYLIB_INSTALL_NAME_BASE = @rpath
+FRAMEWORK_VERSION = A
+INFOPLIST_FILE = PXCTestKit/Info.plist
+LD_RUNPATH_SEARCH_PATHS = $(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx @executable_path/../Frameworks @loader_path/Frameworks
+PRODUCT_BUNDLE_IDENTIFIER = com.plunien.PXCTestKit
+SDKROOT = macosx
+SKIP_INSTALL = YES
+SWIFT_ACTIVE_COMPILATION_CONDITIONS[config=Debug] = DEBUG
+SWIFT_OPTIMIZATION_LEVEL[config=Debug] = -Onone
+SWIFT_OPTIMIZATION_LEVEL[config=Release] = -Owholemodule

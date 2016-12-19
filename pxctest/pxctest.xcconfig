@@ -1,1 +1,7 @@
+#include "../config/shared.xcconfig"
+
+CREATE_INFOPLIST_SECTION_IN_BINARY = YES
+INFOPLIST_FILE = $(SRCROOT)/pxctest/Info.plist
 LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path
+PRODUCT_BUNDLE_IDENTIFIER = com.plunien.pxctest
+SDKROOT = macosx

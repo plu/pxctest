@@ -37,7 +37,7 @@
     int numberOfClasses = objc_getClassList(NULL, 0);
     Class *classes = NULL;
 
-    classes = (__unsafe_unretained Class *)malloc(sizeof(Class) * numberOfClasses);
+    classes = (__unsafe_unretained Class *)malloc(sizeof(Class) * (unsigned long)numberOfClasses);
     numberOfClasses = objc_getClassList(classes, numberOfClasses);
 
     for (NSInteger i=0; i<numberOfClasses; i++) {
