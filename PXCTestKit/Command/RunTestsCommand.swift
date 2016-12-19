@@ -23,10 +23,10 @@ final class RunTestsCommand: Command {
         let crashes: [FBDiagnostic]
     }
 
+    private var bundleIDS: [String] = []
     private let context: Context
     private let reporterRegistry: ReporterRegistry
     private var simulators: [FBSimulator] = []
-    private var testRun: FBXCTestRun!
 
     init(context: Context) {
         self.context = context
@@ -35,9 +35,9 @@ final class RunTestsCommand: Command {
 
     func abort() {
         for simulator in simulators {
-            for application in testRun.targets.flatMap({ $0.applications }) {
+            for bundleID in bundleIDS {
                 do {
-                    try simulator.killApplication(withBundleID: application.bundleID)
+                    try simulator.killApplication(withBundleID: bundleID)
                 }
                 catch {
                     context.consoleOutput.write(line: "\(error)")
@@ -52,7 +52,7 @@ final class RunTestsCommand: Command {
     }
 
     func run(control: FBSimulatorControl) throws {
-        testRun = try FBXCTestRun.withTestRunFile(atPath: context.testRun.path).build()
+        let testRun = try FBXCTestRun.withTestRunFile(atPath: context.testRun.path).build()
 
         try context.outputManager.reset(
             targets: testRun.targets.map({ $0.name }),
@@ -98,6 +98,8 @@ final class RunTestsCommand: Command {
 
             try simulators.install(applications: target.applications)
             try simulators.startTest(testLaunchConfigurartion: testLaunchConfigurartion, target: target, reporterRegistry: reporterRegistry)
+
+            bundleIDS += target.applications.flatMap({ $0.bundleID })
 
             for simulator in simulators {
                 let testManagerResults = simulator.resourceSink.testManagers.flatMap { $0.waitUntilTestingHasFinished(withTimeout: context.timeout) }
