@@ -31,9 +31,8 @@ xcodebuild \
   -configuration $CONFIGURATION \
   -scheme pxctest-list-tests \
   -project pxctest.xcodeproj \
-  -sdk iphonesimulator \
-  GCC_PREPROCESSOR_DEFINITIONS='$(inherited) NDEBUG=1 NS_BLOCK_ASSERTIONS=1'
+  -sdk iphonesimulator
 
 mkdir -p "$DESTINATION"
 
-mv $PRODUCTS/$CONFIGURATION/pxctest $PRODUCTS/$CONFIGURATION/*.dylib $PRODUCTS/$CONFIGURATION/*.framework $DESTINATION/
+mv $PRODUCTS/$CONFIGURATION/pxctest $PRODUCTS/$CONFIGURATION/*.framework $PRODUCTS/$CONFIGURATION/*.dylib $DESTINATION/
