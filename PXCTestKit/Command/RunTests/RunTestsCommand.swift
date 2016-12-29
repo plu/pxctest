@@ -47,7 +47,7 @@ final class RunTestsCommand: Command {
             simulatorConfigurations: context.simulatorConfigurations
         )
 
-        workers = try control.pool.allocate(context: context, targets: testRun.targets)
+        workers = try control.pool.allocateWorkers(context: context, targets: testRun.targets)
 
         try workers.loadDefaults(context: context)
         try workers.overrideWatchDogTimer()

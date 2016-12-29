@@ -11,7 +11,7 @@ import Foundation
 
 extension FBSimulatorPool {
 
-    func allocate(context: AllocationContext, targets: [FBXCTestRunTarget]) throws -> [RunTestsWorker] {
+    func allocateWorkers(context: AllocationContext, targets: [FBXCTestRunTarget]) throws -> [RunTestsWorker] {
         var workers: [RunTestsWorker] = []
         for target in targets {
             if context.testsToRun.count > 0 && context.testsToRun[target.name] == nil {
