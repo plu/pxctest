@@ -1,5 +1,5 @@
 //
-//  OutputManagerTests.swift
+//  RunTestsOutputManagerTests.swift
 //  pxctest
 //
 //  Created by Johannes Plunien on 3/12/2016.
@@ -10,14 +10,14 @@ import FBSimulatorControl
 import XCTest
 @testable import PXCTestKit
 
-class OutputManagerTests: XCTestCase {
+class RunTestsOutputManagerTests: XCTestCase {
 
-    private var outputManager: OutputManager!
+    private var outputManager: RunTestsOutputManager!
 
     override func setUp() {
         super.setUp()
 
-        outputManager = OutputManager(url: URL(fileURLWithPath: "\(NSTemporaryDirectory())/\(UUID().uuidString)"))
+        outputManager = RunTestsOutputManager(url: URL(fileURLWithPath: "\(NSTemporaryDirectory())/\(UUID().uuidString)"))
     }
 
     func testResetCreatesDirectoryStructure() {

@@ -31,6 +31,7 @@ extension FBSimulator {
                 try interact.uninstallApplication(withBundleID: application.bundleID).perform()
             }
             try interact.installApplication(application).perform()
+            assert(installedApplications.filter({ $0.bundleID == application.bundleID }).count == 1)
         }
     }
 
@@ -63,12 +64,6 @@ extension Sequence where Iterator.Element == FBSimulator {
         }
     }
 
-    func install(applications: [FBApplicationDescriptor]) throws {
-        for simulator in self {
-            try simulator.install(applications: applications)
-        }
-    }
-
     func loadDefaults(context: DefaultsContext) throws {
         for simulator in self {
             try simulator.loadDefaults(context: context)
@@ -84,13 +79,6 @@ extension Sequence where Iterator.Element == FBSimulator {
     func overrideWatchDogTimer(applications: [String]) throws {
         for simulator in self {
             try simulator.overrideWatchDogTimer(applications: applications)
-        }
-    }
-
-    func startTest(testLaunchConfigurartion: FBTestLaunchConfiguration, target: FBXCTestRunTarget, reporterRegistry: ReporterRegistry) throws {
-        for simulator in self {
-            let reporter = try reporterRegistry.addReporter(for: simulator, target: target)
-            try simulator.interact.startTest(with: testLaunchConfigurartion, reporter: reporter).perform()
         }
     }
 

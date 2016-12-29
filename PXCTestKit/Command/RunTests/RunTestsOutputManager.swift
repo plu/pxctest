@@ -1,5 +1,5 @@
 //
-//  OutputManager.swift
+//  RunTestsOutputManager.swift
 //  pxctest
 //
 //  Created by Johannes Plunien on 3/12/2016.
@@ -9,7 +9,7 @@
 import FBSimulatorControl
 import Foundation
 
-final class OutputManager {
+final class RunTestsOutputManager {
 
     var logFile: URL {
         return url.appendingPathComponent("simulator.log")
@@ -46,14 +46,12 @@ final class OutputManager {
         return logFileHandle!
     }
 
-    func extractDiagnostics(simulators: [FBSimulator], testRun: FBXCTestRun, testErrors: [RunTestsCommand.TestError]) throws {
+    func extractDiagnostics(simulators: [RunTestsSimulator], testErrors: [RunTestsError]) throws {
         for simulator in simulators {
-            for target in testRun.targets {
-                for application in target.applications {
-                    guard let diagnostics = simulator.simulatorDiagnostics.launchedProcessLogs().first(where: { $0.0.processName == application.name })?.value else { continue }
-                    let destinationPath = urlFor(simulatorConfiguration: simulator.configuration!, target: target.name).path
-                    try diagnostics.writeOut(toDirectory: destinationPath)
-                }
+            for application in simulator.target.applications {
+                guard let diagnostics = simulator.simulator.simulatorDiagnostics.launchedProcessLogs().first(where: { $0.0.processName == application.name })?.value else { continue }
+                let destinationPath = urlFor(simulatorConfiguration: simulator.simulator.configuration!, target: simulator.target.name).path
+                try diagnostics.writeOut(toDirectory: destinationPath)
             }
         }
         for error in testErrors {

@@ -1,5 +1,5 @@
 //
-//  ReporterRegistry.swift
+//  RunTestsReporters.swift
 //  pxctest
 //
 //  Created by Johannes Plunien on 8/12/2016.
@@ -9,10 +9,10 @@
 import FBSimulatorControl
 import Foundation
 
-final class ReporterRegistry {
+final class RunTestsReporters {
 
     private let consoleOutput: ConsoleOutput
-    private let outputManager: OutputManager
+    private let outputManager: RunTestsOutputManager
     private let reporterType: ConsoleReporter.Type
     private var reporters: [ConsoleReporter] = []
 

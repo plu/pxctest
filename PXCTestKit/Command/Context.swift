@@ -9,13 +9,19 @@
 import FBSimulatorControl
 import Foundation
 
+protocol AllocationContext {
+    var simulatorConfigurations: [FBSimulatorConfiguration] { get }
+    var simulatorAllocationOptions: FBSimulatorAllocationOptions  { get }
+    var testsToRun: [String: Set<String>] { get }
+}
+
 protocol BootContext {
     var locale: Locale { get }
     var simulatorBootOptions: FBSimulatorBootOptions { get }
 }
 
 protocol ControlContext {
-    var outputManager: OutputManager { get }
+    var outputManager: RunTestsOutputManager { get }
     var deviceSet: URL { get }
     var simulatorManagementOptions: FBSimulatorManagementOptions { get }
     var debugLogging: Bool { get }
@@ -27,8 +33,13 @@ protocol DefaultsContext {
 
 protocol ReporterContext {
     var consoleOutput: ConsoleOutput { get }
-    var outputManager: OutputManager { get }
+    var outputManager: RunTestsOutputManager { get }
     var reporterType: ConsoleReporter.Type { get }
+}
+
+protocol RunTestsContext {
+    var environment: [String: String] { get }
+    var testsToRun: [String: Set<String>] { get }
 }
 
 extension BootSimulatorsCommand {
@@ -63,10 +74,10 @@ extension ListTestsCommand {
 
 extension RunTestsCommand {
 
-    struct Context: BootContext, ControlContext, DefaultsContext, ReporterContext {
+    struct Context: AllocationContext, BootContext, ControlContext, DefaultsContext, ReporterContext, RunTestsContext {
         let testRun: URL
         let deviceSet: URL
-        let outputManager: OutputManager
+        let outputManager: RunTestsOutputManager
         let locale: Locale
         let environment: [String: String]
         let defaults: [String: [String: Any]]

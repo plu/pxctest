@@ -1,5 +1,5 @@
 //
-//  NotificationHandlerTests.swift
+//  RunTestsNotificationTests.swift
 //  pxctest
 //
 //  Created by Johannes Plunien on 10/12/2016.
@@ -9,20 +9,20 @@
 import XCTest
 @testable import PXCTestKit
 
-class NotificationHandlerTests: XCTestCase {
+class RunTestsNotificationTests: XCTestCase {
 
     private var testSender: TestSender!
-    private var notificationHandler: NotificationHandler!
+    private var notification: RunTestsNotification!
 
     override func setUp() {
         super.setUp()
 
         testSender = TestSender()
-        notificationHandler = NotificationHandler(notificationSender: testSender)
+        notification = RunTestsNotification(notificationSender: testSender)
     }
 
     func testDeliverSuccessNotification() {
-        notificationHandler.deliverSuccessNotification()
+        notification.deliverSuccessNotification()
         XCTAssertEqual(testSender.lastNotification?.title, "pxctest")
         XCTAssertEqual(testSender.lastNotification?.informativeText, "Tests Succeeded")
     }
@@ -30,7 +30,7 @@ class NotificationHandlerTests: XCTestCase {
     func testDeliverFailureNotificationWithTestRunHadFailures() {
         let expected = ["0 Failures", "1 Failure", "2 Failures"].map { "Tests Failed (\($0))" }
         (0...2).forEach {
-            notificationHandler.deliverFailureNotification(error: RunTestsCommand.RuntimeError.testRunHadFailures($0))
+            notification.deliverFailureNotification(error: RunTestsCommand.RuntimeError.testRunHadFailures($0))
             XCTAssertEqual(testSender.lastNotification?.title, "pxctest")
             XCTAssertEqual(testSender.lastNotification?.informativeText, expected[$0])
         }

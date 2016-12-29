@@ -1,5 +1,5 @@
 //
-//  NotificationHandler.swift
+//  RunTestsNotification.swift
 //  pxctest
 //
 //  Created by Johannes Plunien on 10/12/2016.
@@ -8,14 +8,7 @@
 
 import Foundation
 
-protocol NotificationSender {
-    var delegate: NSUserNotificationCenterDelegate? { get set }
-    func deliver(_ notification: NSUserNotification)
-}
-
-extension NSUserNotificationCenter: NotificationSender {}
-
-final class NotificationHandler: NSObject, NSUserNotificationCenterDelegate {
+final class RunTestsNotification: NSObject, NSUserNotificationCenterDelegate {
 
     private let notificationSender: NotificationSender
     private let title = "pxctest"

@@ -31,11 +31,11 @@ final class ConsoleErrorFormatter {
         }
     }
 
-    private static func format(testErrors: [RunTestsCommand.TestError]) -> String {
+    private static func format(testErrors: [RunTestsError]) -> String {
         return testErrors.map { format(testError: $0) }.joined(separator: "\n")
     }
 
-    private static func format(testError: RunTestsCommand.TestError) -> String {
+    private static func format(testError: RunTestsError) -> String {
         var output = [
             "\(ANSI.bold)\(testError.target)\(ANSI.reset)",
             "\(ANSI.bold)  Errors on \(testError.simulator.identifier):\(ANSI.reset)",

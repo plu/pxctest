@@ -92,12 +92,12 @@ import Foundation
             ) { (testRun, deviceSet, output, locale, defaults, reporter, only, destination, timeout, noColor, debugLogging) in
                 ANSI.disabled = noColor
                 let consoleOutput = ConsoleOutput()
-                let notificationHandler = NotificationHandler()
+                let notification = RunTestsNotification()
 
                 let context = RunTestsCommand.Context(
                     testRun: testRun.url,
                     deviceSet: deviceSet.url,
-                    outputManager: OutputManager(url: output.url),
+                    outputManager: RunTestsOutputManager(url: output.url),
                     locale: locale,
                     environment: ProcessInfo.processInfo.environment,
                     defaults: defaults.dictionary,
@@ -116,11 +116,11 @@ import Foundation
 
                 do {
                     try CommandLineInterface.command?.run()
-                    notificationHandler.deliverSuccessNotification()
+                    notification.deliverSuccessNotification()
                 }
                 catch {
                     consoleOutput.write(error: error)
-                    notificationHandler.deliverFailureNotification(error: error)
+                    notification.deliverFailureNotification(error: error)
                     exit(1)
                 }
             }

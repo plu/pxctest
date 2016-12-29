@@ -19,7 +19,7 @@ class RunTestsCommandTests: XCTestCase {
         let errorOutput: String
         let standardOutput: String
         let failureCount: Int
-        let testErrors: [RunTestsCommand.TestError]?
+        let testErrors: [RunTestsError]?
     }
 
     override func setUp() {
@@ -179,7 +179,7 @@ extension RunTestsCommandTests {
             }
         }
 
-        var testErrors: [RunTestsCommand.TestError]? = nil
+        var testErrors: [RunTestsError]? = nil
 
         do {
             try command.run(control: control)
@@ -215,7 +215,7 @@ extension RunTestsCommand.Context {
         self.init(
             testRun: testRun,
             deviceSet: temporaryDirectory.appendingPathComponent("simulators"),
-            outputManager: OutputManager(url: temporaryDirectory.appendingPathComponent("output")),
+            outputManager: RunTestsOutputManager(url: temporaryDirectory.appendingPathComponent("output")),
             locale: Locale.current,
             environment: ["PXCTEST_CHILD_FOO": "BAR"],
             defaults: [:],
