@@ -94,48 +94,48 @@ final class RunTestsWorker {
 extension Sequence where Iterator.Element == RunTestsWorker {
 
     func abortTestRun() throws {
-        for simulator in self {
-            try simulator.abortTestRun()
+        for worker in self {
+            try worker.abortTestRun()
         }
     }
 
     func boot(context: BootContext) throws {
-        for simulator in self {
-            try simulator.boot(context: context)
+        for worker in self {
+            try worker.boot(context: context)
         }
     }
 
     func installApplications() throws {
-        for simulator in self {
-            try simulator.installApplications()
+        for worker in self {
+            try worker.installApplications()
         }
     }
 
     func loadDefaults(context: DefaultsContext) throws {
-        for simulator in self {
-            try simulator.loadDefaults(context: context)
+        for worker in self {
+            try worker.loadDefaults(context: context)
         }
     }
 
     func overrideWatchDogTimer() throws {
-        for simulator in self {
-            try simulator.overrideWatchDogTimer()
+        for worker in self {
+            try worker.overrideWatchDogTimer()
         }
     }
 
     func startTests(context: RunTestsContext, reporters: RunTestsReporters) throws {
-        for simulator in self {
-            try simulator.startTests(context: context, reporters: reporters)
+        for worker in self {
+            try worker.startTests(context: context, reporters: reporters)
         }
     }
 
     func waitForTestResult(context: TestResultContext) throws -> [RunTestsError] {
-        for simulator in self {
-            simulator.waitForTestResult(timeout: context.timeout)
+        for worker in self {
+            worker.waitForTestResult(timeout: context.timeout)
         }
 
-        for simulator in self {
-            try simulator.extractDiagnostics(outputManager: context.outputManager)
+        for worker in self {
+            try worker.extractDiagnostics(outputManager: context.outputManager)
         }
 
         return flatMap { $0.errors }
