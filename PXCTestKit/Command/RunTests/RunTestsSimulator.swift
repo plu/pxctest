@@ -14,6 +14,12 @@ final class RunTestsSimulator {
     let simulator: FBSimulator
     let target: FBXCTestRunTarget
 
+    var configuration: FBSimulatorConfiguration {
+        return simulator.configuration!
+    }
+
+    private(set) var errors: [RunTestsError] = []
+
     init(simulator: FBSimulator, target: FBXCTestRunTarget) {
         self.simulator = simulator
         self.target = target
@@ -27,6 +33,20 @@ final class RunTestsSimulator {
 
     func boot(context: BootContext) throws {
         try simulator.boot(context: context)
+    }
+
+    func extractDiagnostics(outputManager: RunTestsOutputManager) throws {
+        for application in target.applications {
+            guard let diagnostics = simulator.simulatorDiagnostics.launchedProcessLogs().first(where: { $0.0.processName == application.name })?.value else { continue }
+            let destinationPath = outputManager.urlFor(simulator: self).path
+            try diagnostics.writeOut(toDirectory: destinationPath)
+        }
+        for error in errors {
+            for crash in error.crashes {
+                let destinationPath = outputManager.urlFor(simulator: self).path
+                try crash.writeOut(toDirectory: destinationPath)
+            }
+        }
     }
 
     func loadDefaults(context: DefaultsContext) throws {
@@ -53,16 +73,18 @@ final class RunTestsSimulator {
         try simulator.interact.startTest(with: testLaunchConfigurartion, reporter: reporter).perform()
     }
 
-    func waitUntilTestingHasFinished(timeout: TimeInterval) -> RunTestsError? {
+    func waitForTestResult(timeout: TimeInterval) {
         let testManagerResults = simulator.resourceSink.testManagers.flatMap { $0.waitUntilTestingHasFinished(withTimeout: timeout) }
         if testManagerResults.reduce(true, { $0 && $1.didEndSuccessfully }) {
-            return nil
+            return
         }
-        return RunTestsError(
-            simulator: simulator,
-            target: target.name,
-            errors: testManagerResults.flatMap { $0.error },
-            crashes: testManagerResults.flatMap { $0.crashDiagnostic }
+        errors.append(
+            RunTestsError(
+                simulator: simulator,
+                target: target.name,
+                errors: testManagerResults.flatMap { $0.error },
+                crashes: testManagerResults.flatMap { $0.crashDiagnostic }
+            )
         )
     }
 
@@ -106,8 +128,16 @@ extension Sequence where Iterator.Element == RunTestsSimulator {
         }
     }
 
-    func waitUntilTestingHasFinished(timeout: TimeInterval) -> [RunTestsError] {
-        return flatMap { $0.waitUntilTestingHasFinished(timeout: timeout) }
+    func waitForTestResult(context: TestResultContext) throws -> [RunTestsError] {
+        for simulator in self {
+            simulator.waitForTestResult(timeout: context.timeout)
+        }
+
+        for simulator in self {
+            try simulator.extractDiagnostics(outputManager: context.outputManager)
+        }
+
+        return flatMap { $0.errors }
     }
 
 }

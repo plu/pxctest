@@ -54,9 +54,8 @@ final class RunTestsCommand: Command {
         try simulators.boot(context: context)
         try simulators.installApplications()
         try simulators.startTests(context: context, reporters: reporters)
-        let testErrors = simulators.waitUntilTestingHasFinished(timeout: context.timeout)
-        try context.outputManager.extractDiagnostics(simulators: simulators, testErrors: testErrors)
 
+        let testErrors = try simulators.waitForTestResult(context: context)
         if testErrors.count > 0 {
             throw RuntimeError.testRunHadErrors(testErrors)
         }

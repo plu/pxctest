@@ -42,6 +42,11 @@ protocol RunTestsContext {
     var testsToRun: [String: Set<String>] { get }
 }
 
+protocol TestResultContext {
+    var outputManager: RunTestsOutputManager { get }
+    var timeout: Double { get }
+}
+
 extension BootSimulatorsCommand {
 
     struct Context: BootContext, DefaultsContext {
@@ -74,7 +79,7 @@ extension ListTestsCommand {
 
 extension RunTestsCommand {
 
-    struct Context: AllocationContext, BootContext, ControlContext, DefaultsContext, ReporterContext, RunTestsContext {
+    struct Context: AllocationContext, BootContext, ControlContext, DefaultsContext, ReporterContext, RunTestsContext, TestResultContext {
         let testRun: URL
         let deviceSet: URL
         let outputManager: RunTestsOutputManager

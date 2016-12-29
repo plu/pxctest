@@ -46,22 +46,6 @@ final class RunTestsOutputManager {
         return logFileHandle!
     }
 
-    func extractDiagnostics(simulators: [RunTestsSimulator], testErrors: [RunTestsError]) throws {
-        for simulator in simulators {
-            for application in simulator.target.applications {
-                guard let diagnostics = simulator.simulator.simulatorDiagnostics.launchedProcessLogs().first(where: { $0.0.processName == application.name })?.value else { continue }
-                let destinationPath = urlFor(simulatorConfiguration: simulator.simulator.configuration!, target: simulator.target.name).path
-                try diagnostics.writeOut(toDirectory: destinationPath)
-            }
-        }
-        for error in testErrors {
-            for crash in error.crashes {
-                let destinationPath = urlFor(simulatorConfiguration: error.simulator.configuration!, target: error.target).path
-                try crash.writeOut(toDirectory: destinationPath)
-            }
-        }
-    }
-
     func reset(targets: [String], simulatorConfigurations: [FBSimulatorConfiguration]) throws {
         let fileManager = FileManager.default
 
@@ -85,6 +69,10 @@ final class RunTestsOutputManager {
             .appendingPathComponent(target)
             .appendingPathComponent(simulatorConfiguration.osVersionString)
             .appendingPathComponent(simulatorConfiguration.deviceName)
+    }
+
+    func urlFor(simulator: RunTestsSimulator) -> URL {
+        return urlFor(simulatorConfiguration: simulator.configuration, target: simulator.target.name)
     }
 
 }
