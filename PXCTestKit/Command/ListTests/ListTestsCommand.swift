@@ -43,7 +43,7 @@ final class ListTestsCommand: Command {
             let testLaunchConfiguration = target.testLaunchConfiguration.withTestEnvironment(environment)
             let reporter = JSONReporter(simulatorIdentifier: simulator.identifier, testTargetName: target.name, consoleOutput: context.consoleOutput)
 
-            try simulator.install(applications: target.applications)
+            try simulator.reinstall(applications: target.applications)
             try simulator.interact.startTest(with: testLaunchConfiguration, reporter: reporter).perform()
             try simulator.interact.waitUntilAllTestRunnersHaveFinishedTesting(withTimeout: context.timeout).perform()
         }

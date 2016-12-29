@@ -88,7 +88,7 @@ extension Sequence where Iterator.Element == RunTestsWorker {
 
     func installApplications() throws {
         for worker in self {
-            try worker.simulator.install(applications: worker.target.applications)
+            try worker.simulator.reinstall(applications: worker.target.applications)
         }
     }
 

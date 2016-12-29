@@ -15,7 +15,7 @@ extension FBSimulator {
         return "\(configuration!.deviceName) \(configuration!.osVersionString)"
     }
 
-    func install(applications: [FBApplicationDescriptor]) throws {
+    func reinstall(applications: [FBApplicationDescriptor]) throws {
         for application in applications {
             if installedApplications.filter({ $0.bundleID == application.bundleID }).count == 1 {
                 try interact.uninstallApplication(withBundleID: application.bundleID).perform()
