@@ -18,7 +18,17 @@ extension FBSimulatorInteraction {
         return bootSimulator(configuration)
     }
 
-    func loadDefaults(inDomainOrPath domainOrPath: String?, defaults: [String : Any]) -> Self {
+    func loadDefaults(context: DefaultsContext) -> Self {
+        var result = self
+        for (domainOrPath, defaults) in context.defaults {
+            result = result.loadDefaults(inDomainOrPath: domainOrPath, defaults: defaults)
+        }
+        return result
+    }
+
+    // MARK: - Private
+
+    private func loadDefaults(inDomainOrPath domainOrPath: String?, defaults: [String : Any]) -> Self {
         return interact(simulator: { (error: NSErrorPointer, simulator: FBSimulator?) -> Bool in
             guard let simulator = simulator else { return false }
             let strategy = FBDefaultsModificationStrategy(simulator: simulator)
