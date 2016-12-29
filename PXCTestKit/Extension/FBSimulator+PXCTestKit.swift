@@ -17,12 +17,7 @@ extension FBSimulator {
 
     func boot(context: BootContext) throws {
         guard state != .booted else { return }
-        let simulatorBootConfiguration = FBSimulatorBootConfiguration
-            .withLocalizationOverride(FBLocalizationOverride.withLocale(context.locale))
-            .withOptions(context.simulatorBootOptions)
-        try interact
-            .bootSimulator(simulatorBootConfiguration)
-            .perform()
+        try interact.bootSimulator(context: context).perform()
     }
 
     func install(applications: [FBApplicationDescriptor]) throws {

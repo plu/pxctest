@@ -11,7 +11,14 @@ import Foundation
 
 extension FBSimulatorInteraction {
 
-    func loadDefaults(inDomainOrPath domainOrPath: String?, defaults: [String : Any]) -> FBSimulatorInteraction {
+    func bootSimulator(context: BootContext) -> Self {
+        let configuration = FBSimulatorBootConfiguration
+            .withLocalizationOverride(FBLocalizationOverride.withLocale(context.locale))
+            .withOptions(context.simulatorBootOptions)
+        return bootSimulator(configuration)
+    }
+
+    func loadDefaults(inDomainOrPath domainOrPath: String?, defaults: [String : Any]) -> Self {
         return interact(simulator: { (error: NSErrorPointer, simulator: FBSimulator?) -> Bool in
             guard let simulator = simulator else { return false }
             let strategy = FBDefaultsModificationStrategy(simulator: simulator)
