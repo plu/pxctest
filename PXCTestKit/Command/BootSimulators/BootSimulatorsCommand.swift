@@ -30,7 +30,7 @@ final class BootSimulatorsCommand: Command {
         try simulators.loadDefaults(context: context)
         for simulator in simulators {
             FBControlCoreGlobalConfiguration.defaultLogger().log("\(simulator)")
-            try simulator.boot(context: context)
+            try simulator.interact.bootSimulator(context: context).perform()
         }
     }
 

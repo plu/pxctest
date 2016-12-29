@@ -15,11 +15,6 @@ extension FBSimulator {
         return "\(configuration!.deviceName) \(configuration!.osVersionString)"
     }
 
-    func boot(context: BootContext) throws {
-        guard state != .booted else { return }
-        try interact.bootSimulator(context: context).perform()
-    }
-
     func install(applications: [FBApplicationDescriptor]) throws {
         for application in applications {
             if installedApplications.filter({ $0.bundleID == application.bundleID }).count == 1 {
@@ -44,7 +39,8 @@ extension Sequence where Iterator.Element == FBSimulator {
 
     func boot(context: BootContext) throws {
         for simulator in self {
-            try simulator.boot(context: context)
+            guard simulator.state != .booted else { return }
+            try simulator.interact.bootSimulator(context: context).perform()
         }
     }
 

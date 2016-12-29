@@ -31,10 +31,6 @@ final class RunTestsWorker {
         }
     }
 
-    func boot(context: BootContext) throws {
-        try simulator.boot(context: context)
-    }
-
     func extractDiagnostics(outputManager: RunTestsOutputManager) throws {
         for application in target.applications {
             guard let diagnostics = simulator.simulatorDiagnostics.launchedProcessLogs().first(where: { $0.0.processName == application.name })?.value else { continue }
@@ -47,19 +43,6 @@ final class RunTestsWorker {
                 try crash.writeOut(toDirectory: destinationPath)
             }
         }
-    }
-
-    func loadDefaults(context: DefaultsContext) throws {
-        try simulator.loadDefaults(context: context)
-    }
-
-    func installApplications() throws {
-        try simulator.install(applications: target.applications)
-    }
-
-    func overrideWatchDogTimer() throws {
-        let applications = target.applications.map { $0.bundleID }
-        try simulator.interact.overrideWatchDogTimer(forApplications: applications, withTimeout: 60.0).perform()
     }
 
     func startTests(context: RunTestsContext, reporters: RunTestsReporters) throws {
@@ -100,26 +83,23 @@ extension Sequence where Iterator.Element == RunTestsWorker {
     }
 
     func boot(context: BootContext) throws {
-        for worker in self {
-            try worker.boot(context: context)
-        }
+        try map { $0.simulator }.boot(context: context)
     }
 
     func installApplications() throws {
         for worker in self {
-            try worker.installApplications()
+            try worker.simulator.install(applications: worker.target.applications)
         }
     }
 
     func loadDefaults(context: DefaultsContext) throws {
-        for worker in self {
-            try worker.loadDefaults(context: context)
-        }
+        try map { $0.simulator }.loadDefaults(context: context)
     }
 
     func overrideWatchDogTimer() throws {
         for worker in self {
-            try worker.overrideWatchDogTimer()
+            let applications = worker.target.applications.map { $0.bundleID }
+            try worker.simulator.interact.overrideWatchDogTimer(forApplications: applications, withTimeout: 60.0).perform()
         }
     }
 
