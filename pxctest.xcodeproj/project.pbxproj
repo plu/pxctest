@@ -59,7 +59,7 @@
 		3EBFCB0C1E14C739007C22C4 /* ListTestsCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBFCB061E14C739007C22C4 /* ListTestsCommand.swift */; };
 		3EBFCB0D1E14C739007C22C4 /* RunTestsCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBFCB081E14C739007C22C4 /* RunTestsCommand.swift */; };
 		3EBFCB0E1E14C739007C22C4 /* RunTestsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBFCB091E14C739007C22C4 /* RunTestsError.swift */; };
-		3EBFCB0F1E14C739007C22C4 /* RunTestsSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBFCB0A1E14C739007C22C4 /* RunTestsSimulator.swift */; };
+		3EBFCB0F1E14C739007C22C4 /* RunTestsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBFCB0A1E14C739007C22C4 /* RunTestsWorker.swift */; };
 		3EBFCB121E14C7D2007C22C4 /* RunTestsOutputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBFCB101E14C7D2007C22C4 /* RunTestsOutputManager.swift */; };
 		3EBFCB131E14C7D2007C22C4 /* RunTestsReporters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBFCB111E14C7D2007C22C4 /* RunTestsReporters.swift */; };
 		3EBFCB151E14D282007C22C4 /* RunTestsNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBFCB141E14D282007C22C4 /* RunTestsNotification.swift */; };
@@ -285,7 +285,7 @@
 		3EBFCB061E14C739007C22C4 /* ListTestsCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTestsCommand.swift; sourceTree = "<group>"; };
 		3EBFCB081E14C739007C22C4 /* RunTestsCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTestsCommand.swift; sourceTree = "<group>"; };
 		3EBFCB091E14C739007C22C4 /* RunTestsError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTestsError.swift; sourceTree = "<group>"; };
-		3EBFCB0A1E14C739007C22C4 /* RunTestsSimulator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTestsSimulator.swift; sourceTree = "<group>"; };
+		3EBFCB0A1E14C739007C22C4 /* RunTestsWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTestsWorker.swift; sourceTree = "<group>"; };
 		3EBFCB101E14C7D2007C22C4 /* RunTestsOutputManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTestsOutputManager.swift; sourceTree = "<group>"; };
 		3EBFCB111E14C7D2007C22C4 /* RunTestsReporters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTestsReporters.swift; sourceTree = "<group>"; };
 		3EBFCB141E14D282007C22C4 /* RunTestsNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTestsNotification.swift; sourceTree = "<group>"; };
@@ -540,7 +540,7 @@
 				3EBFCB091E14C739007C22C4 /* RunTestsError.swift */,
 				3EBFCB101E14C7D2007C22C4 /* RunTestsOutputManager.swift */,
 				3EBFCB111E14C7D2007C22C4 /* RunTestsReporters.swift */,
-				3EBFCB0A1E14C739007C22C4 /* RunTestsSimulator.swift */,
+				3EBFCB0A1E14C739007C22C4 /* RunTestsWorker.swift */,
 			);
 			path = RunTests;
 			sourceTree = "<group>";
@@ -906,7 +906,7 @@
 				3EBFCB0B1E14C739007C22C4 /* BootSimulatorsCommand.swift in Sources */,
 				0511CB501DF3F550009B8B2F /* FBSimulator+PXCTestKit.swift in Sources */,
 				3EBFCB151E14D282007C22C4 /* RunTestsNotification.swift in Sources */,
-				3EBFCB0F1E14C739007C22C4 /* RunTestsSimulator.swift in Sources */,
+				3EBFCB0F1E14C739007C22C4 /* RunTestsWorker.swift in Sources */,
 				05E1B2FB1DE6F62A00C38DB1 /* Locale.swift in Sources */,
 				055DCD6E1DF035AE00BB6B82 /* XcodeReporter.swift in Sources */,
 				3E4CA6EF1DFBBA22005216A3 /* Int+PXCTestKit.swift in Sources */,

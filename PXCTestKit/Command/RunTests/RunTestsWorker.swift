@@ -1,5 +1,5 @@
 //
-//  RunTestsSimulator.swift
+//  RunTestsWorker.swift
 //  pxctest
 //
 //  Created by Johannes Plunien on 29/12/2016.
@@ -9,7 +9,7 @@
 import FBSimulatorControl
 import Foundation
 
-final class RunTestsSimulator {
+final class RunTestsWorker {
 
     let simulator: FBSimulator
     let target: FBXCTestRunTarget
@@ -38,12 +38,12 @@ final class RunTestsSimulator {
     func extractDiagnostics(outputManager: RunTestsOutputManager) throws {
         for application in target.applications {
             guard let diagnostics = simulator.simulatorDiagnostics.launchedProcessLogs().first(where: { $0.0.processName == application.name })?.value else { continue }
-            let destinationPath = outputManager.urlFor(simulator: self).path
+            let destinationPath = outputManager.urlFor(worker: self).path
             try diagnostics.writeOut(toDirectory: destinationPath)
         }
         for error in errors {
             for crash in error.crashes {
-                let destinationPath = outputManager.urlFor(simulator: self).path
+                let destinationPath = outputManager.urlFor(worker: self).path
                 try crash.writeOut(toDirectory: destinationPath)
             }
         }
@@ -90,7 +90,7 @@ final class RunTestsSimulator {
 
 }
 
-extension Sequence where Iterator.Element == RunTestsSimulator {
+extension Sequence where Iterator.Element == RunTestsWorker {
 
     func abortTestRun() throws {
         for simulator in self {

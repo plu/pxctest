@@ -11,21 +11,21 @@ import Foundation
 
 extension FBSimulatorPool {
 
-    func allocate(context: AllocationContext, targets: [FBXCTestRunTarget]) throws -> [RunTestsSimulator] {
-        var simulators: [RunTestsSimulator] = []
+    func allocate(context: AllocationContext, targets: [FBXCTestRunTarget]) throws -> [RunTestsWorker] {
+        var workers: [RunTestsWorker] = []
         for target in targets {
             if context.testsToRun.count > 0 && context.testsToRun[target.name] == nil {
                 continue
             }
             for simulatorConfigurations in context.simulatorConfigurations {
-                let simulator = RunTestsSimulator(
+                let worker = RunTestsWorker(
                     simulator: try allocateSimulator(with: simulatorConfigurations, options: context.simulatorAllocationOptions),
                     target: target
                 )
-                simulators.append(simulator)
+                workers.append(worker)
             }
         }
-        return simulators
+        return workers
     }
 
 }

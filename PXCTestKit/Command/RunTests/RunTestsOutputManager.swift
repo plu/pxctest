@@ -71,8 +71,8 @@ final class RunTestsOutputManager {
             .appendingPathComponent(simulatorConfiguration.deviceName)
     }
 
-    func urlFor(simulator: RunTestsSimulator) -> URL {
-        return urlFor(simulatorConfiguration: simulator.configuration, target: simulator.target.name)
+    func urlFor(worker: RunTestsWorker) -> URL {
+        return urlFor(simulatorConfiguration: worker.configuration, target: worker.target.name)
     }
 
 }

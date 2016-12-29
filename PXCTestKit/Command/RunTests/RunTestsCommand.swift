@@ -18,7 +18,7 @@ final class RunTestsCommand: Command {
 
     private let context: Context
     private let reporters: RunTestsReporters
-    private var simulators: [RunTestsSimulator] = []
+    private var workers: [RunTestsWorker] = []
 
     init(context: Context) {
         self.context = context
@@ -27,7 +27,7 @@ final class RunTestsCommand: Command {
 
     func abort() {
         do {
-            try simulators.abortTestRun()
+            try workers.abortTestRun()
         }
         catch {
             context.consoleOutput.write(line: "\(error)")
@@ -47,15 +47,15 @@ final class RunTestsCommand: Command {
             simulatorConfigurations: context.simulatorConfigurations
         )
 
-        simulators = try control.pool.allocate(context: context, targets: testRun.targets)
+        workers = try control.pool.allocate(context: context, targets: testRun.targets)
 
-        try simulators.loadDefaults(context: context)
-        try simulators.overrideWatchDogTimer()
-        try simulators.boot(context: context)
-        try simulators.installApplications()
-        try simulators.startTests(context: context, reporters: reporters)
+        try workers.loadDefaults(context: context)
+        try workers.overrideWatchDogTimer()
+        try workers.boot(context: context)
+        try workers.installApplications()
+        try workers.startTests(context: context, reporters: reporters)
 
-        let testErrors = try simulators.waitForTestResult(context: context)
+        let testErrors = try workers.waitForTestResult(context: context)
         if testErrors.count > 0 {
             throw RuntimeError.testRunHadErrors(testErrors)
         }
