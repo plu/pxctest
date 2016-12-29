@@ -1,4 +1,5 @@
 * Add list-tests command (experimental)
+* Run tests in parallel on all test targets
 
 # 0.3.0
 
