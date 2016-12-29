@@ -57,7 +57,6 @@ extension BootSimulatorsCommand {
         let simulatorManagementOptions: FBSimulatorManagementOptions
         let simulatorAllocationOptions: FBSimulatorAllocationOptions
         let simulatorBootOptions: FBSimulatorBootOptions
-        let applications: [String]
     }
 
 }

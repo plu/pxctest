@@ -58,7 +58,8 @@ final class RunTestsWorker {
     }
 
     func overrideWatchDogTimer() throws {
-        try simulator.overrideWatchDogTimer(targets: [target])
+        let applications = target.applications.map { $0.bundleID }
+        try simulator.interact.overrideWatchDogTimer(forApplications: applications, withTimeout: 60.0).perform()
     }
 
     func startTests(context: RunTestsContext, reporters: RunTestsReporters) throws {

@@ -28,7 +28,6 @@ final class BootSimulatorsCommand: Command {
         }
 
         try simulators.loadDefaults(context: context)
-        try simulators.overrideWatchDogTimer(applications: context.applications)
         for simulator in simulators {
             FBControlCoreGlobalConfiguration.defaultLogger().log("\(simulator)")
             try simulator.boot(context: context)

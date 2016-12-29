@@ -26,9 +26,8 @@ import Foundation
                        Option<Locale>("locale", Locale(identifier: "en"), description: "Locale to set for the Simulator."),
                        Option<DefaultsOption>("defaults", DefaultsOption(), description: "Path to some defaults.json to be applied with the Simulator."),
                        VariadicOption<DestinationOption>("destination", [DestinationOption.default], description: "A comma-separated set of key=value pairs describing the destination to use. Default: \(DestinationOption.default.description)"),
-                       VariadicOption<String>("application", [], description: "Bundle ID of application to prepare the Simulators for."),
                        description: "Boots Simulators in the background."
-            ) { (deviceSet, locale, defaults, destination, applications) in
+            ) { (deviceSet, locale, defaults, destination) in
                 let context = BootSimulatorsCommand.Context(
                     deviceSet: deviceSet.url,
                     locale: locale,
@@ -36,8 +35,7 @@ import Foundation
                     simulatorConfigurations: destination.map({ $0.simulatorConfiguration }),
                     simulatorManagementOptions: [.killAllOnFirstStart],
                     simulatorAllocationOptions: [.create, .reuse, .eraseOnAllocate],
-                    simulatorBootOptions: [.awaitServices, .enablePersistentLaunch],
-                    applications: applications
+                    simulatorBootOptions: [.awaitServices, .enablePersistentLaunch]
                 )
 
                 CommandLineInterface.command = BootSimulatorsCommand(context: context)
