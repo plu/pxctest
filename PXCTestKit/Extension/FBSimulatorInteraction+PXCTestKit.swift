@@ -11,7 +11,7 @@ import Foundation
 
 extension FBSimulatorInteraction {
 
-    func bootSimulator(context: BootContext) -> Self {
+    func boot(context: BootContext) -> Self {
         let configuration = FBSimulatorBootConfiguration
             .withLocalizationOverride(FBLocalizationOverride.withLocale(context.locale))
             .withOptions(context.simulatorBootOptions)

@@ -26,20 +26,3 @@ extension FBSimulator {
     }
 
 }
-
-extension Sequence where Iterator.Element == FBSimulator {
-
-    func boot(context: BootContext) throws {
-        for simulator in self {
-            guard simulator.state != .booted else { return }
-            try simulator.interact.bootSimulator(context: context).perform()
-        }
-    }
-
-    func loadDefaults(context: DefaultsContext) throws {
-        for simulator in self {
-            try simulator.interact.loadDefaults(context: context).perform()
-        }
-    }
-
-}

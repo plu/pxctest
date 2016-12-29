@@ -83,7 +83,10 @@ extension Sequence where Iterator.Element == RunTestsWorker {
     }
 
     func boot(context: BootContext) throws {
-        try map { $0.simulator }.boot(context: context)
+        for worker in self {
+            guard worker.simulator.state != .booted else { continue }
+            try worker.simulator.interact.boot(context: context).perform()
+        }
     }
 
     func installApplications() throws {
@@ -93,7 +96,9 @@ extension Sequence where Iterator.Element == RunTestsWorker {
     }
 
     func loadDefaults(context: DefaultsContext) throws {
-        try map { $0.simulator }.loadDefaults(context: context)
+        for worker in self {
+            try worker.simulator.interact.loadDefaults(context: context).perform()
+        }
     }
 
     func overrideWatchDogTimer() throws {

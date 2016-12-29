@@ -27,10 +27,12 @@ final class BootSimulatorsCommand: Command {
             try control.pool.allocateSimulator(with: $0, options: context.simulatorAllocationOptions)
         }
 
-        try simulators.loadDefaults(context: context)
         for simulator in simulators {
             FBControlCoreGlobalConfiguration.defaultLogger().log("\(simulator)")
-            try simulator.interact.bootSimulator(context: context).perform()
+            try simulator.interact
+                .loadDefaults(context: context)
+                .boot(context: context)
+                .perform()
         }
     }
 
