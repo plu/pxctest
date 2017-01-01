@@ -17,12 +17,22 @@ extension FBSimulator {
 
     func reinstall(applications: [FBApplicationDescriptor]) throws {
         for application in applications {
-            if installedApplications.filter({ $0.bundleID == application.bundleID }).count == 1 {
+            if installedApplications.contains(bundleID: application.bundleID) {
                 try interact.uninstallApplication(withBundleID: application.bundleID).perform()
             }
             try interact.installApplication(application).perform()
-            assert(installedApplications.filter({ $0.bundleID == application.bundleID }).count == 1)
+            if (!FBRunLoopSpinner().timeout(FBControlCoreGlobalConfiguration.fastTimeout()).spin { self.installedApplications.contains(bundleID: application.bundleID) }) {
+                preconditionFailure("Installation of application failed")
+            }
         }
+    }
+
+}
+
+extension Sequence where Iterator.Element == FBApplicationDescriptor {
+
+    func contains(bundleID: String) -> Bool {
+        return filter { $0.bundleID == bundleID }.count == 1
     }
 
 }
