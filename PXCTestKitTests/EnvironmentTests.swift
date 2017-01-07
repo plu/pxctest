@@ -18,4 +18,15 @@ class EnvironmentTests: XCTestCase {
         XCTAssertEqual(result, ["FOO": "BAR", "BLA": "FASEL"])
     }
 
+    func testInjectsLibraryAtPath() {
+        XCTAssertEqual(
+            Environment.injectLibrary(atPath: "/tmp/foo.dylib", into: ["DYLD_INSERT_LIBRARIES": "/tmp/bar.dylib"]),
+            ["DYLD_INSERT_LIBRARIES": "/tmp/bar.dylib:/tmp/foo.dylib"]
+        )
+        XCTAssertEqual(
+            Environment.injectLibrary(atPath: "/tmp/foo.dylib", into: [:]),
+            ["DYLD_INSERT_LIBRARIES": "/tmp/foo.dylib"]
+        )
+    }
+
 }

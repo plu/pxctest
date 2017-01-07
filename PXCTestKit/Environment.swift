@@ -11,9 +11,7 @@ import Foundation
 final class Environment {
 
     private static let prefix = "PXCTEST_CHILD_"
-    private static let fileManager = FileManager.default
     private static let insertLibrariesKey = "DYLD_INSERT_LIBRARIES"
-    private static let listTestsShimName = "libpxctest-list-tests.dylib"
 
     static func injectPrefixedVariables(from source: [String: String], into destination: [String: String]?) -> [String: String] {
         var result = destination ?? [:]
@@ -26,19 +24,11 @@ final class Environment {
         return result
     }
 
-    static func prepare(forListingTests environmentVariables: [String: String]?) throws -> [String: String] {
-        var result = environmentVariables ?? [:]
-        let insertLibraries = result[insertLibrariesKey] ?? ""
-        let listTestsShimPath = URL(fileURLWithPath: Bundle(for: self).bundlePath)
-            .deletingLastPathComponent()
-            .appendingPathComponent(listTestsShimName)
-            .path
-        assert(fileManager.fileExists(atPath: listTestsShimPath))
-        let destinationPath = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(listTestsShimName).path
-        if !fileManager.fileExists(atPath: destinationPath) {
-            try fileManager.copyItem(atPath: listTestsShimPath, toPath: destinationPath)
-        }
-        result[insertLibrariesKey] = [destinationPath, insertLibraries].joined(separator: ":")
+    static func injectLibrary(atPath libraryPath: String, into environment: [String: String]?) -> [String: String] {
+        var result = environment ?? [:]
+        var insertLibraries = (result[insertLibrariesKey] ?? "").components(separatedBy: ":").filter { $0.characters.count > 0 }
+        insertLibraries.append(libraryPath)
+        result[insertLibrariesKey] = insertLibraries.joined(separator: ":")
         return result
     }
 
