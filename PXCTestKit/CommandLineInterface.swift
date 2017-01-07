@@ -26,15 +26,16 @@ import Foundation
                        Option<Locale>("locale", Locale(identifier: "en"), description: "Locale to set for the Simulator."),
                        Option<DefaultsOption>("defaults", DefaultsOption(), description: "Path to some defaults.json to be applied with the Simulator."),
                        VariadicOption<DestinationOption>("destination", [DestinationOption.default], description: "A comma-separated set of key=value pairs describing the destination to use. Default: \(DestinationOption.default.description)"),
+                       Flag("reset", description: "Kill, delete and recreate all Simulators."),
                        description: "Boots Simulators in the background."
-            ) { (deviceSet, locale, defaults, destination) in
+            ) { (deviceSet, locale, defaults, destination, reset) in
                 let context = BootSimulatorsCommand.Context(
                     deviceSet: deviceSet.url,
                     locale: locale,
                     defaults: defaults.dictionary,
                     simulatorConfigurations: destination.map({ $0.simulatorConfiguration }),
-                    simulatorManagementOptions: [.killAllOnFirstStart],
-                    simulatorAllocationOptions: [.create, .reuse, .eraseOnAllocate],
+                    simulatorManagementOptions: reset ? [.killAllOnFirstStart] : [],
+                    simulatorAllocationOptions: reset ? [.create, .reuse, .eraseOnAllocate] : [.create, .reuse],
                     simulatorBootOptions: [.awaitServices, .enablePersistentLaunch]
                 )
 

@@ -1,5 +1,6 @@
 * Add list-tests command (experimental)
 * Run tests in parallel on all test targets
+* Add --reset option to boot-simulators (off by default)
 
 # 0.3.0
 

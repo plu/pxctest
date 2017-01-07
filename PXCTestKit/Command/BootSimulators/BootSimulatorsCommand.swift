@@ -29,10 +29,10 @@ final class BootSimulatorsCommand: Command {
 
         for simulator in simulators {
             FBControlCoreGlobalConfiguration.defaultLogger().log("\(simulator)")
-            try simulator.interact
-                .loadDefaults(context: context)
-                .boot(context: context)
-                .perform()
+            try simulator.interact.loadDefaults(context: context).perform()
+            if simulator.state != .booted {
+                try simulator.interact.boot(context: context).perform()
+            }
         }
     }
 
