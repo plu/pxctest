@@ -97,7 +97,10 @@ static PXCTestObserver *observer;
 
 __attribute__((constructor)) static void EntryPoint(void)
 {
+    // Swizzling here will not catch all `XCTestCase` subclasses, because they are not loaded yet.
     [XCTestCase pxc_swizzle];
+
+    // Swizzle again in `testBundleWillStart:` to catch all `XCTestCase` subclasses.
     observer = [PXCTestObserver new];
     [[XCTestObservationCenter sharedTestObservationCenter] addTestObserver:observer];
 }
