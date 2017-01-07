@@ -14,7 +14,7 @@ class EnvironmentTests: XCTestCase {
     func testInjectsPrefixedVariables() {
         let environment = ["FOO": "BAR"]
         let processInfoEnvironment = ["PXCTEST_CHILD_BLA": "FASEL"]
-        let result = Environment.prepare(forRunningTests: environment, with: processInfoEnvironment)
+        let result = Environment.injectPrefixedVariables(from: processInfoEnvironment, into: environment)
         XCTAssertEqual(result, ["FOO": "BAR", "BLA": "FASEL"])
     }
 

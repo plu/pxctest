@@ -47,7 +47,7 @@ final class RunTestsWorker {
 
     func startTests(context: RunTestsContext, reporters: RunTestsReporters) throws {
         let testsToRun = context.testsToRun[target.name] ?? Set<String>()
-        let testEnvironment = Environment.prepare(forRunningTests: target.testLaunchConfiguration.testEnvironment, with: context.environment)
+        let testEnvironment = Environment.injectPrefixedVariables(from: context.environment, into: target.testLaunchConfiguration.testEnvironment)
         let testLaunchConfigurartion = target.testLaunchConfiguration
             .withTestsToRun(target.testLaunchConfiguration.testsToRun.union(testsToRun))
             .withTestEnvironment(testEnvironment)

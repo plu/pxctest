@@ -15,9 +15,9 @@ final class Environment {
     private static let insertLibrariesKey = "DYLD_INSERT_LIBRARIES"
     private static let listTestsShimName = "libpxctest-list-tests.dylib"
 
-    static func prepare(forRunningTests environmentVariables: [String: String]?, with otherEnvironmentVariables: [String: String]) -> [String: String] {
-        var result = environmentVariables ?? [:]
-        for (key, value) in otherEnvironmentVariables {
+    static func injectPrefixedVariables(from source: [String: String], into destination: [String: String]?) -> [String: String] {
+        var result = destination ?? [:]
+        for (key, value) in source {
             if !key.hasPrefix(prefix) {
                 continue
             }
