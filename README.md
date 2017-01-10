@@ -190,6 +190,31 @@ virtual memory          (kbytes, -v) unlimited
 
 The `open files` part should say `524288`, and `max user processes` should be `5000`.
 
+## Can't find the `.xctestrun`? 
+
+When code coverage is enabled on the project specifying `IDECustomBuildProductsPath` to `xcodebuild` has no effect. Instead you can provide `derivedDataPath` and get the `.xctestrun` file from the directory.
+
+Compile your tests with `build-for-testing`, specifying `derivedDataPath`, for example:
+
+```shell
+$ xcodebuild \
+    -derivedDataPath "$PWD/derivedData" \
+    -scheme 'MyApp' \
+    -workspace 'MyApp.xcworkspace' \
+    -destination 'platform=iOS Simulator,name=iPhone 5,OS=10.1' \
+    build-for-testing
+```
+
+In `derivedData/Build/Intermediates/CodeCoverage/Products` you should find a `.xctestrun` file. This can then be passed to `pxctest`:
+
+```shell
+$ pxctest \
+    run-tests \
+    --destination 'name=iPhone 5,os=iOS 9.3' \
+    --destination 'name=iPhone 5,os=iOS 10.1' \
+    --testrun derivedData/Build/Intermediates/CodeCoverage/Products/MyApp_iphonesimulator10.1-i386.xctestrun
+```
+
 ## License
 
 [MIT](LICENSE)
