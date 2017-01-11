@@ -6,8 +6,8 @@
 	<dict>
 		<key>BundleIdentifiersForCrashReportEmphasis</key>
 		<array>
-			<string>com.plunien.SampleTests</string>
 			<string>com.plunien.SuccessfulTests</string>
+			<string>com.plunien.SampleTests</string>
 			<string>com.plunien.SampleUITests</string>
 			<string>com.plunien.Sample</string>
 		</array>
@@ -15,10 +15,10 @@
 		<array/>
 		<key>DependentProductPaths</key>
 		<array>
+			<string>__TESTROOT__/Sample.app/PlugIns/SuccessfulTests.xctest</string>
 			<string>__TESTROOT__/Sample.app/PlugIns/SampleTests.xctest</string>
 			<string>__TESTROOT__/Sample.app</string>
 			<string>__TESTROOT__/SampleUITests-Runner.app/PlugIns/SampleUITests.xctest</string>
-			<string>__TESTROOT__/Sample.app/PlugIns/SuccessfulTests.xctest</string>
 		</array>
 		<key>EnvironmentVariables</key>
 		<dict>
@@ -65,8 +65,8 @@
 	<dict>
 		<key>BundleIdentifiersForCrashReportEmphasis</key>
 		<array>
-			<string>com.plunien.SampleTests</string>
 			<string>com.plunien.SuccessfulTests</string>
+			<string>com.plunien.SampleTests</string>
 			<string>com.plunien.SampleUITests</string>
 			<string>com.plunien.Sample</string>
 		</array>
@@ -74,10 +74,10 @@
 		<array/>
 		<key>DependentProductPaths</key>
 		<array>
+			<string>__TESTROOT__/Sample.app/PlugIns/SuccessfulTests.xctest</string>
 			<string>__TESTROOT__/Sample.app/PlugIns/SampleTests.xctest</string>
 			<string>__TESTROOT__/Sample.app</string>
 			<string>__TESTROOT__/SampleUITests-Runner.app/PlugIns/SampleUITests.xctest</string>
-			<string>__TESTROOT__/Sample.app/PlugIns/SuccessfulTests.xctest</string>
 		</array>
 		<key>EnvironmentVariables</key>
 		<dict>
@@ -122,8 +122,8 @@
 	<dict>
 		<key>BundleIdentifiersForCrashReportEmphasis</key>
 		<array>
-			<string>com.plunien.SampleTests</string>
 			<string>com.plunien.SuccessfulTests</string>
+			<string>com.plunien.SampleTests</string>
 			<string>com.plunien.SampleUITests</string>
 			<string>com.plunien.Sample</string>
 		</array>
@@ -131,10 +131,10 @@
 		<array/>
 		<key>DependentProductPaths</key>
 		<array>
+			<string>__TESTROOT__/Sample.app/PlugIns/SuccessfulTests.xctest</string>
 			<string>__TESTROOT__/Sample.app/PlugIns/SampleTests.xctest</string>
 			<string>__TESTROOT__/Sample.app</string>
 			<string>__TESTROOT__/SampleUITests-Runner.app/PlugIns/SampleUITests.xctest</string>
-			<string>__TESTROOT__/Sample.app/PlugIns/SuccessfulTests.xctest</string>
 		</array>
 		<key>EnvironmentVariables</key>
 		<dict>

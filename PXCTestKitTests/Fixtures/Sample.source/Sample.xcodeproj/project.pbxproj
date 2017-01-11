@@ -10,9 +10,6 @@
 		05B6EC151DEEF9A0008CBBEE /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B6EC141DEEF9A0008CBBEE /* Tests.m */; };
 		3EA5841D1DE951F7008E13B4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EA5841C1DE951F7008E13B4 /* main.m */; };
 		3EA584201DE951F7008E13B4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EA5841F1DE951F7008E13B4 /* AppDelegate.m */; };
-		3EA584261DE951F7008E13B4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EA584241DE951F7008E13B4 /* Main.storyboard */; };
-		3EA584281DE951F7008E13B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EA584271DE951F7008E13B4 /* Assets.xcassets */; };
-		3EA5842B1DE951F7008E13B4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EA584291DE951F7008E13B4 /* LaunchScreen.storyboard */; };
 		3EA584361DE951F7008E13B4 /* SampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EA584351DE951F7008E13B4 /* SampleTests.m */; };
 		3EA584411DE951F7008E13B4 /* SampleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EA584401DE951F7008E13B4 /* SampleUITests.m */; };
 /* End PBXBuildFile section */
@@ -49,9 +46,6 @@
 		3EA5841C1DE951F7008E13B4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3EA5841E1DE951F7008E13B4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3EA5841F1DE951F7008E13B4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		3EA584251DE951F7008E13B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		3EA584271DE951F7008E13B4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		3EA5842A1DE951F7008E13B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3EA5842C1DE951F7008E13B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3EA584311DE951F7008E13B4 /* SampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EA584351DE951F7008E13B4 /* SampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SampleTests.m; sourceTree = "<group>"; };
@@ -129,9 +123,6 @@
 			children = (
 				3EA5841E1DE951F7008E13B4 /* AppDelegate.h */,
 				3EA5841F1DE951F7008E13B4 /* AppDelegate.m */,
-				3EA584241DE951F7008E13B4 /* Main.storyboard */,
-				3EA584271DE951F7008E13B4 /* Assets.xcassets */,
-				3EA584291DE951F7008E13B4 /* LaunchScreen.storyboard */,
 				3EA5842C1DE951F7008E13B4 /* Info.plist */,
 				3EA5841B1DE951F7008E13B4 /* Supporting Files */,
 			);
@@ -244,7 +235,7 @@
 		3EA584101DE951F7008E13B4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Johannes Plunien";
 				TargetAttributes = {
 					05B6EC111DEEF9A0008CBBEE = {
@@ -255,8 +246,7 @@
 					};
 					3EA584171DE951F7008E13B4 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = V5XAHL2VLY;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					3EA584301DE951F7008E13B4 = {
 						CreatedOnToolsVersion = 8.1;
@@ -305,9 +295,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EA5842B1DE951F7008E13B4 /* LaunchScreen.storyboard in Resources */,
-				3EA584281DE951F7008E13B4 /* Assets.xcassets in Resources */,
-				3EA584261DE951F7008E13B4 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,25 +368,6 @@
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		3EA584241DE951F7008E13B4 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3EA584251DE951F7008E13B4 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		3EA584291DE951F7008E13B4 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3EA5842A1DE951F7008E13B4 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		05B6EC191DEEF9A0008CBBEE /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -445,6 +413,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -491,6 +460,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -516,7 +486,8 @@
 		3EA584461DE951F7008E13B4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Sample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.plunien.Sample;
@@ -527,7 +498,8 @@
 		3EA584471DE951F7008E13B4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Sample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.plunien.Sample;

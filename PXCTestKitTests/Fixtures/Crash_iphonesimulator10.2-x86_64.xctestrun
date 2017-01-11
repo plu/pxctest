@@ -6,15 +6,15 @@
 	<dict>
 		<key>BundleIdentifiersForCrashReportEmphasis</key>
 		<array>
-			<string>com.plunien.Crash</string>
 			<string>com.plunien.CrashTests</string>
+			<string>com.plunien.Crash</string>
 		</array>
 		<key>CommandLineArguments</key>
 		<array/>
 		<key>DependentProductPaths</key>
 		<array>
-			<string>__TESTROOT__/Crash.app</string>
 			<string>__TESTROOT__/Crash.app/PlugIns/CrashTests.xctest</string>
+			<string>__TESTROOT__/Crash.app</string>
 		</array>
 		<key>EnvironmentVariables</key>
 		<dict>
