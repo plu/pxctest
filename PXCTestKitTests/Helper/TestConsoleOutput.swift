@@ -2,7 +2,7 @@
 //  TestConsoleOutput.swift
 //  pxctest
 //
-//  Created by Plunien, Johannes(AWF) on 18/12/16.
+//  Created by Johannes Plunien on 18/12/16.
 //  Copyright © 2016 Johannes Plunien. All rights reserved.
 //
 
