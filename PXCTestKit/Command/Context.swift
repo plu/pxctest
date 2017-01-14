@@ -9,47 +9,132 @@
 import FBSimulatorControl
 import Foundation
 
-protocol AllocationContext {
-    var simulatorConfigurations: [FBSimulatorConfiguration] { get }
-    var simulatorOptions: SimulatorOptions  { get }
-    var testsToRun: [String: Set<String>] { get }
+struct AllocationContext {
+
+    let simulatorConfigurations: [FBSimulatorConfiguration]
+    let simulatorOptions: SimulatorOptions
+    let testsToRun: [String: Set<String>]
+
 }
 
-protocol BootContext {
-    var locale: Locale { get }
-    var simulatorOptions: SimulatorOptions { get }
+extension AllocationContext {
+
+    init(context: RunTestsCommand.Context) {
+        simulatorConfigurations = context.simulatorConfigurations
+        simulatorOptions = context.simulatorOptions
+        testsToRun = context.testsToRun
+    }
+
+}
+
+struct BootContext {
+
+    let locale: Locale
+    let simulatorOptions: SimulatorOptions
+
+}
+
+extension BootContext {
+
+    init(context: RunTestsCommand.Context) {
+        locale = context.locale
+        simulatorOptions = context.simulatorOptions
+    }
+
+    init(context: BootSimulatorsCommand.Context) {
+        locale = context.locale
+        simulatorOptions = context.simulatorOptions
+    }
+
 }
 
 struct ControlContext {
+
     let debugLogging: Bool
     let deviceSet: URL
     let logFile: SimulatorLogFile
     let simulatorOptions: SimulatorOptions
+
 }
 
-protocol DefaultsContext {
-    var defaults: [String: [String: Any]] { get }
+extension ControlContext {
+
+    init(context: RunTestsCommand.Context) {
+        debugLogging = context.debugLogging
+        deviceSet = context.deviceSet
+        logFile = context.logFile
+        simulatorOptions = context.simulatorOptions
+    }
+
 }
 
-protocol ReporterContext {
-    var consoleOutput: ConsoleOutput { get }
-    var outputManager: RunTestsOutputManager { get }
-    var reporterType: ConsoleReporter.Type { get }
+struct DefaultsContext {
+
+    let defaults: [String: [String: Any]]
+
 }
 
-protocol RunTestsContext {
-    var environment: [String: String] { get }
-    var testsToRun: [String: Set<String>] { get }
+extension DefaultsContext {
+
+    init(context: RunTestsCommand.Context) {
+        defaults = context.defaults
+    }
+
 }
 
-protocol TestResultContext {
-    var outputManager: RunTestsOutputManager { get }
-    var timeout: Double { get }
+struct ReporterContext {
+
+    let consoleOutput: ConsoleOutput
+    let outputManager: RunTestsOutputManager
+    let reporterType: ConsoleReporter.Type
+
+}
+
+extension ReporterContext {
+
+    init(context: RunTestsCommand.Context) {
+        consoleOutput = context.consoleOutput
+        outputManager = context.outputManager
+        reporterType = context.reporterType
+    }
+
+}
+
+struct RunTestsContext {
+
+    let environment: [String: String]
+    let testsToRun: [String: Set<String>]
+
+}
+
+extension RunTestsContext {
+
+    init(context: RunTestsCommand.Context) {
+        environment = context.environment
+        testsToRun = context.testsToRun
+    }
+
+}
+
+struct TestResultContext {
+
+    let outputManager: RunTestsOutputManager
+    let timeout: Double
+
+}
+
+extension TestResultContext {
+
+    init(context: RunTestsCommand.Context) {
+        outputManager = context.outputManager
+        timeout = context.timeout
+    }
+
 }
 
 extension BootSimulatorsCommand {
 
-    struct Context: BootContext, DefaultsContext {
+    struct Context {
         let deviceSet: URL
         let locale: Locale
         let defaults: [String: [String: Any]]
@@ -74,7 +159,7 @@ extension ListTestsCommand {
 
 extension RunTestsCommand {
 
-    struct Context: AllocationContext, BootContext, DefaultsContext, ReporterContext, RunTestsContext, TestResultContext {
+    struct Context {
         let testRun: URL
         let deviceSet: URL
         let outputManager: RunTestsOutputManager

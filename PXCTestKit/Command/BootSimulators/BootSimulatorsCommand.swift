@@ -29,9 +29,10 @@ final class BootSimulatorsCommand: Command {
 
         for simulator in simulators {
             FBControlCoreGlobalConfiguration.defaultLogger().log("\(simulator)")
-            try simulator.interact.loadDefaults(context: context).perform()
+            let defaultsContext = DefaultsContext(defaults: context.defaults)
+            try simulator.interact.loadDefaults(context: defaultsContext).perform()
             if simulator.state != .booted {
-                try simulator.interact.boot(context: context).perform()
+                try simulator.interact.boot(context: BootContext(context: context)).perform()
             }
         }
     }

@@ -119,7 +119,7 @@ import Foundation
                         debugLogging: debugLogging
                     )
 
-                    CommandLineInterface.command = try RunTestsCommand(context: context)
+                    CommandLineInterface.command = RunTestsCommand(context: context)
 
                     try CommandLineInterface.command?.run()
                     notification.deliverSuccessNotification()

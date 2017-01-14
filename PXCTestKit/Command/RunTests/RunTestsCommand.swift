@@ -22,7 +22,7 @@ final class RunTestsCommand: Command {
 
     init(context: Context) {
         self.context = context
-        self.reporters = RunTestsReporters(context: context)
+        self.reporters = RunTestsReporters(context: ReporterContext(context: context))
     }
 
     func abort() {
@@ -36,13 +36,7 @@ final class RunTestsCommand: Command {
     }
 
     func run() throws {
-        let controlContext = ControlContext(
-            debugLogging: context.debugLogging,
-            deviceSet: context.deviceSet,
-            logFile: context.logFile,
-            simulatorOptions: context.simulatorOptions
-        )
-        try run(control: FBSimulatorControl.withContext(controlContext))
+        try run(control: FBSimulatorControl.withContext(ControlContext(context: context)))
     }
 
     func run(control: FBSimulatorControl) throws {
@@ -53,15 +47,15 @@ final class RunTestsCommand: Command {
             simulatorConfigurations: context.simulatorConfigurations
         )
 
-        workers = try control.pool.allocateWorkers(context: context, targets: testRun.targets)
+        workers = try control.pool.allocateWorkers(context: AllocationContext(context: context), targets: testRun.targets)
 
-        try workers.loadDefaults(context: context)
+        try workers.loadDefaults(context: DefaultsContext(context: context))
         try workers.overrideWatchDogTimer()
-        try workers.boot(context: context)
+        try workers.boot(context: BootContext(context: context))
         try workers.installApplications()
-        try workers.startTests(context: context, reporters: reporters)
+        try workers.startTests(context: RunTestsContext(context: context), reporters: reporters)
 
-        let testErrors = try workers.waitForTestResult(context: context)
+        let testErrors = try workers.waitForTestResult(context: TestResultContext(context: context))
         if testErrors.count > 0 {
             throw RuntimeError.testRunHadErrors(testErrors)
         }
