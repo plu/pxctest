@@ -34,9 +34,11 @@ import Foundation
                     locale: locale,
                     defaults: defaults.dictionary,
                     simulatorConfigurations: destination.map({ $0.simulatorConfiguration }),
-                    simulatorManagementOptions: reset ? [.killAllOnFirstStart] : [],
-                    simulatorAllocationOptions: reset ? [.create, .reuse, .eraseOnAllocate] : [.create, .reuse],
-                    simulatorBootOptions: [.awaitServices, .enablePersistentLaunch]
+                    simulatorOptions: SimulatorOptions(
+                        allocationOptions: reset ? [.create, .reuse, .eraseOnAllocate] : [.create, .reuse],
+                        bootOptions: [.awaitServices, .enablePersistentLaunch],
+                        managementOptions: reset ? [.killAllOnFirstStart] : []
+                    )
                 )
 
                 CommandLineInterface.command = BootSimulatorsCommand(context: context)
@@ -59,9 +61,11 @@ import Foundation
                         deviceSet: deviceSet.url,
                         consoleOutput: consoleOutput,
                         simulatorConfiguration: destination.simulatorConfiguration,
-                        simulatorManagementOptions: [],
-                        simulatorAllocationOptions: [.create, .reuse],
-                        simulatorBootOptions: [.awaitServices],
+                        simulatorOptions: SimulatorOptions(
+                            allocationOptions: [.create, .reuse],
+                            bootOptions: [.awaitServices],
+                            managementOptions: []
+                        ),
                         timeout: timeout
                     )
 
@@ -106,9 +110,11 @@ import Foundation
                         simulatorConfigurations: destination.map({ $0.simulatorConfiguration }),
                         timeout: timeout,
                         consoleOutput: consoleOutput,
-                        simulatorManagementOptions: [],
-                        simulatorAllocationOptions: [.create, .reuse],
-                        simulatorBootOptions: [.awaitServices],
+                        simulatorOptions: SimulatorOptions(
+                            allocationOptions: [.create, .reuse],
+                            bootOptions: [.awaitServices],
+                            managementOptions: []
+                        ),
                         debugLogging: debugLogging
                     )
 

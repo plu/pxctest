@@ -8,6 +8,7 @@
 
 import FBSimulatorControl
 import Foundation
+@testable import PXCTestKit
 
 let fixtures = Fixtures()
 
@@ -51,9 +52,11 @@ final class Fixtures {
 
     // MARK: - FBSimulatorControl
 
-    let simulatorManagementOptions: FBSimulatorManagementOptions = []
-    let simulatorAllocationOptions: FBSimulatorAllocationOptions = [.create, .reuse]
-    let simulatorBootOptions: FBSimulatorBootOptions = [.awaitServices, .enableDirectLaunch]
+    let simulatorOptions = SimulatorOptions(
+        allocationOptions: [.create, .reuse],
+        bootOptions: [.awaitServices, .enableDirectLaunch],
+        managementOptions: []
+    )
     let timeout = 180.0
     let simulatorConfigurations = [
         FBSimulatorConfiguration.iPhone6().iOS_9_3(),

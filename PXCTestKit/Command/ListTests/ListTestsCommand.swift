@@ -23,7 +23,7 @@ final class ListTestsCommand: Command {
     func run() throws {
         let fileDescriptor = FileHandle.nullDevice.fileDescriptor // FIXME
         let control = try FBSimulatorControl.withConfiguration(
-            FBSimulatorControlConfiguration(deviceSetPath: context.deviceSet.path, options: context.simulatorManagementOptions),
+            FBSimulatorControlConfiguration(deviceSetPath: context.deviceSet.path, options: context.simulatorOptions.managementOptions),
             logger: FBControlCoreLogger.aslLoggerWriting(toFileDescriptor: fileDescriptor, withDebugLogging: false)
         )
         try run(control: control)
@@ -32,8 +32,8 @@ final class ListTestsCommand: Command {
     func run(control: FBSimulatorControl) throws {
         let listTestsShimPath = try copyListTestsShim()
         let testRun = try FBXCTestRun.withTestRunFile(atPath: context.testRun.path).build()
-        let simulator = try control.pool.allocateSimulator(with: context.simulatorConfiguration, options: context.simulatorAllocationOptions)
-        let simulatorBootConfiguration = FBSimulatorBootConfiguration.withOptions(context.simulatorBootOptions)
+        let simulator = try control.pool.allocateSimulator(with: context.simulatorConfiguration, options: context.simulatorOptions.allocationOptions)
+        let simulatorBootConfiguration = FBSimulatorBootConfiguration.withOptions(context.simulatorOptions.bootOptions)
 
         if simulator.state != .booted {
             try simulator.interact.bootSimulator(simulatorBootConfiguration).perform()

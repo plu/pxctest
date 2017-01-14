@@ -19,7 +19,7 @@ extension FBSimulatorPool {
             }
             for simulatorConfigurations in context.simulatorConfigurations {
                 let worker = RunTestsWorker(
-                    simulator: try allocateSimulator(with: simulatorConfigurations, options: context.simulatorAllocationOptions),
+                    simulator: try allocateSimulator(with: simulatorConfigurations, options: context.simulatorOptions.allocationOptions),
                     target: target
                 )
                 workers.append(worker)

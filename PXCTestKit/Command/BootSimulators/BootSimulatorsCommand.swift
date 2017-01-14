@@ -21,10 +21,10 @@ final class BootSimulatorsCommand: Command {
     }
 
     func run() throws {
-        let configuration = FBSimulatorControlConfiguration(deviceSetPath: context.deviceSet.path, options: context.simulatorManagementOptions)
+        let configuration = FBSimulatorControlConfiguration(deviceSetPath: context.deviceSet.path, options: context.simulatorOptions.managementOptions)
         let control = try FBSimulatorControl.withConfiguration(configuration)
         let simulators = try context.simulatorConfigurations.map {
-            try control.pool.allocateSimulator(with: $0, options: context.simulatorAllocationOptions)
+            try control.pool.allocateSimulator(with: $0, options: context.simulatorOptions.allocationOptions)
         }
 
         for simulator in simulators {

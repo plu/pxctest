@@ -31,16 +31,14 @@ extension ListTestsCommandTests {
             deviceSet: try fixtures.createNewTemporaryDirectory(),
             consoleOutput: testConsoleOutput.consoleOutput,
             simulatorConfiguration: fixtures.simulatorConfigurations.first!,
-            simulatorManagementOptions: fixtures.simulatorManagementOptions,
-            simulatorAllocationOptions: fixtures.simulatorAllocationOptions,
-            simulatorBootOptions: fixtures.simulatorBootOptions,
+            simulatorOptions: fixtures.simulatorOptions,
             timeout: fixtures.timeout
         )
 
         let command = ListTestsCommand(context: context)
 
         let control = try FBSimulatorControl.withConfiguration(
-            FBSimulatorControlConfiguration(deviceSetPath: context.deviceSet.path, options: context.simulatorManagementOptions)
+            FBSimulatorControlConfiguration(deviceSetPath: context.deviceSet.path, options: context.simulatorOptions.managementOptions)
         )
 
         defer {

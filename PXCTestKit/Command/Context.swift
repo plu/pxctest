@@ -11,19 +11,19 @@ import Foundation
 
 protocol AllocationContext {
     var simulatorConfigurations: [FBSimulatorConfiguration] { get }
-    var simulatorAllocationOptions: FBSimulatorAllocationOptions  { get }
+    var simulatorOptions: SimulatorOptions  { get }
     var testsToRun: [String: Set<String>] { get }
 }
 
 protocol BootContext {
     var locale: Locale { get }
-    var simulatorBootOptions: FBSimulatorBootOptions { get }
+    var simulatorOptions: SimulatorOptions { get }
 }
 
 protocol ControlContext {
     var outputManager: RunTestsOutputManager { get }
     var deviceSet: URL { get }
-    var simulatorManagementOptions: FBSimulatorManagementOptions { get }
+    var simulatorOptions: SimulatorOptions { get }
     var debugLogging: Bool { get }
 }
 
@@ -54,9 +54,7 @@ extension BootSimulatorsCommand {
         let locale: Locale
         let defaults: [String: [String: Any]]
         let simulatorConfigurations: [FBSimulatorConfiguration]
-        let simulatorManagementOptions: FBSimulatorManagementOptions
-        let simulatorAllocationOptions: FBSimulatorAllocationOptions
-        let simulatorBootOptions: FBSimulatorBootOptions
+        let simulatorOptions: SimulatorOptions
     }
 
 }
@@ -68,9 +66,7 @@ extension ListTestsCommand {
         let deviceSet: URL
         let consoleOutput: ConsoleOutput
         let simulatorConfiguration: FBSimulatorConfiguration
-        let simulatorManagementOptions: FBSimulatorManagementOptions
-        let simulatorAllocationOptions: FBSimulatorAllocationOptions
-        let simulatorBootOptions: FBSimulatorBootOptions
+        let simulatorOptions: SimulatorOptions
         let timeout: Double
     }
 
@@ -90,9 +86,7 @@ extension RunTestsCommand {
         let simulatorConfigurations: [FBSimulatorConfiguration]
         let timeout: Double
         let consoleOutput: ConsoleOutput
-        let simulatorManagementOptions: FBSimulatorManagementOptions
-        let simulatorAllocationOptions: FBSimulatorAllocationOptions
-        let simulatorBootOptions: FBSimulatorBootOptions
+        let simulatorOptions: SimulatorOptions
         let debugLogging: Bool
     }
 

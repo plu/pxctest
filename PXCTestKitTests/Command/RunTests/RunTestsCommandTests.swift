@@ -162,7 +162,7 @@ extension RunTestsCommandTests {
         let command = RunTestsCommand(context: context)
 
         let control = try FBSimulatorControl.withConfiguration(
-            FBSimulatorControlConfiguration(deviceSetPath: context.deviceSet.path, options: context.simulatorManagementOptions),
+            FBSimulatorControlConfiguration(deviceSetPath: context.deviceSet.path, options: context.simulatorOptions.managementOptions),
             logger: FBControlCoreLogger.aslLoggerWriting(
                 toFileDescriptor: context.outputManager.logFile.fileHandle.fileDescriptor,
                 withDebugLogging: false
@@ -224,9 +224,7 @@ extension RunTestsCommand.Context {
             simulatorConfigurations: fixtures.simulatorConfigurations,
             timeout: fixtures.timeout,
             consoleOutput: testConsoleOutput.consoleOutput,
-            simulatorManagementOptions: fixtures.simulatorManagementOptions,
-            simulatorAllocationOptions: fixtures.simulatorAllocationOptions,
-            simulatorBootOptions: fixtures.simulatorBootOptions,
+            simulatorOptions: fixtures.simulatorOptions,
             debugLogging: false
         )
     }
