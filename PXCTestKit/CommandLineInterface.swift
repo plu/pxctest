@@ -53,20 +53,20 @@ import Foundation
             ) { (testRun, deviceSet, destination, timeout) in
                 let consoleOutput = ConsoleOutput()
 
-                let context = ListTestsCommand.Context(
-                    testRun: testRun.url,
-                    deviceSet: deviceSet.url,
-                    consoleOutput: consoleOutput,
-                    simulatorConfiguration: destination.simulatorConfiguration,
-                    simulatorManagementOptions: [],
-                    simulatorAllocationOptions: [.create, .reuse],
-                    simulatorBootOptions: [.awaitServices],
-                    timeout: timeout
-                )
-
-                CommandLineInterface.command = ListTestsCommand(context: context)
-
                 do {
+                    let context = ListTestsCommand.Context(
+                        testRun: testRun.url,
+                        deviceSet: deviceSet.url,
+                        consoleOutput: consoleOutput,
+                        simulatorConfiguration: destination.simulatorConfiguration,
+                        simulatorManagementOptions: [],
+                        simulatorAllocationOptions: [.create, .reuse],
+                        simulatorBootOptions: [.awaitServices],
+                        timeout: timeout
+                    )
+
+                    CommandLineInterface.command = ListTestsCommand(context: context)
+
                     try CommandLineInterface.command?.run()
                 }
                 catch {
