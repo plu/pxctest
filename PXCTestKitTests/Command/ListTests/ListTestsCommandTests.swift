@@ -27,11 +27,11 @@ extension ListTestsCommandTests {
     fileprivate func listTests(testRun: URL) throws -> String {
         let testConsoleOutput = try TestConsoleOutput()
         let context = ListTestsCommand.Context(
-            testRun: testRun,
-            deviceSet: try fixtures.createNewTemporaryDirectory(),
             consoleOutput: testConsoleOutput.consoleOutput,
+            deviceSet: try fixtures.createNewTemporaryDirectory(),
             simulatorConfiguration: fixtures.simulatorConfigurations.first!,
             simulatorOptions: fixtures.simulatorOptions,
+            testRun: testRun,
             timeout: fixtures.timeout
         )
 

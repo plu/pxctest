@@ -17,6 +17,50 @@ struct AllocationContext {
 
 }
 
+struct BootContext {
+
+    let locale: Locale
+    let simulatorOptions: SimulatorOptions
+
+}
+
+struct ControlContext {
+
+    let debugLogging: Bool
+    let deviceSet: URL
+    let logFile: SimulatorLogFile
+    let simulatorOptions: SimulatorOptions
+
+}
+
+struct DefaultsContext {
+
+    let defaults: [String: [String: Any]]
+
+}
+
+struct ReporterContext {
+
+    let consoleOutput: ConsoleOutput
+    let fileManager: RunTestsFileManager
+    let reporterType: ConsoleReporter.Type
+
+}
+
+struct RunTestsContext {
+
+    let environment: [String: String]
+    let testsToRun: [String: Set<String>]
+
+}
+
+struct TestResultContext {
+
+    let fileManager: RunTestsFileManager
+    let timeout: Double
+
+}
+
 extension AllocationContext {
 
     init(context: RunTestsCommand.Context) {
@@ -24,13 +68,6 @@ extension AllocationContext {
         simulatorOptions = context.simulatorOptions
         testsToRun = context.testsToRun
     }
-
-}
-
-struct BootContext {
-
-    let locale: Locale
-    let simulatorOptions: SimulatorOptions
 
 }
 
@@ -48,15 +85,6 @@ extension BootContext {
 
 }
 
-struct ControlContext {
-
-    let debugLogging: Bool
-    let deviceSet: URL
-    let logFile: SimulatorLogFile
-    let simulatorOptions: SimulatorOptions
-
-}
-
 extension ControlContext {
 
     init(context: RunTestsCommand.Context) {
@@ -68,25 +96,11 @@ extension ControlContext {
 
 }
 
-struct DefaultsContext {
-
-    let defaults: [String: [String: Any]]
-
-}
-
 extension DefaultsContext {
 
     init(context: RunTestsCommand.Context) {
         defaults = context.defaults
     }
-
-}
-
-struct ReporterContext {
-
-    let consoleOutput: ConsoleOutput
-    let fileManager: RunTestsFileManager
-    let reporterType: ConsoleReporter.Type
 
 }
 
@@ -100,26 +114,12 @@ extension ReporterContext {
 
 }
 
-struct RunTestsContext {
-
-    let environment: [String: String]
-    let testsToRun: [String: Set<String>]
-
-}
-
 extension RunTestsContext {
 
     init(context: RunTestsCommand.Context) {
         environment = context.environment
         testsToRun = context.testsToRun
     }
-
-}
-
-struct TestResultContext {
-
-    let fileManager: RunTestsFileManager
-    let timeout: Double
 
 }
 
@@ -135,9 +135,9 @@ extension TestResultContext {
 extension BootSimulatorsCommand {
 
     struct Context {
+        let defaults: [String: [String: Any]]
         let deviceSet: URL
         let locale: Locale
-        let defaults: [String: [String: Any]]
         let simulatorConfigurations: [FBSimulatorConfiguration]
         let simulatorOptions: SimulatorOptions
     }
@@ -147,11 +147,11 @@ extension BootSimulatorsCommand {
 extension ListTestsCommand {
 
     struct Context {
-        let testRun: URL
-        let deviceSet: URL
         let consoleOutput: ConsoleOutput
+        let deviceSet: URL
         let simulatorConfiguration: FBSimulatorConfiguration
         let simulatorOptions: SimulatorOptions
+        let testRun: URL
         let timeout: Double
     }
 
@@ -160,20 +160,20 @@ extension ListTestsCommand {
 extension RunTestsCommand {
 
     struct Context {
-        let testRun: URL
+        let consoleOutput: ConsoleOutput
+        let debugLogging: Bool
+        let defaults: [String: [String: Any]]
         let deviceSet: URL
+        let environment: [String: String]
         let fileManager: RunTestsFileManager
         let locale: Locale
         let logFile: SimulatorLogFile
-        let environment: [String: String]
-        let defaults: [String: [String: Any]]
         let reporterType: ConsoleReporter.Type
-        let testsToRun: [String: Set<String>]
         let simulatorConfigurations: [FBSimulatorConfiguration]
-        let timeout: Double
-        let consoleOutput: ConsoleOutput
         let simulatorOptions: SimulatorOptions
-        let debugLogging: Bool
+        let testRun: URL
+        let testsToRun: [String: Set<String>]
+        let timeout: Double
     }
 
 }

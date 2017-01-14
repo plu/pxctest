@@ -213,20 +213,20 @@ extension RunTestsCommand.Context {
     init(testRun: URL, testsToRun: [String: Set<String>], reporterType: ConsoleReporter.Type = RSpecReporter.self, testConsoleOutput: TestConsoleOutput) throws {
         let temporaryDirectory = try fixtures.createNewTemporaryDirectory()
         self.init(
-            testRun: testRun,
+            consoleOutput: testConsoleOutput.consoleOutput,
+            debugLogging: false,
+            defaults: [:],
             deviceSet: temporaryDirectory.appendingPathComponent("simulators"),
+            environment: ["PXCTEST_CHILD_FOO": "BAR"],
             fileManager: RunTestsFileManager(url: temporaryDirectory.appendingPathComponent("output")),
             locale: Locale.current,
             logFile: try SimulatorLogFile(url: temporaryDirectory.appendingPathComponent("simulator.log")),
-            environment: ["PXCTEST_CHILD_FOO": "BAR"],
-            defaults: [:],
             reporterType: reporterType,
-            testsToRun: testsToRun,
             simulatorConfigurations: fixtures.simulatorConfigurations,
-            timeout: fixtures.timeout,
-            consoleOutput: testConsoleOutput.consoleOutput,
             simulatorOptions: fixtures.simulatorOptions,
-            debugLogging: false
+            testRun: testRun,
+            testsToRun: testsToRun,
+            timeout: fixtures.timeout
         )
     }
 

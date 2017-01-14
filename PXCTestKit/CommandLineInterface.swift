@@ -30,9 +30,9 @@ import Foundation
                        description: "Boots Simulators in the background."
             ) { (deviceSet, locale, defaults, destination, reset) in
                 let context = BootSimulatorsCommand.Context(
+                    defaults: defaults.dictionary,
                     deviceSet: deviceSet.url,
                     locale: locale,
-                    defaults: defaults.dictionary,
                     simulatorConfigurations: destination.map({ $0.simulatorConfiguration }),
                     simulatorOptions: SimulatorOptions(
                         allocationOptions: reset ? [.create, .reuse, .eraseOnAllocate] : [.create, .reuse],
@@ -57,15 +57,15 @@ import Foundation
 
                 do {
                     let context = ListTestsCommand.Context(
-                        testRun: testRun.url,
-                        deviceSet: deviceSet.url,
                         consoleOutput: consoleOutput,
+                        deviceSet: deviceSet.url,
                         simulatorConfiguration: destination.simulatorConfiguration,
                         simulatorOptions: SimulatorOptions(
                             allocationOptions: [.create, .reuse],
                             bootOptions: [.awaitServices],
                             managementOptions: []
                         ),
+                        testRun: testRun.url,
                         timeout: timeout
                     )
 
@@ -99,24 +99,24 @@ import Foundation
 
                 do {
                     let context = RunTestsCommand.Context(
-                        testRun: testRun.url,
+                        consoleOutput: consoleOutput,
+                        debugLogging: debugLogging,
+                        defaults: defaults.dictionary,
                         deviceSet: deviceSet.url,
+                        environment: ProcessInfo.processInfo.environment,
                         fileManager: RunTestsFileManager(url: output.url),
                         locale: locale,
                         logFile: try SimulatorLogFile(url: output.url.appendingPathComponent("simulator.log")),
-                        environment: ProcessInfo.processInfo.environment,
-                        defaults: defaults.dictionary,
                         reporterType: reporter.type,
-                        testsToRun: only.dictionary(),
                         simulatorConfigurations: destination.map({ $0.simulatorConfiguration }),
-                        timeout: timeout,
-                        consoleOutput: consoleOutput,
                         simulatorOptions: SimulatorOptions(
                             allocationOptions: [.create, .reuse],
                             bootOptions: [.awaitServices],
                             managementOptions: []
                         ),
-                        debugLogging: debugLogging
+                        testRun: testRun.url,
+                        testsToRun: only.dictionary(),
+                        timeout: timeout
                     )
 
                     CommandLineInterface.command = RunTestsCommand(context: context)
