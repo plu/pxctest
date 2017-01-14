@@ -101,7 +101,7 @@ import Foundation
                     let context = RunTestsCommand.Context(
                         testRun: testRun.url,
                         deviceSet: deviceSet.url,
-                        outputManager: RunTestsOutputManager(url: output.url),
+                        fileManager: RunTestsFileManager(url: output.url),
                         locale: locale,
                         logFile: try SimulatorLogFile(url: output.url.appendingPathComponent("simulator.log")),
                         environment: ProcessInfo.processInfo.environment,

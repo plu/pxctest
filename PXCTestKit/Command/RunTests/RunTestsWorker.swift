@@ -31,15 +31,15 @@ final class RunTestsWorker {
         }
     }
 
-    func extractDiagnostics(outputManager: RunTestsOutputManager) throws {
+    func extractDiagnostics(fileManager: RunTestsFileManager) throws {
         for application in target.applications {
             guard let diagnostics = simulator.simulatorDiagnostics.launchedProcessLogs().first(where: { $0.0.processName == application.name })?.value else { continue }
-            let destinationPath = outputManager.urlFor(worker: self).path
+            let destinationPath = fileManager.urlFor(worker: self).path
             try diagnostics.writeOut(toDirectory: destinationPath)
         }
         for error in errors {
             for crash in error.crashes {
-                let destinationPath = outputManager.urlFor(worker: self).path
+                let destinationPath = fileManager.urlFor(worker: self).path
                 try crash.writeOut(toDirectory: destinationPath)
             }
         }
@@ -120,7 +120,7 @@ extension Sequence where Iterator.Element == RunTestsWorker {
         }
 
         for worker in self {
-            try worker.extractDiagnostics(outputManager: context.outputManager)
+            try worker.extractDiagnostics(fileManager: context.fileManager)
         }
 
         return flatMap { $0.errors }

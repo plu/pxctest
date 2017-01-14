@@ -85,7 +85,7 @@ extension DefaultsContext {
 struct ReporterContext {
 
     let consoleOutput: ConsoleOutput
-    let outputManager: RunTestsOutputManager
+    let fileManager: RunTestsFileManager
     let reporterType: ConsoleReporter.Type
 
 }
@@ -94,7 +94,7 @@ extension ReporterContext {
 
     init(context: RunTestsCommand.Context) {
         consoleOutput = context.consoleOutput
-        outputManager = context.outputManager
+        fileManager = context.fileManager
         reporterType = context.reporterType
     }
 
@@ -118,7 +118,7 @@ extension RunTestsContext {
 
 struct TestResultContext {
 
-    let outputManager: RunTestsOutputManager
+    let fileManager: RunTestsFileManager
     let timeout: Double
 
 }
@@ -126,7 +126,7 @@ struct TestResultContext {
 extension TestResultContext {
 
     init(context: RunTestsCommand.Context) {
-        outputManager = context.outputManager
+        fileManager = context.fileManager
         timeout = context.timeout
     }
 
@@ -162,7 +162,7 @@ extension RunTestsCommand {
     struct Context {
         let testRun: URL
         let deviceSet: URL
-        let outputManager: RunTestsOutputManager
+        let fileManager: RunTestsFileManager
         let locale: Locale
         let logFile: SimulatorLogFile
         let environment: [String: String]

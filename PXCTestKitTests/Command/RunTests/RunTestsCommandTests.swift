@@ -48,7 +48,7 @@ class RunTestsCommandTests: XCTestCase {
 
         ["SampleTests", "SampleUITests"].forEach { (target) in
             result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
-                let url = result.context.outputManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: target)
+                let url = result.context.fileManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: target)
                 XCTAssertFileSizeGreaterThan(url.appendingPathComponent("junit.xml").path, 0)
                 XCTAssertFileSizeGreaterThan(url.appendingPathComponent("Sample.log").path, 0)
                 XCTAssertFileSizeGreaterThan(url.appendingPathComponent("test.log").path, 0)
@@ -74,7 +74,7 @@ class RunTestsCommandTests: XCTestCase {
 
         ["SampleTests", "SampleUITests"].forEach { (target) in
             result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
-                let url = result.context.outputManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: target)
+                let url = result.context.fileManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: target)
                 XCTAssertFileSizeGreaterThan(url.appendingPathComponent("junit.xml").path, 0)
                 XCTAssertFileSizeGreaterThan(url.appendingPathComponent("Sample.log").path, 0)
                 XCTAssertFileSizeGreaterThan(url.appendingPathComponent("test.log").path, 0)
@@ -98,7 +98,7 @@ class RunTestsCommandTests: XCTestCase {
         }
 
         result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
-            let url = result.context.outputManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: "SuccessfulTests")
+            let url = result.context.fileManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: "SuccessfulTests")
             XCTAssertFileSizeGreaterThan(url.appendingPathComponent("junit.xml").path, 0)
             XCTAssertFileSizeGreaterThan(url.appendingPathComponent("Sample.log").path, 0)
             XCTAssertFileSizeGreaterThan(url.appendingPathComponent("test.log").path, 0)
@@ -120,7 +120,7 @@ class RunTestsCommandTests: XCTestCase {
 
         ["SampleTests", "SampleUITests", "SuccessfulTests"].forEach { (target) in
             result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
-                let url = result.context.outputManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: target)
+                let url = result.context.fileManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: target)
                 XCTAssertFileSizeGreaterThan(url.appendingPathComponent("junit.xml").path, 0)
                 XCTAssertFileSizeGreaterThan(url.appendingPathComponent("Sample.log").path, 0)
                 XCTAssertFileSizeGreaterThan(url.appendingPathComponent("test.log").path, 0)
@@ -143,7 +143,7 @@ class RunTestsCommandTests: XCTestCase {
         }
 
         result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
-            let url = result.context.outputManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: "CrashTests")
+            let url = result.context.fileManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: "CrashTests")
             XCTAssertFileSizeGreaterThan(url.appendingPathComponent("Crash.log").path, 0)
             XCTAssertFileSizeGreaterThan(url.appendingPathComponent("test.log").path, 0)
             XCTAssertDirectoryContainsFileThatHasSuffix(url.path, ".crash")
@@ -215,7 +215,7 @@ extension RunTestsCommand.Context {
         self.init(
             testRun: testRun,
             deviceSet: temporaryDirectory.appendingPathComponent("simulators"),
-            outputManager: RunTestsOutputManager(url: temporaryDirectory.appendingPathComponent("output")),
+            fileManager: RunTestsFileManager(url: temporaryDirectory.appendingPathComponent("output")),
             locale: Locale.current,
             logFile: try SimulatorLogFile(url: temporaryDirectory.appendingPathComponent("simulator.log")),
             environment: ["PXCTEST_CHILD_FOO": "BAR"],

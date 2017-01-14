@@ -1,5 +1,5 @@
 //
-//  RunTestsOutputManager.swift
+//  RunTestsFileManager.swift
 //  pxctest
 //
 //  Created by Johannes Plunien on 3/12/2016.
@@ -9,7 +9,7 @@
 import FBSimulatorControl
 import Foundation
 
-final class RunTestsOutputManager {
+final class RunTestsFileManager {
 
     let url: URL
 

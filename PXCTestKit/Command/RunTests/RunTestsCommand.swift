@@ -42,7 +42,7 @@ final class RunTestsCommand: Command {
     func run(control: FBSimulatorControl) throws {
         let testRun = try FBXCTestRun.withTestRunFile(atPath: context.testRun.path).build()
 
-        try context.outputManager.reset(
+        try context.fileManager.reset(
             targets: testRun.targets.map({ $0.name }),
             simulatorConfigurations: context.simulatorConfigurations
         )
