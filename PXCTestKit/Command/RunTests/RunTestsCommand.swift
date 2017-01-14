@@ -36,7 +36,13 @@ final class RunTestsCommand: Command {
     }
 
     func run() throws {
-        try run(control: FBSimulatorControl.withContext(context))
+        let controlContext = ControlContext(
+            debugLogging: context.debugLogging,
+            deviceSet: context.deviceSet,
+            logFile: context.logFile,
+            simulatorOptions: context.simulatorOptions
+        )
+        try run(control: FBSimulatorControl.withContext(controlContext))
     }
 
     func run(control: FBSimulatorControl) throws {

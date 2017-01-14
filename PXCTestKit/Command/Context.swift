@@ -20,11 +20,11 @@ protocol BootContext {
     var simulatorOptions: SimulatorOptions { get }
 }
 
-protocol ControlContext {
-    var outputManager: RunTestsOutputManager { get }
-    var deviceSet: URL { get }
-    var simulatorOptions: SimulatorOptions { get }
-    var debugLogging: Bool { get }
+struct ControlContext {
+    let debugLogging: Bool
+    let deviceSet: URL
+    let logFile: SimulatorLogFile
+    let simulatorOptions: SimulatorOptions
 }
 
 protocol DefaultsContext {
@@ -74,11 +74,12 @@ extension ListTestsCommand {
 
 extension RunTestsCommand {
 
-    struct Context: AllocationContext, BootContext, ControlContext, DefaultsContext, ReporterContext, RunTestsContext, TestResultContext {
+    struct Context: AllocationContext, BootContext, DefaultsContext, ReporterContext, RunTestsContext, TestResultContext {
         let testRun: URL
         let deviceSet: URL
         let outputManager: RunTestsOutputManager
         let locale: Locale
+        let logFile: SimulatorLogFile
         let environment: [String: String]
         let defaults: [String: [String: Any]]
         let reporterType: ConsoleReporter.Type

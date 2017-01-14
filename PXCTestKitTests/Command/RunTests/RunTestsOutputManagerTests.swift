@@ -17,7 +17,7 @@ class RunTestsOutputManagerTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        outputManager = try! RunTestsOutputManager(url: URL(fileURLWithPath: "\(NSTemporaryDirectory())/\(UUID().uuidString)"))
+        outputManager = RunTestsOutputManager(url: URL(fileURLWithPath: "\(NSTemporaryDirectory())/\(UUID().uuidString)"))
     }
 
     func testResetCreatesDirectoryStructure() {
@@ -36,10 +36,6 @@ class RunTestsOutputManagerTests: XCTestCase {
         XCTAssertDirectoryExists(outputManager.url.path.appending("/IntegrationTests/iOS 9.3/iPad Retina"))
         XCTAssertDirectoryExists(outputManager.url.path.appending("/UnitTests/iOS 9.3/iPhone 5"))
         XCTAssertDirectoryExists(outputManager.url.path.appending("/UnitTests/iOS 9.3/iPad Retina"))
-    }
-
-    func testCreateLogFile() {
-        XCTAssertFileExists(outputManager.logFile.url.path)
     }
 
     func testUrlFor() {

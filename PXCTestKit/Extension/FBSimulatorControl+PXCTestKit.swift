@@ -12,10 +12,9 @@ import Foundation
 extension FBSimulatorControl {
 
     static func withContext(_ context: ControlContext) throws -> FBSimulatorControl {
-        let logFileHandle = context.outputManager.logFile.fileHandle
         return try FBSimulatorControl.withConfiguration(
             FBSimulatorControlConfiguration(deviceSetPath: context.deviceSet.path, options: context.simulatorOptions.managementOptions),
-            logger: FBControlCoreLogger.aslLoggerWriting(toFileDescriptor: logFileHandle.fileDescriptor, withDebugLogging: context.debugLogging)
+            logger: FBControlCoreLogger.aslLoggerWriting(toFileDescriptor: context.logFile.fileHandle.fileDescriptor, withDebugLogging: context.debugLogging)
         )
     }
 

@@ -12,11 +12,9 @@ import Foundation
 final class RunTestsOutputManager {
 
     let url: URL
-    let logFile: SimulatorLogFile
 
-    init(url: URL) throws {
+    init(url: URL) {
         self.url = url
-        self.logFile = try SimulatorLogFile(url: url.appendingPathComponent("simulator.log"))
     }
 
     func reset(targets: [String], simulatorConfigurations: [FBSimulatorConfiguration]) throws {

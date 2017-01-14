@@ -101,8 +101,9 @@ import Foundation
                     let context = RunTestsCommand.Context(
                         testRun: testRun.url,
                         deviceSet: deviceSet.url,
-                        outputManager: try RunTestsOutputManager(url: output.url),
+                        outputManager: RunTestsOutputManager(url: output.url),
                         locale: locale,
+                        logFile: try SimulatorLogFile(url: output.url.appendingPathComponent("simulator.log")),
                         environment: ProcessInfo.processInfo.environment,
                         defaults: defaults.dictionary,
                         reporterType: reporter.type,
@@ -118,7 +119,7 @@ import Foundation
                         debugLogging: debugLogging
                     )
 
-                    CommandLineInterface.command = RunTestsCommand(context: context)
+                    CommandLineInterface.command = try RunTestsCommand(context: context)
 
                     try CommandLineInterface.command?.run()
                     notification.deliverSuccessNotification()
