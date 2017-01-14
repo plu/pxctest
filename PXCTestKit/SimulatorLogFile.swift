@@ -32,7 +32,9 @@ final class SimulatorLogFile {
         if !fileManager.fileExists(atPath: url.path) {
             fileManager.createFile(atPath: url.path, contents: nil, attributes: nil)
         }
-        return try FileHandle(forWritingTo: url)
+        let fileHandle = try FileHandle(forWritingTo: url)
+        fileHandle.seekToEndOfFile()
+        return fileHandle
     }
 
     private static func createDirectory(forLogFileAtURL url: URL) throws {
