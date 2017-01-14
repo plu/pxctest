@@ -43,7 +43,7 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertNil(result.testErrors)
 
         if !isSierra {
-            XCTAssertFileSizeGreaterThan(result.context.outputManager.logFile.path, 0)
+            XCTAssertFileSizeGreaterThan(result.context.outputManager.logFile.url.path, 0)
         }
 
         ["SampleTests", "SampleUITests"].forEach { (target) in
@@ -69,7 +69,7 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertNil(result.testErrors)
 
         if !isSierra {
-            XCTAssertFileSizeGreaterThan(result.context.outputManager.logFile.path, 0)
+            XCTAssertFileSizeGreaterThan(result.context.outputManager.logFile.url.path, 0)
         }
 
         ["SampleTests", "SampleUITests"].forEach { (target) in
@@ -94,7 +94,7 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertNil(result.testErrors)
 
         if !isSierra {
-            XCTAssertFileSizeGreaterThan(result.context.outputManager.logFile.path, 0)
+            XCTAssertFileSizeGreaterThan(result.context.outputManager.logFile.url.path, 0)
         }
 
         result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
@@ -115,7 +115,7 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertNil(result.testErrors)
 
         if !isSierra {
-            XCTAssertFileSizeGreaterThan(result.context.outputManager.logFile.path, 0)
+            XCTAssertFileSizeGreaterThan(result.context.outputManager.logFile.url.path, 0)
         }
 
         ["SampleTests", "SampleUITests", "SuccessfulTests"].forEach { (target) in
@@ -139,7 +139,7 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertEqual(result.testErrors?.count, 2)
 
         if !isSierra {
-            XCTAssertFileSizeGreaterThan(result.context.outputManager.logFile.path, 0)
+            XCTAssertFileSizeGreaterThan(result.context.outputManager.logFile.url.path, 0)
         }
 
         result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
@@ -164,7 +164,7 @@ extension RunTestsCommandTests {
         let control = try FBSimulatorControl.withConfiguration(
             FBSimulatorControlConfiguration(deviceSetPath: context.deviceSet.path, options: context.simulatorManagementOptions),
             logger: FBControlCoreLogger.aslLoggerWriting(
-                toFileDescriptor: try context.outputManager.createNewSimulatorLogFile().fileDescriptor,
+                toFileDescriptor: context.outputManager.logFile.fileHandle.fileDescriptor,
                 withDebugLogging: false
             )
         )
@@ -215,7 +215,7 @@ extension RunTestsCommand.Context {
         self.init(
             testRun: testRun,
             deviceSet: temporaryDirectory.appendingPathComponent("simulators"),
-            outputManager: RunTestsOutputManager(url: temporaryDirectory.appendingPathComponent("output")),
+            outputManager: try RunTestsOutputManager(url: temporaryDirectory.appendingPathComponent("output")),
             locale: Locale.current,
             environment: ["PXCTEST_CHILD_FOO": "BAR"],
             defaults: [:],

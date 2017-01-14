@@ -11,39 +11,12 @@ import Foundation
 
 final class RunTestsOutputManager {
 
-    var logFile: URL {
-        return url.appendingPathComponent("simulator.log")
-    }
-
     let url: URL
+    let logFile: SimulatorLogFile
 
-    private var logFileHandle: FileHandle? = nil
-
-    init(url: URL) {
+    init(url: URL) throws {
         self.url = url
-    }
-
-    deinit {
-        logFileHandle?.synchronizeFile()
-        logFileHandle?.closeFile()
-    }
-
-    func createNewSimulatorLogFile() throws -> FileHandle {
-        let fileManager = FileManager.default
-
-        if !fileManager.fileExists(atPath: url.path) {
-            try fileManager.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
-        }
-
-        if fileManager.fileExists(atPath: logFile.path) {
-            try fileManager.removeItem(at: logFile)
-        }
-
-        fileManager.createFile(atPath: logFile.path, contents: nil, attributes: nil)
-
-        logFileHandle = try FileHandle(forWritingTo: logFile)
-
-        return logFileHandle!
+        self.logFile = try SimulatorLogFile(url: url.appendingPathComponent("simulator.log"))
     }
 
     func reset(targets: [String], simulatorConfigurations: [FBSimulatorConfiguration]) throws {

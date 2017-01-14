@@ -93,27 +93,27 @@ import Foundation
                 let consoleOutput = ConsoleOutput()
                 let notification = RunTestsNotification()
 
-                let context = RunTestsCommand.Context(
-                    testRun: testRun.url,
-                    deviceSet: deviceSet.url,
-                    outputManager: RunTestsOutputManager(url: output.url),
-                    locale: locale,
-                    environment: ProcessInfo.processInfo.environment,
-                    defaults: defaults.dictionary,
-                    reporterType: reporter.type,
-                    testsToRun: only.dictionary(),
-                    simulatorConfigurations: destination.map({ $0.simulatorConfiguration }),
-                    timeout: timeout,
-                    consoleOutput: consoleOutput,
-                    simulatorManagementOptions: [],
-                    simulatorAllocationOptions: [.create, .reuse],
-                    simulatorBootOptions: [.awaitServices],
-                    debugLogging: debugLogging
-                )
-
-                CommandLineInterface.command = RunTestsCommand(context: context)
-
                 do {
+                    let context = RunTestsCommand.Context(
+                        testRun: testRun.url,
+                        deviceSet: deviceSet.url,
+                        outputManager: try RunTestsOutputManager(url: output.url),
+                        locale: locale,
+                        environment: ProcessInfo.processInfo.environment,
+                        defaults: defaults.dictionary,
+                        reporterType: reporter.type,
+                        testsToRun: only.dictionary(),
+                        simulatorConfigurations: destination.map({ $0.simulatorConfiguration }),
+                        timeout: timeout,
+                        consoleOutput: consoleOutput,
+                        simulatorManagementOptions: [],
+                        simulatorAllocationOptions: [.create, .reuse],
+                        simulatorBootOptions: [.awaitServices],
+                        debugLogging: debugLogging
+                    )
+
+                    CommandLineInterface.command = RunTestsCommand(context: context)
+
                     try CommandLineInterface.command?.run()
                     notification.deliverSuccessNotification()
                 }

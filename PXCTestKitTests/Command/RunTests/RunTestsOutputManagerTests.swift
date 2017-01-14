@@ -17,7 +17,7 @@ class RunTestsOutputManagerTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        outputManager = RunTestsOutputManager(url: URL(fileURLWithPath: "\(NSTemporaryDirectory())/\(UUID().uuidString)"))
+        outputManager = try! RunTestsOutputManager(url: URL(fileURLWithPath: "\(NSTemporaryDirectory())/\(UUID().uuidString)"))
     }
 
     func testResetCreatesDirectoryStructure() {
@@ -39,14 +39,7 @@ class RunTestsOutputManagerTests: XCTestCase {
     }
 
     func testCreateLogFile() {
-        do {
-            let _ = try outputManager.createNewSimulatorLogFile()
-        }
-        catch {
-            XCTFail("\(error)")
-        }
-
-        XCTAssertFileExists(outputManager.logFile.path)
+        XCTAssertFileExists(outputManager.logFile.url.path)
     }
 
     func testUrlFor() {
