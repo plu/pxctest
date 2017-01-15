@@ -48,6 +48,7 @@
 		05E3DE6E1DED319D005A1459 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E3DE6D1DED319D005A1459 /* Command.swift */; };
 		05E3DE741DED574B005A1459 /* ConsoleReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E3DE731DED574B005A1459 /* ConsoleReporter.swift */; };
 		05E3DE761DED58ED005A1459 /* JSONReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E3DE751DED58ED005A1459 /* JSONReporter.swift */; };
+		05F650C11E2B84B8007330D4 /* ListTestsShim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F650C01E2B84B8007330D4 /* ListTestsShim.swift */; };
 		3E3512CA1E29F14700EC47FE /* SimulatorLogFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3512C91E29F14700EC47FE /* SimulatorLogFile.swift */; };
 		3E3512D21E2A0DA800EC47FE /* SimulatorLogFileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3512D11E2A0DA800EC47FE /* SimulatorLogFileTests.swift */; };
 		3E3512D41E2A122500EC47FE /* SimulatorOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3512D31E2A122500EC47FE /* SimulatorOptions.swift */; };
@@ -275,6 +276,7 @@
 		05E3DE6D1DED319D005A1459 /* Command.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		05E3DE731DED574B005A1459 /* ConsoleReporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleReporter.swift; sourceTree = "<group>"; };
 		05E3DE751DED58ED005A1459 /* JSONReporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONReporter.swift; sourceTree = "<group>"; };
+		05F650C01E2B84B8007330D4 /* ListTestsShim.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTestsShim.swift; sourceTree = "<group>"; };
 		3E3512C91E29F14700EC47FE /* SimulatorLogFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulatorLogFile.swift; sourceTree = "<group>"; };
 		3E3512D11E2A0DA800EC47FE /* SimulatorLogFileTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulatorLogFileTests.swift; sourceTree = "<group>"; };
 		3E3512D31E2A122500EC47FE /* SimulatorOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulatorOptions.swift; sourceTree = "<group>"; };
@@ -458,6 +460,7 @@
 				3E4CA70D1DFBCA90005216A3 /* ConsoleErrorFormatter.swift */,
 				3E4CA70E1DFBCA90005216A3 /* ConsoleOutput.swift */,
 				05B2CA341DEBE94F00795F07 /* Environment.swift */,
+				05F650C01E2B84B8007330D4 /* ListTestsShim.swift */,
 				3EBFCB161E14D2A6007C22C4 /* NotificationSender.swift */,
 				3E4CA7091DFBCA5B005216A3 /* SignalHandler.swift */,
 				3E3512C91E29F14700EC47FE /* SimulatorLogFile.swift */,
@@ -934,6 +937,7 @@
 				3E3512CA1E29F14700EC47FE /* SimulatorLogFile.swift in Sources */,
 				05B2CA351DEBE94F00795F07 /* Environment.swift in Sources */,
 				3EBFCB0C1E14C739007C22C4 /* ListTestsCommand.swift in Sources */,
+				05F650C11E2B84B8007330D4 /* ListTestsShim.swift in Sources */,
 				05E1B3011DE7066E00C38DB1 /* OnlyOption.swift in Sources */,
 				3EBFCB171E14D2A6007C22C4 /* NotificationSender.swift in Sources */,
 				0597DC181E0123F800968469 /* Context.swift in Sources */,

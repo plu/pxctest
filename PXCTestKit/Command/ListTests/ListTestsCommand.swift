@@ -30,7 +30,7 @@ final class ListTestsCommand: Command {
     }
 
     func run(control: FBSimulatorControl) throws {
-        let listTestsShimPath = try copyListTestsShim()
+        let listTestsShimPath = try ListTestsShim.copy()
         let testRun = try FBXCTestRun.withTestRunFile(atPath: context.testRun.path).build()
         let simulator = try control.pool.allocateSimulator(with: context.simulatorConfiguration, options: context.simulatorOptions.allocationOptions)
         let simulatorBootConfiguration = FBSimulatorBootConfiguration.withOptions(context.simulatorOptions.bootOptions)
@@ -48,27 +48,6 @@ final class ListTestsCommand: Command {
             try simulator.interact.startTest(with: testLaunchConfiguration, reporter: reporter).perform()
             try simulator.interact.waitUntilAllTestRunnersHaveFinishedTesting(withTimeout: context.timeout).perform()
         }
-    }
-
-    // MARK: - Private
-
-    private func copyListTestsShim() throws -> String {
-        let fileManager = FileManager.default
-        let listTestsShimName = "libpxctest-list-tests.dylib"
-
-        let sourcePath = URL(fileURLWithPath: Bundle(for: type(of: self)).bundlePath)
-            .deletingLastPathComponent()
-            .appendingPathComponent(listTestsShimName)
-            .path
-
-        assert(fileManager.fileExists(atPath: sourcePath))
-
-        let destinationPath = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(listTestsShimName).path
-        if !fileManager.fileExists(atPath: destinationPath) {
-            try fileManager.copyItem(atPath: sourcePath, toPath: destinationPath)
-        }
-
-        return destinationPath
     }
 
 }
