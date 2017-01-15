@@ -2,6 +2,6 @@
 
 CREATE_INFOPLIST_SECTION_IN_BINARY = YES
 INFOPLIST_FILE = $(SRCROOT)/pxctest/Info.plist
-LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path
+LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path @executable_path/../Frameworks
 PRODUCT_BUNDLE_IDENTIFIER = com.plunien.pxctest
 SDKROOT = macosx

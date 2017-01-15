@@ -33,6 +33,8 @@ xcodebuild \
   -project pxctest.xcodeproj \
   -sdk iphonesimulator
 
-mkdir -p "$DESTINATION"
+mkdir -p "$DESTINATION/bin"
+mkdir -p "$DESTINATION/Frameworks"
 
-mv $PRODUCTS/$CONFIGURATION/pxctest $PRODUCTS/$CONFIGURATION/*.framework $PRODUCTS/$CONFIGURATION/*.dylib $DESTINATION/
+cp -r $PRODUCTS/$CONFIGURATION/pxctest $DESTINATION/bin
+cp -r $PRODUCTS/$CONFIGURATION/*.framework $PRODUCTS/$CONFIGURATION/*.dylib $DESTINATION/Frameworks
