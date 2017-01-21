@@ -17,11 +17,11 @@ extension FBSimulator {
 
     func reinstall(applications: [FBApplicationDescriptor]) throws {
         for application in applications {
-            if installedApplications.contains(bundleID: application.bundleID) {
+            if installedApplications().contains(bundleID: application.bundleID) {
                 try interact.uninstallApplication(withBundleID: application.bundleID).perform()
             }
             try interact.installApplication(application).perform()
-            if (!FBRunLoopSpinner().timeout(FBControlCoreGlobalConfiguration.fastTimeout()).spin { self.installedApplications.contains(bundleID: application.bundleID) }) {
+            if (!FBRunLoopSpinner().timeout(FBControlCoreGlobalConfiguration.fastTimeout()).spin { self.installedApplications().contains(bundleID: application.bundleID) }) {
                 preconditionFailure("Installation of application failed")
             }
         }
