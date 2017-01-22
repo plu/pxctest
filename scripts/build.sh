@@ -3,6 +3,8 @@
 set -e
 
 DESTINATION=$1
+DESTINATION_BIN="$DESTINATION/bin"
+DESTINATION_FRAMEWORKS="$DESTINATION/Frameworks"
 PRODUCTS=$PWD/build/Products
 CONFIGURATION=Release
 
@@ -36,8 +38,15 @@ xcodebuild \
 # Strip nested frameworks
 rm -rf $PRODUCTS/$CONFIGURATION/*.framework/Versions/Current/Frameworks/*
 
-mkdir -p "$DESTINATION/bin"
-mkdir -p "$DESTINATION/Frameworks"
+mkdir -p "$DESTINATION_BIN"
+mkdir -p "$DESTINATION_FRAMEWORKS"
 
-cp -R $PRODUCTS/$CONFIGURATION/pxctest $DESTINATION/bin
-cp -R $PRODUCTS/$CONFIGURATION/*.framework $PRODUCTS/$CONFIGURATION/*.dylib $DESTINATION/Frameworks
+[ -f "$DESTINATION_BIN/pxctest" ] && rm "$DESTINATION_BIN/pxctest"
+
+for framework in $PRODUCTS/$CONFIGURATION/*.framework; do
+    framework=$(basename $framework)
+    [ -d "$DESTINATION_FRAMEWORKS/$framework" ] && rm -r "$DESTINATION_FRAMEWORKS/$framework"
+done
+
+cp -R $PRODUCTS/$CONFIGURATION/pxctest $DESTINATION_BIN
+cp -R $PRODUCTS/$CONFIGURATION/*.framework $PRODUCTS/$CONFIGURATION/*.dylib $DESTINATION_FRAMEWORKS
