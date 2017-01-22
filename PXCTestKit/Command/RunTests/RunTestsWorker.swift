@@ -45,7 +45,7 @@ final class RunTestsWorker {
         }
     }
 
-    func startTests(context: RunTestsContext, reporters: RunTestsReporters) throws {
+    func startTests(context: RunTestsContext, reporters: RunTestsReporters, retry: Int = 0) throws {
         let testsToRun = context.testsToRun[target.name] ?? Set<String>()
         let testEnvironment = Environment.injectPrefixedVariables(from: context.environment, into: target.testLaunchConfiguration.testEnvironment)
         let testLaunchConfigurartion = target.testLaunchConfiguration
@@ -54,7 +54,15 @@ final class RunTestsWorker {
 
         let reporter = try reporters.addReporter(for: simulator, target: target)
 
-        try simulator.interact.startTest(with: testLaunchConfigurartion, reporter: reporter).perform()
+        do {
+            try simulator.interact.startTest(with: testLaunchConfigurartion, reporter: reporter).perform()
+        }
+        catch {
+            guard retry < 2 else { throw error }
+            if (error as NSError).code == XCTestBootstrapErrorCodeStartupTimeout {
+                try startTests(context: context, reporters: reporters, retry: retry+1)
+            }
+        }
     }
 
     func waitForTestResult(timeout: TimeInterval) {
