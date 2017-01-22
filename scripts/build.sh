@@ -36,12 +36,6 @@ xcodebuild \
 # Strip nested frameworks
 rm -rf $PRODUCTS/$CONFIGURATION/*.framework/Versions/Current/Frameworks/*
 
-# Relocate dependencies
-shopt -s extglob
-mkdir $PRODUCTS/$CONFIGURATION/PXCTestKit.framework/Versions/Current/Frameworks/
-mv $PRODUCTS/$CONFIGURATION/!(PXCTestKit).framework $PRODUCTS/$CONFIGURATION/PXCTestKit.framework/Versions/Current/Frameworks/
-shopt -u extglob
-
 mkdir -p "$DESTINATION/bin"
 mkdir -p "$DESTINATION/Frameworks"
 
