@@ -20,12 +20,12 @@ class RunTestsFileManagerTests: XCTestCase {
         fileManager = RunTestsFileManager(url: URL(fileURLWithPath: "\(NSTemporaryDirectory())/\(UUID().uuidString)"))
     }
 
-    func testResetCreatesDirectoryStructure() {
+    func testCreateDirectoryFor() {
         do {
-            try fileManager.reset(targets: ["IntegrationTests", "UnitTests"], simulatorConfigurations: [
-                FBSimulatorConfiguration.iPhone5().iOS_9_3(),
-                FBSimulatorConfiguration.iPadRetina().iOS_9_3(),
-            ])
+            try fileManager.createDirectoryFor(simulatorConfiguration: FBSimulatorConfiguration.iPhone5().iOS_9_3(), target: "IntegrationTests")
+            try fileManager.createDirectoryFor(simulatorConfiguration: FBSimulatorConfiguration.iPadRetina().iOS_9_3(), target: "IntegrationTests")
+            try fileManager.createDirectoryFor(simulatorConfiguration: FBSimulatorConfiguration.iPhone5().iOS_9_3(), target: "UnitTests")
+            try fileManager.createDirectoryFor(simulatorConfiguration: FBSimulatorConfiguration.iPadRetina().iOS_9_3(), target: "UnitTests")
         }
         catch {
             XCTFail("\(error)")

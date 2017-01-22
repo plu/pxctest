@@ -12,26 +12,17 @@ import Foundation
 final class RunTestsFileManager {
 
     let url: URL
+    let fileManager: FileManager
 
-    init(url: URL) {
+    init(url: URL, fileManager: FileManager = FileManager.default) {
         self.url = url
+        self.fileManager = fileManager
     }
 
-    func reset(targets: [String], simulatorConfigurations: [FBSimulatorConfiguration]) throws {
-        let fileManager = FileManager.default
-
+    func createDirectoryFor(simulatorConfiguration: FBSimulatorConfiguration, target: String) throws {
+        let url = urlFor(simulatorConfiguration: simulatorConfiguration, target: target)
         if !fileManager.fileExists(atPath: url.path) {
             try fileManager.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
-        }
-
-        for target in targets {
-            for simulatorConfiguration in simulatorConfigurations {
-                let targetSimulatorURL = urlFor(simulatorConfiguration: simulatorConfiguration, target: target)
-                if fileManager.fileExists(atPath: targetSimulatorURL.path) {
-                    try fileManager.removeItem(at: targetSimulatorURL)
-                }
-                try fileManager.createDirectory(at: targetSimulatorURL, withIntermediateDirectories: true, attributes: nil)
-            }
         }
     }
 

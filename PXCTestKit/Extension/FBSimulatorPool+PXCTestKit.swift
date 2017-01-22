@@ -13,13 +13,15 @@ extension FBSimulatorPool {
 
     func allocateWorkers(context: AllocationContext, targets: [FBXCTestRunTarget]) throws -> [RunTestsWorker] {
         var workers: [RunTestsWorker] = []
+
         for target in targets {
             if context.testsToRun.count > 0 && context.testsToRun[target.name] == nil {
                 continue
             }
-            for simulatorConfigurations in context.simulatorConfigurations {
+            for simulatorConfiguration in context.simulatorConfigurations {
+                try context.fileManager.createDirectoryFor(simulatorConfiguration: simulatorConfiguration, target: target.name)
                 let worker = RunTestsWorker(
-                    simulator: try allocateSimulator(with: simulatorConfigurations, options: context.simulatorOptions.allocationOptions),
+                    simulator: try allocateSimulator(with: simulatorConfiguration, options: context.simulatorOptions.allocationOptions),
                     target: target
                 )
                 workers.append(worker)

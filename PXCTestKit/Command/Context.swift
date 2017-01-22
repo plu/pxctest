@@ -11,6 +11,7 @@ import Foundation
 
 struct AllocationContext {
 
+    let fileManager: RunTestsFileManager
     let simulatorConfigurations: [FBSimulatorConfiguration]
     let simulatorOptions: SimulatorOptions
     let testsToRun: [String: Set<String>]
@@ -64,6 +65,7 @@ struct TestResultContext {
 extension AllocationContext {
 
     init(context: RunTestsCommand.Context) {
+        fileManager = context.fileManager
         simulatorConfigurations = context.simulatorConfigurations
         simulatorOptions = context.simulatorOptions
         testsToRun = context.testsToRun
