@@ -33,6 +33,9 @@ xcodebuild \
   -project pxctest.xcodeproj \
   -sdk iphonesimulator
 
+# Strip nested frameworks
+rm -rf $PRODUCTS/$CONFIGURATION/*.framework/Versions/Current/Frameworks/*
+
 mkdir -p "$DESTINATION/bin"
 mkdir -p "$DESTINATION/Frameworks"
 
