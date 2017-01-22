@@ -144,33 +144,12 @@
 			remoteGlobalIDString = AAC8B2341CEC51120034A865;
 			remoteInfo = FBDeviceControlTests;
 		};
-		05BABCDC1DE57E050012BC5B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 05BABCBD1DE57DF40012BC5B /* FBSimulatorControl.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = EEBD600D1C90628F00298A07;
-			remoteInfo = FBControlCore;
-		};
-		05BABCDE1DE57E050012BC5B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 05BABCBD1DE57DF40012BC5B /* FBSimulatorControl.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = EE4F0D2F1C91B7DA00608E89;
-			remoteInfo = XCTestBootstrap;
-		};
 		05BABCE01DE57E050012BC5B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 05BABCBD1DE57DF40012BC5B /* FBSimulatorControl.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = E66DC04E390C419500000000;
 			remoteInfo = FBSimulatorControl;
-		};
-		05BABCE21DE57E050012BC5B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 05BABCBD1DE57DF40012BC5B /* FBSimulatorControl.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = AAC8B22A1CEC51120034A865;
-			remoteInfo = FBDeviceControl;
 		};
 		3E8CC6661DFB9F110098116E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -656,10 +635,7 @@
 			dependencies = (
 				3E8CC66F1DFB9F4B0098116E /* PBXTargetDependency */,
 				05BABCD91DE57E050012BC5B /* PBXTargetDependency */,
-				05BABCDD1DE57E050012BC5B /* PBXTargetDependency */,
-				05BABCDF1DE57E050012BC5B /* PBXTargetDependency */,
 				05BABCE11DE57E050012BC5B /* PBXTargetDependency */,
-				05BABCE31DE57E050012BC5B /* PBXTargetDependency */,
 			);
 			name = PXCTestKit;
 			productName = PXCTestKit;
@@ -1015,25 +991,10 @@
 			isa = PBXTargetDependency;
 			name = Spectre;
 		};
-		05BABCDD1DE57E050012BC5B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = FBControlCore;
-			targetProxy = 05BABCDC1DE57E050012BC5B /* PBXContainerItemProxy */;
-		};
-		05BABCDF1DE57E050012BC5B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = XCTestBootstrap;
-			targetProxy = 05BABCDE1DE57E050012BC5B /* PBXContainerItemProxy */;
-		};
 		05BABCE11DE57E050012BC5B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = FBSimulatorControl;
 			targetProxy = 05BABCE01DE57E050012BC5B /* PBXContainerItemProxy */;
-		};
-		05BABCE31DE57E050012BC5B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = FBDeviceControl;
-			targetProxy = 05BABCE21DE57E050012BC5B /* PBXContainerItemProxy */;
 		};
 		3E8CC66F1DFB9F4B0098116E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
