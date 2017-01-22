@@ -42,7 +42,7 @@ final class RunTestsCommand: Command {
     func run(control: FBSimulatorControl) throws {
         let targets = try FBXCTestRun.withTestRunFile(atPath: context.testRun.path).build().targets
 
-        workers = try control.pool.allocateWorkers(context: AllocationContext(context: context), targets: targets)
+        workers = try RunTestsWorker.allocate(pool: control.pool, context: AllocationContext(context: context), targets: targets)
 
         try workers.loadDefaults(context: DefaultsContext(context: context))
         try workers.overrideWatchDogTimer()

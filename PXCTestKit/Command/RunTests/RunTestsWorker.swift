@@ -76,6 +76,31 @@ final class RunTestsWorker {
         )
     }
 
+    // MARK: -
+
+    class func allocate(pool: FBSimulatorPool, context: AllocationContext, targets: [FBXCTestRunTarget]) throws -> [RunTestsWorker] {
+        var workers: [RunTestsWorker] = []
+
+        for target in targets {
+            if context.testsToRun.count > 0 && context.testsToRun[target.name] == nil {
+                continue
+            }
+            for simulatorConfiguration in context.simulatorConfigurations {
+                try context.fileManager.createDirectoryFor(simulatorConfiguration: simulatorConfiguration, target: target.name)
+                let simulator = try pool.allocateSimulator(with: simulatorConfiguration, options: context.simulatorOptions.allocationOptions)
+                let worker = RunTestsWorker(
+                    name: target.name,
+                    applications: target.applications,
+                    simulator: simulator,
+                    testLaunchConfiguration: target.testLaunchConfiguration
+                )
+                workers.append(worker)
+            }
+        }
+        return workers
+    }
+
+
 }
 
 extension Sequence where Iterator.Element == RunTestsWorker {
