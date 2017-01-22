@@ -36,5 +36,5 @@ xcodebuild \
 mkdir -p "$DESTINATION/bin"
 mkdir -p "$DESTINATION/Frameworks"
 
-cp -r $PRODUCTS/$CONFIGURATION/pxctest $DESTINATION/bin
-cp -r $PRODUCTS/$CONFIGURATION/*.framework $PRODUCTS/$CONFIGURATION/*.dylib $DESTINATION/Frameworks
+cp -R $PRODUCTS/$CONFIGURATION/pxctest $DESTINATION/bin
+cp -R $PRODUCTS/$CONFIGURATION/*.framework $PRODUCTS/$CONFIGURATION/*.dylib $DESTINATION/Frameworks
