@@ -22,11 +22,11 @@ final class RunTestsReporters {
         reporterType = context.reporterType
     }
 
-    func addReporter(for simulator: FBSimulator, target: FBXCTestRunTarget) throws -> FBTestManagerTestReporter {
-        let consoleReporter = reporterType.init(simulatorIdentifier: simulator.identifier, testTargetName: target.name, consoleOutput: consoleOutput)
-        let junitReportURL = fileManager.urlFor(simulatorConfiguration: simulator.configuration!, target: target.name).appendingPathComponent("junit.xml")
+    func addReporter(for simulator: FBSimulator, name: String) throws -> FBTestManagerTestReporter {
+        let consoleReporter = reporterType.init(simulatorIdentifier: simulator.identifier, testTargetName: name, consoleOutput: consoleOutput)
+        let junitReportURL = fileManager.urlFor(simulatorConfiguration: simulator.configuration!, target: name).appendingPathComponent("junit.xml")
         let junitReporter = FBTestManagerTestReporterJUnit.withOutputFileURL(junitReportURL)
-        let xcodeReportURL = fileManager.urlFor(simulatorConfiguration: simulator.configuration!, target: target.name).appendingPathComponent("test.log")
+        let xcodeReportURL = fileManager.urlFor(simulatorConfiguration: simulator.configuration!, target: name).appendingPathComponent("test.log")
         let xcodeReporter = try XcodeReporter(fileURL: xcodeReportURL)
 
         reporters.append(consoleReporter)

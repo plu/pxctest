@@ -20,9 +20,12 @@ extension FBSimulatorPool {
             }
             for simulatorConfiguration in context.simulatorConfigurations {
                 try context.fileManager.createDirectoryFor(simulatorConfiguration: simulatorConfiguration, target: target.name)
+                let simulator = try allocateSimulator(with: simulatorConfiguration, options: context.simulatorOptions.allocationOptions)
                 let worker = RunTestsWorker(
-                    simulator: try allocateSimulator(with: simulatorConfiguration, options: context.simulatorOptions.allocationOptions),
-                    target: target
+                    name: target.name,
+                    applications: target.applications,
+                    simulator: simulator,
+                    testLaunchConfiguration: target.testLaunchConfiguration
                 )
                 workers.append(worker)
             }

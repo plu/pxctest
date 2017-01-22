@@ -34,7 +34,7 @@ final class RunTestsFileManager {
     }
 
     func urlFor(worker: RunTestsWorker) -> URL {
-        return urlFor(simulatorConfiguration: worker.configuration, target: worker.target.name)
+        return urlFor(simulatorConfiguration: worker.configuration, target: worker.name)
     }
 
 }

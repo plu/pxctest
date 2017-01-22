@@ -11,8 +11,10 @@ import Foundation
 
 final class RunTestsWorker {
 
+    let applications: [FBApplicationDescriptor]
+    let name: String
     let simulator: FBSimulator
-    let target: FBXCTestRunTarget
+    let testLaunchConfiguration: FBTestLaunchConfiguration
 
     var configuration: FBSimulatorConfiguration {
         return simulator.configuration!
@@ -20,19 +22,21 @@ final class RunTestsWorker {
 
     private(set) var errors: [RunTestsError] = []
 
-    init(simulator: FBSimulator, target: FBXCTestRunTarget) {
+    init(name: String, applications: [FBApplicationDescriptor], simulator: FBSimulator, testLaunchConfiguration: FBTestLaunchConfiguration) {
+        self.name = name
+        self.applications = applications
         self.simulator = simulator
-        self.target = target
+        self.testLaunchConfiguration = testLaunchConfiguration
     }
 
     func abortTestRun() throws {
-        for application in target.applications {
+        for application in applications {
             try simulator.killApplication(withBundleID: application.bundleID)
         }
     }
 
     func extractDiagnostics(fileManager: RunTestsFileManager) throws {
-        for application in target.applications {
+        for application in applications {
             guard let diagnostics = simulator.simulatorDiagnostics.launchedProcessLogs().first(where: { $0.0.processName == application.name })?.value else { continue }
             let destinationPath = fileManager.urlFor(worker: self).path
             try diagnostics.writeOut(toDirectory: destinationPath)
@@ -46,13 +50,13 @@ final class RunTestsWorker {
     }
 
     func startTests(context: RunTestsContext, reporters: RunTestsReporters) throws {
-        let testsToRun = context.testsToRun[target.name] ?? Set<String>()
-        let testEnvironment = Environment.injectPrefixedVariables(from: context.environment, into: target.testLaunchConfiguration.testEnvironment)
-        let testLaunchConfigurartion = target.testLaunchConfiguration
-            .withTestsToRun(target.testLaunchConfiguration.testsToRun.union(testsToRun))
+        let testsToRun = context.testsToRun[name] ?? Set<String>()
+        let testEnvironment = Environment.injectPrefixedVariables(from: context.environment, into: testLaunchConfiguration.testEnvironment)
+        let testLaunchConfigurartion = self.testLaunchConfiguration
+            .withTestsToRun(self.testLaunchConfiguration.testsToRun.union(testsToRun))
             .withTestEnvironment(testEnvironment)
 
-        let reporter = try reporters.addReporter(for: simulator, target: target)
+        let reporter = try reporters.addReporter(for: simulator, name: name)
 
         try simulator.interact.startTest(with: testLaunchConfigurartion, reporter: reporter).perform()
     }
@@ -65,7 +69,7 @@ final class RunTestsWorker {
         errors.append(
             RunTestsError(
                 simulator: simulator,
-                target: target.name,
+                target: name,
                 errors: testManagerResults.flatMap { $0.error },
                 crashes: testManagerResults.flatMap { $0.crashDiagnostic }
             )
@@ -91,7 +95,7 @@ extension Sequence where Iterator.Element == RunTestsWorker {
 
     func installApplications() throws {
         for worker in self {
-            try worker.simulator.reinstall(applications: worker.target.applications)
+            try worker.simulator.reinstall(applications: worker.applications)
         }
     }
 
@@ -103,7 +107,7 @@ extension Sequence where Iterator.Element == RunTestsWorker {
 
     func overrideWatchDogTimer() throws {
         for worker in self {
-            let applications = worker.target.applications.map { $0.bundleID }
+            let applications = worker.applications.map { $0.bundleID }
             try worker.simulator.interact.overrideWatchDogTimer(forApplications: applications, withTimeout: 60.0).perform()
         }
     }
