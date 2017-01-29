@@ -1,3 +1,6 @@
+* Experimental: Partitioning of test suites
+* Write one junit.xml that contains all targets and simulators
+
 # 0.3.1
 
 * Add list-tests command (experimental)

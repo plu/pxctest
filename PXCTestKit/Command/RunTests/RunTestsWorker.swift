@@ -11,9 +11,10 @@ import Foundation
 
 final class RunTestsWorker {
 
-    let applications: [FBApplicationDescriptor]
     let name: String
+    let applications: [FBApplicationDescriptor]
     let simulator: FBSimulator
+    let targetName: String
     let testLaunchConfiguration: FBTestLaunchConfiguration
 
     var configuration: FBSimulatorConfiguration {
@@ -22,10 +23,11 @@ final class RunTestsWorker {
 
     private(set) var errors: [RunTestsError] = []
 
-    init(name: String, applications: [FBApplicationDescriptor], simulator: FBSimulator, testLaunchConfiguration: FBTestLaunchConfiguration) {
+    init(name: String, applications: [FBApplicationDescriptor], simulator: FBSimulator, targetName: String, testLaunchConfiguration: FBTestLaunchConfiguration) {
         self.name = name
         self.applications = applications
         self.simulator = simulator
+        self.targetName = targetName
         self.testLaunchConfiguration = testLaunchConfiguration
     }
 
@@ -51,12 +53,17 @@ final class RunTestsWorker {
 
     func startTests(context: RunTestsContext, reporters: RunTestsReporters) throws {
         let testsToRun = context.testsToRun[name] ?? Set<String>()
-        let testEnvironment = Environment.injectPrefixedVariables(from: context.environment, into: testLaunchConfiguration.testEnvironment)
+        let testEnvironment = Environment.injectPrefixedVariables(
+            from: context.environment,
+            into: testLaunchConfiguration.testEnvironment,
+            workingDirectoryURL: context.fileManager.urlFor(worker: self)
+        )
+
         let testLaunchConfigurartion = self.testLaunchConfiguration
             .withTestsToRun(self.testLaunchConfiguration.testsToRun.union(testsToRun))
             .withTestEnvironment(testEnvironment)
 
-        let reporter = try reporters.addReporter(for: simulator, name: name)
+        let reporter = try reporters.addReporter(for: simulator, name: name, testTargetName: targetName)
 
         try simulator.interact.startTest(with: testLaunchConfigurartion, reporter: reporter).perform()
     }
@@ -75,31 +82,6 @@ final class RunTestsWorker {
             )
         )
     }
-
-    // MARK: -
-
-    class func allocate(pool: FBSimulatorPool, context: AllocationContext, targets: [FBXCTestRunTarget]) throws -> [RunTestsWorker] {
-        var workers: [RunTestsWorker] = []
-
-        for target in targets {
-            if context.testsToRun.count > 0 && context.testsToRun[target.name] == nil {
-                continue
-            }
-            for simulatorConfiguration in context.simulatorConfigurations {
-                try context.fileManager.createDirectoryFor(simulatorConfiguration: simulatorConfiguration, target: target.name)
-                let simulator = try pool.allocateSimulator(with: simulatorConfiguration, options: context.simulatorOptions.allocationOptions)
-                let worker = RunTestsWorker(
-                    name: target.name,
-                    applications: target.applications,
-                    simulator: simulator,
-                    testLaunchConfiguration: target.testLaunchConfiguration
-                )
-                workers.append(worker)
-            }
-        }
-        return workers
-    }
-
 
 }
 
@@ -120,7 +102,7 @@ extension Sequence where Iterator.Element == RunTestsWorker {
 
     func installApplications() throws {
         for worker in self {
-            try worker.simulator.reinstall(applications: worker.applications)
+            try worker.simulator.install(applications: worker.applications)
         }
     }
 

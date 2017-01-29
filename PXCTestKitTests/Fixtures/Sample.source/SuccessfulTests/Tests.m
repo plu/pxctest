@@ -2,7 +2,7 @@
 //  Tests.m
 //  SuccessfulTests
 //
-//  Created by Plunien, Johannes(AWF) on 30/11/16.
+//  Created by Johannes Plunien on 30/11/16.
 //  Copyright © 2016 Johannes Plunien. All rights reserved.
 //
 

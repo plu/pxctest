@@ -11,12 +11,17 @@ import Foundation
 
 final class RunTestsFileManager {
 
-    let url: URL
+    let cacheURL: URL
     let fileManager: FileManager
+    let outputURL: URL
+    let runtimeCacheURL: URL
 
-    init(url: URL, fileManager: FileManager = FileManager.default) {
-        self.url = url
+    init(outputURL: URL, testRunURL: URL, fileManager: FileManager = FileManager.default) throws {
+        self.outputURL = outputURL
         self.fileManager = fileManager
+        self.cacheURL = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first!.appendingPathComponent("pxctest")
+        self.runtimeCacheURL = self.cacheURL.appendingPathComponent("\(testRunURL.path.sha256!).runtime").appendingPathExtension("json")
+        try fileManager.createDirectory(at: cacheURL, withIntermediateDirectories: true, attributes: nil)
     }
 
     func createDirectoryFor(simulatorConfiguration: FBSimulatorConfiguration, target: String) throws {
@@ -27,7 +32,7 @@ final class RunTestsFileManager {
     }
 
     func urlFor(simulatorConfiguration: FBSimulatorConfiguration, target: String) -> URL {
-        return url
+        return outputURL
             .appendingPathComponent(target)
             .appendingPathComponent(simulatorConfiguration.osVersionString)
             .appendingPathComponent(simulatorConfiguration.deviceName)

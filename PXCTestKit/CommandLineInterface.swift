@@ -26,12 +26,14 @@ import Foundation
                        Option<Locale>("locale", Locale(identifier: "en"), description: "Locale to set for the Simulator."),
                        Option<DefaultsOption>("defaults", DefaultsOption(), description: "Path to some defaults.json to be applied with the Simulator."),
                        VariadicOption<DestinationOption>("destination", [DestinationOption.default], description: "A comma-separated set of key=value pairs describing the destination to use. Default: \(DestinationOption.default.description)"),
+                       Option<Int>("duplicate", 1, description: "Duplicate given destinations n times."),
                        Flag("reset", description: "Kill, delete and recreate all Simulators."),
                        description: "Boots Simulators in the background."
-            ) { (deviceSet, locale, defaults, destination, reset) in
+            ) { (deviceSet, locale, defaults, destination, duplicate, reset) in
                 let context = BootSimulatorsCommand.Context(
                     defaults: defaults.dictionary,
                     deviceSet: deviceSet.url,
+                    duplicate: duplicate,
                     locale: locale,
                     simulatorConfigurations: destination.map({ $0.simulatorConfiguration }),
                     simulatorOptions: SimulatorOptions(
@@ -89,10 +91,11 @@ import Foundation
                        VariadicOption<OnlyOption>("only", [], description: "Comma separated list of tests that should be executed only. Format: TARGET[:Class/case[,Class2/case2]]"),
                        VariadicOption<DestinationOption>("destination", [DestinationOption.default], description: "A comma-separated set of key=value pairs describing the destination to use. Default: \(DestinationOption.default.description)"),
                        Option<Double>("timeout", 3600.0, description: "Timeout in seconds for the test execution to finish."),
+                       Option<Int>("partitions", 1, description: "Split the test targets into n partitions."),
                        Flag("no-color", description: "Do not add colors to console output."),
                        Flag("debug", description: "Enable debug logging (in simulator.log)."),
                        description: "Runs tests on Simulators."
-            ) { (testRun, deviceSet, output, locale, defaults, reporter, only, destination, timeout, noColor, debugLogging) in
+            ) { (testRun, deviceSet, output, locale, defaults, reporter, only, destination, timeout, partitions, noColor, debugLogging) in
                 ANSI.disabled = noColor
                 let consoleOutput = ConsoleOutput()
                 let notification = RunTestsNotification()
@@ -104,9 +107,10 @@ import Foundation
                         defaults: defaults.dictionary,
                         deviceSet: deviceSet.url,
                         environment: ProcessInfo.processInfo.environment,
-                        fileManager: RunTestsFileManager(url: output.url),
+                        fileManager: try RunTestsFileManager(outputURL: output.url, testRunURL: testRun.url),
                         locale: locale,
                         logFile: try SimulatorLogFile(url: output.url.appendingPathComponent("simulator.log")),
+                        partitions: partitions,
                         reporterType: reporter.type,
                         simulatorConfigurations: destination.map({ $0.simulatorConfiguration }),
                         simulatorOptions: SimulatorOptions(

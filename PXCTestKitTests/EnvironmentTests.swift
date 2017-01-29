@@ -14,8 +14,12 @@ class EnvironmentTests: XCTestCase {
     func testInjectsPrefixedVariables() {
         let environment = ["FOO": "BAR"]
         let processInfoEnvironment = ["PXCTEST_CHILD_BLA": "FASEL"]
-        let result = Environment.injectPrefixedVariables(from: processInfoEnvironment, into: environment)
-        XCTAssertEqual(result, ["FOO": "BAR", "BLA": "FASEL"])
+        let result = Environment.injectPrefixedVariables(
+            from: processInfoEnvironment,
+            into: environment,
+            workingDirectoryURL: URL(fileURLWithPath: "/tmp")
+        )
+        XCTAssertEqual(result, ["FOO": "BAR", "BLA": "FASEL", "IMAGE_DIFF_DIR": "/tmp", "KIF_SCREENSHOTS": "/tmp"])
     }
 
     func testInjectsLibraryAtPath() {

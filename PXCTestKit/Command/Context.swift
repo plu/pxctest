@@ -12,6 +12,7 @@ import Foundation
 struct AllocationContext {
 
     let fileManager: RunTestsFileManager
+    let partitions: Int
     let simulatorConfigurations: [FBSimulatorConfiguration]
     let simulatorOptions: SimulatorOptions
     let testsToRun: [String: Set<String>]
@@ -51,6 +52,7 @@ struct ReporterContext {
 struct RunTestsContext {
 
     let environment: [String: String]
+    let fileManager: RunTestsFileManager
     let testsToRun: [String: Set<String>]
 
 }
@@ -66,6 +68,7 @@ extension AllocationContext {
 
     init(context: RunTestsCommand.Context) {
         fileManager = context.fileManager
+        partitions = context.partitions
         simulatorConfigurations = context.simulatorConfigurations
         simulatorOptions = context.simulatorOptions
         testsToRun = context.testsToRun
@@ -120,6 +123,7 @@ extension RunTestsContext {
 
     init(context: RunTestsCommand.Context) {
         environment = context.environment
+        fileManager = context.fileManager
         testsToRun = context.testsToRun
     }
 
@@ -139,6 +143,7 @@ extension BootSimulatorsCommand {
     struct Context {
         let defaults: [String: [String: Any]]
         let deviceSet: URL
+        let duplicate: Int
         let locale: Locale
         let simulatorConfigurations: [FBSimulatorConfiguration]
         let simulatorOptions: SimulatorOptions
@@ -170,6 +175,7 @@ extension RunTestsCommand {
         let fileManager: RunTestsFileManager
         let locale: Locale
         let logFile: SimulatorLogFile
+        let partitions: Int
         let reporterType: ConsoleReporter.Type
         let simulatorConfigurations: [FBSimulatorConfiguration]
         let simulatorOptions: SimulatorOptions

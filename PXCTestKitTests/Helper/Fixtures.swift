@@ -18,6 +18,10 @@ final class Fixtures {
         return Bundle(for: type(of: self))
     }
 
+    var testRuntimeInput: URL {
+        return bundle.url(forResource: "runtime", withExtension: "json")!
+    }
+
     // MARK: - Sample.app
 
     var sampleAppTestRun: URL {

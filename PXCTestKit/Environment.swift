@@ -13,7 +13,7 @@ final class Environment {
     private static let prefix = "PXCTEST_CHILD_"
     private static let insertLibrariesKey = "DYLD_INSERT_LIBRARIES"
 
-    static func injectPrefixedVariables(from source: [String: String], into destination: [String: String]?) -> [String: String] {
+    static func injectPrefixedVariables(from source: [String: String], into destination: [String: String]?, workingDirectoryURL: URL) -> [String: String] {
         var result = destination ?? [:]
         for (key, value) in source {
             if !key.hasPrefix(prefix) {
@@ -21,6 +21,7 @@ final class Environment {
             }
             result[key.replacingOccurrences(of: prefix, with: "")] = value
         }
+        ["IMAGE_DIFF_DIR", "KIF_SCREENSHOTS"].forEach { result[$0] = workingDirectoryURL.path }
         return result
     }
 

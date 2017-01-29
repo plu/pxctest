@@ -9,20 +9,16 @@
 import FBSimulatorControl
 import Foundation
 
-final class RSpecReporter: FBTestManagerTestReporterBase, ConsoleReporter {
+final class RSpecReporter: TestReporter, ConsoleReporter {
 
     let consoleOutput: ConsoleOutput
-    let simulatorIdentifier: String
     var summary: FBTestManagerResultSummary? {
-        return testSuite.summary
+        return testSuite?.summary
     }
-    let testTargetName: String
 
     init(simulatorIdentifier: String, testTargetName: String, consoleOutput: ConsoleOutput) {
         self.consoleOutput = consoleOutput
-        self.simulatorIdentifier = simulatorIdentifier
-        self.testTargetName = testTargetName
-        super.init()
+        super.init(simulatorIdentifier: simulatorIdentifier, testTargetName: testTargetName)
     }
 
     static func finishReporting(consoleOutput: ConsoleOutput, reporters: [ConsoleReporter]) throws {
@@ -39,9 +35,11 @@ final class RSpecReporter: FBTestManagerTestReporterBase, ConsoleReporter {
         try raiseTestRunHadFailures(reporters: reporters)
     }
 
-    // MARK: - FBTestManagerTestReporter
+    // MARK: - TestReporter
 
-    override func testManagerMediator(_ mediator: FBTestManagerAPIMediator!, testCaseDidFinishForTestClass testClass: String!, method: String!, with status: FBTestReportStatus, duration: TimeInterval) {
+    override func testCaseDidFinish(testClass: String, method: String, status: FBTestReportStatus, duration: TimeInterval) {
+        super.testCaseDidFinish(testClass: testClass, method: method, status: status, duration: duration)
+
         switch status {
         case .unknown:
             consoleOutput.write(output: "?")
@@ -50,14 +48,12 @@ final class RSpecReporter: FBTestManagerTestReporterBase, ConsoleReporter {
         case .failed:
             consoleOutput.write(output: "F")
         }
-
-        super.testManagerMediator(mediator, testCaseDidFinishForTestClass: testClass, method: method, with: status, duration: duration)
     }
 
     // MARK: - Private
 
     private func writeFailures() {
-        guard let summary = testSuite.summary else { return }
+        guard let testSuite = testSuite, let summary = testSuite.summary else { return }
 
         if summary.failureCount > 0 {
             consoleOutput.write(line: "\(ANSI.bold)\(testTargetName)\(ANSI.reset)")
@@ -81,7 +77,7 @@ final class RSpecReporter: FBTestManagerTestReporterBase, ConsoleReporter {
     }
 
     private func writeSummary() {
-        guard let summary = testSuite.summary else { return }
+        guard let summary = testSuite?.summary else { return }
 
         let output = String(format: "\(testTargetName) - \(simulatorIdentifier) - Finished executing %d tests after %.03fs. %d Failures, %d Unexpected", summary.runCount, summary.totalDuration, summary.failureCount, summary.unexpected)
         consoleOutput.write(line: output)

@@ -42,6 +42,8 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertEqual(result.failureCount, 4)
         XCTAssertNil(result.testErrors)
 
+        XCTAssertFileSizeGreaterThan(result.context.fileManager.outputURL.appendingPathComponent("junit.xml").path, 0)
+
         if !isSierra {
             XCTAssertFileSizeGreaterThan(result.context.logFile.url.path, 0)
         }
@@ -49,7 +51,6 @@ class RunTestsCommandTests: XCTestCase {
         ["SampleTests", "SampleUITests"].forEach { (target) in
             result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
                 let url = result.context.fileManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: target)
-                XCTAssertFileSizeGreaterThan(url.appendingPathComponent("junit.xml").path, 0)
                 XCTAssertFileSizeGreaterThan(url.appendingPathComponent("Sample.log").path, 0)
                 XCTAssertFileSizeGreaterThan(url.appendingPathComponent("test.log").path, 0)
             }
@@ -68,6 +69,8 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertEqual(result.failureCount, 0)
         XCTAssertNil(result.testErrors)
 
+        XCTAssertFileSizeGreaterThan(result.context.fileManager.outputURL.appendingPathComponent("junit.xml").path, 0)
+
         if !isSierra {
             XCTAssertFileSizeGreaterThan(result.context.logFile.url.path, 0)
         }
@@ -75,7 +78,6 @@ class RunTestsCommandTests: XCTestCase {
         ["SampleTests", "SampleUITests"].forEach { (target) in
             result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
                 let url = result.context.fileManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: target)
-                XCTAssertFileSizeGreaterThan(url.appendingPathComponent("junit.xml").path, 0)
                 XCTAssertFileSizeGreaterThan(url.appendingPathComponent("Sample.log").path, 0)
                 XCTAssertFileSizeGreaterThan(url.appendingPathComponent("test.log").path, 0)
             }
@@ -93,13 +95,14 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertEqual(result.failureCount, 0)
         XCTAssertNil(result.testErrors)
 
+        XCTAssertFileSizeGreaterThan(result.context.fileManager.outputURL.appendingPathComponent("junit.xml").path, 0)
+
         if !isSierra {
             XCTAssertFileSizeGreaterThan(result.context.logFile.url.path, 0)
         }
 
         result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
             let url = result.context.fileManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: "SuccessfulTests")
-            XCTAssertFileSizeGreaterThan(url.appendingPathComponent("junit.xml").path, 0)
             XCTAssertFileSizeGreaterThan(url.appendingPathComponent("Sample.log").path, 0)
             XCTAssertFileSizeGreaterThan(url.appendingPathComponent("test.log").path, 0)
         }
@@ -114,6 +117,8 @@ class RunTestsCommandTests: XCTestCase {
         XCTAssertEqual(result.failureCount, 4)
         XCTAssertNil(result.testErrors)
 
+        XCTAssertFileSizeGreaterThan(result.context.fileManager.outputURL.appendingPathComponent("junit.xml").path, 0)
+
         if !isSierra {
             XCTAssertFileSizeGreaterThan(result.context.logFile.url.path, 0)
         }
@@ -121,7 +126,6 @@ class RunTestsCommandTests: XCTestCase {
         ["SampleTests", "SampleUITests", "SuccessfulTests"].forEach { (target) in
             result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
                 let url = result.context.fileManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: target)
-                XCTAssertFileSizeGreaterThan(url.appendingPathComponent("junit.xml").path, 0)
                 XCTAssertFileSizeGreaterThan(url.appendingPathComponent("Sample.log").path, 0)
                 XCTAssertFileSizeGreaterThan(url.appendingPathComponent("test.log").path, 0)
             }
@@ -218,9 +222,10 @@ extension RunTestsCommand.Context {
             defaults: [:],
             deviceSet: temporaryDirectory.appendingPathComponent("simulators"),
             environment: ["PXCTEST_CHILD_FOO": "BAR"],
-            fileManager: RunTestsFileManager(url: temporaryDirectory.appendingPathComponent("output")),
+            fileManager: try RunTestsFileManager(outputURL: temporaryDirectory.appendingPathComponent("output"), testRunURL: testRun),
             locale: Locale.current,
             logFile: try SimulatorLogFile(url: temporaryDirectory.appendingPathComponent("simulator.log")),
+            partitions: 1,
             reporterType: reporterType,
             simulatorConfigurations: fixtures.simulatorConfigurations,
             simulatorOptions: fixtures.simulatorOptions,

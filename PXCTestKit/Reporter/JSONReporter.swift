@@ -9,20 +9,18 @@
 import FBSimulatorControl
 import Foundation
 
-final class JSONReporter: NSObject, FBTestManagerTestReporter, ConsoleReporter {
+final class JSONReporter: TestReporter, ConsoleReporter {
 
     let consoleOutput: ConsoleOutput
-    let simulatorIdentifier: String
-    var summary: FBTestManagerResultSummary? = nil
-    let testTargetName: String
+    var summary: FBTestManagerResultSummary? {
+        return testSuite?.summary
+    }
 
     private var exceptions: [String: [[String: String]]] = [:]
 
     init(simulatorIdentifier: String, testTargetName: String, consoleOutput: ConsoleOutput) {
         self.consoleOutput = consoleOutput
-        self.simulatorIdentifier = simulatorIdentifier
-        self.testTargetName = testTargetName
-        super.init()
+        super.init(simulatorIdentifier: simulatorIdentifier, testTargetName: testTargetName)
     }
 
     // MARK: - Private
@@ -124,40 +122,50 @@ final class JSONReporter: NSObject, FBTestManagerTestReporter, ConsoleReporter {
         return "\(testClass)-\(testMethod)"
     }
 
-    func testManagerMediatorDidBeginExecutingTestPlan(_ mediator: FBTestManagerAPIMediator!) {
+    override func didBeginExecutingTestPlan() {
+        super.didBeginExecutingTestPlan()
+
         write(event: .begin(testTargetName, simulatorIdentifier))
     }
 
-    func testManagerMediator(_ mediator: FBTestManagerAPIMediator!, testSuite: String!, didStartAt startTime: String!) {
+    override func testSuiteDidStart(testSuite: String, startTime: String) {
+        super.testSuiteDidStart(testSuite: testSuite, startTime: startTime)
+
         write(event: .testSuiteBegin(testTargetName, simulatorIdentifier, testSuite))
     }
 
-    func testManagerMediator(_ mediator: FBTestManagerAPIMediator!, testCaseDidFinishForTestClass testClass: String!, method: String!, with status: FBTestReportStatus, duration: TimeInterval) {
+    override func testCaseDidFinish(testClass: String, method: String, status: FBTestReportStatus, duration: TimeInterval) {
+        super.testCaseDidFinish(testClass: testClass, method: method, status: status, duration: duration)
+
         write(event: .testCaseFinish(testTargetName, simulatorIdentifier, testClass, method, status, duration, exceptions[key(testClass, method)]))
     }
 
-    func testManagerMediator(_ mediator: FBTestManagerAPIMediator!, testCaseDidFailForTestClass testClass: String!, method: String!, withMessage message: String!, file: String!, line: UInt) {
+    override func testCaseDidFail(testClass: String, method: String, message: String, file: String!, line: UInt) {
+        super.testCaseDidFail(testClass: testClass, method: method, message: message, file: file, line: line)
+
         exceptions[key(testClass, method)]?.append([
             "lineNumber": "\(line)",
             "filePathInProject": file,
             "reason": message,
-        ])
+            ])
     }
 
-    func testManagerMediator(_ mediator: FBTestManagerAPIMediator!, testCaseDidStartForTestClass testClass: String!, method: String!) {
+    override func testCaseDidStart(testClass: String, method: String) {
+        super.testCaseDidStart(testClass: testClass, method: method)
+
         write(event: .testCaseBegin(testTargetName, simulatorIdentifier, testClass, method))
         exceptions[key(testClass, method)] = []
     }
 
-    func testManagerMediator(_ mediator: FBTestManagerAPIMediator!, testBundleReadyWithProtocolVersion protocolVersion: Int, minimumVersion: Int) {
-    }
+    override func testSuiteDidFinish(summary: FBTestManagerResultSummary) {
+        super.testSuiteDidFinish(summary: summary)
 
-    func testManagerMediator(_ mediator: FBTestManagerAPIMediator!, finishedWith summary: FBTestManagerResultSummary!) {
-        self.summary = summary
         write(event: .testSuiteFinish(testTargetName, simulatorIdentifier, summary))
     }
 
-    func testManagerMediatorDidFinishExecutingTestPlan(_ mediator: FBTestManagerAPIMediator!) {
+    override func didFinishExecutingTestPlan() {
+        super.didFinishExecutingTestPlan()
+
         write(event: .end(testTargetName, simulatorIdentifier, true)) // FIXME
     }
 

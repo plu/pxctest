@@ -9,7 +9,7 @@
 import FBSimulatorControl
 import Foundation
 
-protocol ConsoleReporter: FBTestManagerTestReporter {
+protocol ConsoleReporter: TestReporterInterface {
 
     var consoleOutput: ConsoleOutput { get }
     var simulatorIdentifier: String { get }
