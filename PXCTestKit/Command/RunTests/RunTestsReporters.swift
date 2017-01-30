@@ -51,16 +51,12 @@ final class RunTestsReporters {
     }
 
     private func writeJUnitReport() throws {
-        var testSuites: [FBTestManagerTestReporterTestSuite] = []
+        var testSuiteElements: [XMLElement] = []
         for testReporter in testReporters {
-            guard let testReporterTestSuite = testReporter.testSuite else { continue }
-            let targetTestSuite = FBTestManagerTestReporterTestSuite.withName(testReporter.testTargetName, startTime: "\(Date())")
-            let simulatorTestSuite = FBTestManagerTestReporterTestSuite.withName(testReporter.simulatorIdentifier, startTime: "\(Date())")
-            testSuites.append(targetTestSuite)
-            targetTestSuite.addTestSuite(simulatorTestSuite)
-            simulatorTestSuite.addTestSuite(testReporterTestSuite)
+            guard let testSuite = testReporter.testSuite else { continue }
+            testSuiteElements.append(FBTestManagerJUnitGenerator.element(for: testSuite, packagePrefix: testReporter.simulatorIdentifier))
         }
-        let document = FBTestManagerJUnitGenerator.document(for: testSuites)
+        let document = FBTestManagerJUnitGenerator.document(forTestSuiteElements: testSuiteElements)
         try document.xmlData(withOptions: 0).write(to: fileManager.outputURL.appendingPathComponent("junit.xml"))
     }
 
