@@ -62,7 +62,7 @@ final class ConsoleErrorFormatter {
         guard crashes.count > 0 else { return nil }
         var output: [String] = []
         for crash in crashes {
-            output.append("    \(crash.destination)")
+            output.append("    \(String(describing: crash.destination))")
         }
         return output.joined(separator: "\n")
     }
