@@ -10,7 +10,7 @@ import Foundation
 
 final class RunTestsNotification: NSObject, NSUserNotificationCenterDelegate {
 
-    private let notificationSender: NotificationSender
+    private var notificationSender: NotificationSender
     private let title = "pxctest"
 
     required init(notificationSender: NotificationSender = NSUserNotificationCenter.default) {
