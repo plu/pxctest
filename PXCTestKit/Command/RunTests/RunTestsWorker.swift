@@ -38,8 +38,9 @@ final class RunTestsWorker {
     }
 
     func extractDiagnostics(fileManager: RunTestsFileManager) throws {
+        let launchedProcessLogs = simulator.simulatorDiagnostics.launchedProcessLogs()
         for application in applications {
-            guard let diagnostics = simulator.simulatorDiagnostics.launchedProcessLogs().first(where: { $0.0.processName == application.name })?.value else { continue }
+            guard let diagnostics = launchedProcessLogs.first(where: { $0.0.processName == application.name })?.value else { continue }
             let destinationPath = fileManager.urlFor(worker: self).path
             try diagnostics.writeOut(toDirectory: destinationPath)
         }
