@@ -14,6 +14,7 @@ final class RunTestsCommand: Command {
     enum RuntimeError: Error {
         case testRunHadFailures(Int)
         case testRunHadErrors([RunTestsError])
+        case testRunEmpty
     }
 
     private let context: Context
@@ -52,11 +53,7 @@ final class RunTestsCommand: Command {
         try workers.startTests(context: RunTestsContext(context: context), reporters: reporters)
 
         let testErrors = try workers.waitForTestResult(context: TestResultContext(context: context))
-        if testErrors.count > 0 {
-            throw RuntimeError.testRunHadErrors(testErrors)
-        }
-
-        try reporters.finishReporting(consoleOutput: context.consoleOutput)
+        try reporters.finishReporting(testErrors: testErrors, consoleOutput: context.consoleOutput)
     }
 
 }

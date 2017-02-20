@@ -34,10 +34,19 @@ final class RunTestsReporters {
         return TestReporterAdapter(reporters: [consoleReporter, testReporter])
     }
 
-    func finishReporting(consoleOutput: ConsoleOutput) throws {
+    func finishReporting(testErrors: [RunTestsError], consoleOutput: ConsoleOutput) throws {
+        if testErrors.count > 0 {
+            throw RunTestsCommand.RuntimeError.testRunHadErrors(testErrors)
+        }
+
         try writeRuntimeCache() // FIXME: Error handling
         try writeJUnitReport()  // FIXME: Error handling
         try reporterType.finishReporting(consoleOutput: consoleOutput, reporters: consoleReporters)
+
+        let runCount = testReporters.reduce(0) { $0 + ($1.testSuite?.summary?.runCount ?? 0) }
+        if runCount == 0 {
+            throw RunTestsCommand.RuntimeError.testRunEmpty
+        }
     }
 
     // MARK: - Private
@@ -54,6 +63,7 @@ final class RunTestsReporters {
             guard let testSuite = testReporter.testSuite else { continue }
             testSuiteElements.append(FBTestManagerJUnitGenerator.element(for: testSuite, packagePrefix: testReporter.simulatorIdentifier))
         }
+        guard testSuiteElements.count > 0 else { return }
         let document = FBTestManagerJUnitGenerator.document(forTestSuiteElements: testSuiteElements)
         try document.xmlData(withOptions: 0).write(to: fileManager.outputURL.appendingPathComponent("junit.xml"))
     }

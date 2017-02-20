@@ -128,6 +128,18 @@ class RunTestsCommandTests: XCTestCase {
         }
     }
 
+    func testSampleAppTestRunOnlyOneTargetWithEmptyTestsToRun() throws {
+        var testsToRun = Dictionary<String, Set<String>>()
+        testsToRun["DoesntExist"] = Set()
+        let result = try runTests(testRun: fixtures.sampleAppTestRun, testsToRun: testsToRun)
+
+        XCTAssertEqualRSpecOutput(result.errorOutput, "Test run was empty, no tests were executed\n")
+        XCTAssertEqualRSpecOutput(result.standardOutput, fixtures.testSampleAppTestRunOnlyOneTargetWithEmptyTestsToRun)
+
+        XCTAssertEqual(result.failureCount, 0)
+        XCTAssertNil(result.testErrors)
+    }
+
     // MARK: - Crash.app
 
     func testCrashAppTestRun() throws {
@@ -203,6 +215,8 @@ extension RunTestsCommandTests {
             case RunTestsCommand.RuntimeError.testRunHadErrors(let errors):
                 context.consoleOutput.write(error: error)
                 testErrors = errors
+            case RunTestsCommand.RuntimeError.testRunEmpty:
+                context.consoleOutput.write(error: error)
             default:
                 throw error
             }

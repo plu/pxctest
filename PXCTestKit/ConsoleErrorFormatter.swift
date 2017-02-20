@@ -28,6 +28,8 @@ final class ConsoleErrorFormatter {
             return "\(format(testErrors: errors))\n\(ANSI.red)Test run had \(errors.count) errors\(ANSI.reset)"
         case .testRunHadFailures(let count):
             return "\(ANSI.red)Test run had \(count) failures\(ANSI.reset)"
+        case .testRunEmpty:
+            return "\(ANSI.red)Test run was empty, no tests were executed\(ANSI.reset)"
         }
     }
 

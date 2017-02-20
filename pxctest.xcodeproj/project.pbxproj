@@ -27,6 +27,7 @@
 		0527C59C1E27AA0F007AC09C /* RunTestsCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0527C5981E27AA0F007AC09C /* RunTestsCommandTests.swift */; };
 		0527C59D1E27AA0F007AC09C /* RunTestsNotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0527C5991E27AA0F007AC09C /* RunTestsNotificationTests.swift */; };
 		0527C59E1E27AA0F007AC09C /* RunTestsFileManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0527C59A1E27AA0F007AC09C /* RunTestsFileManagerTests.swift */; };
+		0537D9E21E5AF50200F755B4 /* testSampleAppTestRunOnlyOneTargetWithEmptyTestsToRun.expected_output in Resources */ = {isa = PBXBuildFile; fileRef = 0537D9E11E5AF50200F755B4 /* testSampleAppTestRunOnlyOneTargetWithEmptyTestsToRun.expected_output */; };
 		0541E15D1DE5A02C00D65F16 /* RSpecReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0541E15C1DE5A02C00D65F16 /* RSpecReporter.swift */; };
 		05564E111DF65BE500DC995C /* FBSimulatorInteraction+PXCTestKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05564E101DF65BE500DC995C /* FBSimulatorInteraction+PXCTestKit.swift */; };
 		058FD55A1DEAC8490066CE4B /* testSampleAppTestRunOnlyFailingTests.expected_output in Resources */ = {isa = PBXBuildFile; fileRef = 058FD5591DEAC8490066CE4B /* testSampleAppTestRunOnlyFailingTests.expected_output */; };
@@ -240,6 +241,7 @@
 		0527C5991E27AA0F007AC09C /* RunTestsNotificationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTestsNotificationTests.swift; sourceTree = "<group>"; };
 		0527C59A1E27AA0F007AC09C /* RunTestsFileManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTestsFileManagerTests.swift; sourceTree = "<group>"; };
 		053634A11DE7E0F400F7BDB8 /* PXCTestKit.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PXCTestKit.xcconfig; sourceTree = "<group>"; };
+		0537D9E11E5AF50200F755B4 /* testSampleAppTestRunOnlyOneTargetWithEmptyTestsToRun.expected_output */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testSampleAppTestRunOnlyOneTargetWithEmptyTestsToRun.expected_output; sourceTree = "<group>"; };
 		0541E15C1DE5A02C00D65F16 /* RSpecReporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSpecReporter.swift; sourceTree = "<group>"; };
 		0554B6B71E07923500299699 /* PXCTestKitTests.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PXCTestKitTests.xcconfig; sourceTree = "<group>"; };
 		0554B6B91E07925B00299699 /* pxctest-list-tests.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "pxctest-list-tests.xcconfig"; sourceTree = "<group>"; };
@@ -583,6 +585,7 @@
 				05BE2F901E067EFC0097B23D /* testListSampleAppTests.expected_output */,
 				058FD5591DEAC8490066CE4B /* testSampleAppTestRunOnlyFailingTests.expected_output */,
 				05B6EC0C1DEEF90B008CBBEE /* testSampleAppTestRunOnlyOneTarget.expected_output */,
+				0537D9E11E5AF50200F755B4 /* testSampleAppTestRunOnlyOneTargetWithEmptyTestsToRun.expected_output */,
 				058FD55B1DEAD7350066CE4B /* testSampleAppTestRunOnlySuccessfulTests.expected_output */,
 				05B6EC1E1DEEFBD0008CBBEE /* testSampleAppTestRunRunWithAllTargetsAndJSONReporter.expected_output */,
 				059CF2381E3A043600FFCE30 /* runtime.json */,
@@ -919,6 +922,7 @@
 				050760011E26004E0044D0FF /* Sample_iphonesimulator10.2-x86_64.xctestrun in Resources */,
 				058FD55C1DEAD7350066CE4B /* testSampleAppTestRunOnlySuccessfulTests.expected_output in Resources */,
 				05BC2B2C1DEAB9EB00ED3F58 /* build.sh in Resources */,
+				0537D9E21E5AF50200F755B4 /* testSampleAppTestRunOnlyOneTargetWithEmptyTestsToRun.expected_output in Resources */,
 				058FD55A1DEAC8490066CE4B /* testSampleAppTestRunOnlyFailingTests.expected_output in Resources */,
 				05BC2B4F1DEABC5A00ED3F58 /* Sample.app in Resources */,
 			);
