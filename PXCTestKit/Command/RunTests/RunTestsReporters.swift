@@ -26,14 +26,12 @@ final class RunTestsReporters {
     func addReporter(for simulator: FBSimulator, name: String, testTargetName: String) throws -> FBTestManagerTestReporter {
         // `name` might be equal to `testTargetName`, unless tests are partitioned, then `name` is something like "testTargetName/partition-n"
         let consoleReporter = reporterType.init(simulatorIdentifier: simulator.identifier, testTargetName: name, consoleOutput: consoleOutput)
-        let xcodeReportURL = fileManager.urlFor(simulatorConfiguration: simulator.configuration!, target: name).appendingPathComponent("test.log")
-        let xcodeReporter = try XcodeReporter(simulatorIdentifier: simulator.identifier, testTargetName: name, fileURL: xcodeReportURL)
         let testReporter = TestReporter(simulatorIdentifier: simulator.identifier, testTargetName: name)
 
         consoleReporters.append(consoleReporter)
         testReporters.append(testReporter)
 
-        return TestReporterAdapter(reporters: [consoleReporter, testReporter, xcodeReporter])
+        return TestReporterAdapter(reporters: [consoleReporter, testReporter])
     }
 
     func finishReporting(consoleOutput: ConsoleOutput) throws {

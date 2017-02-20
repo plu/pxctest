@@ -22,6 +22,10 @@ final class Fixtures {
         return bundle.url(forResource: "runtime", withExtension: "json")!
     }
 
+    var textFilePath: String {
+        return bundle.path(forResource: "something", ofType: "txt")!
+    }
+
     // MARK: - Sample.app
 
     var sampleAppTestRun: URL {

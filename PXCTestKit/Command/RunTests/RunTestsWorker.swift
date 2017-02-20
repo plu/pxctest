@@ -37,13 +37,23 @@ final class RunTestsWorker {
         }
     }
 
-    func extractDiagnostics(fileManager: RunTestsFileManager) throws {
-        let launchedProcessLogs = simulator.simulatorDiagnostics.launchedProcessLogs()
-        for application in applications {
-            guard let diagnostics = launchedProcessLogs.first(where: { $0.0.processName == application.name })?.value else { continue }
-            let destinationPath = fileManager.urlFor(worker: self).path
-            try diagnostics.writeOut(toDirectory: destinationPath)
+    func cleanUpLogFiles(fileManager: RunTestsFileManager) throws {
+        let logFilesPath = fileManager.urlFor(worker: self).path
+        for logFilePath in FBFileFinder.contentsOfDirectory(withBasePath: logFilesPath) {
+            let temporaryFilePath = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString).path
+            guard
+                let reader = FileReader(path: logFilePath),
+                let writer = FileWriter(path: temporaryFilePath)
+            else { continue }
+            for line in reader {
+                writer.write(string: line.replacingOccurrences(of: "XCTestOutputBarrier", with: ""))
+            }
+            try FileManager.default.removeItem(atPath: logFilePath)
+            try FileManager.default.moveItem(atPath: temporaryFilePath, toPath: logFilePath)
         }
+    }
+
+    func extractDiagnostics(fileManager: RunTestsFileManager) throws {
         for error in errors {
             for crash in error.crashes {
                 let destinationPath = fileManager.urlFor(worker: self).path
@@ -53,16 +63,25 @@ final class RunTestsWorker {
     }
 
     func startTests(context: RunTestsContext, reporters: RunTestsReporters) throws {
+        let workingDirectoryURL = context.fileManager.urlFor(worker: self)
         let testsToRun = context.testsToRun[name] ?? Set<String>()
         let testEnvironment = Environment.injectPrefixedVariables(
             from: context.environment,
             into: testLaunchConfiguration.testEnvironment,
-            workingDirectoryURL: context.fileManager.urlFor(worker: self)
+            workingDirectoryURL: workingDirectoryURL
         )
+
+        let bundleName = self.testLaunchConfiguration.applicationLaunchConfiguration!.bundleName!
+        let outputPath = workingDirectoryURL.appendingPathComponent("\(bundleName).log").path
+
+        let applicationLaunchConfiguration = self.testLaunchConfiguration
+            .applicationLaunchConfiguration!
+            .withOutput(try FBProcessOutputConfiguration(stdOut: outputPath, stdErr: outputPath))
 
         let testLaunchConfigurartion = self.testLaunchConfiguration
             .withTestsToRun(self.testLaunchConfiguration.testsToRun.union(testsToRun))
             .withTestEnvironment(testEnvironment)
+            .withApplicationLaunchConfiguration(applicationLaunchConfiguration)
 
         let reporter = try reporters.addReporter(for: simulator, name: name, testTargetName: targetName)
 
@@ -133,6 +152,10 @@ extension Sequence where Iterator.Element == RunTestsWorker {
 
         for worker in self {
             try worker.extractDiagnostics(fileManager: context.fileManager)
+        }
+
+        for worker in self {
+            try worker.cleanUpLogFiles(fileManager: context.fileManager)
         }
 
         return flatMap { $0.errors }

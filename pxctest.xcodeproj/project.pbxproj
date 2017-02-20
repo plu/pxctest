@@ -10,6 +10,10 @@
 		050207091DED8BFC00AB14FB /* ReporterOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050207081DED8BFC00AB14FB /* ReporterOption.swift */; };
 		050278241E35BB7F00692D96 /* RunTestsPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050278231E35BB7F00692D96 /* RunTestsPool.swift */; };
 		050278341E35D21C00692D96 /* ArrayExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050278331E35D21C00692D96 /* ArrayExtensionTests.swift */; };
+		05056C881E5A87E4006B80F9 /* FileReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05056C871E5A87E4006B80F9 /* FileReader.swift */; };
+		05056C8D1E5A8AAC006B80F9 /* FileWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05056C8C1E5A8AAC006B80F9 /* FileWriter.swift */; };
+		05056C951E5A8D3C006B80F9 /* FileReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05056C941E5A8D3C006B80F9 /* FileReaderTests.swift */; };
+		05056C971E5A8EBA006B80F9 /* something.txt in Resources */ = {isa = PBXBuildFile; fileRef = 05056C961E5A8EBA006B80F9 /* something.txt */; };
 		050760001E26004E0044D0FF /* Crash_iphonesimulator10.2-x86_64.xctestrun in Resources */ = {isa = PBXBuildFile; fileRef = 05075FFE1E26004E0044D0FF /* Crash_iphonesimulator10.2-x86_64.xctestrun */; };
 		050760011E26004E0044D0FF /* Sample_iphonesimulator10.2-x86_64.xctestrun in Resources */ = {isa = PBXBuildFile; fileRef = 05075FFF1E26004E0044D0FF /* Sample_iphonesimulator10.2-x86_64.xctestrun */; };
 		0511CB501DF3F550009B8B2F /* FBSimulator+PXCTestKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0511CB4F1DF3F550009B8B2F /* FBSimulator+PXCTestKit.swift */; };
@@ -25,7 +29,6 @@
 		0527C59E1E27AA0F007AC09C /* RunTestsFileManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0527C59A1E27AA0F007AC09C /* RunTestsFileManagerTests.swift */; };
 		0541E15D1DE5A02C00D65F16 /* RSpecReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0541E15C1DE5A02C00D65F16 /* RSpecReporter.swift */; };
 		05564E111DF65BE500DC995C /* FBSimulatorInteraction+PXCTestKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05564E101DF65BE500DC995C /* FBSimulatorInteraction+PXCTestKit.swift */; };
-		055DCD6E1DF035AE00BB6B82 /* XcodeReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055DCD6D1DF035AE00BB6B82 /* XcodeReporter.swift */; };
 		058FD55A1DEAC8490066CE4B /* testSampleAppTestRunOnlyFailingTests.expected_output in Resources */ = {isa = PBXBuildFile; fileRef = 058FD5591DEAC8490066CE4B /* testSampleAppTestRunOnlyFailingTests.expected_output */; };
 		058FD55C1DEAD7350066CE4B /* testSampleAppTestRunOnlySuccessfulTests.expected_output in Resources */ = {isa = PBXBuildFile; fileRef = 058FD55B1DEAD7350066CE4B /* testSampleAppTestRunOnlySuccessfulTests.expected_output */; };
 		0597DC181E0123F800968469 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0597DC171E0123F800968469 /* Context.swift */; };
@@ -219,6 +222,10 @@
 		050207081DED8BFC00AB14FB /* ReporterOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReporterOption.swift; sourceTree = "<group>"; };
 		050278231E35BB7F00692D96 /* RunTestsPool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTestsPool.swift; sourceTree = "<group>"; };
 		050278331E35D21C00692D96 /* ArrayExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensionTests.swift; sourceTree = "<group>"; };
+		05056C871E5A87E4006B80F9 /* FileReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileReader.swift; sourceTree = "<group>"; };
+		05056C8C1E5A8AAC006B80F9 /* FileWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileWriter.swift; sourceTree = "<group>"; };
+		05056C941E5A8D3C006B80F9 /* FileReaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileReaderTests.swift; sourceTree = "<group>"; };
+		05056C961E5A8EBA006B80F9 /* something.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = something.txt; sourceTree = "<group>"; };
 		05075FFE1E26004E0044D0FF /* Crash_iphonesimulator10.2-x86_64.xctestrun */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Crash_iphonesimulator10.2-x86_64.xctestrun"; sourceTree = "<group>"; };
 		05075FFF1E26004E0044D0FF /* Sample_iphonesimulator10.2-x86_64.xctestrun */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Sample_iphonesimulator10.2-x86_64.xctestrun"; sourceTree = "<group>"; };
 		0511CB4F1DF3F550009B8B2F /* FBSimulator+PXCTestKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FBSimulator+PXCTestKit.swift"; sourceTree = "<group>"; };
@@ -237,7 +244,6 @@
 		0554B6B71E07923500299699 /* PXCTestKitTests.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PXCTestKitTests.xcconfig; sourceTree = "<group>"; };
 		0554B6B91E07925B00299699 /* pxctest-list-tests.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "pxctest-list-tests.xcconfig"; sourceTree = "<group>"; };
 		05564E101DF65BE500DC995C /* FBSimulatorInteraction+PXCTestKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FBSimulatorInteraction+PXCTestKit.swift"; sourceTree = "<group>"; };
-		055DCD6D1DF035AE00BB6B82 /* XcodeReporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XcodeReporter.swift; sourceTree = "<group>"; };
 		058FD5501DEAC82D0066CE4B /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		058FD5511DEAC82D0066CE4B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		058FD5591DEAC8490066CE4B /* testSampleAppTestRunOnlyFailingTests.expected_output */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testSampleAppTestRunOnlyFailingTests.expected_output; sourceTree = "<group>"; };
@@ -432,7 +438,6 @@
 				05E1E3401E3DB140004F67B8 /* TestReporter.swift */,
 				05E1E35B1E3DCC34004F67B8 /* TestReporterAdapter.swift */,
 				05E1E3661E3DCD52004F67B8 /* TestReporterInterface.swift */,
-				055DCD6D1DF035AE00BB6B82 /* XcodeReporter.swift */,
 			);
 			path = Reporter;
 			sourceTree = "<group>";
@@ -482,6 +487,8 @@
 				3E4CA70D1DFBCA90005216A3 /* ConsoleErrorFormatter.swift */,
 				3E4CA70E1DFBCA90005216A3 /* ConsoleOutput.swift */,
 				05B2CA341DEBE94F00795F07 /* Environment.swift */,
+				05056C871E5A87E4006B80F9 /* FileReader.swift */,
+				05056C8C1E5A8AAC006B80F9 /* FileWriter.swift */,
 				05F650C01E2B84B8007330D4 /* ListTestsShim.swift */,
 				3EBFCB161E14D2A6007C22C4 /* NotificationSender.swift */,
 				3E4CA7091DFBCA5B005216A3 /* SignalHandler.swift */,
@@ -503,6 +510,7 @@
 				05BABCA11DE56E390012BC5B /* Info.plist */,
 				3E9D461E1DFA507F006DDB10 /* ConsoleOutputTests.swift */,
 				05B2CA361DEBEA1F00795F07 /* EnvironmentTests.swift */,
+				05056C941E5A8D3C006B80F9 /* FileReaderTests.swift */,
 				3E3512D11E2A0DA800EC47FE /* SimulatorLogFileTests.swift */,
 				0554B6B71E07923500299699 /* PXCTestKitTests.xcconfig */,
 				0527C52F1E27A9B0007AC09C /* Command */,
@@ -579,6 +587,7 @@
 				05B6EC1E1DEEFBD0008CBBEE /* testSampleAppTestRunRunWithAllTargetsAndJSONReporter.expected_output */,
 				059CF2381E3A043600FFCE30 /* runtime.json */,
 				05BC2B121DEAB9EB00ED3F58 /* build.sh */,
+				05056C961E5A8EBA006B80F9 /* something.txt */,
 				05075FFE1E26004E0044D0FF /* Crash_iphonesimulator10.2-x86_64.xctestrun */,
 				05075FFF1E26004E0044D0FF /* Sample_iphonesimulator10.2-x86_64.xctestrun */,
 			);
@@ -905,6 +914,7 @@
 				05BE2F911E067EFC0097B23D /* testListSampleAppTests.expected_output in Resources */,
 				3EFC1B9F1DF26FEF0011E88B /* Crash.app in Resources */,
 				059CF2391E3A043600FFCE30 /* runtime.json in Resources */,
+				05056C971E5A8EBA006B80F9 /* something.txt in Resources */,
 				05BC2B501DEABC5A00ED3F58 /* SampleUITests-Runner.app in Resources */,
 				050760011E26004E0044D0FF /* Sample_iphonesimulator10.2-x86_64.xctestrun in Resources */,
 				058FD55C1DEAD7350066CE4B /* testSampleAppTestRunOnlySuccessfulTests.expected_output in Resources */,
@@ -977,6 +987,8 @@
 				05E1E3411E3DB140004F67B8 /* TestReporter.swift in Sources */,
 				3EBFCB131E14C7D2007C22C4 /* RunTestsReporters.swift in Sources */,
 				059CF22C1E39F7E200FFCE30 /* RunTestsPartition.swift in Sources */,
+				05056C881E5A87E4006B80F9 /* FileReader.swift in Sources */,
+				05056C8D1E5A8AAC006B80F9 /* FileWriter.swift in Sources */,
 				0541E15D1DE5A02C00D65F16 /* RSpecReporter.swift in Sources */,
 				05E1E3671E3DCD52004F67B8 /* TestReporterInterface.swift in Sources */,
 				05564E111DF65BE500DC995C /* FBSimulatorInteraction+PXCTestKit.swift in Sources */,
@@ -1012,7 +1024,6 @@
 				050278241E35BB7F00692D96 /* RunTestsPool.swift in Sources */,
 				3EBFCB0F1E14C739007C22C4 /* RunTestsWorker.swift in Sources */,
 				05E1B2FB1DE6F62A00C38DB1 /* Locale.swift in Sources */,
-				055DCD6E1DF035AE00BB6B82 /* XcodeReporter.swift in Sources */,
 				3E4CA6EF1DFBBA22005216A3 /* Int+PXCTestKit.swift in Sources */,
 				05E3DE761DED58ED005A1459 /* JSONReporter.swift in Sources */,
 				3E3512D41E2A122500EC47FE /* SimulatorOptions.swift in Sources */,
@@ -1029,6 +1040,7 @@
 				05B2CA371DEBEA1F00795F07 /* EnvironmentTests.swift in Sources */,
 				0527C59C1E27AA0F007AC09C /* RunTestsCommandTests.swift in Sources */,
 				3E9D461F1DFA507F006DDB10 /* ConsoleOutputTests.swift in Sources */,
+				05056C951E5A8D3C006B80F9 /* FileReaderTests.swift in Sources */,
 				059CF2371E3A03CA00FFCE30 /* RunTestsPartitionTests.swift in Sources */,
 				0527C5331E27A9B0007AC09C /* DestinationOptionTests.swift in Sources */,
 				0527C5341E27A9B0007AC09C /* OnlyOptionTests.swift in Sources */,

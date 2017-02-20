@@ -51,8 +51,7 @@ class RunTestsCommandTests: XCTestCase {
         ["SampleTests", "SampleUITests"].forEach { (target) in
             result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
                 let url = result.context.fileManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: target)
-                XCTAssertFileSizeGreaterThan(url.appendingPathComponent("Sample.log").path, 0)
-                XCTAssertFileSizeGreaterThan(url.appendingPathComponent("test.log").path, 0)
+                XCTAssertFileSizeGreaterThan(url.appendingPathComponent(logFileName(for: target)).path, 0)
             }
         }
     }
@@ -78,8 +77,7 @@ class RunTestsCommandTests: XCTestCase {
         ["SampleTests", "SampleUITests"].forEach { (target) in
             result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
                 let url = result.context.fileManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: target)
-                XCTAssertFileSizeGreaterThan(url.appendingPathComponent("Sample.log").path, 0)
-                XCTAssertFileSizeGreaterThan(url.appendingPathComponent("test.log").path, 0)
+                XCTAssertFileSizeGreaterThan(url.appendingPathComponent(logFileName(for: target)).path, 0)
             }
         }
     }
@@ -104,7 +102,6 @@ class RunTestsCommandTests: XCTestCase {
         result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
             let url = result.context.fileManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: "SuccessfulTests")
             XCTAssertFileSizeGreaterThan(url.appendingPathComponent("Sample.log").path, 0)
-            XCTAssertFileSizeGreaterThan(url.appendingPathComponent("test.log").path, 0)
         }
     }
 
@@ -126,8 +123,7 @@ class RunTestsCommandTests: XCTestCase {
         ["SampleTests", "SampleUITests", "SuccessfulTests"].forEach { (target) in
             result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
                 let url = result.context.fileManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: target)
-                XCTAssertFileSizeGreaterThan(url.appendingPathComponent("Sample.log").path, 0)
-                XCTAssertFileSizeGreaterThan(url.appendingPathComponent("test.log").path, 0)
+                XCTAssertFileSizeGreaterThan(url.appendingPathComponent(logFileName(for: target)).path, 0)
             }
         }
     }
@@ -149,8 +145,19 @@ class RunTestsCommandTests: XCTestCase {
         result.context.simulatorConfigurations.forEach { (simulatorConfiguration) in
             let url = result.context.fileManager.urlFor(simulatorConfiguration: simulatorConfiguration, target: "CrashTests")
             XCTAssertFileSizeGreaterThan(url.appendingPathComponent("Crash.log").path, 0)
-            XCTAssertFileSizeGreaterThan(url.appendingPathComponent("test.log").path, 0)
             XCTAssertDirectoryContainsFileThatHasSuffix(url.path, ".crash")
+        }
+    }
+
+    // MARK: -
+
+    func logFileName(for target: String) -> String {
+        switch target {
+        case "SampleTests": return "Sample.log"
+        case "SuccessfulTests": return "Sample.log"
+        case "SampleUITests": return "SampleUITests-Runner.log"
+        default:
+            preconditionFailure("Unsupported target: \(target)")
         }
     }
 
