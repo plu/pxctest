@@ -74,7 +74,7 @@ final class RunTestsPool {
         let environment = Environment.injectLibrary(atPath: listTestsShimPath, into: target.testLaunchConfiguration.testEnvironment)
         let testLaunchConfiguration = target.testLaunchConfiguration
             .withTestEnvironment(environment)
-            .withTestsToRun(target.testLaunchConfiguration.testsToRun.union(testsToRun))
+            .withTestsToRun(testsToRun.union(target.testLaunchConfiguration.testsToRun ?? Set<String>()))
         let reporter = TestReporter(simulatorIdentifier: simulator.identifier, testTargetName: target.name)
         try simulator.install(applications: target.applications)
         try simulator.interact

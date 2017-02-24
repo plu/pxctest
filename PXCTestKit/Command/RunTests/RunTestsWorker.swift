@@ -79,7 +79,7 @@ final class RunTestsWorker {
             .withOutput(try FBProcessOutputConfiguration(stdOut: outputPath, stdErr: outputPath))
 
         let testLaunchConfigurartion = self.testLaunchConfiguration
-            .withTestsToRun(self.testLaunchConfiguration.testsToRun.union(testsToRun))
+            .withTestsToRun(testsToRun.union(self.testLaunchConfiguration.testsToRun ?? Set<String>()))
             .withTestEnvironment(testEnvironment)
             .withApplicationLaunchConfiguration(applicationLaunchConfiguration)
 
