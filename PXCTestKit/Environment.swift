@@ -22,6 +22,8 @@ final class Environment {
             result[key.replacingOccurrences(of: prefix, with: "")] = value
         }
         ["IMAGE_DIFF_DIR", "KIF_SCREENSHOTS"].forEach { result[$0] = workingDirectoryURL.path }
+        result["LLVM_PROFILE_FILE"] = workingDirectoryURL.appendingPathComponent("test-coverage.%p.profraw").path
+        result["__XPC_LLVM_PROFILE_FILE"] = workingDirectoryURL.appendingPathComponent("test-coverage.%p.profraw").path
         return result
     }
 
