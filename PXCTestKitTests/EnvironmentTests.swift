@@ -19,7 +19,14 @@ class EnvironmentTests: XCTestCase {
             into: environment,
             workingDirectoryURL: URL(fileURLWithPath: "/tmp")
         )
-        XCTAssertEqual(result, ["FOO": "BAR", "BLA": "FASEL", "IMAGE_DIFF_DIR": "/tmp", "KIF_SCREENSHOTS": "/tmp"])
+        XCTAssertEqual(result, [
+            "FOO": "BAR",
+            "BLA": "FASEL",
+            "IMAGE_DIFF_DIR": "/tmp",
+            "KIF_SCREENSHOTS": "/tmp",
+            "LLVM_PROFILE_FILE": "/tmp/test-coverage.%p.profraw",
+            "__XPC_LLVM_PROFILE_FILE": "/tmp/test-coverage.%p.profraw"
+        ])
     }
 
     func testInjectsLibraryAtPath() {
