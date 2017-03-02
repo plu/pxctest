@@ -16,6 +16,7 @@ final class RunTestsReporters {
     private let reporterType: ConsoleReporter.Type
     private var consoleReporters: [ConsoleReporter] = []
     private var testReporters: [TestReporter] = []
+    private var adapters: [TestReporterAdapter] = []
 
     init(context: ReporterContext) {
         consoleOutput = context.consoleOutput
@@ -27,11 +28,13 @@ final class RunTestsReporters {
         // `name` might be equal to `testTargetName`, unless tests are partitioned, then `name` is something like "testTargetName/partition-n"
         let consoleReporter = reporterType.init(simulatorIdentifier: simulator.identifier, testTargetName: name, consoleOutput: consoleOutput)
         let testReporter = TestReporter(simulatorIdentifier: simulator.identifier, testTargetName: name)
+        let adapter = TestReporterAdapter(reporters: [consoleReporter, testReporter])
 
+        adapters.append(adapter)
         consoleReporters.append(consoleReporter)
         testReporters.append(testReporter)
 
-        return TestReporterAdapter(reporters: [consoleReporter, testReporter])
+        return adapter
     }
 
     func finishReporting(testErrors: [RunTestsError], consoleOutput: ConsoleOutput) throws {

@@ -29,9 +29,9 @@ final class BootSimulatorsCommand: Command {
                 let simulator = try control.pool.allocateSimulator(with: simulatorConfiguration, options: context.simulatorOptions.allocationOptions)
                 FBControlCoreGlobalConfiguration.defaultLogger().log("\(simulator)")
                 let defaultsContext = DefaultsContext(defaults: context.defaults)
-                try simulator.interact.loadDefaults(context: defaultsContext).perform()
+                try simulator.loadDefaults(context: defaultsContext)
                 if simulator.state != .booted {
-                    try simulator.interact.boot(context: BootContext(context: context)).perform()
+                    try simulator.boot(context: BootContext(context: context))
                 }
             }
         }

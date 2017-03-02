@@ -36,17 +36,17 @@ final class ListTestsCommand: Command {
         let simulatorBootConfiguration = FBSimulatorBootConfiguration.withOptions(context.simulatorOptions.bootOptions)
 
         if simulator.state != .booted {
-            try simulator.interact.bootSimulator(simulatorBootConfiguration).perform()
+            try simulator.bootSimulator(simulatorBootConfiguration)
         }
 
         for target in testRun.targets {
             let environment = Environment.injectLibrary(atPath: listTestsShimPath, into: target.testLaunchConfiguration.testEnvironment)
             let testLaunchConfiguration = target.testLaunchConfiguration.withTestEnvironment(environment)
-            let reporter = JSONReporter(simulatorIdentifier: simulator.identifier, testTargetName: target.name, consoleOutput: context.consoleOutput)
+            let reporter = TestReporterAdapter(reporter: JSONReporter(simulatorIdentifier: simulator.identifier, testTargetName: target.name, consoleOutput: context.consoleOutput))
 
             try simulator.install(applications: target.applications)
-            try simulator.interact.startTest(with: testLaunchConfiguration, reporter: TestReporterAdapter(reporter: reporter)).perform()
-            try simulator.interact.waitUntilAllTestRunnersHaveFinishedTesting(withTimeout: context.timeout).perform()
+            try simulator.startTest(with: testLaunchConfiguration, reporter: reporter)
+            try simulator.waitUntilAllTestRunnersHaveFinishedTesting(withTimeout: context.timeout)
         }
     }
 

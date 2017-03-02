@@ -19,7 +19,7 @@ struct DestinationOption: ArgumentConvertible, CustomStringConvertible {
     }
 
     var description: String {
-        let name = simulatorConfiguration.deviceName
+        let name = simulatorConfiguration.deviceName.rawValue
         let os = simulatorConfiguration.osVersionString
         return "name=\(name),os=\(os)"
     }
@@ -74,12 +74,12 @@ struct DestinationOption: ArgumentConvertible, CustomStringConvertible {
 
             switch key.lowercased() {
             case "name":
-                device = FBControlCoreConfigurationVariants.nameToDevice()[value]
+                device = FBControlCoreConfigurationVariants.nameToDevice[FBDeviceName(rawValue: value)]
                 if device == nil {
                     throw ParsingError.invalidDevice(value)
                 }
             case "os":
-                os = FBControlCoreConfigurationVariants.nameToOSVersion()[value]
+                os = FBControlCoreConfigurationVariants.nameToOSVersion[FBOSVersionName(rawValue: value)]
                 if os == nil {
                     throw ParsingError.invalidOS(value)
                 }

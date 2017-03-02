@@ -85,7 +85,7 @@ final class RunTestsWorker {
 
         let reporter = try reporters.addReporter(for: simulator, name: name, testTargetName: targetName)
 
-        try simulator.interact.startTest(with: testLaunchConfigurartion, reporter: reporter).perform()
+        try simulator.startTest(with: testLaunchConfigurartion, reporter: reporter)
     }
 
     func waitForTestResult(timeout: TimeInterval) {
@@ -116,7 +116,7 @@ extension Sequence where Iterator.Element == RunTestsWorker {
     func boot(context: BootContext) throws {
         for worker in self {
             guard worker.simulator.state != .booted else { continue }
-            try worker.simulator.interact.boot(context: context).perform()
+            try worker.simulator.boot(context: context)
         }
     }
 
@@ -128,14 +128,14 @@ extension Sequence where Iterator.Element == RunTestsWorker {
 
     func loadDefaults(context: DefaultsContext) throws {
         for worker in self {
-            try worker.simulator.interact.loadDefaults(context: context).perform()
+            try worker.simulator.loadDefaults(context: context)
         }
     }
 
     func overrideWatchDogTimer() throws {
         for worker in self {
             let applications = worker.applications.map { $0.bundleID }
-            try worker.simulator.interact.overrideWatchDogTimer(forApplications: applications, withTimeout: 60.0).perform()
+            try worker.simulator.overrideWatchDogTimer(forApplications: applications, withTimeout: 60.0)
         }
     }
 

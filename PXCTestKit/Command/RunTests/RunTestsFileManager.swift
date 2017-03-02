@@ -35,7 +35,7 @@ final class RunTestsFileManager {
         return outputURL
             .appendingPathComponent(target)
             .appendingPathComponent(simulatorConfiguration.osVersionString)
-            .appendingPathComponent(simulatorConfiguration.deviceName)
+            .appendingPathComponent(simulatorConfiguration.deviceName.rawValue)
     }
 
     func urlFor(worker: RunTestsWorker) -> URL {

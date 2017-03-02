@@ -76,11 +76,10 @@ final class RunTestsPool {
             .withTestEnvironment(environment)
             .withTestsToRun(testsToRun.union(target.testLaunchConfiguration.testsToRun ?? Set<String>()))
         let reporter = TestReporter(simulatorIdentifier: simulator.identifier, testTargetName: target.name)
+        let adapter = TestReporterAdapter(reporter: reporter)
         try simulator.install(applications: target.applications)
-        try simulator.interact
-            .startTest(with: testLaunchConfiguration, reporter: TestReporterAdapter(reporter: reporter))
-            .waitUntilAllTestRunnersHaveFinishedTesting(withTimeout: 120.0)
-            .perform()
+        try simulator.startTest(with: testLaunchConfiguration, reporter: adapter)
+        try simulator.waitUntilAllTestRunnersHaveFinishedTesting(withTimeout: 120.0)
         return Set(reporter.runtimeRecords.map({ $0.testName })).subtracting(target.testLaunchConfiguration.testsToSkip)
     }
 
