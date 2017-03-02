@@ -87,6 +87,7 @@
 		3ECD52091E0533F700183EE4 /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECD52081E0533F700183EE4 /* JRSwizzle.m */; };
 		3EE721D81DFC080500EF99E1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE721D71DFC080500EF99E1 /* main.m */; };
 		3EFC1B9F1DF26FEF0011E88B /* Crash.app in Resources */ = {isa = PBXBuildFile; fileRef = 3EFC1B9D1DF26FEF0011E88B /* Crash.app */; };
+		83A67C0A1E6895DB00CED483 /* ShutdownSimulatorsCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A67C091E6895DB00CED483 /* ShutdownSimulatorsCommand.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -315,6 +316,7 @@
 		3EE721D41DFC080500EF99E1 /* libpxctest-list-tests.dylib */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libpxctest-list-tests.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EE721D71DFC080500EF99E1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3EFC1B9D1DF26FEF0011E88B /* Crash.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = Crash.app; sourceTree = "<group>"; };
+		83A67C091E6895DB00CED483 /* ShutdownSimulatorsCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShutdownSimulatorsCommand.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -555,6 +557,7 @@
 				3EBFCB031E14C739007C22C4 /* BootSimulators */,
 				3EBFCB051E14C739007C22C4 /* ListTests */,
 				3EBFCB071E14C739007C22C4 /* RunTests */,
+				83A67BFF1E6895AD00CED483 /* ShutdownSimulators */,
 			);
 			path = Command;
 			sourceTree = "<group>";
@@ -660,6 +663,14 @@
 				0554B6B91E07925B00299699 /* pxctest-list-tests.xcconfig */,
 			);
 			path = "pxctest-list-tests";
+			sourceTree = "<group>";
+		};
+		83A67BFF1E6895AD00CED483 /* ShutdownSimulators */ = {
+			isa = PBXGroup;
+			children = (
+				83A67C091E6895DB00CED483 /* ShutdownSimulatorsCommand.swift */,
+			);
+			name = ShutdownSimulators;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1013,6 +1024,7 @@
 				05E1E35C1E3DCC34004F67B8 /* TestReporterAdapter.swift in Sources */,
 				05E1E3231E3DA76D004F67B8 /* String+PXCTestKit.swift in Sources */,
 				3E4CA70B1DFBCA5B005216A3 /* SignalHandler.swift in Sources */,
+				83A67C0A1E6895DB00CED483 /* ShutdownSimulatorsCommand.swift in Sources */,
 				3EBFCB0D1E14C739007C22C4 /* RunTestsCommand.swift in Sources */,
 				3EBFCB0E1E14C739007C22C4 /* RunTestsError.swift in Sources */,
 				05E3DE6E1DED319D005A1459 /* Command.swift in Sources */,

@@ -185,3 +185,12 @@ extension RunTestsCommand {
     }
 
 }
+
+extension ShutdownSimulatorsCommand {
+    
+    struct Context {
+        let deviceSet: URL
+    }
+    
+}
+
