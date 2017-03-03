@@ -124,6 +124,13 @@ $ xcrun simctl --set /tmp/test-simulators list
 
 The `Booted` state here however does not mean "is ready for launching apps or running tests". After booting a device it enters the `Booted` state quickly, but still showing the loading bar above the Springboard (you can see that if you boot them via `Simulator.app` and keep watching the state that `xcrun simctl` reports).
 
+When you're finished running tests, you may wish to shut down running simulators to release their resources.
+
+```shell
+$ pxctest shutdown-simulators \
+    --deviceset /tmp/test-simulators
+```
+
 ## Development
 
 ```shell

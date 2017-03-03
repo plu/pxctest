@@ -141,6 +141,19 @@ import Foundation
                 let commit = infoDictionary["GIT_COMMIT"]!
                 print("pxctest \(version) (\(commit))")
             }
+            
+            $0.command("shutdown-simulators",
+                       Option<ExistingFileURLOption>("deviceset", ExistingFileURLOption(url: URL(fileURLWithPath: FBSimulatorControlConfiguration.defaultDeviceSetPath())), description: "Path to the Simulator device set.")
+            ) { (deviceSet) in
+                let context = ShutdownSimulatorsCommand.Context(
+                    deviceSet: deviceSet.url
+                )
+                
+                CommandLineInterface.command = ShutdownSimulatorsCommand(context: context)
+                
+                try CommandLineInterface.command?.run()
+            }
+            
         }.run()
     }
 
