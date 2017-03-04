@@ -35,11 +35,3 @@ extension FBSimulator {
     }
 
 }
-
-extension Sequence where Iterator.Element == FBApplicationDescriptor {
-
-    func contains(bundleID: String) -> Bool {
-        return filter { $0.bundleID == bundleID }.count == 1
-    }
-
-}
