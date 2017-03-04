@@ -1,5 +1,5 @@
 //
-//  RunTestsPartitionTests.swift
+//  RunTestsPartitionManagerTests.swift
 //  pxctest
 //
 //  Created by Johannes Plunien on 26/01/17.
@@ -9,11 +9,11 @@
 import XCTest
 @testable import PXCTestKit
 
-class RunTestsPartitionTests: XCTestCase {
+class RunTestsPartitionManagerTests: XCTestCase {
 
     func testSplit() {
         let tests = Set([Int](1...51).map { "TestCase/testMethod\($0)" })
-        let partition = RunTestsPartition(fileURL: fixtures.testRuntimeInput, partitions: 4, targetName: "UITests")
+        let partition = RunTestsPartitionManager(fileURL: fixtures.testRuntimeInput, partitions: 4, targetName: "UITests")
         let splitTests = partition.split(tests: tests)
 
         XCTAssertEqual(splitTests[0][0].testName, "TestCase/testMethod12")

@@ -52,8 +52,8 @@ final class RunTestsPool {
         else {
             let simulators = try (0..<context.partitions).map { _ in try pool.allocateSimulator(with: simulatorConfiguration, options: context.simulatorOptions.allocationOptions) }
             let tests = try listTests(simulator: simulators.first!, target: target)
-            let partition = RunTestsPartition(fileURL: context.fileManager.runtimeCacheURL, partitions: context.partitions, targetName: target.name)
-            for (index, subsetOfTests) in partition.split(tests: tests).enumerated() {
+            let partitionManager = RunTestsPartitionManager(fileURL: context.fileManager.runtimeCacheURL, partitions: context.partitions, targetName: target.name)
+            for (index, subsetOfTests) in partitionManager.split(tests: tests).enumerated() {
                 let partitionName = "\(target.name)/partition-\(index)"
                 try context.fileManager.createDirectoryFor(simulatorConfiguration: simulatorConfiguration, target: partitionName)
                 let worker = RunTestsWorker(

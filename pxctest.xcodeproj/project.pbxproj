@@ -32,8 +32,8 @@
 		058FD55A1DEAC8490066CE4B /* testSampleAppTestRunOnlyFailingTests.expected_output in Resources */ = {isa = PBXBuildFile; fileRef = 058FD5591DEAC8490066CE4B /* testSampleAppTestRunOnlyFailingTests.expected_output */; };
 		058FD55C1DEAD7350066CE4B /* testSampleAppTestRunOnlySuccessfulTests.expected_output in Resources */ = {isa = PBXBuildFile; fileRef = 058FD55B1DEAD7350066CE4B /* testSampleAppTestRunOnlySuccessfulTests.expected_output */; };
 		0597DC181E0123F800968469 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0597DC171E0123F800968469 /* Context.swift */; };
-		059CF22C1E39F7E200FFCE30 /* RunTestsPartition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059CF22B1E39F7E200FFCE30 /* RunTestsPartition.swift */; };
-		059CF2371E3A03CA00FFCE30 /* RunTestsPartitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059CF2361E3A03CA00FFCE30 /* RunTestsPartitionTests.swift */; };
+		059CF22C1E39F7E200FFCE30 /* RunTestsPartitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059CF22B1E39F7E200FFCE30 /* RunTestsPartitionManager.swift */; };
+		059CF2371E3A03CA00FFCE30 /* RunTestsPartitionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059CF2361E3A03CA00FFCE30 /* RunTestsPartitionManagerTests.swift */; };
 		059CF2391E3A043600FFCE30 /* runtime.json in Resources */ = {isa = PBXBuildFile; fileRef = 059CF2381E3A043600FFCE30 /* runtime.json */; };
 		05B2CA351DEBE94F00795F07 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B2CA341DEBE94F00795F07 /* Environment.swift */; };
 		05B2CA371DEBEA1F00795F07 /* EnvironmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B2CA361DEBEA1F00795F07 /* EnvironmentTests.swift */; };
@@ -250,8 +250,8 @@
 		058FD5591DEAC8490066CE4B /* testSampleAppTestRunOnlyFailingTests.expected_output */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testSampleAppTestRunOnlyFailingTests.expected_output; sourceTree = "<group>"; };
 		058FD55B1DEAD7350066CE4B /* testSampleAppTestRunOnlySuccessfulTests.expected_output */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testSampleAppTestRunOnlySuccessfulTests.expected_output; sourceTree = "<group>"; };
 		0597DC171E0123F800968469 /* Context.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
-		059CF22B1E39F7E200FFCE30 /* RunTestsPartition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTestsPartition.swift; sourceTree = "<group>"; };
-		059CF2361E3A03CA00FFCE30 /* RunTestsPartitionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTestsPartitionTests.swift; sourceTree = "<group>"; };
+		059CF22B1E39F7E200FFCE30 /* RunTestsPartitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTestsPartitionManager.swift; sourceTree = "<group>"; };
+		059CF2361E3A03CA00FFCE30 /* RunTestsPartitionManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTestsPartitionManagerTests.swift; sourceTree = "<group>"; };
 		059CF2381E3A043600FFCE30 /* runtime.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = runtime.json; sourceTree = "<group>"; };
 		05B2CA341DEBE94F00795F07 /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		05B2CA361DEBEA1F00795F07 /* EnvironmentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentTests.swift; sourceTree = "<group>"; };
@@ -425,7 +425,7 @@
 				0527C5981E27AA0F007AC09C /* RunTestsCommandTests.swift */,
 				0527C59A1E27AA0F007AC09C /* RunTestsFileManagerTests.swift */,
 				0527C5991E27AA0F007AC09C /* RunTestsNotificationTests.swift */,
-				059CF2361E3A03CA00FFCE30 /* RunTestsPartitionTests.swift */,
+				059CF2361E3A03CA00FFCE30 /* RunTestsPartitionManagerTests.swift */,
 			);
 			path = RunTests;
 			sourceTree = "<group>";
@@ -646,7 +646,7 @@
 				3EBFCB091E14C739007C22C4 /* RunTestsError.swift */,
 				3EBFCB101E14C7D2007C22C4 /* RunTestsFileManager.swift */,
 				3EBFCB141E14D282007C22C4 /* RunTestsNotification.swift */,
-				059CF22B1E39F7E200FFCE30 /* RunTestsPartition.swift */,
+				059CF22B1E39F7E200FFCE30 /* RunTestsPartitionManager.swift */,
 				050278231E35BB7F00692D96 /* RunTestsPool.swift */,
 				3EBFCB111E14C7D2007C22C4 /* RunTestsReporters.swift */,
 				3EBFCB0A1E14C739007C22C4 /* RunTestsWorker.swift */,
@@ -998,7 +998,7 @@
 			files = (
 				05E1E3411E3DB140004F67B8 /* TestReporter.swift in Sources */,
 				3EBFCB131E14C7D2007C22C4 /* RunTestsReporters.swift in Sources */,
-				059CF22C1E39F7E200FFCE30 /* RunTestsPartition.swift in Sources */,
+				059CF22C1E39F7E200FFCE30 /* RunTestsPartitionManager.swift in Sources */,
 				05056C881E5A87E4006B80F9 /* FileReader.swift in Sources */,
 				05056C8D1E5A8AAC006B80F9 /* FileWriter.swift in Sources */,
 				0541E15D1DE5A02C00D65F16 /* RSpecReporter.swift in Sources */,
@@ -1053,7 +1053,7 @@
 				0527C59C1E27AA0F007AC09C /* RunTestsCommandTests.swift in Sources */,
 				3E9D461F1DFA507F006DDB10 /* ConsoleOutputTests.swift in Sources */,
 				05056C951E5A8D3C006B80F9 /* FileReaderTests.swift in Sources */,
-				059CF2371E3A03CA00FFCE30 /* RunTestsPartitionTests.swift in Sources */,
+				059CF2371E3A03CA00FFCE30 /* RunTestsPartitionManagerTests.swift in Sources */,
 				0527C5331E27A9B0007AC09C /* DestinationOptionTests.swift in Sources */,
 				0527C5341E27A9B0007AC09C /* OnlyOptionTests.swift in Sources */,
 				0527C5941E27A9FC007AC09C /* Fixtures.swift in Sources */,

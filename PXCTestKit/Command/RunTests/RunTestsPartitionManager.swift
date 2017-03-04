@@ -1,5 +1,5 @@
 //
-//  RunTestsPartition.swift
+//  RunTestsPartitionManager.swift
 //  pxctest
 //
 //  Created by Johannes Plunien on 26/01/17.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class RunTestsPartition {
+final class RunTestsPartitionManager {
 
     let historicTests: Set<TestRuntimeRecord>
 
@@ -17,7 +17,7 @@ final class RunTestsPartition {
     private let targetName: String
 
     init(fileURL: URL, partitions: Int, targetName: String) {
-        self.historicTests = RunTestsPartition.parse(fileAtURL: fileURL, selectedTargetName: targetName)
+        self.historicTests = RunTestsPartitionManager.parse(fileAtURL: fileURL, selectedTargetName: targetName)
         self.partitions = partitions
         self.targetName = targetName
     }
