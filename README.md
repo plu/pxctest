@@ -166,6 +166,14 @@ First we [set the nvram boot argument](https://support.apple.com/en-ae/HT202528)
 $ sudo nvram boot-args="serverperfmode=1 $(nvram boot-args 2>/dev/null | cut -f 2-)"
 ```
 
+If you're using Sierra, you will probably get an error message like
+```shell
+nvram: Error setting variable - 'boot-args': (iokit/common) general error
+```
+This is because starting from Sierra the `nvram` command should be executed from the recovery partition. [more info here](https://support.apple.com/en-gb/HT206871)
+To restart a mac from the recovery partition press <kbd>CMD</kbd>+<kbd>r</kbd> during the boot procedure. From there open a terminal and insert the same command as before.
+
+
 Next step is to make `launchd` set the new limits:
 
 ```shell
@@ -196,6 +204,23 @@ virtual memory          (kbytes, -v) unlimited
 ```
 
 The `open files` part should say `524288`, and `max user processes` should be `5000`.
+
+If you are using Sierra, the output looks a bit different:
+
+```shell
+› ulimit -a
+-t: cpu time (seconds)              unlimited
+-f: file size (blocks)              unlimited
+-d: data seg size (kbytes)          unlimited
+-s: stack size (kbytes)             8192
+-c: core file size (blocks)         0
+-v: address space (kbytes)          unlimited
+-l: locked-in-memory size (kbytes)  unlimited
+-u: processes                       5000
+-n: file descriptors                524288
+```
+The `open files` is now `file descriptors` and `max user processes` is renamed to `processes`.
+
 
 ## Can't find the `.xctestrun`? 
 
