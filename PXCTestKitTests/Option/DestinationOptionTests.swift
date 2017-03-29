@@ -14,9 +14,9 @@ class DestinationOptionTests: XCTestCase {
 
     func testDefault() {
         let destination = DestinationOption.default
-        XCTAssertEqual(destination.simulatorConfiguration.osVersionString, "iOS 10.2")
+        XCTAssertEqual(destination.simulatorConfiguration.osVersionString, "iOS 10.3")
         XCTAssertEqual(destination.simulatorConfiguration.deviceName, .nameiPhone6)
-        XCTAssertEqual(destination.description, "name=iPhone 6,os=iOS 10.2")
+        XCTAssertEqual(destination.description, "name=iPhone 6,os=iOS 10.3")
     }
 
     func testParsingValidDestinationOption() throws {
@@ -28,9 +28,9 @@ class DestinationOptionTests: XCTestCase {
 
     func testParsingDestinationOptionWithoutOS() throws {
         let destination = try DestinationOption(string: "name=iPhone 5")
-        XCTAssertEqual(destination.simulatorConfiguration.osVersionString, "iOS 10.2")
+        XCTAssertEqual(destination.simulatorConfiguration.osVersionString, "iOS 10.3")
         XCTAssertEqual(destination.simulatorConfiguration.deviceName, .nameiPhone5)
-        XCTAssertEqual(destination.description, "name=iPhone 5,os=iOS 10.2")
+        XCTAssertEqual(destination.description, "name=iPhone 5,os=iOS 10.3")
     }
 
     func testParsingDestinationOptionWithoutDevice() throws {

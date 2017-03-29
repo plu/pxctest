@@ -6,30 +6,30 @@
 	<dict>
 		<key>BundleIdentifiersForCrashReportEmphasis</key>
 		<array>
-			<string>com.plunien.CrashTests</string>
 			<string>com.plunien.Crash</string>
+			<string>com.plunien.CrashTests</string>
 		</array>
 		<key>CommandLineArguments</key>
 		<array/>
 		<key>DependentProductPaths</key>
 		<array>
-			<string>__TESTROOT__/Crash.app/PlugIns/CrashTests.xctest</string>
 			<string>__TESTROOT__/Crash.app</string>
+			<string>__TESTROOT__/Crash.app/PlugIns/CrashTests.xctest</string>
 		</array>
 		<key>EnvironmentVariables</key>
 		<dict>
 			<key>DYLD_FRAMEWORK_PATH</key>
-			<string>/Users/plu/Development/pxctest/PXCTestKitTests/Fixtures</string>
+			<string>/Users/joplunien/Development/pxctest/PXCTestKitTests/Fixtures</string>
 			<key>DYLD_LIBRARY_PATH</key>
-			<string>/Users/plu/Development/pxctest/PXCTestKitTests/Fixtures</string>
+			<string>/Users/joplunien/Development/pxctest/PXCTestKitTests/Fixtures</string>
 			<key>OS_ACTIVITY_DT_MODE</key>
 			<string>YES</string>
 			<key>__XCODE_BUILT_PRODUCTS_DIR_PATHS</key>
-			<string>/Users/plu/Development/pxctest/PXCTestKitTests/Fixtures</string>
+			<string>/Users/joplunien/Development/pxctest/PXCTestKitTests/Fixtures</string>
 			<key>__XPC_DYLD_FRAMEWORK_PATH</key>
-			<string>/Users/plu/Development/pxctest/PXCTestKitTests/Fixtures</string>
+			<string>/Users/joplunien/Development/pxctest/PXCTestKitTests/Fixtures</string>
 			<key>__XPC_DYLD_LIBRARY_PATH</key>
-			<string>/Users/plu/Development/pxctest/PXCTestKitTests/Fixtures</string>
+			<string>/Users/joplunien/Development/pxctest/PXCTestKitTests/Fixtures</string>
 		</dict>
 		<key>IsAppHostedTestBundle</key>
 		<true/>

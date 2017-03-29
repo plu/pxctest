@@ -64,7 +64,6 @@ final class RunTestsWorker {
 
     func startTests(context: RunTestsContext, reporters: RunTestsReporters) throws {
         let workingDirectoryURL = context.fileManager.urlFor(worker: self)
-        let testsToRun = context.testsToRun[name] ?? Set<String>()
         let testEnvironment = Environment.injectPrefixedVariables(
             from: context.environment,
             into: testLaunchConfiguration.testEnvironment,
@@ -78,10 +77,18 @@ final class RunTestsWorker {
             .applicationLaunchConfiguration!
             .withOutput(try FBProcessOutputConfiguration(stdOut: outputPath, stdErr: outputPath))
 
-        let testLaunchConfigurartion = self.testLaunchConfiguration
-            .withTestsToRun(testsToRun.union(self.testLaunchConfiguration.testsToRun ?? Set<String>()))
+        var testLaunchConfigurartion = self.testLaunchConfiguration
             .withTestEnvironment(testEnvironment)
             .withApplicationLaunchConfiguration(applicationLaunchConfiguration)
+
+        let testsToRun: Set<String> = [
+            context.testsToRun[name],
+            testLaunchConfiguration.testsToRun
+        ].flatMap { $0 }.reduce(Set<String>()) { $0.0.union($0.1) }
+
+        if testsToRun.count > 0 {
+            testLaunchConfigurartion = testLaunchConfigurartion.withTestsToRun(testsToRun)
+        }
 
         let reporter = try reporters.addReporter(for: simulator, name: name, testTargetName: targetName)
 

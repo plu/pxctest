@@ -29,7 +29,7 @@ final class Fixtures {
     // MARK: - Sample.app
 
     var sampleAppTestRun: URL {
-        return bundle.url(forResource: "Sample_iphonesimulator10.2-x86_64", withExtension: "xctestrun")!
+        return bundle.url(forResource: "Sample_iphonesimulator10.3-x86_64", withExtension: "xctestrun")!
     }
 
     var testSampleAppTestRunOnlyFailingTestsOutput: String {
@@ -59,7 +59,7 @@ final class Fixtures {
     // MARK: - Crash.app
 
     var crashAppTestRun: URL {
-        return bundle.url(forResource: "Crash_iphonesimulator10.2-x86_64", withExtension: "xctestrun")!
+        return bundle.url(forResource: "Crash_iphonesimulator10.3-x86_64", withExtension: "xctestrun")!
     }
 
     // MARK: - FBSimulatorControl

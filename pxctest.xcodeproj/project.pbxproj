@@ -10,12 +10,12 @@
 		050207091DED8BFC00AB14FB /* ReporterOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050207081DED8BFC00AB14FB /* ReporterOption.swift */; };
 		050278241E35BB7F00692D96 /* RunTestsPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050278231E35BB7F00692D96 /* RunTestsPool.swift */; };
 		050278341E35D21C00692D96 /* ArrayExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050278331E35D21C00692D96 /* ArrayExtensionTests.swift */; };
+		050760001E26004E0044D0FF /* Crash_iphonesimulator10.3-x86_64.xctestrun in Resources */ = {isa = PBXBuildFile; fileRef = 05075FFE1E26004E0044D0FF /* Crash_iphonesimulator10.3-x86_64.xctestrun */; };
+		050760011E26004E0044D0FF /* Sample_iphonesimulator10.3-x86_64.xctestrun in Resources */ = {isa = PBXBuildFile; fileRef = 05075FFF1E26004E0044D0FF /* Sample_iphonesimulator10.3-x86_64.xctestrun */; };
 		05056C881E5A87E4006B80F9 /* FileReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05056C871E5A87E4006B80F9 /* FileReader.swift */; };
 		05056C8D1E5A8AAC006B80F9 /* FileWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05056C8C1E5A8AAC006B80F9 /* FileWriter.swift */; };
 		05056C951E5A8D3C006B80F9 /* FileReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05056C941E5A8D3C006B80F9 /* FileReaderTests.swift */; };
 		05056C971E5A8EBA006B80F9 /* something.txt in Resources */ = {isa = PBXBuildFile; fileRef = 05056C961E5A8EBA006B80F9 /* something.txt */; };
-		050760001E26004E0044D0FF /* Crash_iphonesimulator10.2-x86_64.xctestrun in Resources */ = {isa = PBXBuildFile; fileRef = 05075FFE1E26004E0044D0FF /* Crash_iphonesimulator10.2-x86_64.xctestrun */; };
-		050760011E26004E0044D0FF /* Sample_iphonesimulator10.2-x86_64.xctestrun in Resources */ = {isa = PBXBuildFile; fileRef = 05075FFF1E26004E0044D0FF /* Sample_iphonesimulator10.2-x86_64.xctestrun */; };
 		0511CB501DF3F550009B8B2F /* FBSimulator+PXCTestKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0511CB4F1DF3F550009B8B2F /* FBSimulator+PXCTestKit.swift */; };
 		0515A4921DF7C12F00D2F855 /* FBSimulatorControl+PXCTestKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0515A4911DF7C12F00D2F855 /* FBSimulatorControl+PXCTestKit.swift */; };
 		0527C52C1E27A8B3007AC09C /* TestConsoleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0527C52B1E27A8B3007AC09C /* TestConsoleOutput.swift */; };
@@ -223,12 +223,12 @@
 		050207081DED8BFC00AB14FB /* ReporterOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReporterOption.swift; sourceTree = "<group>"; };
 		050278231E35BB7F00692D96 /* RunTestsPool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTestsPool.swift; sourceTree = "<group>"; };
 		050278331E35D21C00692D96 /* ArrayExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensionTests.swift; sourceTree = "<group>"; };
+		05075FFE1E26004E0044D0FF /* Crash_iphonesimulator10.3-x86_64.xctestrun */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Crash_iphonesimulator10.3-x86_64.xctestrun"; sourceTree = "<group>"; };
+		05075FFF1E26004E0044D0FF /* Sample_iphonesimulator10.3-x86_64.xctestrun */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Sample_iphonesimulator10.3-x86_64.xctestrun"; sourceTree = "<group>"; };
 		05056C871E5A87E4006B80F9 /* FileReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileReader.swift; sourceTree = "<group>"; };
 		05056C8C1E5A8AAC006B80F9 /* FileWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileWriter.swift; sourceTree = "<group>"; };
 		05056C941E5A8D3C006B80F9 /* FileReaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileReaderTests.swift; sourceTree = "<group>"; };
 		05056C961E5A8EBA006B80F9 /* something.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = something.txt; sourceTree = "<group>"; };
-		05075FFE1E26004E0044D0FF /* Crash_iphonesimulator10.2-x86_64.xctestrun */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Crash_iphonesimulator10.2-x86_64.xctestrun"; sourceTree = "<group>"; };
-		05075FFF1E26004E0044D0FF /* Sample_iphonesimulator10.2-x86_64.xctestrun */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Sample_iphonesimulator10.2-x86_64.xctestrun"; sourceTree = "<group>"; };
 		0511CB4F1DF3F550009B8B2F /* FBSimulator+PXCTestKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FBSimulator+PXCTestKit.swift"; sourceTree = "<group>"; };
 		0515A4911DF7C12F00D2F855 /* FBSimulatorControl+PXCTestKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FBSimulatorControl+PXCTestKit.swift"; sourceTree = "<group>"; };
 		0527C52B1E27A8B3007AC09C /* TestConsoleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestConsoleOutput.swift; sourceTree = "<group>"; };
@@ -590,9 +590,9 @@
 				05B6EC1E1DEEFBD0008CBBEE /* testSampleAppTestRunRunWithAllTargetsAndJSONReporter.expected_output */,
 				059CF2381E3A043600FFCE30 /* runtime.json */,
 				05BC2B121DEAB9EB00ED3F58 /* build.sh */,
+				05075FFE1E26004E0044D0FF /* Crash_iphonesimulator10.3-x86_64.xctestrun */,
+				05075FFF1E26004E0044D0FF /* Sample_iphonesimulator10.3-x86_64.xctestrun */,
 				05056C961E5A8EBA006B80F9 /* something.txt */,
-				05075FFE1E26004E0044D0FF /* Crash_iphonesimulator10.2-x86_64.xctestrun */,
-				05075FFF1E26004E0044D0FF /* Sample_iphonesimulator10.2-x86_64.xctestrun */,
 			);
 			path = Fixtures;
 			sourceTree = "<group>";
@@ -919,7 +919,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				050760001E26004E0044D0FF /* Crash_iphonesimulator10.2-x86_64.xctestrun in Resources */,
+				050760001E26004E0044D0FF /* Crash_iphonesimulator10.3-x86_64.xctestrun in Resources */,
 				05B6EC1F1DEEFBD0008CBBEE /* testSampleAppTestRunRunWithAllTargetsAndJSONReporter.expected_output in Resources */,
 				05B6EC0D1DEEF90B008CBBEE /* testSampleAppTestRunOnlyOneTarget.expected_output in Resources */,
 				05BE2F911E067EFC0097B23D /* testListSampleAppTests.expected_output in Resources */,
@@ -927,7 +927,7 @@
 				059CF2391E3A043600FFCE30 /* runtime.json in Resources */,
 				05056C971E5A8EBA006B80F9 /* something.txt in Resources */,
 				05BC2B501DEABC5A00ED3F58 /* SampleUITests-Runner.app in Resources */,
-				050760011E26004E0044D0FF /* Sample_iphonesimulator10.2-x86_64.xctestrun in Resources */,
+				050760011E26004E0044D0FF /* Sample_iphonesimulator10.3-x86_64.xctestrun in Resources */,
 				058FD55C1DEAD7350066CE4B /* testSampleAppTestRunOnlySuccessfulTests.expected_output in Resources */,
 				05BC2B2C1DEAB9EB00ED3F58 /* build.sh in Resources */,
 				0537D9E21E5AF50200F755B4 /* testSampleAppTestRunOnlyOneTargetWithEmptyTestsToRun.expected_output in Resources */,

@@ -6,8 +6,8 @@
 	<dict>
 		<key>BundleIdentifiersForCrashReportEmphasis</key>
 		<array>
-			<string>com.plunien.SuccessfulTests</string>
 			<string>com.plunien.SampleTests</string>
+			<string>com.plunien.SuccessfulTests</string>
 			<string>com.plunien.SampleUITests</string>
 			<string>com.plunien.Sample</string>
 		</array>
@@ -15,25 +15,25 @@
 		<array/>
 		<key>DependentProductPaths</key>
 		<array>
-			<string>__TESTROOT__/Sample.app/PlugIns/SuccessfulTests.xctest</string>
 			<string>__TESTROOT__/Sample.app/PlugIns/SampleTests.xctest</string>
+			<string>__TESTROOT__/Sample.app/PlugIns/SuccessfulTests.xctest</string>
 			<string>__TESTROOT__/Sample.app</string>
 			<string>__TESTROOT__/SampleUITests-Runner.app/PlugIns/SampleUITests.xctest</string>
 		</array>
 		<key>EnvironmentVariables</key>
 		<dict>
 			<key>DYLD_FRAMEWORK_PATH</key>
-			<string>/Users/plu/Development/pxctest/PXCTestKitTests/Fixtures</string>
+			<string>/Users/joplunien/Development/pxctest/PXCTestKitTests/Fixtures</string>
 			<key>DYLD_LIBRARY_PATH</key>
-			<string>/Users/plu/Development/pxctest/PXCTestKitTests/Fixtures</string>
+			<string>/Users/joplunien/Development/pxctest/PXCTestKitTests/Fixtures</string>
 			<key>OS_ACTIVITY_DT_MODE</key>
 			<string>YES</string>
 			<key>__XCODE_BUILT_PRODUCTS_DIR_PATHS</key>
-			<string>/Users/plu/Development/pxctest/PXCTestKitTests/Fixtures</string>
+			<string>/Users/joplunien/Development/pxctest/PXCTestKitTests/Fixtures</string>
 			<key>__XPC_DYLD_FRAMEWORK_PATH</key>
-			<string>/Users/plu/Development/pxctest/PXCTestKitTests/Fixtures</string>
+			<string>/Users/joplunien/Development/pxctest/PXCTestKitTests/Fixtures</string>
 			<key>__XPC_DYLD_LIBRARY_PATH</key>
-			<string>/Users/plu/Development/pxctest/PXCTestKitTests/Fixtures</string>
+			<string>/Users/joplunien/Development/pxctest/PXCTestKitTests/Fixtures</string>
 		</dict>
 		<key>IsAppHostedTestBundle</key>
 		<true/>
@@ -65,8 +65,8 @@
 	<dict>
 		<key>BundleIdentifiersForCrashReportEmphasis</key>
 		<array>
-			<string>com.plunien.SuccessfulTests</string>
 			<string>com.plunien.SampleTests</string>
+			<string>com.plunien.SuccessfulTests</string>
 			<string>com.plunien.SampleUITests</string>
 			<string>com.plunien.Sample</string>
 		</array>
@@ -74,25 +74,25 @@
 		<array/>
 		<key>DependentProductPaths</key>
 		<array>
-			<string>__TESTROOT__/Sample.app/PlugIns/SuccessfulTests.xctest</string>
 			<string>__TESTROOT__/Sample.app/PlugIns/SampleTests.xctest</string>
+			<string>__TESTROOT__/Sample.app/PlugIns/SuccessfulTests.xctest</string>
 			<string>__TESTROOT__/Sample.app</string>
 			<string>__TESTROOT__/SampleUITests-Runner.app/PlugIns/SampleUITests.xctest</string>
 		</array>
 		<key>EnvironmentVariables</key>
 		<dict>
 			<key>DYLD_FRAMEWORK_PATH</key>
-			<string>/Users/plu/Development/pxctest/PXCTestKitTests/Fixtures</string>
+			<string>/Users/joplunien/Development/pxctest/PXCTestKitTests/Fixtures</string>
 			<key>DYLD_LIBRARY_PATH</key>
-			<string>/Users/plu/Development/pxctest/PXCTestKitTests/Fixtures</string>
+			<string>/Users/joplunien/Development/pxctest/PXCTestKitTests/Fixtures</string>
 			<key>OS_ACTIVITY_DT_MODE</key>
 			<string>YES</string>
 			<key>__XCODE_BUILT_PRODUCTS_DIR_PATHS</key>
-			<string>/Users/plu/Development/pxctest/PXCTestKitTests/Fixtures</string>
+			<string>/Users/joplunien/Development/pxctest/PXCTestKitTests/Fixtures</string>
 			<key>__XPC_DYLD_FRAMEWORK_PATH</key>
-			<string>/Users/plu/Development/pxctest/PXCTestKitTests/Fixtures</string>
+			<string>/Users/joplunien/Development/pxctest/PXCTestKitTests/Fixtures</string>
 			<key>__XPC_DYLD_LIBRARY_PATH</key>
-			<string>/Users/plu/Development/pxctest/PXCTestKitTests/Fixtures</string>
+			<string>/Users/joplunien/Development/pxctest/PXCTestKitTests/Fixtures</string>
 		</dict>
 		<key>IsUITestBundle</key>
 		<true/>
@@ -122,8 +122,8 @@
 	<dict>
 		<key>BundleIdentifiersForCrashReportEmphasis</key>
 		<array>
-			<string>com.plunien.SuccessfulTests</string>
 			<string>com.plunien.SampleTests</string>
+			<string>com.plunien.SuccessfulTests</string>
 			<string>com.plunien.SampleUITests</string>
 			<string>com.plunien.Sample</string>
 		</array>
@@ -131,30 +131,34 @@
 		<array/>
 		<key>DependentProductPaths</key>
 		<array>
-			<string>__TESTROOT__/Sample.app/PlugIns/SuccessfulTests.xctest</string>
 			<string>__TESTROOT__/Sample.app/PlugIns/SampleTests.xctest</string>
+			<string>__TESTROOT__/Sample.app/PlugIns/SuccessfulTests.xctest</string>
 			<string>__TESTROOT__/Sample.app</string>
 			<string>__TESTROOT__/SampleUITests-Runner.app/PlugIns/SampleUITests.xctest</string>
 		</array>
 		<key>EnvironmentVariables</key>
 		<dict>
 			<key>DYLD_FRAMEWORK_PATH</key>
-			<string>/Users/plu/Development/pxctest/PXCTestKitTests/Fixtures</string>
+			<string>/Users/joplunien/Development/pxctest/PXCTestKitTests/Fixtures</string>
 			<key>DYLD_LIBRARY_PATH</key>
-			<string>/Users/plu/Development/pxctest/PXCTestKitTests/Fixtures</string>
+			<string>/Users/joplunien/Development/pxctest/PXCTestKitTests/Fixtures</string>
 			<key>OS_ACTIVITY_DT_MODE</key>
 			<string>YES</string>
 			<key>__XCODE_BUILT_PRODUCTS_DIR_PATHS</key>
-			<string>/Users/plu/Development/pxctest/PXCTestKitTests/Fixtures</string>
+			<string>/Users/joplunien/Development/pxctest/PXCTestKitTests/Fixtures</string>
 			<key>__XPC_DYLD_FRAMEWORK_PATH</key>
-			<string>/Users/plu/Development/pxctest/PXCTestKitTests/Fixtures</string>
+			<string>/Users/joplunien/Development/pxctest/PXCTestKitTests/Fixtures</string>
 			<key>__XPC_DYLD_LIBRARY_PATH</key>
-			<string>/Users/plu/Development/pxctest/PXCTestKitTests/Fixtures</string>
+			<string>/Users/joplunien/Development/pxctest/PXCTestKitTests/Fixtures</string>
 		</dict>
 		<key>IsAppHostedTestBundle</key>
 		<true/>
 		<key>ProductModuleName</key>
 		<string>SuccessfulTests</string>
+		<key>SkipTestIdentifiers</key>
+		<array>
+			<string>SuccessfulTests/testSkipped</string>
+		</array>
 		<key>TestBundlePath</key>
 		<string>__TESTHOST__/PlugIns/SuccessfulTests.xctest</string>
 		<key>TestHostBundleIdentifier</key>

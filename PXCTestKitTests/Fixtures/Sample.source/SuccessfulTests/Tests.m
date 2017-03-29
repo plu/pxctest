@@ -26,4 +26,8 @@
     XCTAssertTrue(YES);
 }
 
+- (void)testSkipped {
+    XCTAssertTrue(NO);
+}
+
 @end
