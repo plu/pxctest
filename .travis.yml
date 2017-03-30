@@ -5,6 +5,7 @@ before_install:
   - gem install xcpretty
   - mkdir -p ~/Library/Logs/DiagnosticReports
 script:
+  - scripts/bootstrap.sh
   - set -o pipefail
   - NSUnbufferedIO=YES xcodebuild -scheme pxctest test | xcpretty -c
   - brew tap plu/pxctest && brew install pxctest --HEAD && pxctest version
