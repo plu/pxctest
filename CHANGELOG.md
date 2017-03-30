@@ -1,3 +1,5 @@
+# 0.3.2
+
 * Experimental: Partitioning of test suites
 * Write one junit.xml that contains all targets and simulators
 * Fix compatibility with Xcode 8.3
