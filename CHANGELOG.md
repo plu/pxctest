@@ -1,6 +1,7 @@
 * Experimental: Partitioning of test suites
 * Write one junit.xml that contains all targets and simulators
 * Fix compatibility with Xcode 8.3
+* Embed Swift Standard Libraries
 
 # 0.3.1
 

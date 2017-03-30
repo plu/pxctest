@@ -15,7 +15,7 @@ final class ListTestsShim {
         let listTestsShimName = "libpxctest-list-tests.dylib"
 
         let sourcePath = URL(fileURLWithPath: Bundle(for: self).bundlePath)
-            .deletingLastPathComponent()
+            .appendingPathComponent("Versions/Current/Frameworks")
             .appendingPathComponent(listTestsShimName)
             .path
 

@@ -10,12 +10,12 @@
 		050207091DED8BFC00AB14FB /* ReporterOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050207081DED8BFC00AB14FB /* ReporterOption.swift */; };
 		050278241E35BB7F00692D96 /* RunTestsPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050278231E35BB7F00692D96 /* RunTestsPool.swift */; };
 		050278341E35D21C00692D96 /* ArrayExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050278331E35D21C00692D96 /* ArrayExtensionTests.swift */; };
-		050760001E26004E0044D0FF /* Crash_iphonesimulator10.3-x86_64.xctestrun in Resources */ = {isa = PBXBuildFile; fileRef = 05075FFE1E26004E0044D0FF /* Crash_iphonesimulator10.3-x86_64.xctestrun */; };
-		050760011E26004E0044D0FF /* Sample_iphonesimulator10.3-x86_64.xctestrun in Resources */ = {isa = PBXBuildFile; fileRef = 05075FFF1E26004E0044D0FF /* Sample_iphonesimulator10.3-x86_64.xctestrun */; };
 		05056C881E5A87E4006B80F9 /* FileReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05056C871E5A87E4006B80F9 /* FileReader.swift */; };
 		05056C8D1E5A8AAC006B80F9 /* FileWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05056C8C1E5A8AAC006B80F9 /* FileWriter.swift */; };
 		05056C951E5A8D3C006B80F9 /* FileReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05056C941E5A8D3C006B80F9 /* FileReaderTests.swift */; };
 		05056C971E5A8EBA006B80F9 /* something.txt in Resources */ = {isa = PBXBuildFile; fileRef = 05056C961E5A8EBA006B80F9 /* something.txt */; };
+		050760001E26004E0044D0FF /* Crash_iphonesimulator10.3-x86_64.xctestrun in Resources */ = {isa = PBXBuildFile; fileRef = 05075FFE1E26004E0044D0FF /* Crash_iphonesimulator10.3-x86_64.xctestrun */; };
+		050760011E26004E0044D0FF /* Sample_iphonesimulator10.3-x86_64.xctestrun in Resources */ = {isa = PBXBuildFile; fileRef = 05075FFF1E26004E0044D0FF /* Sample_iphonesimulator10.3-x86_64.xctestrun */; };
 		0511CB501DF3F550009B8B2F /* FBSimulator+PXCTestKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0511CB4F1DF3F550009B8B2F /* FBSimulator+PXCTestKit.swift */; };
 		0515A4921DF7C12F00D2F855 /* FBSimulatorControl+PXCTestKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0515A4911DF7C12F00D2F855 /* FBSimulatorControl+PXCTestKit.swift */; };
 		0527C52C1E27A8B3007AC09C /* TestConsoleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0527C52B1E27A8B3007AC09C /* TestConsoleOutput.swift */; };
@@ -168,6 +168,13 @@
 			remoteGlobalIDString = E66DC04E390C419500000000;
 			remoteInfo = FBSimulatorControl;
 		};
+		05DD13561E8CA2AA00C2D075 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3E8CC65E1DFB9F110098116E /* Commander.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = OBJ_41;
+			remoteInfo = Spectre;
+		};
 		3E8CC6661DFB9F110098116E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3E8CC65E1DFB9F110098116E /* Commander.xcodeproj */;
@@ -223,12 +230,12 @@
 		050207081DED8BFC00AB14FB /* ReporterOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReporterOption.swift; sourceTree = "<group>"; };
 		050278231E35BB7F00692D96 /* RunTestsPool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTestsPool.swift; sourceTree = "<group>"; };
 		050278331E35D21C00692D96 /* ArrayExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensionTests.swift; sourceTree = "<group>"; };
-		05075FFE1E26004E0044D0FF /* Crash_iphonesimulator10.3-x86_64.xctestrun */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Crash_iphonesimulator10.3-x86_64.xctestrun"; sourceTree = "<group>"; };
-		05075FFF1E26004E0044D0FF /* Sample_iphonesimulator10.3-x86_64.xctestrun */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Sample_iphonesimulator10.3-x86_64.xctestrun"; sourceTree = "<group>"; };
 		05056C871E5A87E4006B80F9 /* FileReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileReader.swift; sourceTree = "<group>"; };
 		05056C8C1E5A8AAC006B80F9 /* FileWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileWriter.swift; sourceTree = "<group>"; };
 		05056C941E5A8D3C006B80F9 /* FileReaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileReaderTests.swift; sourceTree = "<group>"; };
 		05056C961E5A8EBA006B80F9 /* something.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = something.txt; sourceTree = "<group>"; };
+		05075FFE1E26004E0044D0FF /* Crash_iphonesimulator10.3-x86_64.xctestrun */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Crash_iphonesimulator10.3-x86_64.xctestrun"; sourceTree = "<group>"; };
+		05075FFF1E26004E0044D0FF /* Sample_iphonesimulator10.3-x86_64.xctestrun */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Sample_iphonesimulator10.3-x86_64.xctestrun"; sourceTree = "<group>"; };
 		0511CB4F1DF3F550009B8B2F /* FBSimulator+PXCTestKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FBSimulator+PXCTestKit.swift"; sourceTree = "<group>"; };
 		0515A4911DF7C12F00D2F855 /* FBSimulatorControl+PXCTestKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FBSimulatorControl+PXCTestKit.swift"; sourceTree = "<group>"; };
 		0527C52B1E27A8B3007AC09C /* TestConsoleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestConsoleOutput.swift; sourceTree = "<group>"; };
@@ -714,11 +721,12 @@
 				05BABC8F1DE56E390012BC5B /* Headers */,
 				05BABC901DE56E390012BC5B /* Resources */,
 				05F5ADF81DF95A8F00F7E51C /* Set GIT_COMMIT */,
-				0554B69C1E078A7300299699 /* Build pxctest-list-tests */,
+				0554B69C1E078A7300299699 /* Build and embed pxctest-list-tests */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				05DD13571E8CA2AA00C2D075 /* PBXTargetDependency */,
 				3E8CC66F1DFB9F4B0098116E /* PBXTargetDependency */,
 				05BABCD91DE57E050012BC5B /* PBXTargetDependency */,
 				05BABCE11DE57E050012BC5B /* PBXTargetDependency */,
@@ -781,9 +789,8 @@
 					};
 					05BABC911DE56E390012BC5B = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = V5XAHL2VLY;
 						LastSwiftMigration = 0820;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					05BABC991DE56E390012BC5B = {
 						CreatedOnToolsVersion = 8.1;
@@ -939,19 +946,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0554B69C1E078A7300299699 /* Build pxctest-list-tests */ = {
+		0554B69C1E078A7300299699 /* Build and embed pxctest-list-tests */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Build pxctest-list-tests";
+			name = "Build and embed pxctest-list-tests";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "xcodebuild -scheme pxctest-list-tests -sdk iphonesimulator build";
+			shellScript = "xcodebuild \\\n  -IDEBuildLocationStyle=Custom \\\n  -IDECustomBuildLocationType=Absolute \\\n  -IDECustomBuildProductsPath=\"$TARGET_BUILD_DIR\" \\\n  -scheme pxctest-list-tests \\\n  -configuration Release \\\n  -sdk iphonesimulator \\\n  build\nmkdir -p $TARGET_BUILD_DIR/PXCTestKit.framework/Versions/Current/Frameworks\nmv $TARGET_BUILD_DIR/Release/libpxctest-list-tests.dylib $TARGET_BUILD_DIR/PXCTestKit.framework/Versions/Current/Frameworks\n";
 		};
 		05F5ADF81DF95A8F00F7E51C /* Set GIT_COMMIT */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1098,6 +1105,11 @@
 			name = FBSimulatorControl;
 			targetProxy = 05BABCE01DE57E050012BC5B /* PBXContainerItemProxy */;
 		};
+		05DD13571E8CA2AA00C2D075 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Spectre;
+			targetProxy = 05DD13561E8CA2AA00C2D075 /* PBXContainerItemProxy */;
+		};
 		3E8CC66F1DFB9F4B0098116E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Commander;
@@ -1212,11 +1224,12 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/system",
@@ -1231,11 +1244,12 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Dependencies",
 				);
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/system",

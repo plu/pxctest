@@ -22,5 +22,4 @@ xcuserdata/
 *.xccheckout
 *.xcscmblueprint
 
-Dependencies/Commander.xcodeproj
 output/

@@ -6,6 +6,5 @@ before_install:
   - mkdir -p ~/Library/Logs/DiagnosticReports
 script:
   - set -o pipefail
-  - scripts/bootstrap.sh
   - NSUnbufferedIO=YES xcodebuild -scheme pxctest test | xcpretty -c
   - brew tap plu/pxctest && brew install pxctest --HEAD && pxctest version
