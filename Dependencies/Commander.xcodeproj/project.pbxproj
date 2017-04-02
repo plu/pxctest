@@ -7,14 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		OBJ_46 /* Case.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_29 /* Case.swift */; };
-		OBJ_47 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_30 /* Context.swift */; };
-		OBJ_48 /* Expectation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_31 /* Expectation.swift */; };
-		OBJ_49 /* Failure.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_32 /* Failure.swift */; };
-		OBJ_50 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_33 /* Global.swift */; };
-		OBJ_51 /* GlobalContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_34 /* GlobalContext.swift */; };
-		OBJ_52 /* Reporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_35 /* Reporter.swift */; };
-		OBJ_53 /* Reporters.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_36 /* Reporters.swift */; };
 		OBJ_60 /* ArgumentConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_8 /* ArgumentConvertible.swift */; };
 		OBJ_61 /* ArgumentDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* ArgumentDescription.swift */; };
 		OBJ_62 /* ArgumentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* ArgumentParser.swift */; };
@@ -24,7 +16,6 @@
 		OBJ_66 /* CommandType.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* CommandType.swift */; };
 		OBJ_67 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* Error.swift */; };
 		OBJ_68 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* Group.swift */; };
-		OBJ_70 /* Spectre.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_38 /* Spectre.framework */; };
 		OBJ_77 /* ArgumentConvertibleSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* ArgumentConvertibleSpec.swift */; };
 		OBJ_78 /* ArgumentDescriptionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* ArgumentDescriptionSpec.swift */; };
 		OBJ_79 /* ArgumentParserSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_21 /* ArgumentParserSpec.swift */; };
@@ -32,25 +23,10 @@
 		OBJ_81 /* CommandTypeSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* CommandTypeSpec.swift */; };
 		OBJ_82 /* GroupSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* GroupSpec.swift */; };
 		OBJ_83 /* XCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_25 /* XCTest.swift */; };
-		OBJ_85 /* Spectre.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_38 /* Spectre.framework */; };
 		OBJ_86 /* Commander.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_39 /* Commander.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		0556BC8E1E8CB4F8001C8C85 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = OBJ_41;
-			remoteInfo = Spectre;
-		};
-		0556BC8F1E8CB4F9001C8C85 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = OBJ_41;
-			remoteInfo = Spectre;
-		};
 		0556BC901E8CB4F9001C8C85 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
@@ -76,35 +52,18 @@
 		OBJ_24 /* GroupSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSpec.swift; sourceTree = "<group>"; };
 		OBJ_25 /* XCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTest.swift; sourceTree = "<group>"; };
 		OBJ_26 /* Examples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Examples; sourceTree = SOURCE_ROOT; };
-		OBJ_29 /* Case.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Case.swift; sourceTree = "<group>"; };
-		OBJ_30 /* Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
-		OBJ_31 /* Expectation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expectation.swift; sourceTree = "<group>"; };
-		OBJ_32 /* Failure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Failure.swift; sourceTree = "<group>"; };
-		OBJ_33 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
-		OBJ_34 /* GlobalContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalContext.swift; sourceTree = "<group>"; };
-		OBJ_35 /* Reporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reporter.swift; sourceTree = "<group>"; };
-		OBJ_36 /* Reporters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reporters.swift; sourceTree = "<group>"; };
-		OBJ_38 /* Spectre.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Spectre.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_39 /* Commander.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Commander.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		OBJ_40 /* CommanderTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = CommanderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_40 /* CommanderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = CommanderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		OBJ_8 /* ArgumentConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentConvertible.swift; sourceTree = "<group>"; };
 		OBJ_9 /* ArgumentDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentDescription.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		OBJ_54 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		OBJ_69 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_70 /* Spectre.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,7 +71,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_85 /* Spectre.framework in Frameworks */,
 				OBJ_86 /* Commander.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,34 +101,9 @@
 			path = Tests/CommanderTests;
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_27 /* Dependencies */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_28 /* Spectre 0.7.2 */,
-			);
-			name = Dependencies;
-			sourceTree = "<group>";
-		};
-		OBJ_28 /* Spectre 0.7.2 */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_29 /* Case.swift */,
-				OBJ_30 /* Context.swift */,
-				OBJ_31 /* Expectation.swift */,
-				OBJ_32 /* Failure.swift */,
-				OBJ_33 /* Global.swift */,
-				OBJ_34 /* GlobalContext.swift */,
-				OBJ_35 /* Reporter.swift */,
-				OBJ_36 /* Reporters.swift */,
-			);
-			name = "Spectre 0.7.2";
-			path = ".build/checkouts/Spectre.git--7655155069707042687/Sources";
-			sourceTree = SOURCE_ROOT;
-		};
 		OBJ_37 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_38 /* Spectre.framework */,
 				OBJ_39 /* Commander.framework */,
 				OBJ_40 /* CommanderTests.xctest */,
 			);
@@ -184,7 +117,6 @@
 				OBJ_7 /* Sources */,
 				OBJ_17 /* Tests */,
 				OBJ_26 /* Examples */,
-				OBJ_27 /* Dependencies */,
 				OBJ_37 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -208,22 +140,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		OBJ_41 /* Spectre */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_42 /* Build configuration list for PBXNativeTarget "Spectre" */;
-			buildPhases = (
-				OBJ_45 /* Sources */,
-				OBJ_54 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Spectre;
-			productName = Spectre;
-			productReference = OBJ_38 /* Spectre.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		OBJ_55 /* Commander */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_56 /* Build configuration list for PBXNativeTarget "Commander" */;
@@ -234,7 +150,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				OBJ_71 /* PBXTargetDependency */,
 			);
 			name = Commander;
 			productName = Commander;
@@ -251,7 +166,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				OBJ_87 /* PBXTargetDependency */,
 				OBJ_88 /* PBXTargetDependency */,
 			);
 			name = CommanderTests;
@@ -279,7 +193,6 @@
 			projectDirPath = Commander;
 			projectRoot = "";
 			targets = (
-				OBJ_41 /* Spectre */,
 				OBJ_55 /* Commander */,
 				OBJ_72 /* CommanderTests */,
 			);
@@ -287,21 +200,6 @@
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		OBJ_45 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 0;
-			files = (
-				OBJ_46 /* Case.swift in Sources */,
-				OBJ_47 /* Context.swift in Sources */,
-				OBJ_48 /* Expectation.swift in Sources */,
-				OBJ_49 /* Failure.swift in Sources */,
-				OBJ_50 /* Global.swift in Sources */,
-				OBJ_51 /* GlobalContext.swift in Sources */,
-				OBJ_52 /* Reporter.swift in Sources */,
-				OBJ_53 /* Reporters.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		OBJ_59 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
@@ -335,16 +233,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		OBJ_71 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = OBJ_41 /* Spectre */;
-			targetProxy = 0556BC8E1E8CB4F8001C8C85 /* PBXContainerItemProxy */;
-		};
-		OBJ_87 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = OBJ_41 /* Spectre */;
-			targetProxy = 0556BC8F1E8CB4F9001C8C85 /* PBXContainerItemProxy */;
-		};
 		OBJ_88 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_55 /* Commander */;
@@ -396,44 +284,6 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 				USE_HEADERMAP = NO;
-			};
-			name = Release;
-		};
-		OBJ_43 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				INFOPLIST_FILE = ../Commander.xcodeproj/Spectre_Info.plist;
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = Spectre;
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				TARGET_NAME = Spectre;
-			};
-			name = Debug;
-		};
-		OBJ_44 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				INFOPLIST_FILE = ../Commander.xcodeproj/Spectre_Info.plist;
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = Spectre;
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				TARGET_NAME = Spectre;
 			};
 			name = Release;
 		};
@@ -517,15 +367,6 @@
 			buildConfigurations = (
 				OBJ_3 /* Debug */,
 				OBJ_4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		OBJ_42 /* Build configuration list for PBXNativeTarget "Spectre" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_43 /* Debug */,
-				OBJ_44 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
