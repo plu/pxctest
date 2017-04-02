@@ -16,13 +16,6 @@
 		OBJ_66 /* CommandType.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* CommandType.swift */; };
 		OBJ_67 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* Error.swift */; };
 		OBJ_68 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* Group.swift */; };
-		OBJ_77 /* ArgumentConvertibleSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* ArgumentConvertibleSpec.swift */; };
-		OBJ_78 /* ArgumentDescriptionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* ArgumentDescriptionSpec.swift */; };
-		OBJ_79 /* ArgumentParserSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_21 /* ArgumentParserSpec.swift */; };
-		OBJ_80 /* CommandSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_22 /* CommandSpec.swift */; };
-		OBJ_81 /* CommandTypeSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* CommandTypeSpec.swift */; };
-		OBJ_82 /* GroupSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* GroupSpec.swift */; };
-		OBJ_83 /* XCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_25 /* XCTest.swift */; };
 		OBJ_86 /* Commander.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_39 /* Commander.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,17 +37,9 @@
 		OBJ_14 /* CommandType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandType.swift; sourceTree = "<group>"; };
 		OBJ_15 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		OBJ_16 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
-		OBJ_19 /* ArgumentConvertibleSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentConvertibleSpec.swift; sourceTree = "<group>"; };
-		OBJ_20 /* ArgumentDescriptionSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentDescriptionSpec.swift; sourceTree = "<group>"; };
-		OBJ_21 /* ArgumentParserSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentParserSpec.swift; sourceTree = "<group>"; };
-		OBJ_22 /* CommandSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandSpec.swift; sourceTree = "<group>"; };
-		OBJ_23 /* CommandTypeSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandTypeSpec.swift; sourceTree = "<group>"; };
-		OBJ_24 /* GroupSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSpec.swift; sourceTree = "<group>"; };
-		OBJ_25 /* XCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTest.swift; sourceTree = "<group>"; };
 		OBJ_26 /* Examples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Examples; sourceTree = SOURCE_ROOT; };
 		OBJ_39 /* Commander.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Commander.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_40 /* CommanderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = CommanderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		OBJ_8 /* ArgumentConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentConvertible.swift; sourceTree = "<group>"; };
 		OBJ_9 /* ArgumentDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentDescription.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,29 +63,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		OBJ_17 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_18 /* CommanderTests */,
-			);
-			name = Tests;
-			sourceTree = SOURCE_ROOT;
-		};
-		OBJ_18 /* CommanderTests */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_19 /* ArgumentConvertibleSpec.swift */,
-				OBJ_20 /* ArgumentDescriptionSpec.swift */,
-				OBJ_21 /* ArgumentParserSpec.swift */,
-				OBJ_22 /* CommandSpec.swift */,
-				OBJ_23 /* CommandTypeSpec.swift */,
-				OBJ_24 /* GroupSpec.swift */,
-				OBJ_25 /* XCTest.swift */,
-			);
-			name = CommanderTests;
-			path = Tests/CommanderTests;
-			sourceTree = SOURCE_ROOT;
-		};
 		OBJ_37 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -113,9 +75,7 @@
 		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
-				OBJ_6 /* Package.swift */,
 				OBJ_7 /* Sources */,
-				OBJ_17 /* Tests */,
 				OBJ_26 /* Examples */,
 				OBJ_37 /* Products */,
 			);
@@ -220,13 +180,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_77 /* ArgumentConvertibleSpec.swift in Sources */,
-				OBJ_78 /* ArgumentDescriptionSpec.swift in Sources */,
-				OBJ_79 /* ArgumentParserSpec.swift in Sources */,
-				OBJ_80 /* CommandSpec.swift in Sources */,
-				OBJ_81 /* CommandTypeSpec.swift in Sources */,
-				OBJ_82 /* GroupSpec.swift in Sources */,
-				OBJ_83 /* XCTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
