@@ -168,13 +168,6 @@
 			remoteGlobalIDString = E66DC04E390C419500000000;
 			remoteInfo = FBSimulatorControl;
 		};
-		05DD13561E8CA2AA00C2D075 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3E8CC65E1DFB9F110098116E /* Commander.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = OBJ_41;
-			remoteInfo = Spectre;
-		};
 		3E8CC6661DFB9F110098116E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3E8CC65E1DFB9F110098116E /* Commander.xcodeproj */;
@@ -188,20 +181,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_55;
 			remoteInfo = Commander;
-		};
-		3ECD51FF1E04D7A700183EE4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3E8CC65E1DFB9F110098116E /* Commander.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = OBJ_38;
-			remoteInfo = Spectre;
-		};
-		3ECD52011E04D7A700183EE4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3E8CC65E1DFB9F110098116E /* Commander.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = OBJ_40;
-			remoteInfo = CommanderTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -623,9 +602,7 @@
 		3E8CC65F1DFB9F110098116E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3ECD52001E04D7A700183EE4 /* Spectre.framework */,
 				3E8CC6671DFB9F110098116E /* Commander.framework */,
-				3ECD52021E04D7A700183EE4 /* CommanderTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -726,7 +703,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				05DD13571E8CA2AA00C2D075 /* PBXTargetDependency */,
 				3E8CC66F1DFB9F4B0098116E /* PBXTargetDependency */,
 				05BABCD91DE57E050012BC5B /* PBXTargetDependency */,
 				05BABCE11DE57E050012BC5B /* PBXTargetDependency */,
@@ -896,20 +872,6 @@
 			fileType = wrapper.framework;
 			path = Commander.framework;
 			remoteRef = 3E8CC6661DFB9F110098116E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		3ECD52001E04D7A700183EE4 /* Spectre.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Spectre.framework;
-			remoteRef = 3ECD51FF1E04D7A700183EE4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		3ECD52021E04D7A700183EE4 /* CommanderTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = file;
-			path = CommanderTests.xctest;
-			remoteRef = 3ECD52011E04D7A700183EE4 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1104,11 +1066,6 @@
 			isa = PBXTargetDependency;
 			name = FBSimulatorControl;
 			targetProxy = 05BABCE01DE57E050012BC5B /* PBXContainerItemProxy */;
-		};
-		05DD13571E8CA2AA00C2D075 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Spectre;
-			targetProxy = 05DD13561E8CA2AA00C2D075 /* PBXContainerItemProxy */;
 		};
 		3E8CC66F1DFB9F4B0098116E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
