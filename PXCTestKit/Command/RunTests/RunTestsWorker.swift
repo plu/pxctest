@@ -54,9 +54,11 @@ final class RunTestsWorker {
     }
 
     func extractDiagnostics(fileManager: RunTestsFileManager) throws {
+        let syslog = simulator.simulatorDiagnostics.syslog()
+        let destinationPath = fileManager.urlFor(worker: self).path
+        try syslog.writeOut(toDirectory: destinationPath)
         for error in errors {
             for crash in error.crashes {
-                let destinationPath = fileManager.urlFor(worker: self).path
                 try crash.writeOut(toDirectory: destinationPath)
             }
         }
