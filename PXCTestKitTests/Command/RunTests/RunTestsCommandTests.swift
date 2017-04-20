@@ -186,7 +186,7 @@ extension RunTestsCommandTests {
 
         let control = try FBSimulatorControl.withConfiguration(
             FBSimulatorControlConfiguration(deviceSetPath: context.deviceSet.path, options: context.simulatorOptions.managementOptions),
-            logger: FBControlCoreLogger.aslLoggerWriting(
+            logger: FBControlCoreLogger.systemLoggerWriting(
                 toFileDescriptor: context.logFile.fileHandle.fileDescriptor,
                 withDebugLogging: false
             )

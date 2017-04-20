@@ -12,7 +12,7 @@ import Foundation
 extension FBSimulator {
 
     var identifier: String {
-        return "\(configuration!.deviceName.rawValue) \(configuration!.osVersionString)"
+        return "\(configuration!.device.model.rawValue) \(configuration!.os.name.rawValue)"
     }
 
     func boot(context: BootContext) throws {
@@ -24,7 +24,7 @@ extension FBSimulator {
 
     func install(applications: [FBApplicationDescriptor]) throws {
         for application in applications {
-            try installApplication(application)
+            try installApplication(withPath: application.path)
         }
     }
 

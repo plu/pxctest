@@ -71,8 +71,8 @@ final class Fixtures {
     )
     let timeout = 180.0
     let simulatorConfigurations = [
-        FBSimulatorConfiguration.iPhone6().iOS_9_3(),
-        FBSimulatorConfiguration.iPadAir().iOS_9_3(),
+        FBSimulatorConfiguration.withDeviceModel(.modeliPhone6).withOSNamed(.nameiOS_9_3),
+        FBSimulatorConfiguration.withDeviceModel(.modeliPadAir).withOSNamed(.nameiOS_9_3),
     ]
 
     // MARK: - Helper

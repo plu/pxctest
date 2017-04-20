@@ -22,10 +22,10 @@ class RunTestsFileManagerTests: XCTestCase {
 
     func testCreateDirectoryFor() {
         do {
-            try fileManager.createDirectoryFor(simulatorConfiguration: FBSimulatorConfiguration.iPhone5().iOS_9_3(), target: "IntegrationTests")
-            try fileManager.createDirectoryFor(simulatorConfiguration: FBSimulatorConfiguration.iPadRetina().iOS_9_3(), target: "IntegrationTests")
-            try fileManager.createDirectoryFor(simulatorConfiguration: FBSimulatorConfiguration.iPhone5().iOS_9_3(), target: "UnitTests")
-            try fileManager.createDirectoryFor(simulatorConfiguration: FBSimulatorConfiguration.iPadRetina().iOS_9_3(), target: "UnitTests")
+            try fileManager.createDirectoryFor(simulatorConfiguration: FBSimulatorConfiguration.withDeviceModel(.modeliPhone5).withOSNamed(.nameiOS_9_3), target: "IntegrationTests")
+            try fileManager.createDirectoryFor(simulatorConfiguration: FBSimulatorConfiguration.withDeviceModel(.modeliPadRetina).withOSNamed(.nameiOS_9_3), target: "IntegrationTests")
+            try fileManager.createDirectoryFor(simulatorConfiguration: FBSimulatorConfiguration.withDeviceModel(.modeliPhone5).withOSNamed(.nameiOS_9_3), target: "UnitTests")
+            try fileManager.createDirectoryFor(simulatorConfiguration: FBSimulatorConfiguration.withDeviceModel(.modeliPadRetina).withOSNamed(.nameiOS_9_3), target: "UnitTests")
         }
         catch {
             XCTFail("\(error)")
@@ -39,7 +39,7 @@ class RunTestsFileManagerTests: XCTestCase {
     }
 
     func testUrlFor() {
-        var pathComponents = fileManager.urlFor(simulatorConfiguration: FBSimulatorConfiguration.iPhone5().iOS_9_3(), target: "UnitTests").pathComponents
+        var pathComponents = fileManager.urlFor(simulatorConfiguration: FBSimulatorConfiguration.withDeviceModel(.modeliPhone5).withOSNamed(.nameiOS_9_3), target: "UnitTests").pathComponents
         XCTAssertEqual(pathComponents.popLast(), "iPhone 5")
         XCTAssertEqual(pathComponents.popLast(), "iOS 9.3")
         XCTAssertEqual(pathComponents.popLast(), "UnitTests")

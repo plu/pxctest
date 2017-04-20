@@ -19,8 +19,8 @@ struct DestinationOption: ArgumentConvertible, CustomStringConvertible {
     }
 
     var description: String {
-        let name = simulatorConfiguration.deviceName.rawValue
-        let os = simulatorConfiguration.osVersionString
+        let name = simulatorConfiguration.device.model.rawValue
+        let os = simulatorConfiguration.os.name.rawValue
         return "name=\(name),os=\(os)"
     }
 
@@ -57,8 +57,8 @@ struct DestinationOption: ArgumentConvertible, CustomStringConvertible {
     }
 
     static func parse(string: String) throws -> FBSimulatorConfiguration {
-        var device: FBControlCoreConfiguration_Device?
-        var os: FBControlCoreConfiguration_OS?
+        var device: FBDeviceModel?
+        var os: FBOSVersionName?
 
         for part in string.components(separatedBy: ",") {
             if part.lengthOfBytes(using: .utf8) == 0 {
@@ -74,12 +74,12 @@ struct DestinationOption: ArgumentConvertible, CustomStringConvertible {
 
             switch key.lowercased() {
             case "name":
-                device = FBControlCoreConfigurationVariants.nameToDevice[FBDeviceName(rawValue: value)]
+                device = FBDeviceModel(rawValue: value)
                 if device == nil {
                     throw ParsingError.invalidDevice(value)
                 }
             case "os":
-                os = FBControlCoreConfigurationVariants.nameToOSVersion[FBOSVersionName(rawValue: value)]
+                os = FBOSVersionName(rawValue: value)
                 if os == nil {
                     throw ParsingError.invalidOS(value)
                 }
@@ -89,10 +89,10 @@ struct DestinationOption: ArgumentConvertible, CustomStringConvertible {
         }
         var configuration = FBSimulatorConfiguration.default()
         if let device = device {
-            configuration = configuration.withDevice(device)
+            configuration = configuration.withDeviceModel(device)
         }
         if let os = os {
-            configuration = configuration.withOS(os)
+            configuration = configuration.withOSNamed(os)
         }
         return configuration
     }

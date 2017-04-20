@@ -27,7 +27,7 @@ final class ShutdownSimulatorsCommand: Command {
         let allSimulators = [control.pool.allocatedSimulators, control.pool.unallocatedSimulators].joined();
 
         for simulator in allSimulators {
-            FBControlCoreGlobalConfiguration.defaultLogger().log("\(simulator)")
+            FBControlCoreGlobalConfiguration.defaultLogger.log("\(simulator)")
             if simulator.state != .shuttingDown {
                 try simulator.shutdownSimulator()
             }

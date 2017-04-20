@@ -14,7 +14,7 @@ extension FBSimulatorControl {
     static func withContext(_ context: ControlContext) throws -> FBSimulatorControl {
         return try FBSimulatorControl.withConfiguration(
             FBSimulatorControlConfiguration(deviceSetPath: context.deviceSet.path, options: context.simulatorOptions.managementOptions),
-            logger: FBControlCoreLogger.aslLoggerWriting(toFileDescriptor: context.logFile.fileHandle.fileDescriptor, withDebugLogging: context.debugLogging)
+            logger: FBControlCoreLogger.systemLoggerWriting(toFileDescriptor: context.logFile.fileHandle.fileDescriptor, withDebugLogging: context.debugLogging)
         )
     }
 

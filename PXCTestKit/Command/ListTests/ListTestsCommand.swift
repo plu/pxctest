@@ -24,7 +24,7 @@ final class ListTestsCommand: Command {
         let fileDescriptor = FileHandle.nullDevice.fileDescriptor // FIXME
         let control = try FBSimulatorControl.withConfiguration(
             FBSimulatorControlConfiguration(deviceSetPath: context.deviceSet.path, options: context.simulatorOptions.managementOptions),
-            logger: FBControlCoreLogger.aslLoggerWriting(toFileDescriptor: fileDescriptor, withDebugLogging: false)
+            logger: FBControlCoreLogger.systemLoggerWriting(toFileDescriptor: fileDescriptor, withDebugLogging: false)
         )
         try run(control: control)
     }
