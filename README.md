@@ -247,6 +247,20 @@ $ pxctest \
     --testrun derivedData/Build/Intermediates/CodeCoverage/Products/MyApp_iphonesimulator10.1-i386.xctestrun
 ```
 
+## Release version update
+
+1. Update `Info.plist` > `CFBundleShortVersionString`
+2. Update `CHANGELOG.md`
+3. Ensure the latest stable Xcode version is installed and `xcode-select`ed.
+4. From project root directory run `./scripts/release.sh`
+5. Create a GitHub release: https://github.com/plu/pxctest/releases/new
+    * Specify the tag you just pushed in the dropdown.
+    * Set the release title to the new version number.
+    * Add the changelog section to the release description text box.
+    * Upload the portable zip you just built to the GitHub release binaries.
+    * Click "Publish release".
+6. Publish to Homebrew and CocoaPods: `./scripts/publish.sh`
+
 ## License
 
 [MIT](LICENSE)
