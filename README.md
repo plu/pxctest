@@ -1,3 +1,7 @@
+# Deprecation Warning
+
+Xcode 9 perfectly supports executing tests in parallel without any 3rd party tool like pxctest. We suggest moving to `xcodebuild` for running tests in parallel on multiple Simulators.
+
 # pxctest
 
 Execute tests in parallel on multiple iOS Simulators.
